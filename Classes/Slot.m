@@ -17,7 +17,7 @@
 @synthesize groupName;
 @synthesize frequency;
 
--(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSString*)fre;
+-(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSNumber*)fre;
 {
     [super init];
     if(super !=nil)
@@ -43,7 +43,8 @@
 -(id)initWithCoder:(NSCoder *)decoder{
     if([super init]!=nil){
         [self initWithVenue:[decoder decodeObjectForKey:@"venue"] WithDay:[decoder decodeObjectForKey:@"day"]
-              WithStartTime:[decoder decodeObjectForKey:@"startTime"] WithEndTime:[decoder decodeObjectForKey:@"endTime"]];
+              WithStartTime:[decoder decodeObjectForKey:@"startTime"] WithEndTime:[decoder decodeObjectForKey:@"endTime"]
+              WithGroupName:[decoder decodeObjectForKey:@"groupName"] WithFrequency:[decoder decodeObjectForKey:@"frequency"]];
     }
     return self;
 }
