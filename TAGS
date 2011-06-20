@@ -1,0 +1,165 @@
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.h,30
+@interface ClassGroup 13,198
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m,392
+@synthesize name;13,173
+@synthesize slots;14,191
+@synthesize frequency;15,210
+@synthesize selected;16,233
+-(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSString*)freq WithSelected:initWithName:WithSlots:WithFrequency:WithSelected:18,256
+-(void)encodeWithCoder:31,509
+-(id)initWithCoder:39,746
+-(bool)checkSelected47,1053
+-(void)dealloc{dealloc56,1148
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.h,71
+@class iPlanViewController;11,152
+@interface iPlanAppDelegate 13,181
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m,494
+@synthesize window;14,223
+@synthesize viewController;15,243
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:application:didFinishLaunchingWithOptions:21,324
+- (void)applicationWillResignActive:33,684
+- (void)applicationDidEnterBackground:41,1200
+- (void)applicationWillEnterForeground:49,1623
+- (void)applicationDidBecomeActive:56,1861
+- (void)applicationWillTerminate:63,2135
+- (void)applicationDidReceiveMemoryWarning:74,2367
+- (void)dealloc 81,2584
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.h,39
+@interface iPlanViewController 11,155
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m,97
+- (void)didReceiveMemoryWarning 49,1102
+- (void)viewDidUnload 56,1293
+- (void)dealloc 62,1403
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.h,30
+@interface ModelLogic 12,157
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m,121
+@synthesize timetables;13,173
+-(id)initWithTimeTables:15,198
+-(id)initWithCoder:30,405
+-(void)dealloc{dealloc37,557
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.h,26
+@interface Module 13,205
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m,771
+@synthesize code;13,161
+@synthesize description;14,179
+@synthesize title;15,204
+@synthesize examinable;16,223
+@synthesize openBook;17,247
+@synthesize examDate;18,269
+@synthesize moduleCredit;19,291
+@synthesize prerequisite;20,317
+@synthesize preclusion;21,343
+@synthesize workload;22,367
+@synthesize remarks;23,389
+@synthesize lastUpdated;24,410
+@synthesize selected;25,435
+@synthesize moduleClassTypes;26,457
+WithModuleClassType:initWithDescription:WithCode:WithTitle:WithExaminable:WithOpenBook:WithExamDate:WithCredit:WithPrerequisite:WithPreclusion:WithWorkload:WithRemark:WithLastUpdate:WithSelected:WithModuleClassType:41,919
+-(void)encodeWithCoder:64,1330
+-(id)initWithCoder:81,2124
+-(bool)checkSelected101,3101
+-(void)dealloc{dealloc110,3196
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.h,35
+@interface ModuleClassType 13,209
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m,226
+@synthesize name;13,188
+@synthesize classGroups;14,206
+-(id)initWithName:(NSString*)naming WithGroups:initWithName:WithGroups:16,232
+-(void)encodeWithCoder:27,394
+-(id)initWithCoder:33,539
+-(void)dealloc{dealloc40,737
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.h,35
+@interface ModuleXMLParser 14,237
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m,765
+    @synthesize currentProperty;14,188
+    @synthesize currentFaculty;15,221
+    @synthesize currentModule;16,253
+    @synthesize currentTimeTableSlot;17,284
+    @synthesize faculties;18,322
+- (BOOL) initWithURLStringAndParse:20,350
+- (void)parser:(NSXMLParser *)parser foundCharacters:parser:foundCharacters:43,1138
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:parser:didStartElement:namespaceURI:qualifiedName:attributes:51,1304
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:parser:didEndElement:namespaceURI:qualifiedName:97,3359
+- (void) dealloc209,7034
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.h,24
+@interface Slot 12,175
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m,358
+@synthesize venue;13,155
+@synthesize day;14,174
+@synthesize startTime;15,191
+@synthesize endTime;16,214
+-(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:initWithVenue:WithDay:WithStartTime:WithEndTime:18,236
+-(void)encodeWithCoder:31,480
+-(id)initWithCoder:39,713
+-(void)dealloc{dealloc47,1015
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.h,29
+@interface TimeTable 12,156
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m,250
+@synthesize name;13,170
+@synthesize modules;14,188
+-(id)initWithName:16,210
+-(id)initWithName:(NSString*)naming WithModules:initWithName:WithModules:27,362
+-(void)encodeWithCoder:38,528
+-(id)initWithCoder:45,667
+-(void)dealloc{dealloc52,862
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.h,30
+@interface XMLFaculty 13,178
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m,54
+@synthesize modules;14,173
+- (void)addModule:16,195
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.h,29
+@interface XMLModule 12,183
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m,411
+@synthesize code;14,170
+@synthesize title;15,188
+@synthesize description;16,207
+@synthesize examinable;17,232
+@synthesize open_book;18,256
+@synthesize exam_date;19,279
+@synthesize mc;20,302
+@synthesize prereq;21,318
+@synthesize workload;22,338
+@synthesize remarks;23,360
+@synthesize last_updated;24,381
+@synthesize preclude;25,407
+@synthesize timeTableSlots;26,429
+- (void)addTimeTableSlot:28,458
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.h,36
+@interface XMLTimeTableSlot 12,162
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m,190
+@synthesize type;14,191
+@synthesize slot;15,209
+@synthesize day;16,227
+@synthesize time_start;17,244
+@synthesize time_end;18,268
+@synthesize venue;19,290
+@synthesize frequency;20,309
+
+/Users/xuyecheng/Documents/ios/iPlan data/main.m,17
+int main(11,140
+
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ConstantFile.h,0

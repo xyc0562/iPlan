@@ -1,0 +1,37 @@
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:22:8: error: use of undeclared identifier 'super'
+    if(super !=nil)
+       ^
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:206:41: warning: method '-initWithVenue:WithDay:WithStartTime:WithEndTime:WithFrequency:WithGroupName:' not found (return type defaults to 'id')
+                slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
+                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:230:46: warning: incompatible pointer types sending 'NSNumber *' to parameter of type 'NSString *'
+                    if (![groups valueForKey:slot.groupName])
+                                             ^~~~~~~~~~~~~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:32:
+/System/Library/Frameworks/Foundation.framework/Headers/NSKeyValueCoding.h:148:31: note: passing argument to parameter 'key' here
+- (id)valueForKey:(NSString *)key;
+                              ^
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:233:58: warning: incompatible pointer types sending 'NSNumber *' to parameter of type 'NSString *'
+                        [groups setValue:subGroup forKey:slot.groupName];
+                                                         ^~~~~~~~~~~~~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:32:
+/System/Library/Frameworks/Foundation.framework/Headers/NSKeyValueCoding.h:156:47: note: passing argument to parameter 'key' here
+- (void)setValue:(id)value forKey:(NSString *)key AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+                                              ^
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:235:42: warning: incompatible pointer types sending 'NSNumber *' to parameter of type 'NSString *'
+                    [[groups valueForKey:slot.groupName] addObject:slot];
+                                         ^~~~~~~~~~~~~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:32:
+/System/Library/Frameworks/Foundation.framework/Headers/NSKeyValueCoding.h:148:31: note: passing argument to parameter 'key' here
+- (id)valueForKey:(NSString *)key;
+                              ^
+/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:241:26: error: interface type cannot be statically allocated
+                    Slot anySlot = [slots 
+                         ^
+4 warnings and 2 errors generated.

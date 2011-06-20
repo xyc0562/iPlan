@@ -1,0 +1,1097 @@
+TiPlan
+v7
+r0
+t330185876.811937
+cCheck dependencies
+cProcessInfoPlistFile "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/Info.plist" iPlan-Info.plist
+cCompileXIB "/Users/xuyecheng/Documents/ios/iPlan data/MainWindow.xib"
+cCompileXIB "/Users/xuyecheng/Documents/ios/iPlan data/iPlanViewController.xib"
+cProcessPCH /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch.gch iPlan_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o "/Users/xuyecheng/Documents/ios/iPlan data/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLTimeTableSlot.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cLd "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan" normal i386
+cGenerateDSYMFile "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app.dSYM" "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan"
+cTouch "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app"
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk
+c000000004CC128950000000000000110
+t1287727253
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004CC12246000000000029B310
+t1287725638
+s2732816
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004CC1226D000000000029D5D0
+t1287725677
+s2741712
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004CC1225F0000000000001466
+t1287725663
+s5222
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c000000004CC1281F0000000000000AA1
+t1287727135
+s2721
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004CC12883000000000074D7B0
+t1287727235
+s7657392
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+c000000004D5C9B4E0000000000000110
+t1297914702
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004D54CFFA00000000002999B0
+t1297403898
+s2726320
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004D54CFE5000000000029DA70
+t1297403877
+s2742896
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004D54CFB80000000000001466
+t1297403832
+s5222
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSXMLParser.h
+c000000004D54CFBE0000000000002D38
+t1297403838
+s11576
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c000000004D5615B40000000000000AA1
+t1297487284
+s2721
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004D5616030000000000766870
+t1297487363
+s7759984
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/../ModuleXMLParser.m
+c000000004DFC52D800000000000000C1
+t1308381912
+s193
+i"ModuleXMLParser.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.h
+c000000004DFDACD00000000000000237
+t1308470480
+s567
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"Slot.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m
+c000000004DFC6C6E00000000000004F5
+t1308388462
+s1269
+i"ClassGroup.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ConstantFile.h
+c000000004DFC2F3C000000000000009C
+t1308372796
+s156
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.h
+c000000004DFC50F0000000000000012D
+t1308381424
+s301
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"TimeTable.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m
+c000000004DFC6B6A00000000000002C2
+t1308388202
+s706
+i"ModelLogic.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.h
+c000000004DFDAC4C0000000000000620
+t1308470348
+s1568
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"ModuleClassType.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m
+c000000004DFC6B6A0000000000000DC6
+t1308388202
+s3526
+i"Module.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.h
+c000000004DFDACAA00000000000001A2
+t1308470442
+s418
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"ClassGroup.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m
+c000000004DFC40E40000000000000336
+t1308377316
+s822
+i"ModuleClassType.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.h
+c000000004DFDB22400000000000005AF
+t1308471844
+s1455
+i<Foundation/Foundation.h>
+i<Foundation/NSXMLParser.h>
+i"Module.h"
+i"XMLModule.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m
+c000000004DFE0512000000000000306A
+t1308493074
+s12394
+i"ModuleXMLParser.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.h
+c000000004DFDC75B00000000000002B0
+t1308477275
+s688
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m
+c000000004DFDC7D70000000000000565
+t1308477399
+s1381
+i"Slot.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.h
+c000000004DFC732C0000000000000150
+t1308390188
+s336
+i<Foundation/Foundation.h>
+i"Module.h"
+i"ConstantFile.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m
+c000000004DFC7B4A0000000000000EC9
+t1308392266
+s3785
+i"TimeTable.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.h
+c000000004DFC6DD90000000000000159
+t1308388825
+s345
+i<Foundation/Foundation.h>
+i"XMLModule.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m
+c000000004DFD9CFB0000000000000162
+t1308466427
+s354
+i"XMLFaculty.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.h
+c000000004DFC6ECC00000000000004EE
+t1308389068
+s1262
+i<Foundation/Foundation.h>
+i"XMLTimeTableSlot.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m
+c000000004DFD9D7B000000000000029A
+t1308466555
+s666
+i"XMLModule.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.h
+c000000004DFD908900000000000002B9
+t1308463241
+s697
+i<Foundation/Foundation.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m
+c000000004DFD9DA30000000000000152
+t1308466595
+s338
+i"XMLTimeTableSlot.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/faculty.h
+c000000004DFC66D700000000000000C2
+t1308387031
+s194
+i<Foundation/Foundation.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/faculty.m
+c000000004DFC66D700000000000000A9
+t1308387031
+s169
+i"faculty.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.h
+c000000004DFC245400000000000001C4
+t1308370004
+s452
+i<UIKit/UIKit.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m
+c000000004DFC24540000000000000A7C
+t1308370004
+s2684
+i"iPlanAppDelegate.h"
+i"iPlanViewController.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.h
+c000000004DFC245400000000000000D9
+t1308370004
+s217
+i<UIKit/UIKit.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m
+c000000004DFC245400000000000005AA
+t1308370004
+s1450
+i"iPlanViewController.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/MainWindow.xib
+c000000004DFC24540000000000004E11
+t1308370004
+s19985
+
+N/Users/xuyecheng/Documents/ios/iPlan data/ModuleXMLParser.h
+c000000004DFC542900000000000000D6
+t1308382249
+s214
+i<Foundation/Foundation.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/ModuleXMLParser.m
+c000000004DFC52D800000000000000C1
+t1308381912
+s193
+i"ModuleXMLParser.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/XMLFaculty.h
+c000000004DFC670800000000000000C8
+t1308387080
+s200
+i<Foundation/Foundation.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/XMLFaculty.m
+c000000004DFC670900000000000000B2
+t1308387081
+s178
+i"XMLFaculty.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/XMLModule.h
+c000000004DFC671000000000000000C6
+t1308387088
+s198
+i<Foundation/Foundation.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/XMLModule.m
+c000000004DFC671000000000000000AF
+t1308387088
+s175
+i"XMLModule.h"
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app
+t1308493076
+s238
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app.dSYM
+t1308493076
+s102
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/Info.plist
+t1308372640
+s583
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/MainWindow.nib
+t1308372640
+s1119
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/PkgInfo
+t1308372640
+s8
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan
+t1308493076
+s73540
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlanViewController.nib
+t1308372640
+s795
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o
+t1308477403
+s13408
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o
+t1308477403
+s10920
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o
+t1308477403
+s22364
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o
+t1308477403
+s10704
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o
+t1308493076
+s38008
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o
+t1308477403
+s13428
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o
+t1308477403
+s20060
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o
+t1308466429
+s8468
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o
+t1308466598
+s20832
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLTimeTableSlot.o
+t1308466598
+s13532
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/faculty.o
+t2
+s0
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlan.LinkFileList
+c000000004DFDAA7D0000000000000680
+t1308469885
+s1664
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o
+t1308387807
+s51232
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o
+t1308387807
+s37908
+
+N/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o
+t1308387807
+s6316
+
+N/Users/xuyecheng/Documents/ios/iPlan data/iPlanViewController.xib
+c000000004DFC24540000000000001A3D
+t1308370004
+s6717
+
+N/Users/xuyecheng/Documents/ios/iPlan data/iPlan_Prefix.pch
+c000000004DFC245400000000000000B3
+t1308370004
+s179
+i<Foundation/Foundation.h>
+i<UIKit/UIKit.h>
+
+N/Users/xuyecheng/Documents/ios/iPlan data/main.m
+c000000004DFC24540000000000000158
+t1308370004
+s344
+i<UIKit/UIKit.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.h
+c000000004DFC351900000000000001B7
+t1308374297
+s439
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"Slot.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m
+c000000004DFC40E500000000000004F5
+t1308377317
+s1269
+i"ClassGroup.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.h
+c000000004DFC2F3C000000000000009C
+t1308372796
+s156
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m
+c000000004DFC2EBF00000000000000B9
+t1308372671
+s185
+i"ConstantFile.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.h
+c000000004DFC452500000000000000FF
+t1308378405
+s255
+i<Foundation/Foundation.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m
+c000000004DFC47F3000000000000026E
+t1308379123
+s622
+i"ModelLogic.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.h
+c000000004DFC3B2200000000000003B5
+t1308375842
+s949
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"ModuleClassType.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m
+c000000004DFC42F30000000000000DC8
+t1308377843
+s3528
+i"Module.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.h
+c000000004DFC35BA0000000000000161
+t1308374458
+s353
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+i"ClassGroup.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m
+c000000004DFC40E50000000000000336
+t1308377317
+s822
+i"ModuleClassType.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.h
+c000000004DFC2F4A0000000000000195
+t1308372810
+s405
+i<Foundation/Foundation.h>
+i"ConstantFile.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m
+c000000004DFC40D8000000000000046C
+t1308377304
+s1132
+i"Slot.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.h
+c000000004DFC43660000000000000125
+t1308377958
+s293
+i<Foundation/Foundation.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m
+c000000004DFC445500000000000003AF
+t1308378197
+s943
+i"TimeTable.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.h
+c000000004DFC245400000000000001C4
+t1308370004
+s452
+i<UIKit/UIKit.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m
+c000000004DFC24540000000000000A7C
+t1308370004
+s2684
+i"iPlanAppDelegate.h"
+i"iPlanViewController.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.h
+c000000004DFC245400000000000000D9
+t1308370004
+s217
+i<UIKit/UIKit.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m
+c000000004DFC245400000000000005AA
+t1308370004
+s1450
+i"iPlanViewController.h"
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/MainWindow.xib
+c000000004DFC24540000000000004E11
+t1308370004
+s19985
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app
+t1308379047
+s238
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app.dSYM
+t1308379047
+s102
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/Info.plist
+t1308372640
+s583
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/MainWindow.nib
+t1308372640
+s1119
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/PkgInfo
+t1308372640
+s8
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan
+t1308379047
+s40780
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlanViewController.nib
+t1308372640
+s795
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o
+t1308377317
+s13392
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ConstantFile.o
+t1308372774
+s5004
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o
+t1308379047
+s10304
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o
+t1308377843
+s22352
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o
+t1308377317
+s10700
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o
+t1308377317
+s12148
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o
+t1308378198
+s12904
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlan.LinkFileList
+c000000004DFC45AD0000000000000495
+t1308378541
+s1173
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o
+t1308372642
+s50792
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o
+t1308372642
+s37468
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o
+t1308372642
+s6316
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlanViewController.xib
+c000000004DFC24540000000000001A3D
+t1308370004
+s6717
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlan_Prefix.pch
+c000000004DFC245400000000000000B3
+t1308370004
+s179
+i<Foundation/Foundation.h>
+i<UIKit/UIKit.h>
+
+N/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m
+c000000004DFC24540000000000000158
+t1308370004
+s344
+i<UIKit/UIKit.h>
+
+N/var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch.gch
+t1308387806
+s15814064
+
+N/var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch.gch
+t1308372641
+s15453392
+
+NiPlan-Info.plist
+c000000004DFC2454000000000000038D
+t1308370004
+s909
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies330185876#330185876#0(0"0(0#1#0"8607569312#0"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.351499
+e330170203.462409
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@70"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m330170203#330170203#0(0"0(0#0#62"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m8609009632#1949"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ClassGroup.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330070117.601325
+e330070117.827882
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@73"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m330070117#330070117#0(0"0(0#0#65"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m8618542208#1960"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ClassGroup.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ClassGroup.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ConstantFile.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330065574.143253
+e330065574.193982
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ConstantFile.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m:14: warning: cannot find interface declaration for 'ConstantFile'
+lSLF07#2@75"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m330065574#330065574#0(134"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m:14: warning: cannot find interface declaration for 'ConstantFile'1(22@52"Cannot find interface declaration for 'ConstantFile'330065574#0#134#0(6@67"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m330065471#14#0#14#0#0"0(0#0#67"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m8616032000#1964"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ConstantFile.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ConstantFile.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.352756
+e330170203.435363
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@70"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m330170203#330170203#0(0"0(0#0#62"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m8606139808#1949"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModelLogic.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330071847.166544
+e330071847.303392
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@73"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m330071847#330071847#0(0"0(0#0#65"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m8617751936#1960"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModelLogic.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModelLogic.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.354172
+e330170203.464720
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@66"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m330170203#330170203#0(0"0(0#0#58"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m8607346080#1941"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Module.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330070643.827727
+e330070643.908001
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@69"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m330070643#330070643#0(0"0(0#0#61"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m8619193760#1952"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Module.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Module.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.435918
+e330170203.531342
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@75"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m330170203#330170203#0(0"0(0#0#67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m8612306080#1959"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleClassType.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330070117.727893
+e330070117.933972
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@78"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m330070117#330070117#0(0"0(0#0#70"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m8605854272#1970"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/ModuleClassType.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleClassType.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/../ModuleXMLParser.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330185876.666042
+e330185876.759883
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m: In function '-[ModuleXMLParser parser:didEndElement:namespaceURI:qualifiedName:]':
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 2 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 3 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 4 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:230: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:233: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 2 of 'setValue:forKey:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:235: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:246: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 3 of 'initWithName:WithSlots:WithFrequency:WithSelected:' from distinct Objective-C type
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:262: warning: unused variable 'moduleUnderConstruction'
+lSLF07#2@75"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185876#330185876#0(2162"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m: In function '-[ModuleXMLParser parser:didEndElement:namespaceURI:qualifiedName:]':/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 2 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 3 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:207: warning: incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 4 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:230: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:233: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 2 of 'setValue:forKey:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:235: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:246: warning: incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 3 of 'initWithName:WithSlots:WithFrequency:WithSelected:' from distinct Objective-C type/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m:262: warning: unused variable 'moduleUnderConstruction'8(22@217"Incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 2 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type330185876#152#300#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#207#0#207#0#0"0(22@217"Incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 3 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type330185876#452#300#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#207#0#207#0#0"0(22@217"Incompatible Objective-C types 'struct NSString *', expected 'struct NSNumber *' when passing argument 4 of 'initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:' from distinct Objective-C type330185876#752#300#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#207#0#207#0#0"0(22@153"Incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type330185876#1052#236#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#230#0#230#0#0"0(22@157"Incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 2 of 'setValue:forKey:' from distinct Objective-C type330185876#1288#240#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#233#0#233#0#0"0(22@153"Incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 1 of 'valueForKey:' from distinct Objective-C type330185876#1528#236#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#235#0#235#0#0"0(22@191"Incompatible Objective-C types 'struct NSNumber *', expected 'struct NSString *' when passing argument 3 of 'initWithName:WithSlots:WithFrequency:WithSelected:' from distinct Objective-C type330185876#1764#274#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#246#0#246#0#0"0(22@41"Unused variable 'moduleUnderConstruction'330185876#2038#124#0(6@67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m330185874#262#0#262#0#19"unused variable '*'0(0#0#67"/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m8606217920#1959"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/ModuleXMLParser.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/ModuleXMLParser.o "/Users/xuyecheng/Documents/ios/iPlan data/ModuleXMLParser.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.462565
+e330170203.554467
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m: In function '-[Slot initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:]':
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:29: warning: incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:30: warning: incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m: In function '-[Slot initWithCoder:]':
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: 'Slot' may not respond to '-initWithVenue:WithDay:WithStartTime:WithEndTime:'
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: (Messages without a matching method signature
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: will be assumed to return 'id' and accept
+o/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: '...' as arguments.)
+lSLF07#2@64"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m330170203#330170203#0(1043"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m: In function '-[Slot initWithVenue:WithDay:WithStartTime:WithEndTime:WithGroupName:WithFrequency:]':/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:29: warning: incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:30: warning: incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m: In function '-[Slot initWithCoder:]':/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: 'Slot' may not respond to '-initWithVenue:WithDay:WithStartTime:WithEndTime:'/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: (Messages without a matching method signature/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: will be assumed to return 'id' and accept/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m:46: warning: '...' as arguments.)4(22@90"Incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'330170203#158#161#0(6@56"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m330170199#29#0#29#0#58"incompatible Objective-C types assigning '*', expected '*'0(22@90"Incompatible Objective-C types assigning 'struct NSString *', expected 'struct NSNumber *'330170203#319#161#0(6@56"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m330170199#30#0#30#0#58"incompatible Objective-C types assigning '*', expected '*'0(22@77"'Slot' may not respond to '-initWithVenue:WithDay:WithStartTime:WithEndTime:'330170203#576#148#0(6@56"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m330170199#46#0#46#0#26"'*' may not respond to '*'0(13@108"(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)330170203#724#116#0(6@56"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m330170199#46#0#46#0#0"0(0#0#56"/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m8609324608#1937"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/Slot.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330070117.540680
+e330070117.727793
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@67"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m330070117#330070117#0(0"0(0#0#59"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m8620140576#1948"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/Slot.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/Slot.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330170203.464873
+e330170203.568713
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@69"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m330170203#330170203#0(0"0(0#0#61"/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m8608987776#1947"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/TimeTable.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330070998.418109
+e330070998.545483
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@72"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m330070998#330070998#0(0"0(0#0#64"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m8620477312#1958"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/TimeTable.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/TimeTable.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330159229.494782
+e330159229.547665
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@70"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m330159229#330159229#0(0"0(0#0#62"/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m8606344992#1949"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLFaculty.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLFaculty.o "/Users/xuyecheng/Documents/ios/iPlan data/XMLFaculty.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330159398.209152
+e330159398.283689
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@69"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m330159398#330159398#0(0"0(0#0#61"/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m8608600512#1947"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLModule.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLModule.o "/Users/xuyecheng/Documents/ios/iPlan data/XMLModule.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLTimeTableSlot.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330159398.210184
+e330159398.274035
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLTimeTableSlot.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@76"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m330159398#330159398#0(0"0(0#0#68"/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m8608326592#1961"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/XMLTimeTableSlot.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/XMLTimeTableSlot.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/faculty.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/faculty.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330080606.901453
+e330080607.112189
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@76"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m330080606#330080607#0(0"0(0#0#68"/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m8607513664#1961"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanAppDelegate.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330065441.910880
+e330065442.062024
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@79"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m330065441#330065442#0(0"0(0#0#71"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m8617139104#1972"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanAppDelegate.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanAppDelegate.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330080606.902600
+e330080607.093792
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o
+x/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@79"Compile /Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m330080606#330080607#0(0"0(0#0#71"/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m8607270784#1967"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/Classes/iPlanViewController.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330065442.031681
+e330065442.116978
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@82"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m330065442#330065442#0(0"0(0#0#74"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m8616669408#1978"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/Classes/iPlanViewController.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlanViewController.o0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o "/Users/xuyecheng/Documents/ios/iPlan data/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s330080606.899897
+e330080607.074089
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o
+x/Users/xuyecheng/Documents/ios/iPlan data/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@56"Compile /Users/xuyecheng/Documents/ios/iPlan data/main.m330080606#330080607#0(0"0(0#0#48"/Users/xuyecheng/Documents/ios/iPlan data/main.m8607965120#1929"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -include /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch -c "/Users/xuyecheng/Documents/ios/iPlan data/main.m" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o"0#
+
+CCompileC build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s330065441.909624
+e330065442.031576
+r1
+xCompileC
+xbuild/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@59"Compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m330065441#330065442#0(0"0(0#0#51"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m8616649408#1940"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -include /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/main.m -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/main.o0#
+
+CCompileXIB "/Users/xuyecheng/Documents/ios/iPlan data/MainWindow.xib"
+r0
+
+CCompileXIB "/Users/xuyecheng/Documents/ios/iPlan data/iPlanViewController.xib"
+r0
+
+CCompileXIB /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/MainWindow.xib
+s330065440.137092
+e330065440.690428
+r1
+xCompileXIB
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/MainWindow.xib
+lSLF07#2@25"CompileXIB MainWindow.xib330065440#330065440#0(0"0(0#0#59"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/MainWindow.xib8615948000#586"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/MainWindow.nib /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
+
+CCompileXIB /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlanViewController.xib
+s330065440.154507
+e330065440.690604
+r1
+xCompileXIB
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlanViewController.xib
+lSLF07#2@34"CompileXIB iPlanViewController.xib330065440#330065440#0(0"0(0#0#68"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlanViewController.xib8616976000#604"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlanViewController.nib /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlanViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
+
+CGenerateDSYMFile "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app.dSYM" "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan"
+s330185876.788418
+e330185876.808891
+r1
+xGenerateDSYMFile
+x/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app.dSYM
+x/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan
+lSLF07#2@103"GenerateDSYMFile build/Debug-iphonesimulator/iPlan.app.dSYM build/Debug-iphonesimulator/iPlan.app/iPlan330185876#330185876#0(0"0(0#0#85"/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan8607901888#392"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan" -o "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app.dSYM"0#
+
+CGenerateDSYMFile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app.dSYM /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan
+s330071847.334361
+e330071847.378948
+r1
+xGenerateDSYMFile
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app.dSYM
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan
+lSLF07#2@103"GenerateDSYMFile build/Debug-iphonesimulator/iPlan.app.dSYM build/Debug-iphonesimulator/iPlan.app/iPlan330071847#330071847#0(0"0(0#0#88"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan8618843264#395"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app.dSYM0#
+
+CLd "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan" normal i386
+s330185876.759976
+e330185876.788321
+r1
+xLd
+x/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan
+xnormal
+xi386
+lSLF07#2@90"Link /Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan330185876#330185876#0(0"0(0#0#0"8609279104#915"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk "-L/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" -filelist "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlan.LinkFileList" -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/iPlan"0#
+
+CLd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan normal i386
+s330071847.303487
+e330071847.334248
+r1
+xLd
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan
+xnormal
+xi386
+lSLF07#2@93"Link /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan330071847#330071847#0(0"0(0#0#0"8620001504#920"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -L/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -filelist /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/Objects-normal/i386/iPlan.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/iPlan0#
+
+CProcessInfoPlistFile "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app/Info.plist" iPlan-Info.plist
+r0
+
+CProcessInfoPlistFile /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/Info.plist iPlan-Info.plist
+s330065440.100242
+e330065440.136905
+r1
+xProcessInfoPlistFile
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/Info.plist
+xiPlan-Info.plist
+lSLF07#2@24"Process iPlan-Info.plist330065440#330065440#0(0"0(0#0#61"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlan-Info.plist32932993188560964#491"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility iPlan-Info.plist -genpkginfo /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app/Info.plist0#
+
+CProcessPCH /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch.gch iPlan_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+s330080605.634379
+e330080606.899726
+r1
+xProcessPCH
+x/var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch.gch
+xiPlan_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@27"Precompile iPlan_Prefix.pch330080605#330080606#0(0"0(0#0#58"/Users/xuyecheng/Documents/ios/iPlan data/iPlan_Prefix.pch8388368226797905920#1818"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap" -iquote "/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap" "-F/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/include" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386" "-I/Users/xuyecheng/Documents/ios/iPlan data/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources" -c "/Users/xuyecheng/Documents/ios/iPlan data/iPlan_Prefix.pch" -o /var/folders/FM/FMP98bqBHaO6lBCsdl5BOk+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/iPlan_Prefix-hfrfegfvsuxitaesmgacwdkwnmsy/iPlan_Prefix.pch.gch0#
+
+CProcessPCH /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch.gch iPlan_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+s330065440.690799
+e330065441.909419
+r1
+xProcessPCH
+x/var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch.gch
+xiPlan_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@27"Precompile iPlan_Prefix.pch330065440#330065441#0(0"0(0#0#61"/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlan_Prefix.pch8616147264#1828"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-generated-files.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-own-target-headers.hmap -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-all-target-headers.hmap -iquote /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/iPlan-project-headers.hmap -F/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/include -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources/i386 -I/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/iPlan.build/Debug-iphonesimulator/iPlan.build/DerivedSources -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/iPlan_Prefix.pch -o /var/folders/gO/gOJYTOL8F+KeFS4wxJ4WLU+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/iPlan_Prefix-edxclwyefmhckncdhggzrgrdovwg/iPlan_Prefix.pch.gch0#
+
+CTouch "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app"
+s330185876.808977
+e330185876.811893
+r1
+xTouch
+x/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app
+lSLF07#2@85"Touch /Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app330185876#330185876#0(0"0(0#0#0"8607445952#286"    cd "/Users/xuyecheng/Documents/ios/iPlan data"    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c "/Users/xuyecheng/Documents/ios/iPlan data/build/Debug-iphonesimulator/iPlan.app"0#
+
+CTouch /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app
+s330071847.379038
+e330071847.381649
+r1
+xTouch
+x/Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app
+lSLF07#2@88"Touch /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app330071847#330071847#0(0"0(0#0#0"8618385216#288"    cd /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/zyb/Documents/NUS/iCreate/iPlan/iPlan/build/Debug-iphonesimulator/iPlan.app0#
+
