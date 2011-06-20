@@ -1,0 +1,94 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* iPlanAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 299}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 452}";
+		};
+	};
+	1D3623250D0F684500981E51 /* iPlanAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 1287}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 510}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* iPlan */ = {
+		activeExec = 0;
+		executables = (
+			432E401D13AF89C4009D935D /* iPlan */,
+		);
+	};
+	28D7ACF60DDB3853001CB0EB /* iPlanViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 293}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 217}";
+		};
+	};
+	28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1011, 858}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 534}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 432E401D13AF89C4009D935D /* iPlan */;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* iPlan */;
+		codeSenseManager = 432E403013AF89E5009D935D /* Code sense */;
+		executables = (
+			432E401D13AF89C4009D935D /* iPlan */,
+		);
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 330271172;
+			PBXWorkspaceStateSaveDate = 330271172;
+		};
+		sourceControlManager = 432E402F13AF89E5009D935D /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	432E401D13AF89C4009D935D /* iPlan */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = iPlan;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	432E402F13AF89E5009D935D /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	432E403013AF89E5009D935D /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}
