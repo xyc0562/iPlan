@@ -2,3 +2,5 @@
 /build/
 *~
 #*#
+iPlan.xcodeproj/*.pbxuser
+iPlan.xcodeproj/*.mode1v3
