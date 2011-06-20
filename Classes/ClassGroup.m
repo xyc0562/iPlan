@@ -15,7 +15,7 @@
 @synthesize frequency;
 @synthesize selected;
 
--(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSString*)freq WithSelected:(NSString*)select
+-(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSNumber*)freq WithSelected:(NSString*)select
 {
 	[super init];
 	if(super !=nil)

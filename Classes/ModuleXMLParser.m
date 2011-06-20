@@ -7,6 +7,7 @@
 //
 
 #import "ModuleXMLParser.h"
+#import "IPlanUtility.h"
 
 @implementation ModuleXMLParser
 
@@ -199,12 +200,24 @@
             for (XMLTimeTableSlot *TTSlot in self.currentModule.timeTableSlots)
             {
                 Slot *slotUnderConstruction;
+
+                // Convert day of week from string to NSNumber
+                NSNumber *dayNum = [IPlanUtility weekOfDayStringToNSNumber:TTSlot.day];
+                [dayNum retain];
+
+                NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSNumber *timeStart = [[f numberFromString:TTSlot.time_start] retain];
+                NSNumber *timeEnd = [[f numberFromString:TTSlot.time_end] retain];
+                [f release];
+                
+                NSNumber *frequency = [[IPlanUtility frequencyStringToNSNumber:TTSlot.frequency] retain];
                 slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
-                                                            WithDay:TTSlot.day
-                                                      WithStartTime:TTSlot.time_start
-                                                        WithEndTime:TTSlot.time_end
+                                                            WithDay:dayNum
+                                                      WithStartTime:timeStart
+                                                        WithEndTime:timeEnd
                                                       WithGroupName:TTSlot.slot
-                                                      WithFrequency:TTSlot.frequency];
+                                                      WithFrequency:frequency];
                 // If current ClassGroup type (LECTURE, for example) does not exist, create it first
                 if (![classGroupTypes valueForKey:TTSlot.type])
                 {
