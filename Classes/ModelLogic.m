@@ -18,9 +18,12 @@
 	if(super !=nil)
 	{
 		if(tables!=nil)
-			timetables = tables;
-		else {
-			timetables = [[NSMutableArray alloc]init];
+		{
+			self.timetables = tables;
+		} 
+		else 
+		{
+			self.timetables = [[NSMutableArray alloc]init];
 		}
 
 	}

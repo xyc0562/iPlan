@@ -18,7 +18,7 @@
 	[super init];
 	if(super !=nil)
 	{
-		name = naming;
+		self.name = naming;
 		modules = [[NSMutableArray alloc]init];
 	}
 	return self;
@@ -29,8 +29,8 @@
 	[super init];
 	if(super !=nil)
 	{
-		name = naming;
-		modules = module;
+		self.name = naming;
+		self.modules = module;
 	}
 	return self;
 }

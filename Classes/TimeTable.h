@@ -11,7 +11,7 @@
 #import "ConstantFile.h"
 
 @interface TimeTable : NSObject {
-
+	
 }
 @property(nonatomic,retain)NSString* name;
 @property(nonatomic,retain)NSMutableArray* modules;
