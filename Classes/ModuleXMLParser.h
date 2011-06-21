@@ -14,7 +14,6 @@
 
 @interface ModuleXMLParser : NSObject<NSXMLParserDelegate>
 {
-
     NSXMLParser *modulesParser;
     NSString *XMLURLString;
 
@@ -23,6 +22,7 @@
 //    XMLFaculty *currentFaculty;
     XMLModule *currentModule;
     XMLTimeTableSlot *currentTimeTableSlot;
+    id _delegate;
 //    NSMutableArray *faculties;
 }
 
@@ -30,16 +30,12 @@
 // @property (nonatomic, retain) XMLFaculty *currentFaculty;
 @property (nonatomic, retain) XMLModule *currentModule;
 @property (nonatomic, retain) XMLTimeTableSlot *currentTimeTableSlot;
+@property (nonatomic, retain) NSXMLParser *modulesParser;
 // @property (nonatomic, readonly) NSMutableArray *faculties;
 
 - (id) initWithURLStringAndParse:(NSString *)URLString;
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
+- (id) delegate;
+- (void) setDelegate:(id)new_delegate;
 
 @end

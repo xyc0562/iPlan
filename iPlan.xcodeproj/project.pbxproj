@@ -26,6 +26,7 @@
 		B6ED0EC813ADE1F8003C229D /* ModuleClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EC013ADE1F8003C229D /* ModuleClassType.m */; };
 		B6ED0EC913ADE1F8003C229D /* Slot.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EC213ADE1F8003C229D /* Slot.m */; };
 		B6ED0ECA13ADE1F8003C229D /* TimeTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EC413ADE1F8003C229D /* TimeTable.m */; };
+		B6FE12F913B0E67900570671 /* cors.xml in Resources */ = {isa = PBXBuildFile; fileRef = B6FE12F813B0E67900570671 /* cors.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		B6ED0EC213ADE1F8003C229D /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
 		B6ED0EC313ADE1F8003C229D /* TimeTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTable.h; sourceTree = "<group>"; };
 		B6ED0EC413ADE1F8003C229D /* TimeTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTable.m; sourceTree = "<group>"; };
+		B6FE12F813B0E67900570671 /* cors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cors.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B6FE12F813B0E67900570671 /* cors.xml */,
 				2899E5210DE3E06400AC0155 /* iPlanViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* iPlan-Info.plist */,
@@ -231,6 +234,7 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */,
+				B6FE12F913B0E67900570671 /* cors.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

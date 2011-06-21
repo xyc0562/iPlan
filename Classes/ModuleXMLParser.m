@@ -15,6 +15,7 @@
 //@synthesize currentFaculty;
 @synthesize currentModule;
 @synthesize currentTimeTableSlot;
+@synthesize modulesParser;
 // @synthesize faculties;
 
 - (id) initWithURLStringAndParse:(NSString *)URLString
@@ -37,8 +38,18 @@
         [modulesParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
         NSLog(@"begin parsing");
         [modulesParser parse];
+        NSLog(@"end parsing");
     }
     return self;
+}
+
+- (id) delegate
+{
+    return _delegate;
+}
+- (void) setDelegate:(id)new_delegate
+{
+    _delegate = new_delegate;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
