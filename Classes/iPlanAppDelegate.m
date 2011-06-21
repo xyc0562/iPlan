@@ -8,11 +8,15 @@
 
 #import "iPlanAppDelegate.h"
 #import "iPlanViewController.h"
+#import "CalendarViewController.h"
+#import "ModuleListViewController.h"
+#import "SettingsViewController.h"
 
 @implementation iPlanAppDelegate
 
 @synthesize window;
 @synthesize viewController;
+@synthesize tabBarController;
 
 
 #pragma mark -
@@ -25,6 +29,18 @@
     // Add the view controller's view to the window and display.
     [self.window addSubview:viewController.view];
     [self.window makeKeyAndVisible];
+	
+	tabBarController = [[UITabBarController alloc] init];
+	
+	CalendarViewController* calendarController = [[CalendarViewController alloc] init];
+	ModuleListViewController* moduleController = [[ModuleListViewController alloc] init];
+	SettingsViewController* settingsController = [[SettingsViewController alloc] init];
+	
+	NSArray* controllers = [NSArray arrayWithObjects:calendarController, moduleController, settingsController, nil];
+	tabBarController.viewControllers = controllers;
+	
+	// Add the tab bar controller's current view as a subview of the window
+	[window addSubview:tabBarController.view];
 	
     return YES;
 }
@@ -79,6 +95,7 @@
 
 
 - (void)dealloc {
+	[tabBarController release];
     [viewController release];
     [window release];
     [super dealloc];
