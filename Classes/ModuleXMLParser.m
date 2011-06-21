@@ -17,7 +17,7 @@
 @synthesize currentTimeTableSlot;
 // @synthesize faculties;
 
-- (id) initWithURLStringAndParse:(NSString *) URLString
+- (id) initWithURLStringAndParse:(NSString *)URLString
 {
     [super init];
     if(super !=nil)
@@ -35,15 +35,15 @@
         [modulesParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
         [modulesParser setShouldReportNamespacePrefixes:NO]; //
         [modulesParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
-
-        [modulesParser release];
-   
+        NSLog(@"begin parsing");
+        [modulesParser parse];
     }
     return self;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
+    NSLog(@"begin foundChar");
     if (self.currentProperty)
     {
         [currentProperty appendString:string];
@@ -52,6 +52,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
+    NSLog(@"begin startElement");
     if (qName)
     {
         elementName = qName;
@@ -98,6 +99,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
+    NSLog(@"begin endElement");
     if (qName)
     {
         elementName = qName;
@@ -287,6 +289,24 @@
                                                                      WithSelected:@"NO"
                                                               WithModuleClassType:moduleClassTypesUnderConstruction];
 
+            // Encoding
+            NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString* documentDirectory = [paths objectAtIndex:0];
+            NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,[moduleUnderConstruction.code stringByAppendingString:@".plist"]];
+            NSLog(@"%@",fullPath);
+            NSMutableData* data = [[NSMutableData alloc] init];
+            NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+            [arc encodeObject:moduleUnderConstruction forKey:moduleUnderConstruction.code];
+	
+            [arc finishEncoding];
+            BOOL success = [data writeToFile:fullPath atomically:YES];
+            [arc release];
+            [data release];
+            if(!success) NSLog(@"Unsuccessful!");
+            // End of encoding
+
+            [moduleUnderConstruction release];
             [self.currentModule release];
             [classGroupTypes release];
         }

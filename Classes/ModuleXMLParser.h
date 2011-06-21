@@ -12,7 +12,8 @@
 #import "Module.h"
 #import "XMLModule.h"
 
-@interface ModuleXMLParser : NSObject<NSXMLParserDelegate> {
+@interface ModuleXMLParser : NSObject<NSXMLParserDelegate>
+{
 
     NSXMLParser *modulesParser;
     NSString *XMLURLString;

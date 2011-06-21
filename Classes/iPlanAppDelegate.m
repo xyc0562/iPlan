@@ -8,6 +8,7 @@
 
 #import "iPlanAppDelegate.h"
 #import "iPlanViewController.h"
+#import "ModuleXMLParser.h"
 
 @implementation iPlanAppDelegate
 
@@ -25,7 +26,10 @@
     // Add the view controller's view to the window and display.
     [self.window addSubview:viewController.view];
     [self.window makeKeyAndVisible];
+
+    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
 	
+    [aParser release];
     return YES;
 }
 
