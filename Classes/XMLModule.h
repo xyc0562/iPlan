@@ -40,5 +40,6 @@
 @property (readonly, retain) NSMutableArray *timeTableSlots;
 
 - (void)addTimeTableSlot:(XMLTimeTableSlot *)timeTableSlot;
+- (void) debugCurrentModule;
 
 @end

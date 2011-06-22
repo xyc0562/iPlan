@@ -28,4 +28,6 @@
 @property(nonatomic, retain) NSString *venue;
 @property(nonatomic, retain) NSString *frequency;
 
+- (void) debugSlot;
+
 @end
