@@ -16,4 +16,5 @@
 @property(nonatomic,readonly)NSString* name;
 @property(nonatomic,readonly)NSArray* classGroups;
 -(id)initWithName:(NSString*)naming WithGroups:(NSArray*)groups;
+- (void) showContents;
 @end

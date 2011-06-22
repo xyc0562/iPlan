@@ -57,8 +57,14 @@
     NSLog(@"foundCharacters.");
     if (self.currentProperty)
     {
+        // Remove the annoying <CR> suffix, -_- 
+        NSString *CR = [NSString stringWithFormat:@"%c", 10];
+        if ([[string substringFromIndex:[string length] - 1] isEqualToString:CR])
+        {
+            string = [string substringToIndex:[string length] - 1];
+        }
         [currentProperty appendString:string];
-        NSLog(@"%@", currentProperty);
+        NSLog(@"!%@!", currentProperty);
     }
 }
 
@@ -75,7 +81,7 @@
             || [elementName isEqualToString:@"time_start"] || [elementName isEqualToString:@"time_end"] || [elementName isEqualToString:@"venue"]
             || [elementName isEqualToString:@"frequency"])
         {
-            self.currentProperty = [NSMutableString stringWithCapacity:20];
+            self.currentProperty = [NSMutableString string];
         }
     }
     else if (self.currentModule)
@@ -205,122 +211,126 @@
         else if ([elementName isEqualToString:@"module"])
         {
             [self.currentModule debugCurrentModule];
-            // NSMutableDictionary *classGroupTypes = [[NSMutableDictionary alloc] initWithCapacity:4];
-            // NSMutableDictionary *classGroupsUnderConstruction;
-            // // Will not be released 
-            // NSMutableArray *moduleClassTypesUnderConstruction = [[NSMutableArray alloc] init];
+
+            NSMutableDictionary *classGroupTypes = [[NSMutableDictionary alloc] initWithCapacity:4];
+            NSMutableDictionary *classGroupsUnderConstruction;
+            // Will not be released 
+            NSMutableArray *moduleClassTypesUnderConstruction = [[NSMutableArray alloc] init];
             
-            // for (XMLTimeTableSlot *TTSlot in self.currentModule.timeTableSlots)
-            // {
-            //     Slot *slotUnderConstruction;
+            for (XMLTimeTableSlot *TTSlot in self.currentModule.timeTableSlots)
+            {
+                Slot *slotUnderConstruction;
 
-            //     // Convert day of week from string to NSNumber
-            //     NSNumber *dayNum = [IPlanUtility weekOfDayStringToNSNumber:TTSlot.day];
-            //     [dayNum retain];
+                // Convert day of week from string to NSNumber
+                NSNumber *dayNum = [IPlanUtility weekOfDayStringToNSNumber:TTSlot.day];
+                NSLog(@"%d", [dayNum integerValue]);
+                [dayNum retain];
 
-            //     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-            //     [f setNumberStyle:NSNumberFormatterDecimalStyle];
-            //     NSNumber *timeStart = [[f numberFromString:TTSlot.time_start] retain];
-            //     NSNumber *timeEnd = [[f numberFromString:TTSlot.time_end] retain];
-            //     [f release];
+                NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSNumber *timeStart = [[f numberFromString:TTSlot.time_start] retain];
+                NSNumber *timeEnd = [[f numberFromString:TTSlot.time_end] retain];
+                [f release];
                 
-            //     NSNumber *frequency = [[IPlanUtility frequencyStringToNSNumber:TTSlot.frequency] retain];
-            //     slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
-            //                                                 WithDay:dayNum
-            //                                           WithStartTime:timeStart
-            //                                             WithEndTime:timeEnd
-            //                                           WithGroupName:TTSlot.slot
-            //                                           WithFrequency:frequency];
-            //     // If current ClassGroup type (LECTURE, for example) does not exist, create it first
-            //     if (![classGroupTypes valueForKey:TTSlot.type])
-            //     {
-            //         NSMutableArray *slots = [[NSMutableArray alloc] init];
-            //         [classGroupTypes setValue:slots forKey:TTSlot.type];
-            //     }
-            //     [[classGroupTypes valueForKey:TTSlot.type] addObject:slotUnderConstruction];
-            // }
+                NSNumber *frequency = [[IPlanUtility frequencyStringToNSNumber:TTSlot.frequency] retain];
+                slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
+                                                            WithDay:dayNum
+                                                      WithStartTime:timeStart
+                                                        WithEndTime:timeEnd
+                                                      WithGroupName:TTSlot.slot
+                                                      WithFrequency:frequency];
+                // If current ClassGroup type (LECTURE, for example) does not exist, create it first
+                if (![classGroupTypes valueForKey:TTSlot.type])
+                {
+                    NSMutableArray *slots = [[NSMutableArray alloc] init];
+                    [classGroupTypes setValue:slots forKey:TTSlot.type];
+                }
+                [[classGroupTypes valueForKey:TTSlot.type] addObject:slotUnderConstruction];
+            }
 
-            // // Construt ClassGroups
-            // classGroupsUnderConstruction = [[NSMutableDictionary alloc] initWithCapacity:4];
-            // for (NSString *key in classGroupTypes)
-            // {
-            //     // Initialize array of class groups for one category (LECTURE, for example)
-            //     NSMutableArray *classGroupPerCategory = [[NSMutableArray alloc] init];
-            //     [classGroupsUnderConstruction setValue:classGroupPerCategory forKey:key];
+            // Construt ClassGroups
+            classGroupsUnderConstruction = [[NSMutableDictionary alloc] initWithCapacity:4];
+            for (NSString *key in classGroupTypes)
+            {
+                // Initialize array of class groups for one category (LECTURE, for example)
+                NSMutableArray *classGroupPerCategory = [[NSMutableArray alloc] init];
+                [classGroupsUnderConstruction setValue:classGroupPerCategory forKey:key];
 
-            //     NSArray *slots = [classGroupTypes valueForKey:key];
-            //     NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
+                NSArray *slots = [classGroupTypes valueForKey:key];
+                NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
 
-            //     for (Slot *slot in slots)
-            //     {
-            //         if (![groups valueForKey:slot.groupName])
-            //         {
-            //             NSMutableArray *subGroup = [[NSMutableArray alloc] init];
-            //             [groups setValue:subGroup forKey:slot.groupName];
-            //         }
-            //         [[groups valueForKey:slot.groupName] addObject:slot];
-            //     }
+                for (Slot *slot in slots)
+                {
+                    if (![groups valueForKey:slot.groupName])
+                    {
+                        NSMutableArray *subGroup = [[NSMutableArray alloc] init];
+                        [groups setValue:subGroup forKey:slot.groupName];
+                    }
+                    [[groups valueForKey:slot.groupName] addObject:slot];
+                }
 
-            //     for(NSString *key2 in groups)
-            //     {
-            //         NSArray *subGroup = [groups valueForKey:key2];
-            //         // Any slot will do
-            //         Slot *anySlot = [subGroup objectAtIndex:0];
-            //         ClassGroup *classGroup = [[ClassGroup alloc] initWithName:key2
-            //                                                          WithSlots:subGroup
-            //                                                      WithFrequency:anySlot.frequency
-            //                                                       WithSelected:@"NO"];
-            //         [classGroupPerCategory addObject:classGroup];
-            //     }
-            // }
+                for(NSString *key2 in groups)
+                {
+                    NSArray *subGroup = [groups valueForKey:key2];
+                    // Any slot will do
+                    Slot *anySlot = [subGroup objectAtIndex:0];
+                    ClassGroup *classGroup = [[ClassGroup alloc] initWithName:key2
+                                                                     WithSlots:subGroup
+                                                                 WithFrequency:anySlot.frequency
+                                                                  WithSelected:@"NO"];
+                    [classGroupPerCategory addObject:classGroup];
+                }
+            }
 
-            // // Construct ModuleClassType
-            // for (NSString *key3 in classGroupsUnderConstruction)
-            // {
-            //     NSArray *classGroupPerCategory = [classGroupsUnderConstruction valueForKey:key3];
-            //     ModuleClassType *moduleClassTypeUnderConstruction;
-            //     moduleClassTypeUnderConstruction = [[ModuleClassType alloc] initWithName:key3 WithGroups:classGroupPerCategory];
-            //     [moduleClassTypesUnderConstruction addObject:moduleClassTypeUnderConstruction];
-            // }
+            // Construct ModuleClassType
+            for (NSString *key3 in classGroupsUnderConstruction)
+            {
+                NSArray *classGroupPerCategory = [classGroupsUnderConstruction valueForKey:key3];
+                ModuleClassType *moduleClassTypeUnderConstruction;
+                moduleClassTypeUnderConstruction = [[ModuleClassType alloc] initWithName:key3 WithGroups:classGroupPerCategory];
+                [moduleClassTypesUnderConstruction addObject:moduleClassTypeUnderConstruction];
+            }
 
-            // // Finally (-_-;) Construct Module
+            // Finally (-_-;) Construct Module
             
-            // Module *moduleUnderConstruction = [[Module alloc] initWithDescription:self.currentModule.description
-            //                                                              WithCode:self.currentModule.code
-            //                                                             WithTitle:self.currentModule.title
-            //                                                        WithExaminable:self.currentModule.examinable
-            //                                                          WithOpenBook:self.currentModule.open_book
-            //                                                          WithExamDate:self.currentModule.exam_date
-            //                                                            WithCredit:self.currentModule.mc
-            //                                                      WithPrerequisite:self.currentModule.prereq
-            //                                                        WithPreclusion:self.currentModule.preclude
-            //                                                          WithWorkload:self.currentModule.workload
-            //                                                            WithRemark:self.currentModule.remarks
-            //                                                        WithLastUpdate:self.currentModule.last_updated
-            //                                                          WithSelected:@"NO"
-            //                                                   WithModuleClassType:moduleClassTypesUnderConstruction];
+            Module *moduleUnderConstruction = [[Module alloc] initWithDescription:self.currentModule.description
+                                                                         WithCode:self.currentModule.code
+                                                                        WithTitle:self.currentModule.title
+                                                                   WithExaminable:self.currentModule.examinable
+                                                                     WithOpenBook:self.currentModule.open_book
+                                                                     WithExamDate:self.currentModule.exam_date
+                                                                       WithCredit:self.currentModule.mc
+                                                                 WithPrerequisite:self.currentModule.prereq
+                                                                   WithPreclusion:self.currentModule.preclude
+                                                                     WithWorkload:self.currentModule.workload
+                                                                       WithRemark:self.currentModule.remarks
+                                                                   WithLastUpdate:self.currentModule.last_updated
+                                                                     WithSelected:@"NO"
+                                                              WithModuleClassType:moduleClassTypesUnderConstruction];
 
-            // // Encoding
-            // NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            // NSString* documentDirectory = [paths objectAtIndex:0];
-            // NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,[moduleUnderConstruction.code stringByAppendingString:@".plist"]];
-            // NSLog(@"%@",fullPath);
-            // NSMutableData* data = [[NSMutableData alloc] init];
-            // NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	
-            // [arc encodeObject:moduleUnderConstruction forKey:moduleUnderConstruction.code];
-	
-            // [arc finishEncoding];
-            // BOOL success = [data writeToFile:fullPath atomically:YES];
-            // [arc release];
-            // [data release];
-            // if(!success) NSLog(@"Unsuccessful!");
-            // // End of encoding
+            [moduleUnderConstruction showContents];
 
-            // [moduleUnderConstruction release];
-            // [self.currentModule release];
-            // [classGroupTypes release];
+            // Encoding
+            NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString* documentDirectory = [paths objectAtIndex:0];
+            NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,[moduleUnderConstruction.code stringByAppendingString:@".plist"]];
+            NSLog(@"%@",fullPath);
+            NSMutableData* data = [[NSMutableData alloc] init];
+            NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+            [arc encodeObject:moduleUnderConstruction forKey:moduleUnderConstruction.code];
+	
+            [arc finishEncoding];
+            BOOL success = [data writeToFile:fullPath atomically:YES];
+            [arc release];
+            [data release];
+            if(!success) NSLog(@"Unsuccessful!");
+            // End of encoding
+
+            [moduleUnderConstruction release];
             [self.currentModule release];
+            [classGroupTypes release];
+            NSLog(@"Alive......");
         }
     }
     // Consider removing Faculties

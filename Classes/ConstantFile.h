@@ -9,3 +9,4 @@
 
 
 #define LANG_CHINESE @"Chinese"
+#define FREQUENCY_INVALID 0

@@ -11,6 +11,7 @@
 //#import "XMLFaculty.h"
 #import "Module.h"
 #import "XMLModule.h"
+#import "ConstantFile.h"
 
 @interface ModuleXMLParser : NSObject<NSXMLParserDelegate>
 {
