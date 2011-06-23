@@ -8,13 +8,13 @@
 
 #import "iPlanAppDelegate.h"
 #import "iPlanViewController.h"
-<<<<<<< HEAD
+
 #import "CalendarViewController.h"
 #import "ModuleListViewController.h"
 #import "SettingsViewController.h"
-=======
+
 #import "ModuleXMLParser.h"
->>>>>>> d8942b3ce86bed050d84b8beddad4c65e876534e
+
 
 @implementation iPlanAppDelegate
 
