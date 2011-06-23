@@ -19,4 +19,16 @@
 @synthesize venue;
 @synthesize frequency;
 
+- (void) debugSlot
+{
+    NSLog(@"------ Start XMLTimeTableSlot ------");
+    NSLog(@"type, %@", self.type);
+    NSLog(@"slot, %@", self.slot);
+    NSLog(@"day, %@", self.day);
+    NSLog(@"time_start, %@", self.time_start);
+    NSLog(@"time_end, %@", self.time_end);
+    NSLog(@"venue, %@", self.venue);
+    NSLog(@"frequency, %@", self.frequency);
+    NSLog(@"------ End XMLTimeTableSlot ------");
+}
 @end

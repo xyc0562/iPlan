@@ -15,14 +15,15 @@
 //@synthesize currentFaculty;
 @synthesize currentModule;
 @synthesize currentTimeTableSlot;
+@synthesize modulesParser;
 // @synthesize faculties;
 
-- (id) initWithURLStringAndParse:(NSString *) URLString
+- (id) initWithURLStringAndParse:(NSString *)URLString
 {
     [super init];
     if(super !=nil)
     {
-        NSURL *XMLURL = [NSURL fileURLWithPath:URLString];
+        NSURL *XMLURL = [[NSURL alloc] initWithString:URLString];
 
         // If the parser instance already exists, release it.
         if (modulesParser)
@@ -35,18 +36,35 @@
         [modulesParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
         [modulesParser setShouldReportNamespacePrefixes:NO]; //
         [modulesParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
-
-        [modulesParser release];
-   
+        NSLog(@"begin parsing");
+        [modulesParser parse];
+        NSLog(@"end parsing");
     }
     return self;
 }
 
+- (id) delegate
+{
+    return _delegate;
+}
+- (void) setDelegate:(id)new_delegate
+{
+    _delegate = new_delegate;
+}
+
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
+    NSLog(@"foundCharacters.");
     if (self.currentProperty)
     {
+        // Remove the annoying <CR> suffix, -_- 
+        NSString *CR = [NSString stringWithFormat:@"%c", 10];
+        if ([[string substringFromIndex:[string length] - 1] isEqualToString:CR])
+        {
+            string = [string substringToIndex:[string length] - 1];
+        }
         [currentProperty appendString:string];
+        NSLog(@"!%@!", currentProperty);
     }
 }
 
@@ -192,6 +210,8 @@
         // The end :)
         else if ([elementName isEqualToString:@"module"])
         {
+            [self.currentModule debugCurrentModule];
+
             NSMutableDictionary *classGroupTypes = [[NSMutableDictionary alloc] initWithCapacity:4];
             NSMutableDictionary *classGroupsUnderConstruction;
             // Will not be released 
@@ -203,6 +223,7 @@
 
                 // Convert day of week from string to NSNumber
                 NSNumber *dayNum = [IPlanUtility weekOfDayStringToNSNumber:TTSlot.day];
+                NSLog(@"%d", [dayNum integerValue]);
                 [dayNum retain];
 
                 NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
@@ -287,8 +308,29 @@
                                                                      WithSelected:@"NO"
                                                               WithModuleClassType:moduleClassTypesUnderConstruction];
 
+            [moduleUnderConstruction showContents];
+
+            // Encoding
+            NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString* documentDirectory = [paths objectAtIndex:0];
+            NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,[moduleUnderConstruction.code stringByAppendingString:@".plist"]];
+            NSLog(@"%@",fullPath);
+            NSMutableData* data = [[NSMutableData alloc] init];
+            NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+            [arc encodeObject:moduleUnderConstruction forKey:moduleUnderConstruction.code];
+	
+            [arc finishEncoding];
+            BOOL success = [data writeToFile:fullPath atomically:YES];
+            [arc release];
+            [data release];
+            if(!success) NSLog(@"Unsuccessful!");
+            // End of encoding
+
+            [moduleUnderConstruction release];
             [self.currentModule release];
             [classGroupTypes release];
+            NSLog(@"Alive......");
         }
     }
     // Consider removing Faculties

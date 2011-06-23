@@ -1,4 +1,4 @@
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModuleXMLParser.m:23:8: error: use of undeclared identifier 'super'
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModuleXMLParser.m:24:8: error: use of undeclared identifier 'super'
     if(super !=nil)
        ^
 1 error generated.

@@ -37,6 +37,17 @@
 	return self;
 }
 
+- (void) showContents
+{
+    NSLog(@"++++++ Start of ModuleClassType ++++++");
+    NSLog(@"name: %@", self.name);
+    for (ClassGroup * CG in self.classGroups)
+    {
+        [CG showContents];
+    }
+    NSLog(@"++++++ End of ModuleClassType ++++++");
+}
+
 -(void)dealloc{
 	[name release];
 	[classGroups release];

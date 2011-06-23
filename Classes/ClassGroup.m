@@ -53,6 +53,19 @@
 	}
 }
 
+- (void) showContents
+{
+    NSLog(@"++++++ Start of ClassGroup ++++++");
+    NSLog(@"name: %@", self.name);
+    NSLog(@"frequency: %d", [self.frequency integerValue]);
+    NSLog(@"selected: %@", self.selected);
+    for (Slot * s in self.slots)
+    {
+        [s showContents];
+    }
+    NSLog(@"++++++ End of ClassGroup ++++++");
+}
+
 -(void)dealloc{
 	[name release];
 	[slots release];

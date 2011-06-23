@@ -8,9 +8,13 @@
 
 #import "iPlanAppDelegate.h"
 #import "iPlanViewController.h"
+<<<<<<< HEAD
 #import "CalendarViewController.h"
 #import "ModuleListViewController.h"
 #import "SettingsViewController.h"
+=======
+#import "ModuleXMLParser.h"
+>>>>>>> d8942b3ce86bed050d84b8beddad4c65e876534e
 
 @implementation iPlanAppDelegate
 
@@ -29,6 +33,9 @@
     // Add the view controller's view to the window and display.
     [self.window addSubview:viewController.view];
     [self.window makeKeyAndVisible];
+
+    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
+	[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
 	

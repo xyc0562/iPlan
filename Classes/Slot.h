@@ -22,4 +22,5 @@
 
 -(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSNumber*)fre;
 
+- (void) showContents;
 @end

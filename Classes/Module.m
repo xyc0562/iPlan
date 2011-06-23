@@ -124,4 +124,27 @@ WithModuleClassType:(NSArray*)moduleClassType
 	[super dealloc];
 }
 
+- (void) showContents
+{
+    NSLog(@"++++++ Start of Module ++++++");
+    NSLog(@"code: %@", self.code);
+    NSLog(@"description: %@", self.description);
+    NSLog(@"title: %@", self.title);
+    NSLog(@"examinable: %@", self.examinable);
+    NSLog(@"openBook: %@", self.openBook);
+    NSLog(@"examDate: %@", self.examDate);
+    NSLog(@"moduleCredit: %@", self.moduleCredit);
+    NSLog(@"prerequisite: %@", self.prerequisite);
+    NSLog(@"preclusion: %@", self.preclusion);
+    NSLog(@"workload: %@", self.workload);
+    NSLog(@"remarks: %@", self.remarks);
+    NSLog(@"lastUpdated: %@", self.lastUpdated);
+    NSLog(@"selected: %@", self.selected);
+    for (ModuleClassType* MCT in self.moduleClassTypes)
+    {
+        [MCT showContents];
+    }
+    NSLog(@"++++++ End of Module ++++++");
+}
+
 @end

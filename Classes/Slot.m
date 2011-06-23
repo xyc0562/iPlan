@@ -49,6 +49,18 @@
     return self;
 }
 
+- (void) showContents
+{
+    NSLog(@"++++++ Start of Slot ++++++");
+    NSLog(@"venue: %@", self.venue);
+    NSLog(@"day: %d", [self.day integerValue]);
+    NSLog(@"startTime: %d", [self.startTime integerValue]);
+    NSLog(@"endTime: %d", [self.endTime integerValue]);
+    NSLog(@"groupName: %@", self.groupName);
+    NSLog(@"frequency: %d", [self.frequency integerValue]);
+    NSLog(@"++++++ End of Slot ++++++");
+}
+
 -(void)dealloc{
     [venue release];
     [day release];
