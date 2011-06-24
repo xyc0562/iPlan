@@ -25,6 +25,7 @@
 		438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D513B4B78E003D1B52 /* selected_tab_item.png */; };
 		438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D613B4B78E003D1B52 /* tab bar.png */; };
 		438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D713B4B78E003D1B52 /* tab_bar.png */; };
+		438BC89B13B4D8EF003D1B52 /* UIViewWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BC89A13B4D8EF003D1B52 /* UIViewWithLine.m */; };
 		43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44913B0E65F006EAA46 /* CalendarViewController.m */; };
 		43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */; };
 		43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */; };
@@ -66,6 +67,8 @@
 		438BC7D513B4B78E003D1B52 /* selected_tab_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selected_tab_item.png; path = images/selected_tab_item.png; sourceTree = SOURCE_ROOT; };
 		438BC7D613B4B78E003D1B52 /* tab bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab bar.png"; path = "images/tab bar.png"; sourceTree = SOURCE_ROOT; };
 		438BC7D713B4B78E003D1B52 /* tab_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_bar.png; path = images/tab_bar.png; sourceTree = SOURCE_ROOT; };
+		438BC89913B4D8EF003D1B52 /* UIViewWithLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewWithLine.h; sourceTree = "<group>"; };
+		438BC89A13B4D8EF003D1B52 /* UIViewWithLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewWithLine.m; sourceTree = "<group>"; };
 		43D2F44813B0E65F006EAA46 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		43D2F44913B0E65F006EAA46 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		43D2F44D13B0E68D006EAA46 /* ModuleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleListViewController.h; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				438BC89813B4D8DF003D1B52 /* helpers */,
 				43D2F46413B0EA0B006EAA46 /* images */,
 				43D2F43413B0E334006EAA46 /* Controllers */,
 				1E944D2C13AC640900968E0A /* Data */,
@@ -202,6 +206,15 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		438BC89813B4D8DF003D1B52 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				438BC89913B4D8EF003D1B52 /* UIViewWithLine.h */,
+				438BC89A13B4D8EF003D1B52 /* UIViewWithLine.m */,
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 		43D2F43413B0E334006EAA46 /* Controllers */ = {
@@ -333,6 +346,7 @@
 				43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */,
 				43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */,
 				71B1953D13B511F000BD19E3 /* TimeTable.m in Sources */,
+				438BC89B13B4D8EF003D1B52 /* UIViewWithLine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,8 @@
 
 @implementation CalendarViewController
 
+@synthesize scrollView;
+
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -28,12 +30,17 @@
 }
 */
 
-/*
+- (void) configureView {
+	
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	self.view = scrollView;
+	[self configureView];
 }
-*/
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -45,7 +52,7 @@
 
 - (id)initWithTabBar {
 	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
-		self.title = @"Calendar View Controller";
+		self.title = @"Calendar";
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
 	}
@@ -67,6 +74,7 @@
 
 
 - (void)dealloc {
+	[scrollView release];
     [super dealloc];
 }
 
