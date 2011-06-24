@@ -32,11 +32,16 @@
 				  WithCurrentProgress:(NSMutableArray*)currentProgress
 				 WithBasicInformation:(NSMutableArray*)basicInformation;
 
--(void)addSlot:(NSMutableArray*)addInClassGroupInformation
+-(void)addGroup:(NSMutableArray*)addInClassGroupInformation
  WithTimeTable:(NSMutableArray*)timeTable;
 
--(void)deleteSlot:(NSMutableArray*)AddInClassGroupInformation
+-(void)deleteGroup:(NSMutableArray*)AddInClassGroupInformation
 	WithTimeTable:(NSMutableArray*)timeTable;
+
+-(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup;
+-(void)updateWithTimeTable:(NSMutableArray*)newTimeTable With:(NSMutableArray*)addInClassGroup;
+-(void)updateWithResult:(NSMutableArray*)newResult With:(NSMutableArray*)addInClassGroup;
+
 
 -(NSMutableArray*)constructInitialCurrentProgress;
 
@@ -101,26 +106,61 @@
 		else 
 		{
 			//updateBasedOn
-			NSMutableArray* newCurrentProgress = [[NSMutableArray alloc]init];
-			NSMutableArray* newTimeTable = [[NSMutableArray alloc]init];
+			NSMutableArray* newCurrentProgress = [[NSMutableArray alloc]initWithArray:currentProgress];
+			NSMutableArray* newTimeTable = [[NSMutableArray alloc]initWithArray:timeTable];
 			NSMutableArray* newResult = [[NSMutableArray alloc]init];
 			
-			[result release];
-			[currentProgress release];
-			[timeTable release];
-			[addInClassGroup release];
-			if ([self getOneDefaultSolutionsWithCurrentProgress:newCurrentProgress
+			[self updateWithCurrentProgress:newCurrentProgress With:addInClassGroup];
+			[self updateWithTimeTable:newTimeTable With:addInClassGroup];
+			[self updateWithResult:newResult With:addInClassGroup];
+
+			BOOL success = NO;
+			
+			BOOL exist =YES;
+			NSMutableArray* tempAddInClassGroup = [[NSMutableArray alloc]initWithArray:newAddInClassGroupInformation];
+			while (YES)
+			{
+				if ([self getOneDefaultSolutionsWithCurrentProgress:newCurrentProgress
 											  WithBasicInformation:basicInformation
-									WithAddInClassGroupInformation:newAddInClassGroupInformation
+									WithAddInClassGroupInformation:tempAddInClassGroup
 													 WithTimeTable:newTimeTable
 														WithResult:newResult
 												   WithModuleIndex:moduleIndex])
-				return YES;
-			else {
-				//try next classgroup
-			
+				{
+					success = YES;
+					break;
+				}
+				NSMutableArray* tempAddInClassGroup = [self nextToTryBasedOn:tempAddInClassGroup
+														 AndBasicInformation:basicInformation
+															 WithModuleIndex:moduleIndex];
+				if([tempAddInClassGroup count]==0)
+				{
+					exist = NO;
+					break;
+				}
+				else 
+				{
+					//try next classgroup
+					continue; 
+				}
 			}
-
+			if(success)
+			{
+				[currentProgress release];
+				[timeTable release];
+				[result release];
+				currentProgress = newCurrentProgress;//make copy or assign
+				timeTable = newTimeTable;
+				result = newResult;
+				
+				return YES;
+			}
+			if(!exist)
+			{
+				[result removeObject:addInClassGroup];
+				return NO;
+			}
+			
 	
 		}
 	}
@@ -199,20 +239,23 @@
 				   AndBasicInformation:(NSMutableArray*)basicInformation
 					   WithModuleIndex:(NSMutableArray*)moduleIndex
 {
-//	NSMutableArray* trialAddInClassGroupInformation = [[NSMutableArray alloc]init];
-//	int i;
-//	for(i=0;i<[moduleIndex count];i++)
-//	{
-//		if([[moduleIndex objectAtIndex:i] isEqual:[addInClassGroupInformation objectAtIndex:0]])//same module
-//		{
-//			NSNumber* classtypeindex = [addInClassGroupInformation objectAtIndex:1];
-//			[[basicInformation objectAtIndex:i]objectAtIndex:classtypeindex];
-//			NSNumber* totalGroupNumeber = [information objectAtIndex:[[addInClassGroupInformation objectAtIndex:1]intValue]];
-//			if (addInClassGroupInformation) {
-//			}
-//		}
-//	}
-//	return trialAddInClassGroupInformation;
+	NSMutableArray* trialAddInClassGroupInformation = [[NSMutableArray alloc]init];
+	int i;
+	for(i=0;i<[moduleIndex count];i++)
+	{
+		if([[moduleIndex objectAtIndex:i] isEqual:[addInClassGroupInformation objectAtIndex:0]])//same module
+		{
+			NSNumber* classtypeindex = [addInClassGroupInformation objectAtIndex:1];
+			NSNumber* totalGroupNumber = [[basicInformation objectAtIndex:i]objectAtIndex:[classtypeindex intValue]];
+			if ([[addInClassGroupInformation objectAtIndex:2]intValue]<[totalGroupNumber intValue]-1) 
+			{
+				[trialAddInClassGroupInformation addObject:[addInClassGroupInformation objectAtIndex:0]];
+				[trialAddInClassGroupInformation addObject:[addInClassGroupInformation objectAtIndex:1]];
+				[trialAddInClassGroupInformation addObject:[NSNumber numberWithInt:[[addInClassGroupInformation objectAtIndex:2]intValue]+1]];
+			}
+		}
+	}
+	return trialAddInClassGroupInformation;
 }
 
 -(BOOL)checkPossibilityWithCurrentProgress:(NSMutableArray*)currentProgress
@@ -267,7 +310,7 @@
 				  WithCurrentProgress:(NSMutableArray*)currentProgress
 				 WithBasicInformation:(NSMutableArray*)basicInformation
 {
-	[self addSlot:addInClassGroupInformation WithTimeTable:timeTable];
+	[self addGroup:addInClassGroupInformation WithTimeTable:timeTable];
 	int i,j;
 	for(i=0;i<[currentProgress count];i++)
 	{
@@ -379,7 +422,7 @@
 -(NSMutableArray*)constructResult
 {
 	NSMutableArray* result = [[NSMutableArray alloc]init];
-	int i = 0;
+/*	int i = 0;
 	for(i=0;i<[modules count];i++)
 	{
 		if([[modules objectAtIndex:i] checkSelected])
@@ -394,6 +437,7 @@
 			[result addObject:information];
 		}
 	}
+ */
 	return result;
 }
 	
@@ -414,6 +458,29 @@
 	return moduleIndex;
 	
 }	
+
+-(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup
+{
+	int i;
+	for(i=0;i<[newCurrentProgress count];i++)
+	{
+		if([[[newCurrentProgress objectAtIndex:i]objectAtIndex:0] isEqual:[addInClassGroup objectAtIndex:0]])//same module
+		{
+			[newCurrentProgress removeObjectAtIndex:i];
+			[newCurrentProgress insertObject:addInClassGroup atIndex:i];
+			break;
+		}
+	}		
+}
+
+-(void)updateWithTimeTable:(NSMutableArray*)newTimeTable With:(NSMutableArray*)addInClassGroup
+{
+}
+
+-(void)updateWithResult:(NSMutableArray*)newResult With:(NSMutableArray*)addInClassGroup
+{
+	[newResult addObject:addInClassGroup];
+}
 
 									   
 -(void)encodeWithCoder:(NSCoder *)coder
