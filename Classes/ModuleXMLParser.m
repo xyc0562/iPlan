@@ -23,12 +23,7 @@
     [super init];
     if(super !=nil)
     {
-<<<<<<< HEAD
-        NSURL *XMLURL = [[NSURL alloc]initWithString:URLString];
-=======
         NSURL *XMLURL = [[NSURL alloc] initWithString:URLString];
->>>>>>> 67f1a776903de214462a13b25c58fff67af79a5c
-
         // If the parser instance already exists, release it.
         if (modulesParser)
         {

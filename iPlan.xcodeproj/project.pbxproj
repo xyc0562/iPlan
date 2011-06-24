@@ -15,6 +15,16 @@
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* iPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */; };
+		438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */; };
+		438BC7CF13B4B732003D1B52 /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */; };
+		438BC7D013B4B732003D1B52 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */; };
+		438BC7D813B4B78E003D1B52 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D113B4B78E003D1B52 /* calendar.png */; };
+		438BC7D913B4B78E003D1B52 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D213B4B78E003D1B52 /* gear.png */; };
+		438BC7DA13B4B78E003D1B52 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D313B4B78E003D1B52 /* pencil.png */; };
+		438BC7DB13B4B78E003D1B52 /* runner.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D413B4B78E003D1B52 /* runner.png */; };
+		438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D513B4B78E003D1B52 /* selected_tab_item.png */; };
+		438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D613B4B78E003D1B52 /* tab bar.png */; };
+		438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D713B4B78E003D1B52 /* tab_bar.png */; };
 		43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44913B0E65F006EAA46 /* CalendarViewController.m */; };
 		43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */; };
 		43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */; };
@@ -46,6 +56,16 @@
 		28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iPlan_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlan_Prefix.pch; sourceTree = "<group>"; };
+		438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = Classes/CalendarViewController.xib; sourceTree = "<group>"; };
+		438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleListViewController.xib; path = Classes/ModuleListViewController.xib; sourceTree = "<group>"; };
+		438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
+		438BC7D113B4B78E003D1B52 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = calendar.png; path = images/calendar.png; sourceTree = SOURCE_ROOT; };
+		438BC7D213B4B78E003D1B52 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = images/gear.png; sourceTree = SOURCE_ROOT; };
+		438BC7D313B4B78E003D1B52 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pencil.png; path = images/pencil.png; sourceTree = SOURCE_ROOT; };
+		438BC7D413B4B78E003D1B52 /* runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runner.png; path = images/runner.png; sourceTree = SOURCE_ROOT; };
+		438BC7D513B4B78E003D1B52 /* selected_tab_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selected_tab_item.png; path = images/selected_tab_item.png; sourceTree = SOURCE_ROOT; };
+		438BC7D613B4B78E003D1B52 /* tab bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab bar.png"; path = "images/tab bar.png"; sourceTree = SOURCE_ROOT; };
+		438BC7D713B4B78E003D1B52 /* tab_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_bar.png; path = images/tab_bar.png; sourceTree = SOURCE_ROOT; };
 		43D2F44813B0E65F006EAA46 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		43D2F44913B0E65F006EAA46 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		43D2F44D13B0E68D006EAA46 /* ModuleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleListViewController.h; sourceTree = "<group>"; };
@@ -163,6 +183,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */,
+				438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */,
+				438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */,
 				B6FE12F813B0E67900570671 /* cors.xml */,
 				2899E5210DE3E06400AC0155 /* iPlanViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -197,6 +220,13 @@
 		43D2F46413B0EA0B006EAA46 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				438BC7D113B4B78E003D1B52 /* calendar.png */,
+				438BC7D213B4B78E003D1B52 /* gear.png */,
+				438BC7D313B4B78E003D1B52 /* pencil.png */,
+				438BC7D413B4B78E003D1B52 /* runner.png */,
+				438BC7D513B4B78E003D1B52 /* selected_tab_item.png */,
+				438BC7D613B4B78E003D1B52 /* tab bar.png */,
+				438BC7D713B4B78E003D1B52 /* tab_bar.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -266,6 +296,16 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */,
 				B6FE12F913B0E67900570671 /* cors.xml in Resources */,
+				438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */,
+				438BC7CF13B4B732003D1B52 /* ModuleListViewController.xib in Resources */,
+				438BC7D013B4B732003D1B52 /* SettingsViewController.xib in Resources */,
+				438BC7D813B4B78E003D1B52 /* calendar.png in Resources */,
+				438BC7D913B4B78E003D1B52 /* gear.png in Resources */,
+				438BC7DA13B4B78E003D1B52 /* pencil.png in Resources */,
+				438BC7DB13B4B78E003D1B52 /* runner.png in Resources */,
+				438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */,
+				438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */,
+				438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
