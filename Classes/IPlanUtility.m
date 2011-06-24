@@ -13,9 +13,10 @@
 + (NSNumber*) weekOfDayStringToNSNumber:(NSString*)day
 {
     NSNumber *numDay;
+
     if ([day isEqualToString:@"MONDAY"])
     {
-        numDay = [[NSNumber numberWithInt:1] retain];
+        numDay = [NSNumber numberWithInt:1];
     }
     else if ([day isEqualToString:@"TUESDAY"])
     {
@@ -52,16 +53,21 @@
     {
         freNSNumber = [NSNumber numberWithInt:3];
     }
-    if ([fre isEqualToString:@"ODD WEEK"])
+    else if ([fre isEqualToString:@"ODD WEEK"])
     {
         freNSNumber = [NSNumber numberWithInt:1];
     }
-    if ([fre isEqualToString:@"EVEN WEEK"])
+    else if ([fre isEqualToString:@"EVEN WEEK"])
     {
         freNSNumber = [NSNumber numberWithInt:2];
     }
+    else
+    {
+        NSLog(@"Bad frequency!");
+        freNSNumber = [NSNumber numberWithInt:FREQUENCY_INVALID];
+    }
 
-    return freNSNumber;
+    return [freNSNumber autorelease];
 }
 
 @end

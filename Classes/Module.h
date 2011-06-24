@@ -43,4 +43,6 @@
           WithLastUpdate:(NSString*)update
             WithSelected:(NSString*)select
      WithModuleClassType:(NSArray*)moduleClassType;
+
+- (void) showContents;
 @end

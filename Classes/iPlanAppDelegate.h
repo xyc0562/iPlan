@@ -13,10 +13,12 @@
 @interface iPlanAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     iPlanViewController *viewController;
+	UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet iPlanViewController *viewController;
+@property (nonatomic, retain) UITabBarController *tabBarController;
 
 @end
 

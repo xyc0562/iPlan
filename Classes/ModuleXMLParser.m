@@ -23,7 +23,11 @@
     [super init];
     if(super !=nil)
     {
+<<<<<<< HEAD
         NSURL *XMLURL = [[NSURL alloc]initWithString:URLString];
+=======
+        NSURL *XMLURL = [[NSURL alloc] initWithString:URLString];
+>>>>>>> 67f1a776903de214462a13b25c58fff67af79a5c
 
         // If the parser instance already exists, release it.
         if (modulesParser)
@@ -36,9 +40,10 @@
         [modulesParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
         [modulesParser setShouldReportNamespacePrefixes:NO]; //
         [modulesParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
-        NSLog(@"begin parsing");
+        //NSLog(@"begin parsing");
+		self.currentModule = [[XMLModule alloc] init];
         [modulesParser parse];
-        NSLog(@"end parsing");
+        //NSLog(@"end parsing");
     }
     return self;
 }
@@ -46,25 +51,34 @@
 
 - (id) delegate
 {
+	//NSLog(@"delegate");
     return _delegate;
 }
 - (void) setDelegate:(id)new_delegate
 {
+	//NSLog(@"setDelegate");
     _delegate = new_delegate;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    NSLog(@"begin foundChar");
+    //NSLog(@"foundCharacters.");
     if (self.currentProperty)
     {
+        // Remove the annoying <CR> suffix, -_- 
+        NSString *CR = [NSString stringWithFormat:@"%c", 10];
+        if ([[string substringFromIndex:[string length] - 1] isEqualToString:CR])
+        {
+            string = [string substringToIndex:[string length] - 1];
+        }
         [currentProperty appendString:string];
+        //NSLog(@"!%@!", currentProperty);
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    NSLog(@"begin startElement");
+	//NSLog(@"Did start element");
     if (qName)
     {
         elementName = qName;
@@ -104,14 +118,14 @@
         // Check for deeper nested node
         if ([elementName isEqualToString:@"module"])
         {
-            self.currentModule = [[XMLModule alloc] init];
+            //self.currentModule = [[XMLModule alloc] init];
         }
     }   
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    NSLog(@"begin endElement");
+	//NSLog(@"did end element");
     if (qName)
     {
         elementName = qName;
@@ -157,7 +171,9 @@
     {
         if ([elementName isEqualToString:@"code"])
         {
+			//NSLog(@"Success in Code");
             self.currentModule.code = self.currentProperty;
+			//NSLog(@"Out of code");
         }
         else if ([elementName isEqualToString:@"title"])
         {
@@ -206,6 +222,8 @@
         // The end :)
         else if ([elementName isEqualToString:@"module"])
         {
+        //    [self.currentModule debugCurrentModule];
+
             NSMutableDictionary *classGroupTypes = [[NSMutableDictionary alloc] initWithCapacity:4];
             NSMutableDictionary *classGroupsUnderConstruction;
             // Will not be released 
@@ -217,6 +235,7 @@
 
                 // Convert day of week from string to NSNumber
                 NSNumber *dayNum = [IPlanUtility weekOfDayStringToNSNumber:TTSlot.day];
+                //NSLog(@"%d", [dayNum integerValue]);
                 [dayNum retain];
 
                 NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
@@ -301,11 +320,18 @@
                                                                      WithSelected:@"NO"
                                                               WithModuleClassType:moduleClassTypesUnderConstruction];
 
+           // [moduleUnderConstruction showContents];
+
             // Encoding
             NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString* documentDirectory = [paths objectAtIndex:0];
-            NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,[moduleUnderConstruction.code stringByAppendingString:@".plist"]];
-            NSLog(@"%@",fullPath);
+			NSString* filename = [moduleUnderConstruction.code stringByReplacingOccurrencesOfString:@"/" withString:@""];
+            filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@""];
+			filename = [filename stringByAppendingString:@".plist"];
+			NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,filename];
+			NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
+			//NSLog(@"doc%@",documentDirectory);
+			//NSLog(@"%@",fullPath);
             NSMutableData* data = [[NSMutableData alloc] init];
             NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 	
@@ -315,12 +341,21 @@
             BOOL success = [data writeToFile:fullPath atomically:YES];
             [arc release];
             [data release];
-            if(!success) NSLog(@"Unsuccessful!");
+            if(!success)
+			{ 
+				//NSLog(@"Unsuccessful!");
+			}
+			else 
+			{
+				//NSLog(@"Success!");
+			}
             // End of encoding
 
             [moduleUnderConstruction release];
             [self.currentModule release];
+			self.currentModule = [[XMLModule alloc] init];
             [classGroupTypes release];
+            //NSLog(@"Alive......");
         }
     }
     // Consider removing Faculties

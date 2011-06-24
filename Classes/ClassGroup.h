@@ -19,5 +19,7 @@
 @property(nonatomic,readwrite,assign)NSString* selected;
 
 -(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSNumber*)freq WithSelected:(NSString*)select;
+
+- (void) showContents;
     
 @end

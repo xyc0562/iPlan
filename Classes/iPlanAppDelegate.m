@@ -8,12 +8,19 @@
 
 #import "iPlanAppDelegate.h"
 #import "iPlanViewController.h"
+
+#import "CalendarViewController.h"
+#import "ModuleListViewController.h"
+#import "SettingsViewController.h"
+
 #import "ModuleXMLParser.h"
+
 
 @implementation iPlanAppDelegate
 
 @synthesize window;
 @synthesize viewController;
+@synthesize tabBarController;
 
 
 #pragma mark -
@@ -28,8 +35,20 @@
     [self.window makeKeyAndVisible];
 
     ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
+	[aParser release];
 	
-    [aParser release];
+	tabBarController = [[UITabBarController alloc] init];
+	
+	CalendarViewController* calendarController = [[CalendarViewController alloc] init];
+	ModuleListViewController* moduleController = [[ModuleListViewController alloc] init];
+	SettingsViewController* settingsController = [[SettingsViewController alloc] init];
+	
+	NSArray* controllers = [NSArray arrayWithObjects:calendarController, moduleController, settingsController, nil];
+	tabBarController.viewControllers = controllers;
+	
+	// Add the tab bar controller's current view as a subview of the window
+	[window addSubview:tabBarController.view];
+	
     return YES;
 }
 
@@ -83,6 +102,7 @@
 
 
 - (void)dealloc {
+	[tabBarController release];
     [viewController release];
     [window release];
     [super dealloc];

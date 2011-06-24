@@ -1,5 +1,4 @@
-In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/iPlanAppDelegate.m:9:
-/Users/xuyecheng/Documents/ios/iPlan/Classes/iPlanAppDelegate.h:9:9: fatal error: 'UIKit/UIKit.h' file not found
-#import <UIKit/UIKit.h>
-        ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModuleXMLParser.m:24:8: error: use of undeclared identifier 'super'
+    if(super !=nil)
+       ^
 1 error generated.
