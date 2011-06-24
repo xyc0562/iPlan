@@ -21,8 +21,6 @@
 @synthesize window;
 @synthesize viewController;
 @synthesize tabBarController;
-@synthesize navigationController;
-
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -34,21 +32,42 @@
     // Add the view controller's view to the window and display.
     [self.window addSubview:viewController.view];
     [self.window makeKeyAndVisible];
-
-    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
-	[aParser release];
+	
+	// for navigation bar
+	UINavigationController *localNavigationController;
+	
+	// for tab bar controllers
+	
+    //ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
+	//[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
+	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
 	
-	CalendarViewController* calendarController = [[CalendarViewController alloc] init];
-	ModuleListViewController* moduleController = [[ModuleListViewController alloc] init];
-	SettingsViewController* settingsController = [[SettingsViewController alloc] init];
+	CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[calendarController release];
 	
-	NSArray* controllers = [NSArray arrayWithObjects:calendarController, moduleController, settingsController, nil];
-	tabBarController.viewControllers = controllers;
+	ModuleListViewController* moduleController = [[ModuleListViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:moduleController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[moduleController release];
+	
+	SettingsViewController* settingsController = [[SettingsViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[settingsController release];
+	
+	tabBarController.viewControllers = localControllerArray;
+	[localControllerArray release];
 	
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
 	
     return YES;
 }

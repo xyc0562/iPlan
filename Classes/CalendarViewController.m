@@ -43,13 +43,11 @@
 }
 */
 
-- (id)init {
+- (id)initWithTabBar {
 	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
 		self.title = @"Calendar View Controller";
-		UIImage* image = [UIImage imageNamed:@"calendar.png"];
-		UITabBarItem *theItem = [[UITabBarItem alloc] initWithTitle:@"Calendar" image:image tag:0];
-		self.tabBarItem = theItem;
-		[theItem release];
+		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
+		self.navigationController.title = @"nav title";
 	}
 	return self;
 }

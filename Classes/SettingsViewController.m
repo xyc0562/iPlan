@@ -43,13 +43,11 @@
 }
 */
 
-- (id)init {
+- (id)initWithTabBar {
 	if (self = [super initWithNibName:@"SettingsViewController" bundle:nil]) {
 		self.title = @"Settings View Controller";
-		UIImage* image = [UIImage imageNamed:@"gear.png"];
-		UITabBarItem *theItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:image tag:0];
-		self.tabBarItem = theItem;
-		[theItem release];
+		self.tabBarItem.image =[UIImage imageNamed:@"gear.png"];
+		self.navigationController.title = @"nav title";
 	}
 	return self;
 }

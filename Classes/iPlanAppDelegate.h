@@ -14,15 +14,11 @@
     UIWindow *window;
     iPlanViewController *viewController;
 	UITabBarController *tabBarController;
-	IBOutlet UINavigationController *navigationController;
-
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet iPlanViewController *viewController;
 @property (nonatomic, retain) UITabBarController *tabBarController;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
-
 
 @end
 
