@@ -23,7 +23,7 @@
     [super init];
     if(super !=nil)
     {
-        NSURL *XMLURL = [NSURL fileURLWithPath:URLString];
+        NSURL *XMLURL = [[NSURL alloc]initWithString:URLString];
 
         // If the parser instance already exists, release it.
         if (modulesParser)
@@ -42,6 +42,7 @@
     }
     return self;
 }
+
 
 - (id) delegate
 {
