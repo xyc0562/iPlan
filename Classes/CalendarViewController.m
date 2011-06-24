@@ -43,6 +43,17 @@
 }
 */
 
+- (id)init {
+	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
+		self.title = @"Calendar View Controller";
+		UIImage* image = [UIImage imageNamed:@"calendar.png"];
+		UITabBarItem *theItem = [[UITabBarItem alloc] initWithTitle:@"Calendar" image:image tag:0];
+		self.tabBarItem = theItem;
+		[theItem release];
+	}
+	return self;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];

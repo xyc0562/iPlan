@@ -43,6 +43,17 @@
 }
 */
 
+- (id)init {
+	if (self = [super initWithNibName:@"SettingsViewController" bundle:nil]) {
+		self.title = @"Settings View Controller";
+		UIImage* image = [UIImage imageNamed:@"gear.png"];
+		UITabBarItem *theItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:image tag:0];
+		self.tabBarItem = theItem;
+		[theItem release];
+	}
+	return self;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];

@@ -43,6 +43,17 @@
 }
 */
 
+- (id)init {
+	if (self = [super initWithNibName:@"ModuleListViewController" bundle:nil]) {
+		self.title = @"Module List View Controller";
+		UIImage* image = [UIImage imageNamed:@"pencil.png"];
+		UITabBarItem *theItem = [[UITabBarItem alloc] initWithTitle:@"Module" image:image tag:0];
+		self.tabBarItem = theItem;
+		[theItem release];
+	}
+	return self;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
