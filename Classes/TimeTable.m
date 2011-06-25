@@ -35,8 +35,7 @@
 -(void)addGroup:(NSMutableArray*)addInClassGroupInformation
  WithTimeTable:(NSMutableArray*)timeTable;
 
--(void)deleteGroup:(NSMutableArray*)AddInClassGroupInformation
-	WithTimeTable:(NSMutableArray*)timeTable;
+
 
 -(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup;
 -(void)updateWithTimeTable:(NSMutableArray*)newTimeTable With:(NSMutableArray*)addInClassGroup;
@@ -83,7 +82,21 @@
 	return self;
 }
 
+-(NSMutableArray*)planOneTimetable
+{
+	(NSMutableArray*)currentProgress = [self constructInitialCurrentProgress];
+	(NSMutableArray*)basicInformation = [self constructBasicInformation];
+	(NSMutableArray*)moduleIndex = [self constructModuleIndex];
+	(NSMutableArray*)timetable = [self constructInitialTimeTable];		
+	(NSMutableArray*)result = [self constructResult];
+	(NSMutableArray*)addInClassGroup = [[NSMutableArray alloc]initWithObjects:[moduleIndex objectAtIndex:0]];
+	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
+	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
+	
 
+
+
+}
 -(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
 							WithBasicInformation:(NSMutableArray*)basicInformation
 						WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
@@ -108,7 +121,7 @@
 			//updateBasedOn
 			NSMutableArray* newCurrentProgress = [[NSMutableArray alloc]initWithArray:currentProgress];
 			NSMutableArray* newTimeTable = [[NSMutableArray alloc]initWithArray:timeTable];
-			NSMutableArray* newResult = [[NSMutableArray alloc]init];
+			NSMutableArray* newResult = [[NSMutableArray alloc]initWithArray:result];
 			
 			[self updateWithCurrentProgress:newCurrentProgress With:addInClassGroup];
 			[self updateWithTimeTable:newTimeTable With:addInClassGroup];
@@ -157,7 +170,6 @@
 			}
 			if(!exist)
 			{
-				[result removeObject:addInClassGroup];
 				return NO;
 			}
 			
@@ -353,12 +365,30 @@
 -(void)addGroup:(NSMutableArray*)addInClassGroupInformation
 	WithTimeTable:(NSMutableArray*)timeTable
 {
+	NSNumber* moduleIndex = [addInClassGroupInformation objectAtIndex:0];
+	NSNumber* classTypeIndex = [addInClassGroupInformation objectAtIndex:1];
+	NSNumber* groupIndex = [addInClassGroupInformation objectAtIndex:2];
+	Module* module = [modules objectAtIndex:[moduleIndex intValue]];
+	ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
+	ClassGroup* classGroup = [[classType classGroups]objectAtIndex:[groupIndex intValue]];
+	NSMutableArray* slots = [classGroup slots];
+	for (Slot* slot in slots) {
+		int startTime = [[slot startTime]intValue];
+		int endTime = [[slot endTime]intValue];
+		int day = [[slot day]intValue];
+		NSNumber* occupied = [NSNumber numberWithInt:1];//occupied
+		int i;
+		NSMutableArray* dayArray = [timeTable objectAtIndex:day];
+		for (i=startTime; i<endTime; i++) 
+		{
+			[dayArray removeObjectAtIndex:i];
+			[dayArray insertObject:occupied atIndex:i];
+			
+		}
+	}
 }
 
--(void)deleteGroup:(NSMutableArray*)AddInClassGroupInformation
-	WithTimeTable:(NSMutableArray*)timeTable
-{	
-}
+
 
 -(NSMutableArray*)constructInitialCurrentProgress
 {
@@ -406,7 +436,7 @@
 	NSNumber *CommitToNo = [NSNumber numberWithInt:0];
 	NSMutableArray* time = [[NSMutableArray alloc]init];
 	int i = 0;
-	for(i=0;i<7;i++)
+	for(i=0;i<8;i++)
 	{
 		NSMutableArray* day = [[NSMutableArray alloc]init];
 		int j = 0;
