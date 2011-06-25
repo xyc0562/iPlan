@@ -55,7 +55,7 @@ WithModuleClassType:(NSArray*)moduleClassType
 		workload = work;
 		remarks = remark;
 		lastUpdated = update;
-		selected = select;
+		selected = @"NO";
 		moduleClassTypes = moduleClassType;
 	}
 	return self;

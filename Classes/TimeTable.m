@@ -35,7 +35,12 @@
 -(void)addGroup:(NSMutableArray*)addInClassGroupInformation
  WithTimeTable:(NSMutableArray*)timeTable;
 
-
+-(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
+							WithBasicInformation:(NSMutableArray*)basicInformation
+				  WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
+								   WithTimeTable:(NSMutableArray*)timeTable
+									  WithResult:(NSMutableArray*)result
+								 WithModuleIndex:(NSMutableArray*)moduleIndex;
 
 -(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup;
 -(void)updateWithTimeTable:(NSMutableArray*)newTimeTable With:(NSMutableArray*)addInClassGroup;
@@ -317,8 +322,8 @@
 	ClassGroup* addInClassGroup = [[classtypes classGroups]objectAtIndex:[[addInClassGroupInformation objectAtIndex:2]intValue]];
 	for (Slot* slot in [addInClassGroup slots]) 
 		{ 
-			int startTime = [[slot startTime]intValue]/100;
-			int endTime = [[slot endTime]intValue]/100;
+			int startTime = [[slot startTime]intValue];
+			int endTime = [[slot endTime]intValue];
 			int day = [[slot day]intValue];
 			for (week = 1; week <= 14; week++)
 			{

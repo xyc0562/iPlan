@@ -24,8 +24,8 @@
     {
         venue = place;
         day = date;
-        startTime = start;
-        endTime = end;
+        startTime = [NSNumber numberWithInt:([start intValue]/100)];
+        endTime =  [NSNumber numberWithInt:([end intValue]/100)];
         groupName = group;
         frequency = fre;
     }

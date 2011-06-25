@@ -31,16 +31,16 @@
     // Override point for customization after application launch.
 
     // Add the view controller's view to the window and display.
-    [self.window addSubview:viewController.view];
-    [self.window makeKeyAndVisible];
+   // [self.window addSubview:viewController.view];
+   // [self.window makeKeyAndVisible];
 
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
 	
-    //ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
-	//[aParser release];
+   //  ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
+//	[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -70,6 +70,72 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 	
+	printf("test algo\n");
+	
+	//Test for main Algo
+	//intialize several modules
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
+	// Tell if plists directory exists, if not, create it
+	NSFileManager * fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:modulesDirectory])
+	{
+		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+	}
+	NSString* filename = @"MA1104";
+	filename = [filename stringByAppendingString:@".plist"];
+	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//printf("%s", [fullPath UTF8String]);
+	NSMutableData* data = [NSData dataWithContentsOfFile:fullPath];
+	NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	
+	printf("construct module 1104\n");
+	Module* ma1104 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+//	[unarc release];
+	
+	
+	filename = @"MA2101";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//printf("%s", [fullPath UTF8String]);
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	
+	printf("construct module 2101\n");
+	Module* ma2101 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+//	[unarc release];
+	
+	filename = @"CS2103";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//printf("%s", [fullPath UTF8String]);
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	
+	printf("construct module 2103\n");
+	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
+	
+	
+	[unarc finishDecoding];
+	//[unarc release];
+	printf("end release\n");
+	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
+	[moduleSample addObject:ma1104];
+	[moduleSample addObject:ma2101];
+	[moduleSample addObject:cs2103];
+	
+	printf("end module adding\n");
+	ma1104.selected = @"YES";
+	cs2103.selected = @"YES";
+	
+	printf("construct timetable");
+	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
+	printf("die");
+	NSMutableArray* result = [testTable planOneTimetable];
+
     return YES;
 }
 

@@ -300,7 +300,7 @@
                 ModuleClassType *moduleClassTypeUnderConstruction;
                 moduleClassTypeUnderConstruction = [[ModuleClassType alloc] initWithName:key3 WithGroups:classGroupPerCategory];
                 [moduleClassTypesUnderConstruction addObject:moduleClassTypeUnderConstruction];
-                NSLog(@"%d", [moduleClassTypeUnderConstruction retainCount]);
+            //    NSLog(@"%d", [moduleClassTypeUnderConstruction retainCount]);
             }
 
             // Finally (-_-;) Construct Module
@@ -337,13 +337,13 @@
             filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
 			filename = [filename stringByAppendingString:@".plist"];
 			NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-			NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
+			//NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
 			//NSLog(@"doc%@", modulesDirectory);
 			//NSLog(@"%@",fullPath);
             NSMutableData* data = [[NSMutableData alloc] init];
             NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 	
-            [arc encodeObject:moduleUnderConstruction forKey:moduleUnderConstruction.code];
+            [arc encodeObject:moduleUnderConstruction forKey:@"module"];
 	
             [arc finishEncoding];
             BOOL success = [data writeToFile:fullPath atomically:YES];
@@ -358,7 +358,7 @@
 				//NSLog(@"Success!");
 			}
             // End of encoding
-
+			
             [moduleUnderConstruction release];
             [self.currentModule release];
             self.currentModule = [[XMLModule alloc] init];
