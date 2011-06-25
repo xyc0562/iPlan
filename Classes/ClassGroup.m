@@ -15,7 +15,7 @@
 @synthesize frequency;
 @synthesize selected;
 
--(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSNumber*)freq WithSelected:(NSString*)select
+-(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSArray*)freq WithSelected:(NSString*)select
 {
 	[super init];
 	if(super !=nil)
@@ -57,7 +57,12 @@
 {
     NSLog(@"++++++ Start of ClassGroup ++++++");
     NSLog(@"name: %@", self.name);
-    NSLog(@"frequency: %d", [self.frequency integerValue]);
+    NSLog(@"---- Start Frequency ----");
+    for (NSString *fre in self.frequency)
+    {
+        NSLog(@"%@", fre);
+    }
+    NSLog(@"---- End Frequency ----");
     NSLog(@"selected: %@", self.selected);
     for (Slot * s in self.slots)
     {

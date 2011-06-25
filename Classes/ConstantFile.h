@@ -10,3 +10,4 @@
 
 #define LANG_CHINESE @"Chinese"
 #define FREQUENCY_INVALID 0
+#define MODULE_DOCUMENT_NAME @"Modules"

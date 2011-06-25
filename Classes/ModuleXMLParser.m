@@ -239,7 +239,7 @@
                 NSNumber *timeEnd = [[f numberFromString:TTSlot.time_end] retain];
                 [f release];
                 
-                NSNumber *frequency = [[IPlanUtility frequencyStringToNSNumber:TTSlot.frequency] retain];
+                NSArray *frequency = [[IPlanUtility frequencyStringToNSArray:TTSlot.frequency] retain];
                 slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
                                                             WithDay:dayNum
                                                       WithStartTime:timeStart
@@ -253,6 +253,7 @@
                     [classGroupTypes setValue:slots forKey:TTSlot.type];
                 }
                 [[classGroupTypes valueForKey:TTSlot.type] addObject:slotUnderConstruction];
+                [slotUnderConstruction release];
             }
 
             // Construt ClassGroups
@@ -262,6 +263,7 @@
                 // Initialize array of class groups for one category (LECTURE, for example)
                 NSMutableArray *classGroupPerCategory = [[NSMutableArray alloc] init];
                 [classGroupsUnderConstruction setValue:classGroupPerCategory forKey:key];
+                [classGroupPerCategory release];
 
                 NSArray *slots = [classGroupTypes valueForKey:key];
                 NSMutableDictionary *groups = [[NSMutableDictionary alloc] init];
@@ -272,6 +274,7 @@
                     {
                         NSMutableArray *subGroup = [[NSMutableArray alloc] init];
                         [groups setValue:subGroup forKey:slot.groupName];
+                        [subGroup release];
                     }
                     [[groups valueForKey:slot.groupName] addObject:slot];
                 }
@@ -286,6 +289,7 @@
                                                                  WithFrequency:anySlot.frequency
                                                                   WithSelected:@"NO"];
                     [classGroupPerCategory addObject:classGroup];
+                    [classGroup release];
                 }
             }
 
@@ -296,6 +300,7 @@
                 ModuleClassType *moduleClassTypeUnderConstruction;
                 moduleClassTypeUnderConstruction = [[ModuleClassType alloc] initWithName:key3 WithGroups:classGroupPerCategory];
                 [moduleClassTypesUnderConstruction addObject:moduleClassTypeUnderConstruction];
+                NSLog(@"%d", [moduleClassTypeUnderConstruction retainCount]);
             }
 
             // Finally (-_-;) Construct Module
@@ -315,17 +320,25 @@
                                                                      WithSelected:@"NO"
                                                               WithModuleClassType:moduleClassTypesUnderConstruction];
 
-           // [moduleUnderConstruction showContents];
+            //[moduleUnderConstruction showContents];
 
             // Encoding
+
             NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString* documentDirectory = [paths objectAtIndex:0];
-			NSString* filename = [moduleUnderConstruction.code stringByReplacingOccurrencesOfString:@"/" withString:@""];
-            filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@""];
+            NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
+            // Tell if plists directory exists, if not, create it
+            NSFileManager * fm = [NSFileManager defaultManager];
+            if (![fm fileExistsAtPath:modulesDirectory])
+            {
+                [fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+            }
+			NSString* filename = [moduleUnderConstruction.code stringByReplacingOccurrencesOfString:@"/" withString:@"|"];
+            filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
 			filename = [filename stringByAppendingString:@".plist"];
-			NSString* fullPath = [NSString stringWithFormat:@"%@/%@",documentDirectory,filename];
+			NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
 			NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
-			//NSLog(@"doc%@",documentDirectory);
+			//NSLog(@"doc%@", modulesDirectory);
 			//NSLog(@"%@",fullPath);
             NSMutableData* data = [[NSMutableData alloc] init];
             NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -348,7 +361,7 @@
 
             [moduleUnderConstruction release];
             [self.currentModule release];
-			self.currentModule = [[XMLModule alloc] init];
+            self.currentModule = [[XMLModule alloc] init];
             [classGroupTypes release];
             //NSLog(@"Alive......");
         }

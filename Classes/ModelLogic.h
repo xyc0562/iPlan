@@ -10,8 +10,12 @@
 #import "ConstantFile.h"
 #import "TimeTable.h"
 
-@interface ModelLogic : NSObject {
-
+@interface ModelLogic : NSObject
+{
+    
 }
 @property(nonatomic,retain)NSMutableArray* timetables;
+
++ (NSArray*) getAllModuleCodes;
+
 @end

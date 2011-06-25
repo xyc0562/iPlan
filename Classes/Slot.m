@@ -17,7 +17,7 @@
 @synthesize groupName;
 @synthesize frequency;
 
--(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSNumber*)fre;
+-(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSArray*)fre;
 {
     [super init];
     if(super !=nil)
@@ -57,7 +57,12 @@
     NSLog(@"startTime: %d", [self.startTime integerValue]);
     NSLog(@"endTime: %d", [self.endTime integerValue]);
     NSLog(@"groupName: %@", self.groupName);
-    NSLog(@"frequency: %d", [self.frequency integerValue]);
+    NSLog(@"---- Start Frequency ----");
+    for (NSString *fre in self.frequency)
+    {
+        NSLog(@"%@", fre);
+    }
+    NSLog(@"---- End Frequency ----");
     NSLog(@"++++++ End of Slot ++++++");
 }
 

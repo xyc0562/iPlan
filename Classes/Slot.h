@@ -18,9 +18,9 @@
 @property(nonatomic,readonly) NSNumber* startTime;
 @property(nonatomic,readonly) NSNumber* endTime;
 @property(nonatomic,readonly) NSString* groupName;
-@property(nonatomic,readonly) NSNumber* frequency;
+@property(nonatomic,readonly) NSArray* frequency;
 
--(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSNumber*)fre;
+-(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSArray*)fre;
 
 - (void) showContents;
 @end
