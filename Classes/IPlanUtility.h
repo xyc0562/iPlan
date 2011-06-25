@@ -15,6 +15,6 @@
 }
 
 + (NSNumber*) weekOfDayStringToNSNumber:(NSString*)day;
-+ (NSNumber*) frequencyStringToNSNumber:(NSString*)fre;
++ (NSArray*) frequencyStringToNSArray:(NSString*)fre;
 
 @end

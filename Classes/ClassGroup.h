@@ -15,10 +15,10 @@
 }
 @property(nonatomic,readonly)NSString* name;
 @property(nonatomic,readonly)NSArray* slots;
-@property(nonatomic,readonly)NSNumber* frequency;
+@property(nonatomic,readonly)NSArray* frequency;
 @property(nonatomic,readwrite,assign)NSString* selected;
 
--(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSNumber*)freq WithSelected:(NSString*)select;
+-(id)initWithName:(NSString*)naming WithSlots:(NSArray*)slot WithFrequency:(NSArray*)freq WithSelected:(NSString*)select;
 
 - (void) showContents;
     

@@ -46,28 +46,55 @@
     return numDay;
 }
 
-+ (NSNumber*) frequencyStringToNSNumber:(NSString*)fre
++ (NSArray*) frequencyStringToNSArray:(NSString*)fre
 {
-    NSNumber *freNSNumber;
+    NSMutableArray *freArray = [[NSMutableArray alloc] initWithCapacity:15] ;
     if ([fre isEqualToString:@"EVERY WEEK"])
     {
-        freNSNumber = [NSNumber numberWithInt:3];
+        for(int i = 0; i < 15; i++)
+        {
+            [freArray addObject:@"YES"];
+        }
     }
     else if ([fre isEqualToString:@"ODD WEEK"])
     {
-        freNSNumber = [NSNumber numberWithInt:1];
+        for(int i = 0; i < 7; i++)
+        {
+            [freArray addObject:@"NO"];
+            [freArray addObject:@"YES"];
+        }
+            [freArray addObject:@"NO"];
     }
     else if ([fre isEqualToString:@"EVEN WEEK"])
     {
-        freNSNumber = [NSNumber numberWithInt:2];
+        for(int i = 0; i < 7; i++)
+        {
+            [freArray addObject:@"YES"];
+            [freArray addObject:@"NO"];
+        }
+            [freArray addObject:@"YES"];
     }
     else
+        // Now must be irregular weeks
     {
-        NSLog(@"Bad frequency!");
-        freNSNumber = [NSNumber numberWithInt:FREQUENCY_INVALID];
+        for (int i = 0; i < 15; i ++)
+        {
+            [freArray addObject:@"NO"];
+        }
+        NSScanner *scanner = [NSScanner scannerWithString:fre] ;
+        NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@",.WEEK "];
+        [scanner setCharactersToBeSkipped:set];
+        int number ;
+        while (![scanner isAtEnd]) {
+            if ([scanner scanInt:&number])
+            {
+                NSLog(@"%i", number);
+                [freArray replaceObjectAtIndex:number withObject:@"YES"];
+            }
+        }
     }
 
-    return [freNSNumber autorelease];
+return [freArray autorelease];
 }
 
 @end
