@@ -316,14 +316,17 @@
 -(BOOL)checkCurrentWithAddInClassGroup:(NSMutableArray*)addInClassGroupInformation
 				  WithCurrentTimetable:(NSMutableArray*)timeTable
 {
+	printf("checkCurrentWithAddInClassGroup\n");
 	int week;
  	Module* module = [modules objectAtIndex:[[addInClassGroupInformation objectAtIndex:0]intValue]];
 	ModuleClassType* classtypes = [[module moduleClassTypes]objectAtIndex:[[addInClassGroupInformation objectAtIndex:1]intValue]];
 	ClassGroup* addInClassGroup = [[classtypes classGroups]objectAtIndex:[[addInClassGroupInformation objectAtIndex:2]intValue]];
 	for (Slot* slot in [addInClassGroup slots]) 
 		{ 
+			[slot showContents];
 			int startTime = [[slot startTime]intValue]/100;
 			int endTime = [[slot endTime]intValue]/100;
+			printf("endTime %d",endTime);
 			int day = [[slot day]intValue];
 			for (week = 1; week <= 14; week++)
 			{
@@ -335,7 +338,8 @@
 					{
 						if([[[weekArray objectAtIndex:day]objectAtIndex:i]isEqualToNumber:[NSNumber numberWithInt:1]])
 							return YES;
-						else {
+						else 
+						{
 							continue;
 						}
 					}
@@ -405,18 +409,23 @@
 	ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
 	ClassGroup* classGroup = [[classType classGroups]objectAtIndex:[groupIndex intValue]];
 	NSArray* slots = [classGroup slots];
-	for (Slot* slot in slots) {
+
+	for (Slot* slot in slots) 
+	{
 		int startTime = [[slot startTime]intValue]/100;
 		int endTime = [[slot endTime]intValue]/100;
 		int day = [[slot day]intValue];
 		NSNumber* occupied = [NSNumber numberWithInt:1];//occupied
 		int i;
-		NSMutableArray* dayArray = [timeTable objectAtIndex:day];
-		for (i=startTime; i<endTime; i++) 
+		for(NSMutableArray* weekArray in timeTable)
 		{
-			[dayArray removeObjectAtIndex:i];
-			[dayArray insertObject:occupied atIndex:i];
-			
+			NSMutableArray* dayArray = [weekArray objectAtIndex:day];
+			for (i=startTime; i<endTime; i++) 
+			{
+				[dayArray removeObjectAtIndex:i];
+				[dayArray insertObject:occupied atIndex:i];
+				
+			}
 		}
 	}
 }
@@ -554,7 +563,6 @@
 	for (Slot* slot in slots) {
 		int startTime = [[slot startTime]intValue]/100;
 		int endTime = [[slot endTime]intValue]/100;
-		
 		int day = [[slot day]intValue];
 		NSNumber* occupied = [NSNumber numberWithInt:1];//occupied
 		int i,week;
