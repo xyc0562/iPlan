@@ -39,8 +39,7 @@
 	
 	// for tab bar controllers
 	
-   //  ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
-//	[aParser release];
+  //  ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -83,7 +82,7 @@
 	{
 		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
-	NSString* filename = @"MA1104";
+	NSString* filename = @"MA4255";
 	filename = [filename stringByAppendingString:@".plist"];
 	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
 	//printf("%s", [fullPath UTF8String]);
@@ -129,12 +128,20 @@
 	
 	printf("end module adding\n");
 	ma1104.selected = @"YES";
-	cs2103.selected = @"YES";
+	cs2103.selected = @"NO";
 	
 	printf("construct timetable");
 	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
 	printf("die");
 	NSMutableArray* result = [testTable planOneTimetable];
+	printf("****************************************************");
+	for(NSMutableArray* each in result)
+	{
+		for(NSNumber* one in each)
+			printf("%d    " ,[one intValue]);
+		printf("\n");
+	}
+	
 
     return YES;
 }
