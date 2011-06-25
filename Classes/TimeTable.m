@@ -322,6 +322,7 @@
 	ClassGroup* addInClassGroup = [[classtypes classGroups]objectAtIndex:[[addInClassGroupInformation objectAtIndex:2]intValue]];
 	for (Slot* slot in [addInClassGroup slots]) 
 		{ 
+			[slot showContents];
 			int startTime = [[slot startTime]intValue];
 			int endTime = [[slot endTime]intValue];
 			int day = [[slot day]intValue];

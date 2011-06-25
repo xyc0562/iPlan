@@ -28,6 +28,7 @@
         endTime =  [NSNumber numberWithInt:([end intValue]/100)];
         groupName = group;
         frequency = fre;
+		[self showContents];
     }
     return self;
 }
