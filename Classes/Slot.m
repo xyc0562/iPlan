@@ -24,8 +24,8 @@
     {
         venue = place;
         day = date;
-        startTime = [NSNumber numberWithInt:([start intValue]/100)];
-        endTime =  [NSNumber numberWithInt:([end intValue]/100)];
+        startTime = [NSNumber numberWithInt:[start intValue]];
+        endTime =  [NSNumber numberWithInt:[end intValue]];
         groupName = group;
         frequency = fre;
     }
@@ -46,6 +46,7 @@
               WithStartTime:[decoder decodeObjectForKey:@"startTime"] WithEndTime:[decoder decodeObjectForKey:@"endTime"]
               WithGroupName:[decoder decodeObjectForKey:@"groupName"] WithFrequency:[decoder decodeObjectForKey:@"frequency"]];
     }
+	[self showContents];
     return self;
 }
 

@@ -39,8 +39,8 @@
 	
 	// for tab bar controllers
 	
-   //  ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
-//	[aParser release];
+    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	
+	[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -129,13 +129,20 @@
 	
 	printf("end module adding\n");
 	ma1104.selected = @"YES";
-	cs2103.selected = @"YES";
+	cs2103.selected = @"NO";
 	
-	printf("construct timetable");
+	printf("construct timetable\n");
 	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
 	printf("die");
 	NSMutableArray* result = [testTable planOneTimetable];
-
+	printf("success\n");
+	printf("%d",[result count]);	
+	NSMutableArray* selectedGroup;
+	for (NSMutableArray* selectedGroup in result ) {
+		for(NSNumber* key in selectedGroup)
+			printf("%d     ",[key intValue]);
+		printf("\n");
+	}
     return YES;
 }
 

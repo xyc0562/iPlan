@@ -143,8 +143,8 @@
 			children = (
 				B6ED0D7613AC9E24003C229D /* XMLNodeClasses */,
 				1E944D3413AC663F00968E0A /* ConstantFile.h */,
-				B6ED0EB913ADE1F8003C229D /* ClassGroup.h */,
 				B6ED0EBA13ADE1F8003C229D /* ClassGroup.m */,
+				B6ED0EB913ADE1F8003C229D /* ClassGroup.h */,
 				B6ED0EBB13ADE1F8003C229D /* ModelLogic.h */,
 				B6ED0EBC13ADE1F8003C229D /* ModelLogic.m */,
 				1E26105713B5AF79006CDD7B /* TimeTable.h */,

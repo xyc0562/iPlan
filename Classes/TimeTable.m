@@ -317,13 +317,13 @@
 				  WithCurrentTimetable:(NSMutableArray*)timeTable
 {
 	int week;
-	Module* module = [modules objectAtIndex:[[addInClassGroupInformation objectAtIndex:0]intValue]];
+ 	Module* module = [modules objectAtIndex:[[addInClassGroupInformation objectAtIndex:0]intValue]];
 	ModuleClassType* classtypes = [[module moduleClassTypes]objectAtIndex:[[addInClassGroupInformation objectAtIndex:1]intValue]];
 	ClassGroup* addInClassGroup = [[classtypes classGroups]objectAtIndex:[[addInClassGroupInformation objectAtIndex:2]intValue]];
 	for (Slot* slot in [addInClassGroup slots]) 
 		{ 
-			int startTime = [[slot startTime]intValue];
-			int endTime = [[slot endTime]intValue];
+			int startTime = [[slot startTime]intValue]/100;
+			int endTime = [[slot endTime]intValue]/100;
 			int day = [[slot day]intValue];
 			for (week = 1; week <= 14; week++)
 			{
@@ -352,7 +352,8 @@
 				  WithCurrentProgress:(NSMutableArray*)currentProgress
 				 WithBasicInformation:(NSMutableArray*)basicInformation
 {
-	[self addGroup:addInClassGroupInformation WithTimeTable:timeTable];
+	NSMutableArray* newTimeTable = [[NSMutableArray alloc]initWithArray:timeTable];
+	[self addGroup:addInClassGroupInformation WithTimeTable:newTimeTable];
 	int i,j;
 	for(i=0;i<[currentProgress count];i++)
 	{
@@ -369,7 +370,8 @@
 			
 				for (Slot* slot in [classgroup slots]) 
 				{
-					putInConflict = putInConflict || [self checkConflictSlot:slot WithCurrentTimetable:timeTable];//if conflict return YES;
+					putInConflict = putInConflict || [self checkCurrentWithAddInClassGroup:(NSMutableArray*)addInClassGroupInformation
+																	  WithCurrentTimetable:(NSMutableArray*)newTimeTable];//if conflict return YES;
 				}
 				
 				if(!putInConflict)
@@ -389,6 +391,7 @@
 
 -(BOOL)checkConflictSlot:(Slot*)slot WithCurrentTimetable:(NSMutableArray*)timeTable
 {
+	
 	return NO;
 }
 
@@ -403,8 +406,8 @@
 	ClassGroup* classGroup = [[classType classGroups]objectAtIndex:[groupIndex intValue]];
 	NSArray* slots = [classGroup slots];
 	for (Slot* slot in slots) {
-		int startTime = [[slot startTime]intValue];
-		int endTime = [[slot endTime]intValue];
+		int startTime = [[slot startTime]intValue]/100;
+		int endTime = [[slot endTime]intValue]/100;
 		int day = [[slot day]intValue];
 		NSNumber* occupied = [NSNumber numberWithInt:1];//occupied
 		int i;
@@ -549,8 +552,9 @@
 	ClassGroup* classGroup = [[classType classGroups]objectAtIndex:[groupIndex intValue]];
 	NSArray* slots = [classGroup slots];
 	for (Slot* slot in slots) {
-		int startTime = [[slot startTime]intValue];
-		int endTime = [[slot endTime]intValue];
+		int startTime = [[slot startTime]intValue]/100;
+		int endTime = [[slot endTime]intValue]/100;
+		
 		int day = [[slot day]intValue];
 		NSNumber* occupied = [NSNumber numberWithInt:1];//occupied
 		int i,week;
