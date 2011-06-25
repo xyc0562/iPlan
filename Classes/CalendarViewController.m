@@ -7,38 +7,55 @@
 //
 
 #import "CalendarViewController.h"
+#import "UIViewWithLine.h"
 
+#define HEADER_ORIGIN_X 0
+#define HEADER_ORIGIN_Y	40
+#define NUMBER_OF_ROW_LINES 15
+#define NUMBER_OF_COL_LINES 7
+#define GAP_HEIGHT 30
+#define GAP_WIDTH 50
+#define TOTAL_HEIGHT (NUMBER_OF_ROW_LINES-1)*GAP_HEIGHT
+#define TOTAL_WIDTH (NUMBER_OF_COL_LINES-1)*GAP_WIDTH
+#define SCROLLVIEW_HEIGHT TOTAL_HEIGHT+HEADER_ORIGIN_Y
+#define SCROLLVIEW_WIDTH TOTAL_WIDTH+HEADER_ORIGIN_X
+
+#define LINE_TAG 100
+#define CLASS_VIEW_TAG 200
 
 @implementation CalendarViewController
 
 @synthesize scrollView;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
 - (void) configureView {
-	
+	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+	for (int i = 0; i < 15; i++){
+		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
+															 Point1X:HEADER_ORIGIN_X 
+															 Point1Y:(HEADER_ORIGIN_Y+i*GAP_HEIGHT) 
+															 Point2X:HEADER_ORIGIN_X+TOTAL_WIDTH 
+															 Point2Y:(HEADER_ORIGIN_Y+i*GAP_HEIGHT)];
+		[line setTag:LINE_TAG];
+		[scrollView addSubview:line];
+		[line release];
+	}
+	for (int i = 0; i < 15; i++){
+		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
+															 Point1X:(HEADER_ORIGIN_X+i*GAP_WIDTH)
+															 Point1Y:HEADER_ORIGIN_Y
+															 Point2X:(HEADER_ORIGIN_X+i*GAP_WIDTH) 
+															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT];
+		[line setTag:LINE_TAG];
+		[scrollView addSubview:line];
+		[line release];
+	}
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.view = scrollView;
 	[self configureView];
+	self.view = scrollView;
 }
 
 

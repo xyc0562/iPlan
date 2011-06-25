@@ -7,7 +7,7 @@
 //
 
 #import "UIViewWithLine.h"
-#define LINE_WIDTH 5.0
+#define LINE_WIDTH 1.0
 
 @implementation UIViewWithLine
 
@@ -36,7 +36,7 @@
 	
 	CGContextSetLineWidth(context, LINE_WIDTH);
 	
-	CGContextSetStrokeColorWithColor(context, [UIColor orangeColor].CGColor);
+	CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
 	
 	CGContextMoveToPoint(context, point1X, point1Y);
 	CGContextAddLineToPoint(context, point2X, point2Y);
