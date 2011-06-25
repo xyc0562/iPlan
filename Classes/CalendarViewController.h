@@ -10,8 +10,10 @@
 
 
 @interface CalendarViewController : UIViewController {
-
+	IBOutlet UIScrollView* scrollView;
 }
+
+@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
 
 -(id)initWithTabBar;
 

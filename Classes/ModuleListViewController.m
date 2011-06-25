@@ -45,7 +45,7 @@
 
 - (id)initWithTabBar {
 	if (self = [super initWithNibName:@"ModuleListViewController" bundle:nil]) {
-		self.title = @"Module List View Controller";
+		self.title = @"Builder";
 		self.tabBarItem.image =[UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
 	}
