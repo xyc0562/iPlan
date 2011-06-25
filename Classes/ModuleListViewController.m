@@ -43,6 +43,15 @@
 }
 */
 
+- (id)initWithTabBar {
+	if (self = [super initWithNibName:@"ModuleListViewController" bundle:nil]) {
+		self.title = @"Module List View Controller";
+		self.tabBarItem.image =[UIImage imageNamed:@"pencil.png"];
+		self.navigationController.title = @"nav title";
+	}
+	return self;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
