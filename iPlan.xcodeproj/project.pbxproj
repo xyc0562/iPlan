@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		1E26105613B5AF74006CDD7B /* TimeTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E26105513B5AF74006CDD7B /* TimeTable.m */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
@@ -28,7 +29,6 @@
 		43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44913B0E65F006EAA46 /* CalendarViewController.m */; };
 		43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */; };
 		43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */; };
-		71B1953D13B511F000BD19E3 /* TimeTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B1953C13B511F000BD19E3 /* TimeTable.m */; };
 		B6491D6013AF8B7200782587 /* IPlanUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B6491D5F13AF8B7200782587 /* IPlanUtility.m */; };
 		B6ED0D7213AC8BFB003C229D /* ModuleXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D7113AC8BFB003C229D /* ModuleXMLParser.m */; };
 		B6ED0D8213AC9F02003C229D /* XMLFaculty.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D8113AC9F02003C229D /* XMLFaculty.m */; };
@@ -48,6 +48,8 @@
 		1D3623250D0F684500981E51 /* iPlanAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1E26105513B5AF74006CDD7B /* TimeTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTable.m; sourceTree = "<group>"; };
+		1E26105713B5AF79006CDD7B /* TimeTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTable.h; sourceTree = "<group>"; };
 		1E944D3413AC663F00968E0A /* ConstantFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantFile.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2899E5210DE3E06400AC0155 /* iPlanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPlanViewController.xib; sourceTree = "<group>"; };
@@ -72,7 +74,6 @@
 		43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleListViewController.m; sourceTree = "<group>"; };
 		43D2F45213B0E6B0006EAA46 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		71B1953C13B511F000BD19E3 /* TimeTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTable.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* iPlan-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPlan-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B6491D5E13AF8B7200782587 /* IPlanUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPlanUtility.h; sourceTree = "<group>"; };
 		B6491D5F13AF8B7200782587 /* IPlanUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPlanUtility.m; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		B6ED0EC013ADE1F8003C229D /* ModuleClassType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClassType.m; sourceTree = "<group>"; };
 		B6ED0EC113ADE1F8003C229D /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		B6ED0EC213ADE1F8003C229D /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
-		B6ED0EC313ADE1F8003C229D /* TimeTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTable.h; sourceTree = "<group>"; };
 		B6FE12F813B0E67900570671 /* cors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cors.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,14 +143,14 @@
 				B6ED0EBA13ADE1F8003C229D /* ClassGroup.m */,
 				B6ED0EBB13ADE1F8003C229D /* ModelLogic.h */,
 				B6ED0EBC13ADE1F8003C229D /* ModelLogic.m */,
+				1E26105713B5AF79006CDD7B /* TimeTable.h */,
+				1E26105513B5AF74006CDD7B /* TimeTable.m */,
 				B6ED0EBD13ADE1F8003C229D /* Module.h */,
 				B6ED0EBE13ADE1F8003C229D /* Module.m */,
 				B6ED0EBF13ADE1F8003C229D /* ModuleClassType.h */,
 				B6ED0EC013ADE1F8003C229D /* ModuleClassType.m */,
 				B6ED0EC113ADE1F8003C229D /* Slot.h */,
 				B6ED0EC213ADE1F8003C229D /* Slot.m */,
-				B6ED0EC313ADE1F8003C229D /* TimeTable.h */,
-				71B1953C13B511F000BD19E3 /* TimeTable.m */,
 				B6491D5E13AF8B7200782587 /* IPlanUtility.h */,
 				B6491D5F13AF8B7200782587 /* IPlanUtility.m */,
 				B6ED0D7013AC8BFB003C229D /* ModuleXMLParser.h */,
@@ -332,7 +332,7 @@
 				43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */,
 				43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */,
 				43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */,
-				71B1953D13B511F000BD19E3 /* TimeTable.m in Sources */,
+				1E26105613B5AF74006CDD7B /* TimeTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -84,14 +84,30 @@
 
 -(NSMutableArray*)planOneTimetable
 {
-	(NSMutableArray*)currentProgress = [self constructInitialCurrentProgress];
-	(NSMutableArray*)basicInformation = [self constructBasicInformation];
-	(NSMutableArray*)moduleIndex = [self constructModuleIndex];
-	(NSMutableArray*)timetable = [self constructInitialTimeTable];		
-	(NSMutableArray*)result = [self constructResult];
-	(NSMutableArray*)addInClassGroup = [[NSMutableArray alloc]initWithObjects:[moduleIndex objectAtIndex:0]];
+	NSMutableArray* currentProgress = [self constructInitialCurrentProgress];
+	NSMutableArray* basicInformation = [self constructBasicInformation];
+	NSMutableArray* moduleIndex = [self constructModuleIndex];
+	NSMutableArray* timetable = [self constructInitialTimeTable];		
+	NSMutableArray* result = [self constructResult];
+	NSMutableArray* addInClassGroup = [[NSMutableArray alloc]init];
+	[addInClassGroup addObject:[moduleIndex objectAtIndex:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
+	BOOL success = [self getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
+							   WithBasicInformation:(NSMutableArray*)basicInformation
+					 WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
+									  WithTimeTable:(NSMutableArray*)timetable
+										 WithResult:(NSMutableArray*)result
+									WithModuleIndex:(NSMutableArray*)moduleIndex];
+	if(success)
+	{
+		return result;
+	}
+	else {
+		return [[NSMutableArray alloc]init];
+	}
+
+	
 	
 
 
@@ -371,7 +387,7 @@
 	Module* module = [modules objectAtIndex:[moduleIndex intValue]];
 	ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
 	ClassGroup* classGroup = [[classType classGroups]objectAtIndex:[groupIndex intValue]];
-	NSMutableArray* slots = [classGroup slots];
+	NSArray* slots = [classGroup slots];
 	for (Slot* slot in slots) {
 		int startTime = [[slot startTime]intValue];
 		int endTime = [[slot endTime]intValue];
