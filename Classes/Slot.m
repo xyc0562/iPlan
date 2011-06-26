@@ -40,7 +40,6 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)coder{
-
     [coder encodeObject:venue forKey:@"venue"];
     [coder encodeObject:day forKey:@"day"];
     [coder encodeObject:startTime forKey:@"startTime"];

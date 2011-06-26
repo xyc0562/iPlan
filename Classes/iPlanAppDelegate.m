@@ -39,7 +39,7 @@
 	
 	// for tab bar controllers
 	
-  //  ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -82,77 +82,60 @@
 	{
 		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
+	
 	NSString* filename = @"MA4255";
 	filename = [filename stringByAppendingString:@".plist"];
 	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//printf("%s", [fullPath UTF8String]);
 	NSMutableData* data = [NSData dataWithContentsOfFile:fullPath];
 	NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	printf("construct module 1104\n");
-	Module* ma1104 = [unarc decodeObjectForKey:@"module"];
+	printf("construct module ma4255\n");
+	Module* ma4255 = [unarc decodeObjectForKey:@"module"];
 	[unarc finishDecoding];
-//	[unarc release];
+	// [unarc release];
 	
 	
 	filename = @"MA2101";
 	filename = [filename stringByAppendingString:@".plist"];
 	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//printf("%s", [fullPath UTF8String]);
 	data = [NSData dataWithContentsOfFile:fullPath];
 	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	printf("construct module 2101\n");
+	printf("construct module ma2101\n");
 	Module* ma2101 = [unarc decodeObjectForKey:@"module"];
 	[unarc finishDecoding];
-//	[unarc release];
+	// [unarc release];
 	
 	filename = @"CS2103";
 	filename = [filename stringByAppendingString:@".plist"];
 	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//printf("%s", [fullPath UTF8String]);
 	data = [NSData dataWithContentsOfFile:fullPath];
 	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	printf("construct module 2103\n");
+	printf("construct module cs2103\n");
 	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
-	
-	filename = @"EE2006";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//printf("%s", [fullPath UTF8String]);
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	printf("construct module 2006\n");
-	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
-	
-	filename = @"EE2006";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//printf("%s", [fullPath UTF8String]);
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	
-	printf("construct module 2007\n");
-	Module* ee2007 = [unarc decodeObjectForKey:@"module"];
-	
-	
 	[unarc finishDecoding];
 	//[unarc release];
+	
+	filename = @"EE2006";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	printf("construct module ee2006\n");
+	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+	//[unarc release];
+	
 	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
-	[moduleSample addObject:ma1104];
+	[moduleSample addObject:ma4255];
 	[moduleSample addObject:ma2101];
 	[moduleSample addObject:cs2103];
 	[moduleSample addObject:ee2006];
-	[moduleSample addObject:ee2007];
 	
 	printf("modules added\n");
-	ma1104.selected = @"YES";
+	ma4255.selected = @"YES";
 	ma2101.selected = @"YES";
-	cs2103.selected = @"YES";
+	cs2103.selected = @"NO";
 	ee2006.selected = @"YES";
-	ee2007.selected = @"YES";
+
 	//!!!!bug: no active module
 	
 	printf("before timeTable init timetable\n");
