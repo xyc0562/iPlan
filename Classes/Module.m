@@ -61,6 +61,28 @@ WithModuleClassType:(NSArray*)moduleClassType
 	return self;
 }
 
+// Don't alloc! Not retained!
++(id)ModuleWithModuleCode:(NSString*)code
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
+        
+	NSString *filename = [filename stringByAppendingString:@".plist"];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSData *data = [NSData dataWithContentsOfFile:fullPath];
+        if (data)
+        {
+            NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            Module* module = [unarc decodeObjectForKey:@"module"];
+            return module;
+        }
+        else
+        {
+            return nil;
+        }
+}
+
 -(void)encodeWithCoder:(NSCoder *)coder{
 	[coder encodeObject:code forKey:@"code"];
 	[coder encodeObject:description forKey:@"description"];

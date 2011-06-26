@@ -44,5 +44,7 @@
             WithSelected:(NSString*)select
      WithModuleClassType:(NSArray*)moduleClassType;
 
++(id)ModuleWithModuleCode:(NSString*)code;
+
 - (void) showContents;
 @end
