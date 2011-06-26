@@ -73,12 +73,8 @@
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
-    Module *module;
-    if ([self.moduleObjectsDict objectForKey:code])
-    {
-        module = [self.moduleObjectsDict objectForKey:code];
-    }
-    else
+    Module *module = [self.moduleObjectsDict objectForKey:code];
+    if (!module)
     {
         module = [Module ModuleWithModuleCode:code];
         if (module)

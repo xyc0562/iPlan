@@ -75,7 +75,7 @@ WithModuleClassType:(NSArray*)moduleClassType
         {
             NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
             Module* module = [unarc decodeObjectForKey:@"module"];
-            return module;
+            return [module autorelease];
         }
         else
         {
