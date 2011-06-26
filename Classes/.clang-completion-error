@@ -1,0 +1,8 @@
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModuleXMLParser.m:24:8: error: use of undeclared identifier 'super'
+    if(super !=nil)
+       ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModuleXMLParser.m:303:26: warning: conversion specifies type 'int' but the argument has type 'NSUInteger' (aka 'unsigned long')
+                NSLog(@"%d", [moduleClassTypeUnderConstruction retainCount]);
+                        ~^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        %lu
+1 warning and 1 error generated.

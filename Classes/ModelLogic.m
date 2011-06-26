@@ -14,19 +14,19 @@
 
 -(id)initWithTimeTables:(NSMutableArray*)tables
 {
-	[super init];
-	if(super !=nil)
-	{
-		if(tables!=nil)
-		{
-			self.timetables = tables;
-		} 
-		else 
-		{
-			self.timetables = [[NSMutableArray alloc]init];
-		}
-	}
-	return self;
+    [super init];
+    if(super !=nil)
+    {
+        if(tables!=nil)
+        {
+            self.timetables = tables;
+        } 
+        else 
+        {
+            self.timetables = [[NSMutableArray alloc]init];
+        }
+    }
+    return self;
 }
 
 -(void)addTimeTable:(TimeTable*)timetable
