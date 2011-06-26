@@ -34,7 +34,7 @@
 	[timetables addObject:timetable];
 }
 
-+ (NSArray*) getAllModuleCodes
++(NSArray*) getAllModuleCodes
 {
     // Get directory path that stores the module objects
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -54,6 +54,7 @@
 
     return moduleNames;
 }
+
 
 -(id)initWithCoder:(NSCoder *)decoder
 {

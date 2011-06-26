@@ -25,7 +25,7 @@
 @property(nonatomic,readonly)NSString* workload;
 @property(nonatomic,readonly)NSString* remarks;
 @property(nonatomic,readonly)NSString* lastUpdated;
-@property(nonatomic,readonly)NSString* selected;
+@property(nonatomic,retain)NSString* selected;
 @property(nonatomic,readonly)NSArray* moduleClassTypes;
 -(BOOL)checkSelected;
 

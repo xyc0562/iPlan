@@ -7,33 +7,67 @@
 //
 
 #import "CalendarViewController.h"
+#import "UIViewWithLine.h"
 
+#define HEADER_ORIGIN_X 10
+#define HEADER_ORIGIN_Y	40
+#define NUMBER_OF_ROW_LINES 16
+#define NUMBER_OF_COL_LINES 7
+#define GAP_HEIGHT 50
+#define GAP_WIDTH 90
+#define TOTAL_HEIGHT (NUMBER_OF_ROW_LINES-1)*GAP_HEIGHT
+#define TOTAL_WIDTH (NUMBER_OF_COL_LINES-1)*GAP_WIDTH
+#define SCROLLVIEW_HEIGHT TOTAL_HEIGHT+HEADER_ORIGIN_Y
+#define SCROLLVIEW_WIDTH TOTAL_WIDTH+HEADER_ORIGIN_X
+
+#define LINE_TAG 100
+#define LABEL_TAG 100
+#define CLASS_VIEW_TAG 200
 
 @implementation CalendarViewController
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
+@synthesize scrollView;
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void) configureView {
+	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+	for (int i = 0; i < NUMBER_OF_ROW_LINES; i++){
+		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
+															 Point1X:HEADER_ORIGIN_X 
+															 Point1Y:(HEADER_ORIGIN_Y+i*GAP_HEIGHT) 
+															 Point2X:HEADER_ORIGIN_X+TOTAL_WIDTH 
+															 Point2Y:(HEADER_ORIGIN_Y+i*GAP_HEIGHT)];
+		[line setTag:LINE_TAG];
+		[scrollView addSubview:line];
+		[line release];
+		if (i != NUMBER_OF_ROW_LINES -1){
+			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
+			label.text = [NSString stringWithFormat:@"   %d : 00",i+8];
+			label.textColor = [UIColor whiteColor];
+			label.backgroundColor = [UIColor blackColor];
+			[label setTag:LABEL_TAG];
+			[scrollView addSubview:label];
+			[label release];			
+		}
+	}
+	for (int i = 0; i < NUMBER_OF_COL_LINES; i++){
+		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
+															 Point1X:(HEADER_ORIGIN_X+i*GAP_WIDTH)
+															 Point1Y:HEADER_ORIGIN_Y
+															 Point2X:(HEADER_ORIGIN_X+i*GAP_WIDTH) 
+															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT];
+		[line setTag:LINE_TAG];
+		[scrollView addSubview:line];
+		[line release];
+	}
 }
-*/
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self configureView];
+	self.view = scrollView;
 }
-*/
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -45,7 +79,7 @@
 
 - (id)initWithTabBar {
 	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
-		self.title = @"Calendar View Controller";
+		self.title = @"Calendar";
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
 	}
@@ -67,6 +101,7 @@
 
 
 - (void)dealloc {
+	[scrollView release];
     [super dealloc];
 }
 

@@ -31,16 +31,15 @@
     // Override point for customization after application launch.
 
     // Add the view controller's view to the window and display.
-    [self.window addSubview:viewController.view];
-    [self.window makeKeyAndVisible];
+   // [self.window addSubview:viewController.view];
+   // [self.window makeKeyAndVisible];
 
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
 	
-    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];
-	[aParser release];
+	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	
 	// tabBarController = [[UITabBarController alloc] init];
 	// NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -70,6 +69,89 @@
 	// [window addSubview:tabBarController.view];
 	// [window makeKeyAndVisible];
 	
+	printf("test algo\n");
+	
+	//Test for main Algo
+	//intialize several modules
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
+	// Tell if plists directory exists, if not, create it
+	NSFileManager * fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:modulesDirectory])
+	{
+		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+	}
+	
+	NSString* filename = @"MA4255";
+	filename = [filename stringByAppendingString:@".plist"];
+	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSMutableData* data = [NSData dataWithContentsOfFile:fullPath];
+	NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	printf("construct module ma4255\n");
+	Module* ma4255 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+	// [unarc release];
+	
+	
+	filename = @"MA2101";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	printf("construct module ma2101\n");
+	Module* ma2101 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+	// [unarc release];
+	
+	filename = @"CS2103";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	printf("construct module cs2103\n");
+	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+	//[unarc release];
+	
+	filename = @"EE2006";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	printf("construct module ee2006\n");
+	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
+	[unarc finishDecoding];
+	//[unarc release];
+	
+	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
+	[moduleSample addObject:ma4255];
+	[moduleSample addObject:ma2101];
+	[moduleSample addObject:cs2103];
+	[moduleSample addObject:ee2006];
+	
+	printf("modules added\n");
+	ma4255.selected = @"YES";
+	ma2101.selected = @"YES";
+	cs2103.selected = @"NO";
+	ee2006.selected = @"YES";
+
+	//!!!!bug: no active module
+	
+	printf("before timeTable init timetable\n");
+	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
+	printf("before planOneTimetable\n");
+	NSMutableArray* result = [testTable planOneTimetable];
+	printf("****************************************************\n");
+	printf("%d result found\n",[result count]);
+	for(NSMutableArray* eachSelected in result)
+	{
+		for(NSNumber* info in eachSelected)
+			printf("%d    " ,[info intValue]);
+		printf("\n");
+	}
+	
+
     return YES;
 }
 

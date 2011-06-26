@@ -17,27 +17,35 @@
 @synthesize groupName;
 @synthesize frequency;
 
--(id)initWithVenue:(NSString*)place WithDay:(NSNumber*)date WithStartTime:(NSNumber*)start WithEndTime:(NSNumber*)end WithGroupName:(NSString*)group WithFrequency:(NSArray*)fre;
+-(id)initWithVenue:(NSString*)place 
+		   WithDay:(NSNumber*)date 
+	 WithStartTime:(NSNumber*)start 
+	   WithEndTime:(NSNumber*)end 
+	 WithGroupName:(NSString*)group 
+	 WithFrequency:(NSArray*)fre;
 {
     [super init];
     if(super !=nil)
     {
         venue = place;
         day = date;
-        startTime = start;
+		startTime = start; 
         endTime = end;
         groupName = group;
         frequency = fre;
     }
+	//printf("init with venue and with day\n");
+	//[self showContents];
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)coder{
-
     [coder encodeObject:venue forKey:@"venue"];
     [coder encodeObject:day forKey:@"day"];
     [coder encodeObject:startTime forKey:@"startTime"];
     [coder encodeObject:endTime forKey:@"endTime"];
+	[coder encodeObject:groupName forKey:@"groupName"];
+	[coder encodeObject:frequency forKey:@"frequency"];
 }
 
 -(id)initWithCoder:(NSCoder *)decoder{
@@ -46,6 +54,8 @@
               WithStartTime:[decoder decodeObjectForKey:@"startTime"] WithEndTime:[decoder decodeObjectForKey:@"endTime"]
               WithGroupName:[decoder decodeObjectForKey:@"groupName"] WithFrequency:[decoder decodeObjectForKey:@"frequency"]];
     }
+	//printf("initwithcoder\n");
+	//[self showContents];
     return self;
 }
 

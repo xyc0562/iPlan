@@ -45,7 +45,7 @@
 
 - (id)initWithTabBar {
 	if (self = [super initWithNibName:@"SettingsViewController" bundle:nil]) {
-		self.title = @"Settings View Controller";
+		self.title = @"Settings";
 		self.tabBarItem.image =[UIImage imageNamed:@"gear.png"];
 		self.navigationController.title = @"nav title";
 	}
