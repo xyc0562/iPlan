@@ -35,16 +35,16 @@
 -(void)addGroup:(NSMutableArray*)addInClassGroupInformation
  WithTimeTable:(NSMutableArray*)timeTable;
 
--(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
+-(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray**)currentProgress
 							WithBasicInformation:(NSMutableArray*)basicInformation
 				  WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
-								   WithTimeTable:(NSMutableArray*)timeTable
-									  WithResult:(NSMutableArray*)result
+								   WithTimeTable:(NSMutableArray**)timeTable
+									  WithResult:(NSMutableArray**)result
 								 WithModuleIndex:(NSMutableArray*)moduleIndex;
 
--(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup;
--(void)updateWithTimeTable:(NSMutableArray*)newTimeTable With:(NSMutableArray*)addInClassGroup;
--(void)updateWithResult:(NSMutableArray*)newResult With:(NSMutableArray*)addInClassGroup;
+-(void)updateWithCurrentProgress:(NSMutableArray**)newCurrentProgress With:(NSMutableArray*)addInClassGroup;
+-(void)updateWithTimeTable:(NSMutableArray**)newTimeTable With:(NSMutableArray*)addInClassGroup;
+-(void)updateWithResult:(NSMutableArray**)Result With:(NSMutableArray*)addInClassGroup;
 
 
 -(NSMutableArray*)constructInitialCurrentProgress;
@@ -56,8 +56,6 @@
 -(NSMutableArray*)constructResult;
 
 -(NSMutableArray*)constructModuleIndex;
-
--(BOOL)checkConflictSlot:(Slot*)slot WithCurrentTimetable:(NSMutableArray*)timeTable;
 
 @end
 
@@ -98,12 +96,12 @@
 	[addInClassGroup addObject:[moduleIndex objectAtIndex:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
-	BOOL success = [self getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
-							   WithBasicInformation:(NSMutableArray*)basicInformation
-					 WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
-									  WithTimeTable:(NSMutableArray*)timetable
-										 WithResult:(NSMutableArray*)result
-									WithModuleIndex:(NSMutableArray*)moduleIndex];
+	BOOL success = [self getOneDefaultSolutionsWithCurrentProgress:&currentProgress
+											  WithBasicInformation:basicInformation
+									WithAddInClassGroupInformation:addInClassGroup
+													 WithTimeTable:&timetable
+														WithResult:&result
+												   WithModuleIndex:moduleIndex];
 	if(success)
 	{
 		return result;
@@ -111,42 +109,49 @@
 	else {
 		return [[NSMutableArray alloc]init];
 	}
-
-	
-	
-
-
-
 }
--(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray*)currentProgress
+-(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray**)currentProgress
 							WithBasicInformation:(NSMutableArray*)basicInformation
 				  WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
-								   WithTimeTable:(NSMutableArray*)timeTable
-									  WithResult:(NSMutableArray*)result
+								   WithTimeTable:(NSMutableArray**)timeTable
+									  WithResult:(NSMutableArray**)result
 								 WithModuleIndex:(NSMutableArray*)moduleIndex
 {
 	
-	if([self checkPossibilityWithCurrentProgress:currentProgress
+	if([self checkPossibilityWithCurrentProgress:*currentProgress
 				  WithAddInClassGroupInformation:addInClassGroup
-								   WithTimeTable:timeTable
+								   WithTimeTable:*timeTable
 							WithBasicInformation:basicInformation])
 	{
+		
 		//find next
 		NSMutableArray* newAddInClassGroupInformation = [self nextToAddInToBasedOn:addInClassGroup
 															   AndBasicInformation:basicInformation
 																   WithModuleIndex:moduleIndex];
+		
+		//updateBasedOn
+		NSMutableArray* newCurrentProgress = [[NSMutableArray alloc]initWithArray:*currentProgress];
+		NSMutableArray* newTimeTable = [[NSMutableArray alloc]initWithArray:*timeTable];
+		NSMutableArray* newResult = [[NSMutableArray alloc]initWithArray:*result];
+		
+		[self updateWithCurrentProgress:&newCurrentProgress With:addInClassGroup];
+		[self updateWithTimeTable:&newTimeTable With:addInClassGroup];
+		[self updateWithResult:&newResult With:addInClassGroup];
+		
 		if([newAddInClassGroupInformation count]==0)
+		{
+			[*currentProgress release];
+			[*timeTable release];
+			[*result release];
+			*currentProgress = newCurrentProgress;//make copy or assign
+			*timeTable = newTimeTable;
+			*result = newResult;
+			printf("%d last result count return YES\n",[*result count]);
 			return YES;
+		}
 		else 
 		{
-			//updateBasedOn
-			NSMutableArray* newCurrentProgress = [[NSMutableArray alloc]initWithArray:currentProgress];
-			NSMutableArray* newTimeTable = [[NSMutableArray alloc]initWithArray:timeTable];
-			NSMutableArray* newResult = [[NSMutableArray alloc]initWithArray:result];
 			
-			[self updateWithCurrentProgress:newCurrentProgress With:addInClassGroup];
-			[self updateWithTimeTable:newTimeTable With:addInClassGroup];
-			[self updateWithResult:newResult With:addInClassGroup];
 
 			BOOL success = NO;
 			
@@ -154,11 +159,11 @@
 			NSMutableArray* tempAddInClassGroup = [[NSMutableArray alloc]initWithArray:newAddInClassGroupInformation];
 			while (YES)
 			{
-				if ([self getOneDefaultSolutionsWithCurrentProgress:newCurrentProgress
+				if ([self getOneDefaultSolutionsWithCurrentProgress:&newCurrentProgress
 											  WithBasicInformation:basicInformation
 									WithAddInClassGroupInformation:tempAddInClassGroup
-													 WithTimeTable:newTimeTable
-														WithResult:newResult
+													 WithTimeTable:&newTimeTable
+														WithResult:&newResult
 												   WithModuleIndex:moduleIndex])
 				{
 					success = YES;
@@ -175,30 +180,31 @@
 				else 
 				{
 					//try next classgroup
+					printf("try next");
 					continue; 
 				}
 			}
 			if(success)
 			{
-				[currentProgress release];
-				[timeTable release];
-				[result release];
-				currentProgress = newCurrentProgress;//make copy or assign
-				timeTable = newTimeTable;
-				result = newResult;
+				[*currentProgress release];
+				[*timeTable release];
+				[*result release];
+				*currentProgress = newCurrentProgress;//make copy or assign
+				*timeTable = newTimeTable;
+				*result = newResult;
+				printf("%d result count return YES\n",[*result count]);
 				
 				return YES;
 			}
 			if(!exist)
 			{
+				printf("return no\n");
 				return NO;
 			}
-			
-	
 		}
 	}
 	else 
-	{
+	{printf("return no\n");
 		return NO;
 	}
 
@@ -223,7 +229,6 @@
 	//Array of array
 	//outer array defines the 7 days
 	//inner array defines the 24 hours
-	
 	return NO;
 	
 }
@@ -239,8 +244,8 @@
 		if([[moduleIndex objectAtIndex:i] isEqual:[addInClassGroupInformation objectAtIndex:0]])//same module
 		{
 			NSNumber* classtypeindex = [addInClassGroupInformation objectAtIndex:1];
-			    int totolClassTypes = [[basicInformation objectAtIndex:i] count];
-				if([[NSNumber numberWithInt: totolClassTypes-1]isEqualToNumber:classtypeindex])
+			    int totalClassTypes = [[basicInformation objectAtIndex:i] count];
+				if([[NSNumber numberWithInt: totalClassTypes-1]isEqualToNumber:classtypeindex])
 				{
 					if(i==[moduleIndex count]-1) //nothing to add
 					{
@@ -248,14 +253,14 @@
 					}
 					else
 					{
-						[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:i+1]];
+						[newAddInClassGroupInformation addObject:[moduleIndex objectAtIndex:i+1]];
 						[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:0]];
 						[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:0]];
 					}
 				}
 				else 
 				{
-					[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:i]];
+					[newAddInClassGroupInformation addObject:[moduleIndex objectAtIndex:i]];
 					[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:[classtypeindex intValue]+1]];
 					[newAddInClassGroupInformation addObject:[NSNumber numberWithInt:0]];
 				}
@@ -265,6 +270,19 @@
 		}
 
 	}
+		printf("previous\n");
+		printf("%d \n",[[addInClassGroupInformation objectAtIndex:0]intValue]);
+		printf("%d \n",[[addInClassGroupInformation objectAtIndex:1]intValue]);
+		printf("%d \n",[[addInClassGroupInformation objectAtIndex:2]intValue]);
+		printf("@@@\n");
+
+		printf("nextToAdd\n");
+		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:0]intValue]);
+		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:1]intValue]);
+		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:2]intValue]);
+		printf("@@@\n");
+	
+		
 	return newAddInClassGroupInformation;
 }
 
@@ -316,17 +334,16 @@
 -(BOOL)checkCurrentWithAddInClassGroup:(NSMutableArray*)addInClassGroupInformation
 				  WithCurrentTimetable:(NSMutableArray*)timeTable
 {
-	printf("checkCurrentWithAddInClassGroup\n");
+	//printf("checkCurrentWithAddInClassGroup\n");
 	int week;
  	Module* module = [modules objectAtIndex:[[addInClassGroupInformation objectAtIndex:0]intValue]];
 	ModuleClassType* classtypes = [[module moduleClassTypes]objectAtIndex:[[addInClassGroupInformation objectAtIndex:1]intValue]];
 	ClassGroup* addInClassGroup = [[classtypes classGroups]objectAtIndex:[[addInClassGroupInformation objectAtIndex:2]intValue]];
 	for (Slot* slot in [addInClassGroup slots]) 
 		{ 
-			[slot showContents];
+			//[slot showContents];
 			int startTime = [[slot startTime]intValue]/100;
 			int endTime = [[slot endTime]intValue]/100;
-			printf("endTime %d",endTime);
 			int day = [[slot day]intValue];
 			for (week = 1; week <= 14; week++)
 			{
@@ -393,11 +410,6 @@
 	return NO;
 }
 
--(BOOL)checkConflictSlot:(Slot*)slot WithCurrentTimetable:(NSMutableArray*)timeTable
-{
-	
-	return NO;
-}
 
 -(void)addGroup:(NSMutableArray*)addInClassGroupInformation
 	WithTimeTable:(NSMutableArray*)timeTable
@@ -536,21 +548,21 @@
 	
 }	
 
--(void)updateWithCurrentProgress:(NSMutableArray*)newCurrentProgress With:(NSMutableArray*)addInClassGroup
+-(void)updateWithCurrentProgress:(NSMutableArray**)newCurrentProgress With:(NSMutableArray*)addInClassGroup
 {
 	int i;
-	for(i=0;i<[newCurrentProgress count];i++)
+	for(i=0;i<[*newCurrentProgress count];i++)
 	{
-		if([[[newCurrentProgress objectAtIndex:i]objectAtIndex:0] isEqual:[addInClassGroup objectAtIndex:0]])//same module
+		if([[[*newCurrentProgress objectAtIndex:i]objectAtIndex:0] isEqual:[addInClassGroup objectAtIndex:0]])//same module
 		{
-			[newCurrentProgress removeObjectAtIndex:i];
-			[newCurrentProgress insertObject:addInClassGroup atIndex:i];
+			[*newCurrentProgress removeObjectAtIndex:i];
+			[*newCurrentProgress insertObject:addInClassGroup atIndex:i];
 			break;
 		}
 	}		
 }
 
--(void)updateWithTimeTable:(NSMutableArray*)newTimeTable 
+-(void)updateWithTimeTable:(NSMutableArray**)newTimeTable 
 					  With:(NSMutableArray*)addInClassGroupInformation
 {
 	NSNumber* moduleIndex = [addInClassGroupInformation objectAtIndex:0];
@@ -570,7 +582,7 @@
 		{
 			if ([[[slot frequency] objectAtIndex:week]isEqualToString:@"YES"])
 			{
-				NSMutableArray *weekArray = [newTimeTable objectAtIndex:week];
+				NSMutableArray *weekArray = [*newTimeTable objectAtIndex:week];
 				NSMutableArray* dayArray = [weekArray objectAtIndex:day];
 				for (i=startTime; i<endTime; i++)
 				{
@@ -585,9 +597,10 @@
 	
 }
 
--(void)updateWithResult:(NSMutableArray*)newResult With:(NSMutableArray*)addInClassGroup
+-(void)updateWithResult:(NSMutableArray**)Result With:(NSMutableArray*)addInClassGroup
 {
-	[newResult addObject:addInClassGroup];
+	printf("updating----\n");
+	[*Result addObject:addInClassGroup];
 }
 
 									   

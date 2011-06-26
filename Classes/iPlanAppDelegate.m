@@ -117,28 +117,54 @@
 	printf("construct module 2103\n");
 	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
 	
+	filename = @"EE2006";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//printf("%s", [fullPath UTF8String]);
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	
+	printf("construct module 2006\n");
+	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
+	
+	filename = @"EE2006";
+	filename = [filename stringByAppendingString:@".plist"];
+	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//printf("%s", [fullPath UTF8String]);
+	data = [NSData dataWithContentsOfFile:fullPath];
+	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+	
+	printf("construct module 2007\n");
+	Module* ee2007 = [unarc decodeObjectForKey:@"module"];
+	
 	
 	[unarc finishDecoding];
 	//[unarc release];
-	printf("end release\n");
 	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
 	[moduleSample addObject:ma1104];
 	[moduleSample addObject:ma2101];
 	[moduleSample addObject:cs2103];
+	[moduleSample addObject:ee2006];
+	[moduleSample addObject:ee2007];
 	
-	printf("end module adding\n");
+	printf("modules added\n");
 	ma1104.selected = @"YES";
-	cs2103.selected = @"NO";
+	ma2101.selected = @"YES";
+	cs2103.selected = @"YES";
+	ee2006.selected = @"YES";
+	ee2007.selected = @"YES";
+	//!!!!bug: no active module
 	
-	printf("construct timetable\n");
+	printf("before timeTable init timetable\n");
 	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
-	printf("die");
+	printf("before planOneTimetable\n");
 	NSMutableArray* result = [testTable planOneTimetable];
-	printf("****************************************************");
-	for(NSMutableArray* each in result)
+	printf("****************************************************\n");
+	printf("%d result found\n",[result count]);
+	for(NSMutableArray* eachSelected in result)
 	{
-		for(NSNumber* one in each)
-			printf("%d    " ,[one intValue]);
+		for(NSNumber* info in eachSelected)
+			printf("%d    " ,[info intValue]);
 		printf("\n");
 	}
 	
