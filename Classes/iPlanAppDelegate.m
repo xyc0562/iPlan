@@ -83,67 +83,50 @@
 		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
-	NSString* filename = @"MA4255";
-	filename = [filename stringByAppendingString:@".plist"];
-	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	NSMutableData* data = [NSData dataWithContentsOfFile:fullPath];
-	NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ma4255\n");
-	Module* ma4255 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	// [unarc release];
-	
-	
-	filename = @"MA2101";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ma2101\n");
-	Module* ma2101 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	// [unarc release];
-	
-	filename = @"CS2103";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module cs2103\n");
-	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	//[unarc release];
-	
-	filename = @"EE2006";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ee2006\n");
-	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	//[unarc release];
-	
-	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
-	[moduleSample addObject:ma4255];
-	[moduleSample addObject:ma2101];
-	[moduleSample addObject:cs2103];
-	[moduleSample addObject:ee2006];
+
+	//NSString* filename = @"MA4255";
+//		
+//	filename = @"MA2101";
+//		
+//	filename = @"CS2103";
+//		filename = @"EE2006";
+//	
+//	filename = @"EE2005";
+		
+	NSMutableArray* moduleNameArray = [[NSMutableArray alloc]init];
+	NSMutableArray* moduleArray = [[NSMutableArray alloc]init];
+//	[moduleNameArray addObject:@"MA4255"];
+	[moduleNameArray addObject:@"MA2101"];
+	[moduleNameArray addObject:@"CS1102"];
+//	[moduleNameArray addObject:@"EE2001"];
+//	[moduleNameArray addObject:@"EG2401"];
+	[moduleNameArray addObject:@"EE4302"];
+//	[moduleNameArray addObject:@"EE3304"];
+	for (NSString* eachModule in moduleNameArray)
+	{
+		NSString* filename = [eachModule stringByAppendingString:@".plist"];
+		NSString*fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+		NSData*data = [NSData dataWithContentsOfFile:fullPath];
+		NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		NSLog(@"%@\n",eachModule);
+		Module* addModule = [unarc decodeObjectForKey:@"module"];
+		addModule.selected = @"YES";
+		[moduleArray addObject:addModule];
+		[unarc finishDecoding];
+		//[unarc release];
+	}
 	
 	printf("modules added\n");
-	ma4255.selected = @"YES";
-	ma2101.selected = @"YES";
-	cs2103.selected = @"NO";
-	ee2006.selected = @"YES";
+
 
 	//!!!!bug: no active module
 	
 	printf("before timeTable init timetable\n");
-	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
+	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleArray];
 	printf("before planOneTimetable\n");
 	NSMutableArray* result = [testTable planOneTimetable];
 	printf("****************************************************\n");
-	printf("%d result found\n",[result count]);
+	printf("%d class group selected\n",[result count]);
 	for(NSMutableArray* eachSelected in result)
 	{
 		for(NSNumber* info in eachSelected)
