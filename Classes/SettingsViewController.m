@@ -7,7 +7,13 @@
 //
 
 #import "SettingsViewController.h"
+#import "AboutViewController.h"
+#import "HelpViewController.h"
+#import "OptionViewController.h"
 
+#define OPTION_NAME @"Option"
+#define HELP_NAME @"Help"
+#define ABOUT_NAME @"About"
 
 @implementation SettingsViewController
 
@@ -99,17 +105,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 	NSString *row_number = [NSString stringWithFormat:@"%d", indexPath.row];
-	
-//	if([row_number isEqual:@"Option"]){
-//		[self navigationC
-//	}else if ([row_number isEqual:@"Help") {
-//		
-//	}else if ([row_number isEqual:@"About"){
-//		
-//	}else
-//		[NSException raise:@"NoImplementationException"
-//					format:@"Attampting to access non-existing button"];
-	
+	UIViewController *viewController;
+	if([row_number isEqual:OPTION_NAME]){
+		viewController = [[OptionViewController alloc] initWithNibName:@"OptionViewController" bundle:nil];
+	}else if ([row_number isEqual:HELP_NAME]) {
+		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+	}else if ([row_number isEqual:ABOUT_NAME]){
+		viewController = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+	}else{
+		printf("Error");
+	}
+	[[self navigationController] pushViewController:viewController animated:YES];
 	[row_number release];
 				
 }

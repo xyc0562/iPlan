@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "aboutViewController.h"
+#import "AboutViewController.h"
 
 
-@implementation aboutViewController
+@implementation AboutViewController
 @synthesize aboutTextView;
 @synthesize aboutMessage;
 

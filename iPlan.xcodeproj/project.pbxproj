@@ -17,13 +17,13 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* iPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */; };
 		4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */; };
-		4371925F13B8C3D800AAC77C /* aboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925A13B8C3D800AAC77C /* aboutViewController.m */; };
-		4371926013B8C3D800AAC77C /* helpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925C13B8C3D800AAC77C /* helpViewController.m */; };
-		4371926113B8C3D800AAC77C /* optionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925E13B8C3D800AAC77C /* optionViewController.m */; };
+		4371925F13B8C3D800AAC77C /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925A13B8C3D800AAC77C /* AboutViewController.m */; };
+		4371926013B8C3D800AAC77C /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925C13B8C3D800AAC77C /* HelpViewController.m */; };
+		4371926113B8C3D800AAC77C /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371925E13B8C3D800AAC77C /* OptionViewController.m */; };
 		4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4371926213B8C3E600AAC77C /* shopping_cart.png */; };
-		4371926713B8C3FA00AAC77C /* aboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926413B8C3FA00AAC77C /* aboutViewController.xib */; };
-		4371926813B8C3FA00AAC77C /* helpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926513B8C3FA00AAC77C /* helpViewController.xib */; };
-		4371926913B8C3FA00AAC77C /* optionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926613B8C3FA00AAC77C /* optionViewController.xib */; };
+		4371926713B8C3FA00AAC77C /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926413B8C3FA00AAC77C /* AboutViewController.xib */; };
+		4371926813B8C3FA00AAC77C /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926513B8C3FA00AAC77C /* HelpViewController.xib */; };
+		4371926913B8C3FA00AAC77C /* OptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4371926613B8C3FA00AAC77C /* OptionViewController.xib */; };
 		438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */; };
 		438BC7CF13B4B732003D1B52 /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */; };
 		438BC7D013B4B732003D1B52 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */; };
@@ -68,16 +68,16 @@
 		32CA4F630368D1EE00C91783 /* iPlan_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlan_Prefix.pch; sourceTree = "<group>"; };
 		4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewWithLine.h; sourceTree = "<group>"; };
 		4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewWithLine.m; sourceTree = "<group>"; };
-		4371925913B8C3D800AAC77C /* aboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutViewController.h; sourceTree = "<group>"; };
-		4371925A13B8C3D800AAC77C /* aboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutViewController.m; sourceTree = "<group>"; };
-		4371925B13B8C3D800AAC77C /* helpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpViewController.h; sourceTree = "<group>"; };
-		4371925C13B8C3D800AAC77C /* helpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpViewController.m; sourceTree = "<group>"; };
-		4371925D13B8C3D800AAC77C /* optionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = optionViewController.h; sourceTree = "<group>"; };
-		4371925E13B8C3D800AAC77C /* optionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = optionViewController.m; sourceTree = "<group>"; };
+		4371925913B8C3D800AAC77C /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		4371925A13B8C3D800AAC77C /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		4371925B13B8C3D800AAC77C /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		4371925C13B8C3D800AAC77C /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		4371925D13B8C3D800AAC77C /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
+		4371925E13B8C3D800AAC77C /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
 		4371926213B8C3E600AAC77C /* shopping_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_cart.png; sourceTree = "<group>"; };
-		4371926413B8C3FA00AAC77C /* aboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = aboutViewController.xib; path = Classes/aboutViewController.xib; sourceTree = "<group>"; };
-		4371926513B8C3FA00AAC77C /* helpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = helpViewController.xib; path = Classes/helpViewController.xib; sourceTree = "<group>"; };
-		4371926613B8C3FA00AAC77C /* optionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = optionViewController.xib; path = Classes/optionViewController.xib; sourceTree = "<group>"; };
+		4371926413B8C3FA00AAC77C /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
+		4371926513B8C3FA00AAC77C /* HelpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HelpViewController.xib; path = Classes/HelpViewController.xib; sourceTree = "<group>"; };
+		4371926613B8C3FA00AAC77C /* OptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OptionViewController.xib; path = Classes/OptionViewController.xib; sourceTree = "<group>"; };
 		438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = Classes/CalendarViewController.xib; sourceTree = "<group>"; };
 		438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleListViewController.xib; path = Classes/ModuleListViewController.xib; sourceTree = "<group>"; };
 		438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
@@ -204,9 +204,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4371926413B8C3FA00AAC77C /* aboutViewController.xib */,
-				4371926513B8C3FA00AAC77C /* helpViewController.xib */,
-				4371926613B8C3FA00AAC77C /* optionViewController.xib */,
+				4371926413B8C3FA00AAC77C /* AboutViewController.xib */,
+				4371926513B8C3FA00AAC77C /* HelpViewController.xib */,
+				4371926613B8C3FA00AAC77C /* OptionViewController.xib */,
 				438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */,
 				438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */,
 				438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */,
@@ -240,12 +240,12 @@
 		43D2F43413B0E334006EAA46 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4371925913B8C3D800AAC77C /* aboutViewController.h */,
-				4371925A13B8C3D800AAC77C /* aboutViewController.m */,
-				4371925B13B8C3D800AAC77C /* helpViewController.h */,
-				4371925C13B8C3D800AAC77C /* helpViewController.m */,
-				4371925D13B8C3D800AAC77C /* optionViewController.h */,
-				4371925E13B8C3D800AAC77C /* optionViewController.m */,
+				4371925913B8C3D800AAC77C /* AboutViewController.h */,
+				4371925A13B8C3D800AAC77C /* AboutViewController.m */,
+				4371925B13B8C3D800AAC77C /* HelpViewController.h */,
+				4371925C13B8C3D800AAC77C /* HelpViewController.m */,
+				4371925D13B8C3D800AAC77C /* OptionViewController.h */,
+				4371925E13B8C3D800AAC77C /* OptionViewController.m */,
 				43D2F44D13B0E68D006EAA46 /* ModuleListViewController.h */,
 				43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */,
 				43D2F45213B0E6B0006EAA46 /* SettingsViewController.h */,
@@ -347,9 +347,9 @@
 				438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */,
 				438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */,
 				4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */,
-				4371926713B8C3FA00AAC77C /* aboutViewController.xib in Resources */,
-				4371926813B8C3FA00AAC77C /* helpViewController.xib in Resources */,
-				4371926913B8C3FA00AAC77C /* optionViewController.xib in Resources */,
+				4371926713B8C3FA00AAC77C /* AboutViewController.xib in Resources */,
+				4371926813B8C3FA00AAC77C /* HelpViewController.xib in Resources */,
+				4371926913B8C3FA00AAC77C /* OptionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,9 +378,9 @@
 				43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */,
 				1E26105613B5AF74006CDD7B /* TimeTable.m in Sources */,
 				4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */,
-				4371925F13B8C3D800AAC77C /* aboutViewController.m in Sources */,
-				4371926013B8C3D800AAC77C /* helpViewController.m in Sources */,
-				4371926113B8C3D800AAC77C /* optionViewController.m in Sources */,
+				4371925F13B8C3D800AAC77C /* AboutViewController.m in Sources */,
+				4371926013B8C3D800AAC77C /* HelpViewController.m in Sources */,
+				4371926113B8C3D800AAC77C /* OptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

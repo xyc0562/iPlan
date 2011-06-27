@@ -10,7 +10,7 @@
 
 #define ABOUTMESSAGE @"Thanks!";
 
-@interface aboutViewController : UIViewController {
+@interface AboutViewController : UIViewController {
 	IBOutlet UITextView *aboutTextView;
 	NSString *aboutMessage;
 }

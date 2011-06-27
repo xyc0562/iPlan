@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "helpViewController.h"
+#import "HelpViewController.h"
 
 
-@implementation helpViewController
+@implementation HelpViewController
 @synthesize helpTextView;
 @synthesize helpMessage;
 

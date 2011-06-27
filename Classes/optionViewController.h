@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface optionViewController : UITableViewController {
+@interface OptionViewController : UITableViewController {
 	IBOutlet UITableView *optionTableView;
 }
 

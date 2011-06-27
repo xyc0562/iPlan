@@ -10,7 +10,7 @@
 
 #define HELPMESSAGE @"If you need help, please Call Zhan Yin Bo~~";
 
-@interface helpViewController : UIViewController {
+@interface HelpViewController : UIViewController {
 	IBOutlet UITextView *helpTextView;
 	NSString *helpMessage;
 }
