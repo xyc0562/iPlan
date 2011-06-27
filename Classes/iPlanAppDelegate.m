@@ -68,8 +68,7 @@
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
-	
-	/*
+
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -85,15 +84,7 @@
 	}
 	
 
-	//NSString* filename = @"MA4255";
-//		
-//	filename = @"MA2101";
-//		
-//	filename = @"CS2103";
-//		filename = @"EE2006";
-//	
-//	filename = @"EE2005";
-		
+
 	NSMutableArray* moduleNameArray = [[NSMutableArray alloc]init];
 	NSMutableArray* moduleArray = [[NSMutableArray alloc]init];
 //	[moduleNameArray addObject:@"MA4255"];
@@ -134,7 +125,6 @@
 			printf("%d    " ,[info intValue]);
 		printf("\n");
 	}
-	 */
 	
 
     return YES;
