@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SettingsViewController : UIViewController {
-
+@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	//IBOutlet UITableView *settingsTableView;
+	NSArray *listData;
 }
+
+//@property (nonatomic, retain) IBOutlet UITableView *settingsTableView;
+@property (nonatomic, retain) NSArray *listData;
 
 -(id)initWithTabBar;
 
