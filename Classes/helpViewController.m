@@ -10,6 +10,8 @@
 
 
 @implementation helpViewController
+@synthesize helpTextView;
+@synthesize helpMessage;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -58,6 +60,8 @@
 
 
 - (void)dealloc {
+	[helpTextView release];
+	[helpMessage release];
     [super dealloc];
 }
 

@@ -10,6 +10,8 @@
 
 
 @implementation aboutViewController
+@synthesize aboutTextView;
+@synthesize aboutMessage;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -59,6 +61,8 @@
 
 
 - (void)dealloc {
+	[aboutTextView release];
+	[aboutMessage release];
     [super dealloc];
 }
 

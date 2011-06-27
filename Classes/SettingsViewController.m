@@ -100,15 +100,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 	NSString *row_number = [NSString stringWithFormat:@"%d", indexPath.row];
 	
-	if([row_number isEqual:@"Option"]){
-		[self navigationC
-	}else if ([row_number isEqual:@"Help") {
-		
-	}else if ([row_number isEqual:@"About"){
-		
-	}else
-		[NSException raise:@"NoImplementationException"
-					format:@"Attampting to access non-existing button"];
+//	if([row_number isEqual:@"Option"]){
+//		[self navigationC
+//	}else if ([row_number isEqual:@"Help") {
+//		
+//	}else if ([row_number isEqual:@"About"){
+//		
+//	}else
+//		[NSException raise:@"NoImplementationException"
+//					format:@"Attampting to access non-existing button"];
+	
+	[row_number release];
 				
 }
 

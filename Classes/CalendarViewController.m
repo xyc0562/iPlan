@@ -13,8 +13,8 @@
 #define HEADER_ORIGIN_Y	40
 #define NUMBER_OF_ROW_LINES 16
 #define NUMBER_OF_COL_LINES 7
-#define GAP_HEIGHT 50
-#define GAP_WIDTH 90
+#define GAP_HEIGHT 30
+#define GAP_WIDTH 50
 #define TOTAL_HEIGHT (NUMBER_OF_ROW_LINES-1)*GAP_HEIGHT
 #define TOTAL_WIDTH (NUMBER_OF_COL_LINES-1)*GAP_WIDTH
 #define SCROLLVIEW_HEIGHT TOTAL_HEIGHT+HEADER_ORIGIN_Y
@@ -41,7 +41,7 @@
 		[line release];
 		if (i != NUMBER_OF_ROW_LINES -1){
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
-			label.text = [NSString stringWithFormat:@"   %d : 00",i+8];
+			label.text = [NSString stringWithFormat:@"%d:00",i+8];
 			label.textColor = [UIColor whiteColor];
 			label.backgroundColor = [UIColor blackColor];
 			[label setTag:LABEL_TAG];
