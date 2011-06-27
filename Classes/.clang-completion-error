@@ -1,34 +1,115 @@
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:13:13: error: synthesized property 'timetables' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize timetables;
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:13:13: error: synthesized property 'timeTable' must either be named the same as a compatible ivar or must explicitly name an ivar
+@synthesize timeTable;
             ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:13: error: synthesized property 'fileManager' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize fileManager;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:15:13: error: synthesized property 'moduleObjectsDict' must either be named the same as a compatible ivar or must explicitly name an ivar
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:13: error: synthesized property 'moduleObjectsDict' must either be named the same as a compatible ivar or must explicitly name an ivar
 @synthesize moduleObjectsDict;
             ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:20:9: error: use of undeclared identifier 'super'
-    if (super != nil)
-        ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:34:8: error: use of undeclared identifier 'super'
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:19:8: error: use of undeclared identifier 'super'
     if(super !=nil)
        ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:61:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:38:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
     NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
                     ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:83:18: warning: method '+ModuleWithModuleCode:' not found (return type defaults to 'id')
-        module = [Module ModuleWithModuleCode:code];
-                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:117:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
-    return module.examinable;
-           ^~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:131:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
-    return module.openBook;
-           ^~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:138:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'NSInteger' (aka 'long')
-    return module.moduleCredit;
-           ^~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:179:13: error: interface type cannot be statically allocated
-    NSArray classTypes = module.
-            ^
-5 warnings and 6 errors generated.
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:70:9: warning: method '-initWithTimeTables:' not found (return type defaults to 'id')
+        [self initWithTimeTables:[decoder decodeObjectForKey:@"modules"]];
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:109:16: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
+        return module.examinable;
+               ^~~~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:113:16: warning: incompatible pointer to integer conversion returning 'void *' from a function with result type 'BOOL' (aka 'signed char')
+        return nil;
+               ^~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:38:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h:48:
+/System/Library/Frameworks/CoreServices.framework/Headers/../Frameworks/CarbonCore.framework/Headers/MacTypes.h:69:17: note: instantiated from:
+    #define nil NULL
+                ^
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:22:
+/Developer/usr/lib/clang/1.7/include/stddef.h:46:14: note: instantiated from:
+#define NULL ((void*)0)
+             ^~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:137:16: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
+        return module.openBook;
+               ^~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:141:16: warning: incompatible pointer to integer conversion returning 'void *' from a function with result type 'BOOL' (aka 'signed char')
+        return nil;
+               ^~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:38:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h:48:
+/System/Library/Frameworks/CoreServices.framework/Headers/../Frameworks/CarbonCore.framework/Headers/MacTypes.h:69:17: note: instantiated from:
+    #define nil NULL
+                ^
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:22:
+/Developer/usr/lib/clang/1.7/include/stddef.h:46:14: note: instantiated from:
+#define NULL ((void*)0)
+             ^~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:151:16: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'NSInteger' (aka 'long')
+        return module.moduleCredit;
+               ^~~~~~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:155:16: warning: incompatible pointer to integer conversion returning 'void *' from a function with result type 'NSInteger' (aka 'long')
+        return nil;
+               ^~~
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:38:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h:48:
+/System/Library/Frameworks/CoreServices.framework/Headers/../Frameworks/CarbonCore.framework/Headers/MacTypes.h:69:17: note: instantiated from:
+    #define nil NULL
+                ^
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:6:
+In file included from /System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h:22:
+/Developer/usr/lib/clang/1.7/include/stddef.h:46:14: note: instantiated from:
+#define NULL ((void*)0)
+             ^~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:267:22: error: property 'isEqualToString' not found on object of type 'ModuleClassType *'
+            if ([MCT.isEqualToString:type])
+                     ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:273:25: error: use of undeclared identifier 'NSMuatableArray'; did you mean 'NSMutableArray'?
+                        NSMuatableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                        ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:273:42: error: use of undeclared identifier 'arr'
+                        NSMuatableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                                         ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:276:49: warning: missing sentinel in method dispatch
+                            NSArray *one_time = [NSArray arrayWithObjects:s.day, s.startTime, s.endTime];
+                                                ^
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:10:
+/System/Library/Frameworks/Foundation.framework/Headers/NSArray.h:87:1: note: method has been explicitly marked sentinel here
++ (id)arrayWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
+^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:277:30: error: use of undeclared identifier 'arr'
+                            [arr addObject:one_time];
+                             ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:279:33: error: use of undeclared identifier 'arr'
+                        return [arr autorelease];
+                                ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:304:22: error: property 'isEqualToString' not found on object of type 'ModuleClassType *'
+            if ([MCT.isEqualToString:type])
+                     ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:310:25: error: use of undeclared identifier 'NSMuatableArray'; did you mean 'NSMutableArray'?
+                        NSMuatableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                        ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:310:42: error: use of undeclared identifier 'arr'
+                        NSMuatableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                                         ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:313:30: error: use of undeclared identifier 'arr'
+                            [arr addObject:s.
+                             ^
+9 warnings and 12 errors generated.
