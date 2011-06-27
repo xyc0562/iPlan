@@ -39,8 +39,8 @@
 	
 	// for tab bar controllers
 	
-	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
-	
+	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+		
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
 	
@@ -69,6 +69,7 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 	
+	/*
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -133,6 +134,7 @@
 			printf("%d    " ,[info intValue]);
 		printf("\n");
 	}
+	 */
 	
 
     return YES;

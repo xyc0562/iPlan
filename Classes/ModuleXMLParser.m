@@ -320,8 +320,6 @@
                                                                      WithSelected:@"NO"
                                                               WithModuleClassType:moduleClassTypesUnderConstruction];
 
-            //[moduleUnderConstruction showContents];
-
             // Encoding
 
             NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
