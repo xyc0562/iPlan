@@ -7,9 +7,11 @@
 //
 
 #import "SettingsViewController.h"
-#import "AboutViewController.h"
 #import "HelpViewController.h"
 #import "OptionViewController.h"
+
+#import "AppDelegateProtocol.h"
+#import "SharedAppDataObject.h"
 
 @implementation SettingsViewController
 
@@ -20,6 +22,20 @@
 
 @synthesize settingsTableView;
 @synthesize settingsList;
+
+
+
+#pragma mark -
+#pragma mark instance methods
+
+- (SharedAppDataObject*) theAppDataObject
+{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -162,10 +178,15 @@
 	}else if (row_number == 1) {
 		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
 	}else if (row_number == 2){
-		viewController = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
 	}else{
 		printf("Error");
 	}
+	
+	//set shared object
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.settingsIdentity = [[[NSString alloc] initWithFormat:@"%d", row_number] autorelease];
+	
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
 }

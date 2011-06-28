@@ -16,12 +16,19 @@
 #import "ModuleXMLParser.h"
 #import "ModelLogic.h"
 
+#import "AppDelegateProtocol.h"
+#import "SharedAppDataObject.h"
+
 
 @implementation iPlanAppDelegate
+
+#pragma mark -
+#pragma mark synthesize
 
 @synthesize window;
 @synthesize viewController;
 @synthesize tabBarController;
+@synthesize theAppDataObject;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -33,7 +40,7 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
-
+	
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
@@ -42,7 +49,7 @@
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
 	
 	
-	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
+	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	
 	CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
 	localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
@@ -64,12 +71,11 @@
 	
 	tabBarController.viewControllers = localControllerArray;
 	[localControllerArray release];
-	
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 
-	
+/*	
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -127,7 +133,7 @@
 		printf("\n");
 	}
 	
-
+*/
     return YES;
 }
 
@@ -173,6 +179,12 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (id) init{
+	self.theAppDataObject = [[SharedAppDataObject alloc] init];
+	[theAppDataObject release];
+	return [super init];
+}
+
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     /*
       Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
@@ -184,6 +196,8 @@
     [tabBarController release];
     [viewController release];
     [window release];
+	self.theAppDataObject = nil;
+	
     [super dealloc];
 }
 

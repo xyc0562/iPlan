@@ -7,6 +7,9 @@
 //
 
 #import "ModuleListViewController.h"
+#import	"ModuleInfoViewController.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 
 
 @implementation ModuleListViewController
@@ -16,6 +19,17 @@
 #pragma mark synthesize
 @synthesize moduleListTableView;
 @synthesize moduleList;
+
+#pragma mark -
+#pragma mark instance method
+
+- (SharedAppDataObject*) theAppDataObject
+{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
 
 
 #pragma mark -
@@ -151,14 +165,16 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    */
+    NSUInteger row_number = [indexPath row];
+	UIViewController *viewController;
+	viewController = [[ModuleInfoViewController alloc] initWithNibName:@"ModuleInfoViewController" bundle:nil];
+	
+	//set shared object
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
+	
+	[[self navigationController] pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 

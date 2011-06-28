@@ -10,7 +10,11 @@
 
 
 @interface ModuleInfoViewController : UIViewController {
-
+	NSString *moduleCode;
+	UITextView *moduleDisplay;
 }
+
+@property (nonatomic, copy) NSString *moduleCode;
+@property (nonatomic, retain) IBOutlet UITextView *moduleDisplay;
 
 @end
