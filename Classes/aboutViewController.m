@@ -8,7 +8,7 @@
 
 #import "AboutViewController.h"
 
-#define ABOUTMESSAGE @"Thanks!";
+#define ABOUTMESSAGE @"Thanks!"
 
 
 @implementation AboutViewController
