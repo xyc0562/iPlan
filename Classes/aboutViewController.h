@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#define ABOUTMESSAGE @"Thanks!";
-
 @interface AboutViewController : UIViewController {
-	IBOutlet UITextView *aboutTextView;
-	NSString *aboutMessage;
+	UITextView *aboutTextView;
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *aboutTextView;
-@property (nonatomic, retain) NSString * aboutMessage;
 
 @end

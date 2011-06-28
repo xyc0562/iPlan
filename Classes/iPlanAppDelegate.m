@@ -38,11 +38,11 @@
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
-	
-	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
-		
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
+	
+	
+	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	
 	CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
 	localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
@@ -69,6 +69,7 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 
+	
 	printf("test algo\n");
 	
 	//Test for main Algo

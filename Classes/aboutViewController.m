@@ -8,13 +8,23 @@
 
 #import "AboutViewController.h"
 
+#define ABOUTMESSAGE @"Thanks!";
+
 
 @implementation AboutViewController
+
+
+#pragma mark -
+#pragma mark synthesize
+
 @synthesize aboutTextView;
-@synthesize aboutMessage;
+
+
+#pragma mark -
+#pragma mark view lifecycle
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -22,19 +32,14 @@
     }
     return self;
 }
-*/
 
-//Set the message in the text field
-- (void)setMessage{
-	aboutTextView.text = aboutMessage;	
-}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	aboutMessage = ABOUTMESSAGE;
     [super viewDidLoad];
+	aboutTextView.text = ABOUTMESSAGE;
 	self.view = aboutTextView;
-	[self setMessage];
 }
 
 
@@ -54,6 +59,7 @@
 }
 
 - (void)viewDidUnload {
+	self.aboutTextView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -62,7 +68,6 @@
 
 - (void)dealloc {
 	[aboutTextView release];
-	[aboutMessage release];
     [super dealloc];
 }
 

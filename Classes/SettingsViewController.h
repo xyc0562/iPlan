@@ -2,20 +2,20 @@
 //  SettingsViewController.h
 //  iPlan
 //
-//  Created by Zhang Ying on 6/21/11.
-//  Copyright 2011 SoC. All rights reserved.
+//  Created by Zhao Cong on 6/28/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 
-@interface SettingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	//IBOutlet UITableView *settingsTableView;
-	NSArray *listData;
+@interface SettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *settingsTableView;
+	NSArray *settingsList;
 }
 
-//@property (nonatomic, retain) IBOutlet UITableView *settingsTableView;
-@property (nonatomic, retain) NSArray *listData;
+@property (nonatomic, retain) IBOutlet UITableView *settingsTableView;
+@property (nonatomic, retain) NSArray *settingsList;
 
 -(id)initWithTabBar;
 
