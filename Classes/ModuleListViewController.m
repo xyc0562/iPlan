@@ -37,7 +37,7 @@
 
 
 - (void)viewDidLoad {
-	NSArray *array = [[NSArray alloc] initWithObjects:@"CS1101",@"CS1102",@"CS2100",nil];
+	NSArray *array = [[NSArray alloc] initWithObjects:@"CH1101E",@"CS1102",nil];
 	self.moduleList = array;
 	[array release];
     [super viewDidLoad];
