@@ -27,7 +27,7 @@
     return self;
 }
 
-+(NSArray*) getAllModuleCodes
+- (NSArray*) getAllModuleCodes
 {
     // Get directory path that stores the module objects
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -67,7 +67,7 @@
 {
     if([super init]!=nil)
     {
-        [self initWithTimeTables:[decoder decodeObjectForKey:@"modules"]];
+        [self initWithTimeTable:[decoder decodeObjectForKey:@"modules"]];
     }
     return self;
 }
@@ -100,7 +100,7 @@
     }
 }
 
-- (BOOL) isExaminableFromModule:(NSString*)code
+- (NSString*) isExaminableFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -128,7 +128,7 @@
     }
 }
 
-- (BOOL) isOpenbookFromModule:(NSString*)code
+- (NSString*) isOpenbookFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -142,7 +142,7 @@
     }
 }
 
-- (NSInteger) getMCFromModule:(NSString*)code
+- (NSString*) getMCFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -264,7 +264,7 @@
         NSArray *classTypes = module.moduleClassTypes;
         for (ModuleClassType* MCT in classTypes)
         {
-            if ([MCT isEqualToString:type])
+            if ([MCT.name isEqualToString:type])
             {
                 for (ClassGroup *CG in MCT.classGroups)
                 {
@@ -273,7 +273,7 @@
                         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
                         for (Slot *s in CG.slots)
                         {
-                            NSArray *one_time = [NSArray arrayWithObjects:s.day, s.startTime, s.endTime];
+                            NSArray *one_time = [NSArray arrayWithObjects:s.day, s.startTime, s.endTime, nil];
                             [arr addObject:one_time];
                         }
                         return [arr autorelease];
@@ -301,7 +301,7 @@
         NSArray *classTypes = module.moduleClassTypes;
         for (ModuleClassType* MCT in classTypes)
         {
-            if ([MCT isEqualToString:type])
+            if ([MCT.name isEqualToString:type])
             {
                 for (ClassGroup *CG in MCT.classGroups)
                 {
@@ -336,7 +336,7 @@
         NSArray *classTypes = module.moduleClassTypes;
         for (ModuleClassType* MCT in classTypes)
         {
-            if ([MCT isEqualToString:type])
+            if ([MCT.name isEqualToString:type])
             {
                 for (ClassGroup *CG in MCT.classGroups)
                 {
@@ -362,6 +362,56 @@
     }
 }
 
+// Not retained!
+- (NSArray*) getExamDatesTogetherWithConflitsInformation
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+
+    // space holder
+    [arr addObject:@"YES"];
+
+    // Construct array
+    for (Module *module in self.timeTable.modules)
+    {
+        if ([module.selected isEqualToString:MODULE_ACTIVE])
+        {
+            NSArray *subArr = [NSArray arrayWithObjects:module.code, module.examDate, nil];
+            [arr addObject:subArr];
+        }
+    }
+
+    // Finding conflicts
+    NSString *conflict = @"NO";
+    for (int i = 1; i < [arr count]; i++)
+    {
+        for (int j = i + 1; j < [arr count]; j++)
+        {
+            if (![[arr objectAtIndex:i] isEqualToString:MODULE_EXAM_NO_EXAM] && [[arr objectAtIndex:i] isEqualToString:[arr objectAtIndex:j]])
+            {
+                conflict = @"YES";
+            }
+        }
+    }
+
+    [arr replaceObjectAtIndex:0 withObject:conflict];
+
+    return [arr autorelease];
+}
+
+// Not retained!
+- (NSArray*) getActiveModules
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+    for (Module *module in self.timeTable.modules)
+    {
+        if ([module.selected isEqualToString:MODULE_ACTIVE])
+        {
+            [arr addObject:module.code];
+        }
+    }
+
+    return [arr autorelease];
+}
 
 
 -(void)dealloc
