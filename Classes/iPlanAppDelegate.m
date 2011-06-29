@@ -16,12 +16,19 @@
 #import "ModuleXMLParser.h"
 #import "ModelLogic.h"
 
+#import "AppDelegateProtocol.h"
+#import "SharedAppDataObject.h"
+
 
 @implementation iPlanAppDelegate
+
+#pragma mark -
+#pragma mark synthesize
 
 @synthesize window;
 @synthesize viewController;
 @synthesize tabBarController;
+@synthesize theAppDataObject;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -33,42 +40,42 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
-
+	
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
+	tabBarController = [[UITabBarController alloc] init];
+	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
 	
-	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	
-	// tabBarController = [[UITabBarController alloc] init];
-	// NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
+	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	
-	// CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
-	// localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
-	// [localControllerArray addObject:localNavigationController];
-	// [localNavigationController release];
-	// [calendarController release];
+	CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[calendarController release];
 	
-	// ModuleListViewController* moduleController = [[ModuleListViewController alloc] initWithTabBar];
-	// localNavigationController = [[UINavigationController alloc] initWithRootViewController:moduleController];
-	// [localControllerArray addObject:localNavigationController];
-	// [localNavigationController release];
-	// [moduleController release];
+	ModuleListViewController* moduleController = [[ModuleListViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:moduleController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[moduleController release];
 	
-	// SettingsViewController* settingsController = [[SettingsViewController alloc] initWithTabBar];
-	// localNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-	// [localControllerArray addObject:localNavigationController];
-	// [localNavigationController release];
-	// [settingsController release];
+	SettingsViewController* settingsController = [[SettingsViewController alloc] initWithTabBar];
+	localNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsController];
+	[localControllerArray addObject:localNavigationController];
+	[localNavigationController release];
+	[settingsController release];
 	
-	// tabBarController.viewControllers = localControllerArray;
-	// [localControllerArray release];
-	
-	// // Add the tab bar controller's current view as a subview of the window
-	// [window addSubview:tabBarController.view];
-	// [window makeKeyAndVisible];
-	
+	tabBarController.viewControllers = localControllerArray;
+	[localControllerArray release];
+	// Add the tab bar controller's current view as a subview of the window
+	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
+
+/*	
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -83,67 +90,42 @@
 		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
-	NSString* filename = @"MA4255";
-	filename = [filename stringByAppendingString:@".plist"];
-	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	NSMutableData* data = [NSData dataWithContentsOfFile:fullPath];
-	NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ma4255\n");
-	Module* ma4255 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	// [unarc release];
-	
-	
-	filename = @"MA2101";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ma2101\n");
-	Module* ma2101 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	// [unarc release];
-	
-	filename = @"CS2103";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module cs2103\n");
-	Module* cs2103 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	//[unarc release];
-	
-	filename = @"EE2006";
-	filename = [filename stringByAppendingString:@".plist"];
-	fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	data = [NSData dataWithContentsOfFile:fullPath];
-	unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-	printf("construct module ee2006\n");
-	Module* ee2006 = [unarc decodeObjectForKey:@"module"];
-	[unarc finishDecoding];
-	//[unarc release];
-	
-	NSMutableArray* moduleSample = [[NSMutableArray alloc]init];
-	[moduleSample addObject:ma4255];
-	[moduleSample addObject:ma2101];
-	[moduleSample addObject:cs2103];
-	[moduleSample addObject:ee2006];
+
+
+	NSMutableArray* moduleNameArray = [[NSMutableArray alloc]init];
+	NSMutableArray* moduleArray = [[NSMutableArray alloc]init];
+//	[moduleNameArray addObject:@"MA4255"];
+	[moduleNameArray addObject:@"MA2101"];
+	[moduleNameArray addObject:@"CS1102"];
+//	[moduleNameArray addObject:@"EE2001"];
+//	[moduleNameArray addObject:@"EG2401"];
+	[moduleNameArray addObject:@"EE4302"];
+//	[moduleNameArray addObject:@"EE3304"];
+	for (NSString* eachModule in moduleNameArray)
+	{
+		NSString* filename = [eachModule stringByAppendingString:@".plist"];
+		NSString*fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+		NSData*data = [NSData dataWithContentsOfFile:fullPath];
+		NSKeyedUnarchiver* unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		NSLog(@"%@\n",eachModule);
+		Module* addModule = [unarc decodeObjectForKey:@"module"];
+		addModule.selected = @"YES";
+		[moduleArray addObject:addModule];
+		[unarc finishDecoding];
+		//[unarc release];
+	}
 	
 	printf("modules added\n");
-	ma4255.selected = @"YES";
-	ma2101.selected = @"YES";
-	cs2103.selected = @"NO";
-	ee2006.selected = @"YES";
+
 
 	//!!!!bug: no active module
 	
 	printf("before timeTable init timetable\n");
-	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleSample];
+	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleArray];
 	printf("before planOneTimetable\n");
 	NSMutableArray* result = [testTable planOneTimetable];
 	printf("****************************************************\n");
-	printf("%d result found\n",[result count]);
+	printf("%d class group selected\n",[result count]);
 	for(NSMutableArray* eachSelected in result)
 	{
 		for(NSNumber* info in eachSelected)
@@ -151,7 +133,7 @@
 		printf("\n");
 	}
 	
-
+*/
     return YES;
 }
 
@@ -197,6 +179,12 @@
 #pragma mark -
 #pragma mark Memory management
 
+- (id) init{
+	self.theAppDataObject = [[SharedAppDataObject alloc] init];
+	[theAppDataObject release];
+	return [super init];
+}
+
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     /*
       Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
@@ -208,6 +196,8 @@
     [tabBarController release];
     [viewController release];
     [window release];
+	self.theAppDataObject = nil;
+	
     [super dealloc];
 }
 

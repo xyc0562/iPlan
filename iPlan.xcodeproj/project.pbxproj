@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05CC47BA13BA23500075B186 /* AppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47B913BA23500075B186 /* AppDataObject.m */; };
+		05CC47BD13BA24760075B186 /* SharedAppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47BC13BA24760075B186 /* SharedAppDataObject.m */; };
 		1D3623260D0F684500981E51 /* iPlanAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iPlanAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -16,20 +18,31 @@
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* iPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */; };
+		2F18842113B9CA3B006DCC66 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842013B9CA3B006DCC66 /* logo.png */; };
+		2F18843013B9D03F006DCC66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18842E13B9D03F006DCC66 /* SettingsViewController.m */; };
+		2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */; };
+		2F18849813B9D66A006DCC66 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18849613B9D66A006DCC66 /* OptionViewController.m */; };
+		2F18849913B9D66A006DCC66 /* OptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F18849713B9D66A006DCC66 /* OptionViewController.xib */; };
+		2F1884D313B9DA79006DCC66 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1884D113B9DA79006DCC66 /* HelpViewController.m */; };
+		2F1884D413B9DA79006DCC66 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1884D213B9DA79006DCC66 /* HelpViewController.xib */; };
+		2F468A4C13BA03C40087DC3E /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */; };
+		2F468A4D13BA03C40087DC3E /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F468A4B13BA03C40087DC3E /* ModuleListViewController.xib */; };
+		2F468A7313BA07570087DC3E /* TimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F468A7113BA07570087DC3E /* TimeTableViewController.m */; };
+		2F468A7413BA07570087DC3E /* TimeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F468A7213BA07570087DC3E /* TimeTableViewController.xib */; };
+		2FD7C7F213BB11FB00B00C99 /* ModuleInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */; };
+		2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */; };
+		2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */; };
+		2FD7C8CF13BB2DB000B00C99 /* ModuleInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */; };
 		4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */; };
+		4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4371926213B8C3E600AAC77C /* shopping_cart.png */; };
 		438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */; };
-		438BC7CF13B4B732003D1B52 /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */; };
-		438BC7D013B4B732003D1B52 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */; };
 		438BC7D813B4B78E003D1B52 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D113B4B78E003D1B52 /* calendar.png */; };
 		438BC7D913B4B78E003D1B52 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D213B4B78E003D1B52 /* gear.png */; };
 		438BC7DA13B4B78E003D1B52 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D313B4B78E003D1B52 /* pencil.png */; };
 		438BC7DB13B4B78E003D1B52 /* runner.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D413B4B78E003D1B52 /* runner.png */; };
 		438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D513B4B78E003D1B52 /* selected_tab_item.png */; };
 		438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D613B4B78E003D1B52 /* tab bar.png */; };
-		438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D713B4B78E003D1B52 /* tab_bar.png */; };
 		43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44913B0E65F006EAA46 /* CalendarViewController.m */; };
-		43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */; };
-		43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */; };
 		B6491D6013AF8B7200782587 /* IPlanUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B6491D5F13AF8B7200782587 /* IPlanUtility.m */; };
 		B6ED0D7213AC8BFB003C229D /* ModuleXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D7113AC8BFB003C229D /* ModuleXMLParser.m */; };
 		B6ED0D8213AC9F02003C229D /* XMLFaculty.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D8113AC9F02003C229D /* XMLFaculty.m */; };
@@ -44,6 +57,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05CC47B713BA231D0075B186 /* AppDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegateProtocol.h; sourceTree = "<group>"; };
+		05CC47B813BA23500075B186 /* AppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDataObject.h; sourceTree = "<group>"; };
+		05CC47B913BA23500075B186 /* AppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataObject.m; sourceTree = "<group>"; };
+		05CC47BB13BA24760075B186 /* SharedAppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedAppDataObject.h; sourceTree = "<group>"; };
+		05CC47BC13BA24760075B186 /* SharedAppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedAppDataObject.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iPlanAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlanAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iPlanAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanAppDelegate.m; sourceTree = "<group>"; };
@@ -58,25 +76,41 @@
 		28D7ACF60DDB3853001CB0EB /* iPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlanViewController.h; sourceTree = "<group>"; };
 		28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2F18842013B9CA3B006DCC66 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		2F18842D13B9D03F006DCC66 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2F18842E13B9D03F006DCC66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
+		2F18849513B9D66A006DCC66 /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
+		2F18849613B9D66A006DCC66 /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
+		2F18849713B9D66A006DCC66 /* OptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OptionViewController.xib; path = Classes/OptionViewController.xib; sourceTree = "<group>"; };
+		2F1884D013B9DA79006DCC66 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		2F1884D113B9DA79006DCC66 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		2F1884D213B9DA79006DCC66 /* HelpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HelpViewController.xib; path = Classes/HelpViewController.xib; sourceTree = "<group>"; };
+		2F468A4913BA03C40087DC3E /* ModuleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleListViewController.h; sourceTree = "<group>"; };
+		2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleListViewController.m; sourceTree = "<group>"; };
+		2F468A4B13BA03C40087DC3E /* ModuleListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleListViewController.xib; path = Classes/ModuleListViewController.xib; sourceTree = "<group>"; };
+		2F468A7013BA07570087DC3E /* TimeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewController.h; sourceTree = "<group>"; };
+		2F468A7113BA07570087DC3E /* TimeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewController.m; sourceTree = "<group>"; };
+		2F468A7213BA07570087DC3E /* TimeTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeTableViewController.xib; path = Classes/TimeTableViewController.xib; sourceTree = "<group>"; };
+		2FD7C7EF13BB11FB00B00C99 /* ModuleInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleInfoViewController.h; sourceTree = "<group>"; };
+		2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleInfoViewController.m; sourceTree = "<group>"; };
+		2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleInfoViewController.xib; path = Classes/ModuleInfoViewController.xib; sourceTree = "<group>"; };
+		2FD7C8CB13BB2DB000B00C99 /* ModuleInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleInfoCell.h; sourceTree = "<group>"; };
+		2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleInfoCell.m; sourceTree = "<group>"; };
+		2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleInfoCell.xib; path = Classes/ModuleInfoCell.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iPlan_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlan_Prefix.pch; sourceTree = "<group>"; };
 		4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewWithLine.h; sourceTree = "<group>"; };
 		4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewWithLine.m; sourceTree = "<group>"; };
+		4371926213B8C3E600AAC77C /* shopping_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_cart.png; sourceTree = "<group>"; };
 		438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = Classes/CalendarViewController.xib; sourceTree = "<group>"; };
-		438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleListViewController.xib; path = Classes/ModuleListViewController.xib; sourceTree = "<group>"; };
-		438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
 		438BC7D113B4B78E003D1B52 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = calendar.png; path = images/calendar.png; sourceTree = SOURCE_ROOT; };
 		438BC7D213B4B78E003D1B52 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = images/gear.png; sourceTree = SOURCE_ROOT; };
 		438BC7D313B4B78E003D1B52 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pencil.png; path = images/pencil.png; sourceTree = SOURCE_ROOT; };
 		438BC7D413B4B78E003D1B52 /* runner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runner.png; path = images/runner.png; sourceTree = SOURCE_ROOT; };
 		438BC7D513B4B78E003D1B52 /* selected_tab_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selected_tab_item.png; path = images/selected_tab_item.png; sourceTree = SOURCE_ROOT; };
 		438BC7D613B4B78E003D1B52 /* tab bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab bar.png"; path = "images/tab bar.png"; sourceTree = SOURCE_ROOT; };
-		438BC7D713B4B78E003D1B52 /* tab_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_bar.png; path = images/tab_bar.png; sourceTree = SOURCE_ROOT; };
 		43D2F44813B0E65F006EAA46 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		43D2F44913B0E65F006EAA46 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		43D2F44D13B0E68D006EAA46 /* ModuleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleListViewController.h; sourceTree = "<group>"; };
-		43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleListViewController.m; sourceTree = "<group>"; };
-		43D2F45213B0E6B0006EAA46 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* iPlan-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPlan-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B6491D5E13AF8B7200782587 /* IPlanUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPlanUtility.h; sourceTree = "<group>"; };
 		B6491D5F13AF8B7200782587 /* IPlanUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPlanUtility.m; sourceTree = "<group>"; };
@@ -188,8 +222,13 @@
 			isa = PBXGroup;
 			children = (
 				438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */,
-				438BC7CC13B4B732003D1B52 /* ModuleListViewController.xib */,
-				438BC7CD13B4B732003D1B52 /* SettingsViewController.xib */,
+				2F1884D213B9DA79006DCC66 /* HelpViewController.xib */,
+				2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */,
+				2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */,
+				2F468A4B13BA03C40087DC3E /* ModuleListViewController.xib */,
+				2F18849713B9D66A006DCC66 /* OptionViewController.xib */,
+				2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */,
+				2F468A7213BA07570087DC3E /* TimeTableViewController.xib */,
 				B6FE12F813B0E67900570671 /* cors.xml */,
 				2899E5210DE3E06400AC0155 /* iPlanViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -213,6 +252,11 @@
 			children = (
 				4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */,
 				4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */,
+				05CC47B713BA231D0075B186 /* AppDelegateProtocol.h */,
+				05CC47B813BA23500075B186 /* AppDataObject.h */,
+				05CC47B913BA23500075B186 /* AppDataObject.m */,
+				05CC47BB13BA24760075B186 /* SharedAppDataObject.h */,
+				05CC47BC13BA24760075B186 /* SharedAppDataObject.m */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -220,12 +264,22 @@
 		43D2F43413B0E334006EAA46 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				43D2F44D13B0E68D006EAA46 /* ModuleListViewController.h */,
-				43D2F44E13B0E68D006EAA46 /* ModuleListViewController.m */,
-				43D2F45213B0E6B0006EAA46 /* SettingsViewController.h */,
-				43D2F45313B0E6B0006EAA46 /* SettingsViewController.m */,
+				2F1884D013B9DA79006DCC66 /* HelpViewController.h */,
+				2F1884D113B9DA79006DCC66 /* HelpViewController.m */,
+				2F18849513B9D66A006DCC66 /* OptionViewController.h */,
+				2F18849613B9D66A006DCC66 /* OptionViewController.m */,
 				43D2F44813B0E65F006EAA46 /* CalendarViewController.h */,
 				43D2F44913B0E65F006EAA46 /* CalendarViewController.m */,
+				2F18842D13B9D03F006DCC66 /* SettingsViewController.h */,
+				2F18842E13B9D03F006DCC66 /* SettingsViewController.m */,
+				2FD7C7EF13BB11FB00B00C99 /* ModuleInfoViewController.h */,
+				2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */,
+				2FD7C8CB13BB2DB000B00C99 /* ModuleInfoCell.h */,
+				2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */,
+				2F468A4913BA03C40087DC3E /* ModuleListViewController.h */,
+				2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */,
+				2F468A7013BA07570087DC3E /* TimeTableViewController.h */,
+				2F468A7113BA07570087DC3E /* TimeTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -233,13 +287,14 @@
 		43D2F46413B0EA0B006EAA46 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4371926213B8C3E600AAC77C /* shopping_cart.png */,
 				438BC7D113B4B78E003D1B52 /* calendar.png */,
 				438BC7D213B4B78E003D1B52 /* gear.png */,
+				2F18842013B9CA3B006DCC66 /* logo.png */,
 				438BC7D313B4B78E003D1B52 /* pencil.png */,
 				438BC7D413B4B78E003D1B52 /* runner.png */,
 				438BC7D513B4B78E003D1B52 /* selected_tab_item.png */,
 				438BC7D613B4B78E003D1B52 /* tab bar.png */,
-				438BC7D713B4B78E003D1B52 /* tab_bar.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -310,15 +365,21 @@
 				2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */,
 				B6FE12F913B0E67900570671 /* cors.xml in Resources */,
 				438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */,
-				438BC7CF13B4B732003D1B52 /* ModuleListViewController.xib in Resources */,
-				438BC7D013B4B732003D1B52 /* SettingsViewController.xib in Resources */,
 				438BC7D813B4B78E003D1B52 /* calendar.png in Resources */,
 				438BC7D913B4B78E003D1B52 /* gear.png in Resources */,
 				438BC7DA13B4B78E003D1B52 /* pencil.png in Resources */,
 				438BC7DB13B4B78E003D1B52 /* runner.png in Resources */,
 				438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */,
 				438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */,
-				438BC7DE13B4B78E003D1B52 /* tab_bar.png in Resources */,
+				4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */,
+				2F18842113B9CA3B006DCC66 /* logo.png in Resources */,
+				2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */,
+				2F18849913B9D66A006DCC66 /* OptionViewController.xib in Resources */,
+				2F1884D413B9DA79006DCC66 /* HelpViewController.xib in Resources */,
+				2F468A4D13BA03C40087DC3E /* ModuleListViewController.xib in Resources */,
+				2F468A7413BA07570087DC3E /* TimeTableViewController.xib in Resources */,
+				2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */,
+				2FD7C8CF13BB2DB000B00C99 /* ModuleInfoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,10 +404,17 @@
 				B6ED0EC913ADE1F8003C229D /* Slot.m in Sources */,
 				B6491D6013AF8B7200782587 /* IPlanUtility.m in Sources */,
 				43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */,
-				43D2F44F13B0E68D006EAA46 /* ModuleListViewController.m in Sources */,
-				43D2F45413B0E6B0006EAA46 /* SettingsViewController.m in Sources */,
 				1E26105613B5AF74006CDD7B /* TimeTable.m in Sources */,
 				4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */,
+				2F18843013B9D03F006DCC66 /* SettingsViewController.m in Sources */,
+				2F18849813B9D66A006DCC66 /* OptionViewController.m in Sources */,
+				2F1884D313B9DA79006DCC66 /* HelpViewController.m in Sources */,
+				2F468A4C13BA03C40087DC3E /* ModuleListViewController.m in Sources */,
+				2F468A7313BA07570087DC3E /* TimeTableViewController.m in Sources */,
+				05CC47BA13BA23500075B186 /* AppDataObject.m in Sources */,
+				05CC47BD13BA24760075B186 /* SharedAppDataObject.m in Sources */,
+				2FD7C7F213BB11FB00B00C99 /* ModuleInfoViewController.m in Sources */,
+				2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

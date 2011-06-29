@@ -1,35 +1,22 @@
 //
-//  ModuleListViewController.m
+//  OptionViewController.m
 //  iPlan
 //
 //  Created by Zhao Cong on 6/28/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ModuleListViewController.h"
-#import	"ModuleInfoViewController.h"
-#import "SharedAppDataObject.h"
-#import "AppDelegateProtocol.h"
+#import "OptionViewController.h"
 
 
-@implementation ModuleListViewController
+@implementation OptionViewController
 
 
 #pragma mark -
 #pragma mark synthesize
-@synthesize moduleListTableView;
-@synthesize moduleList;
 
-#pragma mark -
-#pragma mark instance method
-
-- (SharedAppDataObject*) theAppDataObject
-{
-	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
-	SharedAppDataObject* theDataObject;
-	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
-	return theDataObject;
-}
+@synthesize optionTableView;
+@synthesize optionsList;
 
 
 #pragma mark -
@@ -37,23 +24,10 @@
 
 
 - (void)viewDidLoad {
-	NSArray *array = [[NSArray alloc] initWithObjects:@"CH1101E",@"CS1102",nil];
-	self.moduleList = array;
-	[array release];
     [super viewDidLoad];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-
-- (id)initWithTabBar{
-	if (self = [super initWithNibName:@"ModuleListViewController" bundle:nil]){
-		self.title = @"Builder";
-		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
-		self.navigationController.title = @"nav title";
-	}
-	return self;
 }
 
 
@@ -97,26 +71,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [self.moduleList count];
+    return 1;
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ModuleListTableIdentifier = @"ModuleListTableIdentifier";
+    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ModuleListTableIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ModuleListTableIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	
+    
     // Configure the cell...
-    NSUInteger row = [indexPath row];
-	cell.textLabel.text = [moduleList objectAtIndex:row];
-	
-	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-	
+    
     return cell;
 }
 
@@ -165,16 +135,14 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger row_number = [indexPath row];
-	UIViewController *viewController;
-	viewController = [[ModuleInfoViewController alloc] initWithNibName:@"ModuleInfoViewController" bundle:nil];
-	
-	//set shared object
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
-	
-	[[self navigationController] pushViewController:viewController animated:YES];
-	[viewController release];
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    // ...
+    // Pass the selected object to the new view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+    */
 }
 
 
@@ -182,24 +150,24 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning in ModuleListViewController.m!");
+    NSLog(@"Memory Warning in OptionViewController.m!");
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc. that aren't in use.
 }
 
 - (void)viewDidUnload {
-	self.moduleListTableView =  nil;
-	self.moduleList = nil;
-	[super viewDidUnload];
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
+	self.optionTableView = nil;
+	self.optionsList = nil;
+	[super viewDidUnload];
 }
 
 
 - (void)dealloc {
-	[moduleListTableView release];
-	[moduleList release];
+	[optionTableView release];
+	[optionsList release];
     [super dealloc];
 }
 

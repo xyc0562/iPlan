@@ -98,20 +98,47 @@
 	[addInClassGroup addObject:[moduleIndex objectAtIndex:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
 	[addInClassGroup addObject:[NSNumber numberWithInt:0]];
-	BOOL success = [self getOneDefaultSolutionsWithCurrentProgress:&currentProgress
-											  WithBasicInformation:basicInformation
-									WithAddInClassGroupInformation:addInClassGroup
-													 WithTimeTable:&timetable
-														WithResult:&result
-												   WithModuleIndex:moduleIndex];
+	
+	BOOL success = NO;
+	BOOL exist =YES;
+	while (YES)
+	{
+		if ([self getOneDefaultSolutionsWithCurrentProgress:&currentProgress
+									   WithBasicInformation:basicInformation
+							 WithAddInClassGroupInformation:addInClassGroup
+											  WithTimeTable:&timetable
+												 WithResult:&result
+											WithModuleIndex:moduleIndex])
+		{
+			success = YES;
+			break;
+		}
+		//printf("before nexToTry\n");
+		addInClassGroup = [self nextToTryBasedOn:addInClassGroup
+								 AndBasicInformation:basicInformation
+									 WithModuleIndex:moduleIndex];
+		if([addInClassGroup count]==0)
+		{
+			exist = NO;
+			break;
+		}
+		else 
+		{
+			//try next classgroup
+			continue; 
+		}
+	}
+	
 	if(success)
 	{
-		return result;
 	}
-	else {
-		return [[NSMutableArray alloc]init];
+	if(!exist)
+	{
+		//printf("plan no more group\n");
 	}
+    return result;
 }
+
 -(BOOL)getOneDefaultSolutionsWithCurrentProgress:(NSMutableArray**)currentProgress
 							WithBasicInformation:(NSMutableArray*)basicInformation
 				  WithAddInClassGroupInformation:(NSMutableArray*)addInClassGroup
@@ -119,11 +146,11 @@
 									  WithResult:(NSMutableArray**)result
 								 WithModuleIndex:(NSMutableArray*)moduleIndex
 {
-	printf("one default\n");
-	printf("%d \n",[[addInClassGroup objectAtIndex:0]intValue]);
-	printf("%d \n",[[addInClassGroup objectAtIndex:1]intValue]);
-	printf("%d \n",[[addInClassGroup objectAtIndex:2]intValue]);
-	printf("@@@\n");
+//	printf("one default\n");
+//	printf("%d \n",[[addInClassGroup objectAtIndex:0]intValue]);
+//	printf("%d \n",[[addInClassGroup objectAtIndex:1]intValue]);
+//	printf("%d \n",[[addInClassGroup objectAtIndex:2]intValue]);
+//	printf("@@@\n");
 	
 	if([self checkPossibilityWithCurrentProgress:*currentProgress
 				  WithAddInClassGroupInformation:addInClassGroup
@@ -131,7 +158,6 @@
 							WithBasicInformation:basicInformation
 								 WithModuleIndex:moduleIndex])
 	{
-		
 		//find next
 		NSMutableArray* newAddInClassGroupInformation = [self nextToAddInToBasedOn:addInClassGroup
 															   AndBasicInformation:basicInformation
@@ -177,7 +203,8 @@
 					success = YES;
 					break;
 				}
-				NSMutableArray* tempAddInClassGroup = [self nextToTryBasedOn:tempAddInClassGroup
+				//printf("before nexToTry\n");
+								tempAddInClassGroup = [self nextToTryBasedOn:tempAddInClassGroup
 														 AndBasicInformation:basicInformation
 															 WithModuleIndex:moduleIndex];
 				if([tempAddInClassGroup count]==0)
@@ -188,7 +215,6 @@
 				else 
 				{
 					//try next classgroup
-					printf("try next");
 					continue; 
 				}
 			}
@@ -206,13 +232,14 @@
 			}
 			if(!exist)
 			{
-				printf("return no\n");
+		//		printf("no more group\n");
 				return NO;
 			}
 		}
 	}
 	else 
-	{printf(" not possible return no\n");
+	{
+		//printf(" cannot add return no\n");
 		return NO;
 	}
 
@@ -278,17 +305,17 @@
 		}
 
 	}
-		printf("previous\n");
-		printf("%d \n",[[addInClassGroupInformation objectAtIndex:0]intValue]);
-		printf("%d \n",[[addInClassGroupInformation objectAtIndex:1]intValue]);
-		printf("%d \n",[[addInClassGroupInformation objectAtIndex:2]intValue]);
-		printf("@@@\n");
-
-		printf("nextToAdd\n");
-		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:0]intValue]);
-		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:1]intValue]);
-		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:2]intValue]);
-		printf("@@@\n");
+		//printf("previous\n");
+//		printf("%d \n",[[addInClassGroupInformation objectAtIndex:0]intValue]);
+//		printf("%d \n",[[addInClassGroupInformation objectAtIndex:1]intValue]);
+//		printf("%d \n",[[addInClassGroupInformation objectAtIndex:2]intValue]);
+//		printf("@@@\n");
+//
+//		printf("nextToAdd\n");
+//		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:0]intValue]);
+//		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:1]intValue]);
+//		printf("%d \n",[[newAddInClassGroupInformation objectAtIndex:2]intValue]);
+//		printf("@@@\n");
 	
 		
 	return newAddInClassGroupInformation;
@@ -298,6 +325,7 @@
 				   AndBasicInformation:(NSMutableArray*)basicInformation
 					   WithModuleIndex:(NSMutableArray*)moduleIndex
 {
+	//printf("---begin nextToTry");
 	NSMutableArray* trialAddInClassGroupInformation = [[NSMutableArray alloc]init];
 	int i;
 	for(i=0;i<[moduleIndex count];i++)
@@ -312,6 +340,9 @@
 				[trialAddInClassGroupInformation addObject:[addInClassGroupInformation objectAtIndex:1]];
 				[trialAddInClassGroupInformation addObject:[NSNumber numberWithInt:[[addInClassGroupInformation objectAtIndex:2]intValue]+1]];
 			}
+//			for (NSNumber* x in trialAddInClassGroupInformation)
+//				printf("%d ",[x intValue]);
+//			printf("--------\n");
 		}
 	}
 	return trialAddInClassGroupInformation;
@@ -400,9 +431,17 @@
 	for(i=0;i<[currentProgress count];i++)
 	{
 		Module* module = [modules objectAtIndex:[[[currentProgress objectAtIndex:i]objectAtIndex:0]intValue] ];
-		for(j=[[[currentProgress objectAtIndex:i]objectAtIndex:1]intValue]+2;j<[[basicInformation objectAtIndex:i]count];j++)//j represents classtype
+		if ([[moduleIndex objectAtIndex:i]intValue]==[[addInClassGroupInformation objectAtIndex:0]intValue]) 
 		{
-			printf("i %d j %d\n",i,j);
+			j = 1;
+		}
+		else 
+		{
+			j = 0;
+		}
+		for(j=j+1+[[[currentProgress objectAtIndex:i]objectAtIndex:1]intValue]+1;j<[[basicInformation objectAtIndex:i]count];j++)//j represents classtype
+		{
+			//printf("i %d j %d\n",i,j);
 			addInClassGroupInformation = [self nextToAddInToBasedOn:addInClassGroupInformation 
 												AndBasicInformation:basicInformation
 													WithModuleIndex:moduleIndex];
@@ -629,7 +668,6 @@
 
 -(void)updateWithResult:(NSMutableArray**)Result With:(NSMutableArray*)addInClassGroup
 {
-	printf("updating----\n");
 	[*Result addObject:addInClassGroup];
 }
 

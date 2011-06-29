@@ -2,17 +2,21 @@
 //  ModuleListViewController.h
 //  iPlan
 //
-//  Created by Zhang Ying on 6/21/11.
-//  Copyright 2011 SoC. All rights reserved.
+//  Created by Zhao Cong on 6/28/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleListViewController : UIViewController {
-
+@interface ModuleListViewController : UITableViewController {
+	UITableView *moduleListTableView;
+	NSArray *moduleList;
 }
 
--(id)initWithTabBar;
+@property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
+@property (nonatomic, retain) NSArray *moduleList;
+
+- (id)initWithTabBar;
 
 @end
