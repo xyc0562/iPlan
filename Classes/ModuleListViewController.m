@@ -123,11 +123,11 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	if (searching){
-		NSLog(@"a");
+		//NSLog(@"a");
 		theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
 	}else {
 		//set shared object
-		NSLog(@"b");
+		//NSLog(@"b");
 		theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
 	}
 	
@@ -146,15 +146,15 @@
 		return nil;
 	}
 }
-//
-//- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-//	//return UITableViewCellAccessoryDetailDisclosureButton;
-//	return UITableViewCellAccessoryDisclosureIndicator;
-//}
-//
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-//	[self tableView:tableView didSelectRowAtIndexPath:indexPath];
-//}
+
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
+	//return UITableViewCellAccessoryDetailDisclosureButton;
+	return UITableViewCellAccessoryDisclosureIndicator;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	[self tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
 
 
 #pragma mark -
@@ -171,11 +171,11 @@
 							 target:self action:@selector(doneSearching_Clicked:)];
 	self.navigationItem.rightBarButtonItem = item;
 	[item release];
-	NSLog(@"search begin");
+	//NSLog(@"search begin");
 }
 
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
-	NSLog(@"text did change begin");
+	//NSLog(@"text did change begin");
 	//Remove all objects first.
 	[copyModuleList removeAllObjects];
 	
@@ -191,7 +191,7 @@
 		self.tableView.scrollEnabled = NO;
 	}
 	[self.tableView reloadData];
-	NSLog(@"text did change end");
+	//NSLog(@"text did change end");
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
@@ -201,24 +201,13 @@
 - (void) searchTableView {
 	
 	NSString *searchText = searchBar.text;
-	NSMutableArray *searchArray = [[NSMutableArray alloc] init];
+	NSMutableArray *searchArray = [NSArray arrayWithArray:moduleList];
 	
-//	for (NSDictionary *dictionary in moduleList){
-//		NSArray *array = [dictionary objectForKey:@"Countries"];
-//		[searchArray addObjectsFromArray:array];
-//	}
-//	
-	searchArray = [NSArray arrayWithArray:moduleList];
-	
-	for (NSString *sTemp in searchArray)
-	{
+	for (NSString *sTemp in searchArray){
 		NSRange titleResultsRange = [sTemp rangeOfString:searchText options:NSCaseInsensitiveSearch];
-		
 		if (titleResultsRange.length > 0)
 			[copyModuleList addObject:sTemp];
 	}
-	
-	//[searchArray release];
 	searchArray = nil;
 }
 
@@ -239,7 +228,7 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning in ModuleListViewController.m!");
+    //NSLog(@"Memory Warning in ModuleListViewController.m!");
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc. that aren't in use.
