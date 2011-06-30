@@ -56,8 +56,26 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+- (void)showActionSheet{
+	UIActionSheet *actionsheet = [[UIActionSheet alloc] 
+								  initWithTitle:@"Which do you prefer?"
+								  delegate:self 
+								  cancelButtonTitle:@"Cancel" 
+								  destructiveButtonTitle:@"Destuctive Button" 
+								  otherButtonTitles:@"Button 1", @"Button 2", @"Button 3", nil];
+	[actionsheet showInView:self.view.window];
+	[actionsheet release];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	NSLog(@"button %i clicked", buttonIndex);
+	
+}
+
+
 - (void)selectModuleView {
-	NSLog(@"add actionsheet here");
+	[self showActionSheet];
 }
 
 - (void)configureNavBar{
