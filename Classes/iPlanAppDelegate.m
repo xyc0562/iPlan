@@ -194,7 +194,7 @@
     [tabBarController release];
     [viewController release];
     [window release];
-	[theAppDataObject release];
+	self.theAppDataObject = nil;
     [super dealloc];
 }
 
