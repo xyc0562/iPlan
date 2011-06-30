@@ -83,8 +83,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 				<bool key="IBUIAllowsSelectionDuringEditing">YES</bool>
 				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-				<float key="IBUIRowHeight">44</float>
-				<float key="IBUISectionHeaderHeight">22</float>
+				<float key="IBUIRowHeight">23</float>
+				<float key="IBUISectionHeaderHeight">23</float>
 				<float key="IBUISectionFooterHeight">22</float>
 			</object>
 		</object>

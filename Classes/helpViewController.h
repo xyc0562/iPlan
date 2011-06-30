@@ -6,6 +6,9 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+//This is actually controller for both Help and About option
+
+
 #import <UIKit/UIKit.h>
 
 

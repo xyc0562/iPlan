@@ -29,6 +29,8 @@
 		2F468A4D13BA03C40087DC3E /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F468A4B13BA03C40087DC3E /* ModuleListViewController.xib */; };
 		2F468A7313BA07570087DC3E /* TimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F468A7113BA07570087DC3E /* TimeTableViewController.m */; };
 		2F468A7413BA07570087DC3E /* TimeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F468A7213BA07570087DC3E /* TimeTableViewController.xib */; };
+		2FBF9A0713BC479A002149DD /* ModuleSelectionActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF9A0513BC479A002149DD /* ModuleSelectionActionSheetViewController.m */; };
+		2FBF9A0813BC479A002149DD /* ModuleSelectionActionSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FBF9A0613BC479A002149DD /* ModuleSelectionActionSheetViewController.xib */; };
 		2FD7C7F213BB11FB00B00C99 /* ModuleInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */; };
 		2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */; };
 		2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */; };
@@ -92,6 +94,9 @@
 		2F468A7013BA07570087DC3E /* TimeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewController.h; sourceTree = "<group>"; };
 		2F468A7113BA07570087DC3E /* TimeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewController.m; sourceTree = "<group>"; };
 		2F468A7213BA07570087DC3E /* TimeTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TimeTableViewController.xib; path = Classes/TimeTableViewController.xib; sourceTree = "<group>"; };
+		2FBF9A0413BC479A002149DD /* ModuleSelectionActionSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleSelectionActionSheetViewController.h; sourceTree = "<group>"; };
+		2FBF9A0513BC479A002149DD /* ModuleSelectionActionSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleSelectionActionSheetViewController.m; sourceTree = "<group>"; };
+		2FBF9A0613BC479A002149DD /* ModuleSelectionActionSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleSelectionActionSheetViewController.xib; path = Classes/ModuleSelectionActionSheetViewController.xib; sourceTree = "<group>"; };
 		2FD7C7EF13BB11FB00B00C99 /* ModuleInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleInfoViewController.h; sourceTree = "<group>"; };
 		2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleInfoViewController.m; sourceTree = "<group>"; };
 		2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleInfoViewController.xib; path = Classes/ModuleInfoViewController.xib; sourceTree = "<group>"; };
@@ -226,6 +231,7 @@
 				2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */,
 				2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */,
 				2F468A4B13BA03C40087DC3E /* ModuleListViewController.xib */,
+				2FBF9A0613BC479A002149DD /* ModuleSelectionActionSheetViewController.xib */,
 				2F18849713B9D66A006DCC66 /* OptionViewController.xib */,
 				2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */,
 				2F468A7213BA07570087DC3E /* TimeTableViewController.xib */,
@@ -278,6 +284,8 @@
 				2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */,
 				2F468A4913BA03C40087DC3E /* ModuleListViewController.h */,
 				2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */,
+				2FBF9A0413BC479A002149DD /* ModuleSelectionActionSheetViewController.h */,
+				2FBF9A0513BC479A002149DD /* ModuleSelectionActionSheetViewController.m */,
 				2F468A7013BA07570087DC3E /* TimeTableViewController.h */,
 				2F468A7113BA07570087DC3E /* TimeTableViewController.m */,
 			);
@@ -380,6 +388,7 @@
 				2F468A7413BA07570087DC3E /* TimeTableViewController.xib in Resources */,
 				2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */,
 				2FD7C8CF13BB2DB000B00C99 /* ModuleInfoCell.xib in Resources */,
+				2FBF9A0813BC479A002149DD /* ModuleSelectionActionSheetViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +424,7 @@
 				05CC47BD13BA24760075B186 /* SharedAppDataObject.m in Sources */,
 				2FD7C7F213BB11FB00B00C99 /* ModuleInfoViewController.m in Sources */,
 				2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */,
+				2FBF9A0713BC479A002149DD /* ModuleSelectionActionSheetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

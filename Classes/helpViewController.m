@@ -11,7 +11,7 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
-#define HELP_MESSAGE @"If you have any questions, please contact Zhan Yin Bo~~~"
+#define HELP_MESSAGE @"If you have any questions, please contact Zhan Ying Bo~~~"
 #define ABOUT_MESSAGE @"Thanks!\n We are expecting your support!"
 
 @implementation HelpViewController
