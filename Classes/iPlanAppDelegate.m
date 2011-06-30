@@ -22,9 +22,6 @@
 
 @implementation iPlanAppDelegate
 
-#pragma mark -
-#pragma mark synthesize
-
 @synthesize window;
 @synthesize viewController;
 @synthesize tabBarController;
@@ -40,16 +37,16 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
-	
+
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
+	
+	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+		
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
-	
-	
-	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	
 	CalendarViewController* calendarController = [[CalendarViewController alloc] initWithTabBar];
 	localNavigationController = [[UINavigationController alloc] initWithRootViewController:calendarController];
@@ -71,11 +68,11 @@
 	
 	tabBarController.viewControllers = localControllerArray;
 	[localControllerArray release];
+	
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 
-/*	
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -94,13 +91,18 @@
 
 	NSMutableArray* moduleNameArray = [[NSMutableArray alloc]init];
 	NSMutableArray* moduleArray = [[NSMutableArray alloc]init];
-//	[moduleNameArray addObject:@"MA4255"];
-	[moduleNameArray addObject:@"MA2101"];
-	[moduleNameArray addObject:@"CS1102"];
-//	[moduleNameArray addObject:@"EE2001"];
-//	[moduleNameArray addObject:@"EG2401"];
-	[moduleNameArray addObject:@"EE4302"];
-//	[moduleNameArray addObject:@"EE3304"];
+	[moduleNameArray addObject:@"EG1413"];
+	[moduleNameArray addObject:@"EG2401"];
+	[moduleNameArray addObject:@"HR2002"];
+	
+	[moduleNameArray addObject:@"MA2108"];
+	[moduleNameArray addObject:@"EE2006"];
+//	[moduleNameArray addObject:@"EE2004"];
+	[moduleNameArray addObject:@"EE3304"];
+	[moduleNameArray addObject:@"EE2001"];
+
+	
+	
 	for (NSString* eachModule in moduleNameArray)
 	{
 		NSString* filename = [eachModule stringByAppendingString:@".plist"];
@@ -118,22 +120,18 @@
 	printf("modules added\n");
 
 
-	//!!!!bug: no active module
 	
 	printf("before timeTable init timetable\n");
 	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleArray];
 	printf("before planOneTimetable\n");
 	NSMutableArray* result = [testTable planOneTimetable];
 	printf("****************************************************\n");
-	printf("%d class group selected\n",[result count]);
 	for(NSMutableArray* eachSelected in result)
 	{
-		for(NSNumber* info in eachSelected)
-			printf("%d    " ,[info intValue]);
+		//NSLog([[eachSelected objectAtIndex:1]stringValue]);
+		NSLog([[eachSelected objectAtIndex:2]stringValue]);
 		printf("\n");
 	}
-	
-*/
     return YES;
 }
 
@@ -179,7 +177,7 @@
 #pragma mark -
 #pragma mark Memory management
 
-- (id) init{
+-(id) init{
 	self.theAppDataObject = [[SharedAppDataObject alloc] init];
 	[theAppDataObject release];
 	return [super init];
@@ -197,7 +195,6 @@
     [viewController release];
     [window release];
 	self.theAppDataObject = nil;
-	
     [super dealloc];
 }
 
