@@ -1,34 +1,13 @@
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:13:13: error: synthesized property 'timetables' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize timetables;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:13: error: synthesized property 'fileManager' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize fileManager;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:15:13: error: synthesized property 'moduleObjectsDict' must either be named the same as a compatible ivar or must explicitly name an ivar
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:62:102: error: expected ';' after method prototype
+- (void) generateDefaultTimetableFromModules:(NSArray*)modulesSelected Active:(NSArray*)activeIndexes
+                                                                                                     ^
+                                                                                                     ;
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:1: error: illegal interface qualifier
 @synthesize moduleObjectsDict;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:20:9: error: use of undeclared identifier 'super'
-    if (super != nil)
-        ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:34:8: error: use of undeclared identifier 'super'
-    if(super !=nil)
-       ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:61:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
-    NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
-                    ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:83:18: warning: method '+ModuleWithModuleCode:' not found (return type defaults to 'id')
-        module = [Module ModuleWithModuleCode:code];
-                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:117:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
-    return module.examinable;
-           ^~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:131:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'BOOL' (aka 'signed char')
-    return module.openBook;
-           ^~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:138:12: warning: incompatible pointer to integer conversion returning 'NSString *' from a function with result type 'NSInteger' (aka 'long')
-    return module.moduleCredit;
-           ^~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:179:13: error: interface type cannot be statically allocated
-    NSArray classTypes = module.
-            ^
-5 warnings and 6 errors generated.
+^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:16:41: error: expected ';' after method prototype
+-(id)initWithTimeTable:(TimeTable*)table
+                                        ^
+                                        ;
+3 errors generated.
