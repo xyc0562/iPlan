@@ -56,9 +56,22 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+- (void)selectModuleView {
+	NSLog(@"add actionsheet here");
+}
+
+- (void)configureNavBar{
+	self.navigationController.toolbarHidden = YES;
+	self.navigationController.toolbar.tintColor = [UIColor whiteColor];
+	UIBarButtonItem *selectButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(selectModuleView)];
+	//self.toolbarItems = [NSArray arrayWithObjects:flexibleSpaceItem,selectButton,nil];
+	self.navigationItem.rightBarButtonItem = selectButton;
+	[selectButton release];
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self configureNavBar];
 	
 	selectedIndex = -1;
 	
@@ -110,35 +123,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 
 #pragma mark -
