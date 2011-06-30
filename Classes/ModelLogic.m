@@ -10,47 +10,24 @@
 
 
 @implementation ModelLogic
-@synthesize timetables;
-@synthesize fileManager;
+@synthesize timeTable;
 @synthesize moduleObjectsDict;
 
-- (id) init
+-(id)initWithTimeTable:(TimeTable*)table
 {
     [super init];
-    if (super != nil)
+    if(super !=nil)
     {
-        if (!fileManager && !moduleObjectsDict)
+        self.timeTable = table;
+        if (!moduleObjectsDict)
         {
-            self.fileManager = [NSFileManager defaultManager];
             self.moduleObjectsDict = [NSMutableDictionary dictionary];
         }
     }
     return self;
 }
 
--(id)initWithTimeTables:(NSMutableArray*)tables
-{
-    [super init];
-    if(super !=nil)
-    {
-        if(tables!=nil)
-        {
-            self.timetables = tables;
-        } 
-        else 
-        {
-            self.timetables = [[NSMutableArray alloc]init];
-        }
-    }
-    return self;
-}
-
--(void)addTimeTable:(TimeTable*)timetable
-{
-	[timetables addObject:timetable];
-}
-
-+(NSArray*) getAllModuleCodes
+- (NSArray*) getAllModuleCodes
 {
     // Get directory path that stores the module objects
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -90,7 +67,7 @@
 {
     if([super init]!=nil)
     {
-        [self initWithTimeTables:[decoder decodeObjectForKey:@"modules"]];
+        [self initWithTimeTable:[decoder decodeObjectForKey:@"modules"]];
     }
     return self;
 }
@@ -123,7 +100,7 @@
     }
 }
 
-- (BOOL) isExaminableFromModule:(NSString*)code
+- (NSString*) isExaminableFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -151,7 +128,7 @@
     }
 }
 
-- (BOOL) isOpenbookFromModule:(NSString*)code
+- (NSString*) isOpenbookFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -165,7 +142,7 @@
     }
 }
 
-- (NSInteger) getMCFromModule:(NSString*)code
+- (NSString*) getMCFromModule:(NSString*)code
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
 
@@ -256,33 +233,190 @@
     if (module)
     {
         NSArray *classTypes = module.moduleClassTypes;
-        // @tobecontinued
+        for (ModuleClassType* MCT in classTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                for (ClassGroup* CG in MCT.classGroups)
+                {
+                    [arr addObject:CG.name];
+                }
+                return [arr autorelease];
+            }
+        }
+        // If such a type not found, return nil
+        return nil;
     }
     else
     {
         return nil;
     }
-
 }
 
-- (NSArray*) getTimesFromModule:(NSString*)code ClassType:(NSString*)type GroupName:(NSString*)name
+// Not retained!
+- (NSArray*) getTimesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name
 {
-          
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
+
+    if (module)
+    {
+        NSArray *classTypes = module.moduleClassTypes;
+        for (ModuleClassType* MCT in classTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.name isEqualToString:name])
+                    {
+                        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                        for (Slot *s in CG.slots)
+                        {
+                            NSArray *one_time = [NSArray arrayWithObjects:s.day, s.startTime, s.endTime, nil];
+                            [arr addObject:one_time];
+                        }
+                        return [arr autorelease];
+                    }
+                }
+                return nil;
+            }
+        }
+
+        // If such a type is not found, return nil
+        return nil;
+    }
+    else
+    {
+        return nil;
+    }
 }
     
-- (NSArray*) getVenueFromModule:(NSString*)code ClassType:(NSString*)type GroupName:(NSString*)name
+- (NSArray*) getVenuesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name
 {
-          
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
+
+    if (module)
+    {
+        NSArray *classTypes = module.moduleClassTypes;
+        for (ModuleClassType* MCT in classTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.name isEqualToString:name])
+                    {
+                        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                        for (Slot *s in CG.slots)
+                        {
+                            [arr addObject:s.venue];
+                        }
+                        return [arr autorelease];
+                    }
+                }
+                return nil;
+            }
+        }
+        // If such a type is not found, return nil
+        return nil;
+    }
+    else
+    {
+        return nil;
+    }
 }
 
-- (NSArray*) getFrequenciesFromModule:(NSString*)code ClassType:(NSString*)type GroupName:(NSString*)name
+- (NSArray*) getFrequenciesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name
 {
-    
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
+
+    if (module)
+    {
+        NSArray *classTypes = module.moduleClassTypes;
+        for (ModuleClassType* MCT in classTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.name isEqualToString:name])
+                    {
+                        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+                        for (Slot *s in CG.slots)
+                        {
+                            [arr addObject:s.frequency];
+                        }
+                        return [arr autorelease];
+                    }
+                }
+                return nil;
+            }
+        }
+        // If such a type is not found, return nil
+        return nil;
+    }
+    else
+    {
+        return nil;
+    }
 }
+
+// Not retained!
+- (NSArray*) getExamDatesTogetherWithConflitsInformation
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+
+    // space holder
+    [arr addObject:@"YES"];
+
+    // Construct array
+    for (Module *module in self.timeTable.modules)
+    {
+        if ([module.selected isEqualToString:MODULE_ACTIVE])
+        {
+            NSArray *subArr = [NSArray arrayWithObjects:module.code, module.examDate, nil];
+            [arr addObject:subArr];
+        }
+    }
+
+    // Finding conflicts
+    NSString *conflict = @"NO";
+    for (int i = 1; i < [arr count]; i++)
+    {
+        for (int j = i + 1; j < [arr count]; j++)
+        {
+            if (![[arr objectAtIndex:i] isEqualToString:MODULE_EXAM_NO_EXAM] && [[arr objectAtIndex:i] isEqualToString:[arr objectAtIndex:j]])
+            {
+                conflict = @"YES";
+            }
+        }
+    }
+
+    [arr replaceObjectAtIndex:0 withObject:conflict];
+
+    return [arr autorelease];
+}
+
+// Not retained!
+- (NSArray*) getActiveModules
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+    for (Module *module in self.timeTable.modules)
+    {
+        if ([module.selected isEqualToString:MODULE_ACTIVE])
+        {
+            [arr addObject:module.code];
+        }
+    }
+
+    return [arr autorelease];
+}
+
 
 -(void)dealloc
 {
-    [timetables release];
+    [timeTable release];
     [super dealloc];
 }
 

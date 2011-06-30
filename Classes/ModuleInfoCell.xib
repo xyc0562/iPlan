@@ -50,7 +50,7 @@
 							<object class="IBUILabel" id="628632296">
 								<reference key="NSNextResponder" ref="291970467"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 0}, {297, 63}}</string>
+								<string key="NSFrame">{{12, 0}, {297, 30}}</string>
 								<reference key="NSSuperview" ref="291970467"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -99,7 +99,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<int key="IBUINumberOfLines">100</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{315, 61}</string>
+						<string key="NSFrameSize">{321, 40}</string>
 						<reference key="NSSuperview" ref="952092462"/>
 						<reference key="IBUIBackgroundColor" ref="747849039"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -109,7 +109,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{315, 61}</string>
+				<string key="NSFrameSize">{321, 40}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -185,7 +185,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>ModuleInfoCell</string>
 					<string>UIResponder</string>
 					<string>ModuleInfoCell</string>
-					<string>{{938, 693}, {315, 61}}</string>
+					<string>{{743, 698}, {321, 40}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
