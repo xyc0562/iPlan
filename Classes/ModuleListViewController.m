@@ -41,9 +41,18 @@
 	self.moduleList = array;
 	[array release];
 	
+	// initialize the copy array
+	copyModuleList = [[NSMutableArray alloc] init];
+	
+	//Add the search bar
+	self.tableView.tableHeaderView = searchBar;
+	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+	
+	searching = NO;
+	letUserSelectRow = YES;
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 
@@ -62,13 +71,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    if (searching){
+		return 1;
+	}else {
+		return 1;
+	}
+
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [self.moduleList count];
+	if (searching){
+		return [copyModuleList count];
+	}else {
+		return [self.moduleList count];
+	}
 }
 
 
@@ -84,8 +102,13 @@
 	
     // Configure the cell...
     NSUInteger row = [indexPath row];
-	cell.textLabel.text = [moduleList objectAtIndex:row];
 	
+	if (searching){
+		cell.textLabel.text = [copyModuleList objectAtIndex:row];
+	}else{
+		cell.textLabel.text = [moduleList objectAtIndex:row];
+	}
+
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	
     return cell;
@@ -97,17 +120,120 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row_number = [indexPath row];
+	
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	if (searching){
+		NSLog(@"a");
+		theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
+	}else {
+		//set shared object
+		NSLog(@"b");
+		theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
+	}
+	
 	UIViewController *viewController;
 	viewController = [[ModuleInfoViewController alloc] initWithNibName:@"ModuleInfoViewController" bundle:nil];
-	
-	//set shared object
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
 	
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
 }
 
+- (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if(letUserSelectRow){
+		return indexPath;
+	}else{
+		return nil;
+	}
+}
+//
+//- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
+//	//return UITableViewCellAccessoryDetailDisclosureButton;
+//	return UITableViewCellAccessoryDisclosureIndicator;
+//}
+//
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+//	[self tableView:tableView didSelectRowAtIndexPath:indexPath];
+//}
+
+
+#pragma mark -
+#pragma mark Search Bar 
+
+- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
+	searching = YES;
+	letUserSelectRow = NO;
+	self.tableView.scrollEnabled = NO;
+	
+	//Add the done button.
+	UIBarButtonItem *item = [[UIBarButtonItem alloc]
+							 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+							 target:self action:@selector(doneSearching_Clicked:)];
+	self.navigationItem.rightBarButtonItem = item;
+	[item release];
+	NSLog(@"search begin");
+}
+
+- (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
+	NSLog(@"text did change begin");
+	//Remove all objects first.
+	[copyModuleList removeAllObjects];
+	
+	if([searchText length] > 0) {
+		searching = YES;
+		letUserSelectRow = YES;
+		self.tableView.scrollEnabled = YES;
+		[self searchTableView];
+	}
+	else {
+		searching = NO;
+		letUserSelectRow = NO;
+		self.tableView.scrollEnabled = NO;
+	}
+	[self.tableView reloadData];
+	NSLog(@"text did change end");
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
+	[self searchTableView];
+}
+
+- (void) searchTableView {
+	
+	NSString *searchText = searchBar.text;
+	NSMutableArray *searchArray = [[NSMutableArray alloc] init];
+	
+//	for (NSDictionary *dictionary in moduleList){
+//		NSArray *array = [dictionary objectForKey:@"Countries"];
+//		[searchArray addObjectsFromArray:array];
+//	}
+//	
+	searchArray = [NSArray arrayWithArray:moduleList];
+	
+	for (NSString *sTemp in searchArray)
+	{
+		NSRange titleResultsRange = [sTemp rangeOfString:searchText options:NSCaseInsensitiveSearch];
+		
+		if (titleResultsRange.length > 0)
+			[copyModuleList addObject:sTemp];
+	}
+	
+	//[searchArray release];
+	searchArray = nil;
+}
+
+- (void) doneSearching_Clicked:(id)sender {
+	
+	searchBar.text = @"";
+	[searchBar resignFirstResponder];
+	
+	letUserSelectRow = YES;
+	searching = NO;
+	self.navigationItem.rightBarButtonItem = nil;
+	self.tableView.scrollEnabled = YES;
+	
+	[self.tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Memory management

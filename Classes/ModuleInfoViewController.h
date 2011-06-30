@@ -13,10 +13,13 @@
 	IBOutlet UITableView *moduleInfoTableView;
 	NSArray *infoList;
 	NSInteger selectedIndex;
+
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *moduleInfoTableView;
 @property (nonatomic, retain) NSArray *infoList;
 @property (nonatomic) NSInteger selectedIndex;
+
+
 
 @end

@@ -15,6 +15,8 @@
 #define COMMENT_LABEL_MIN_HEIGHT 65
 #define COMMENT_LABEL_PADDING 10
 
+#define RIGHTBAR_NAME @"Select"
+
 
 @implementation ModuleInfoViewController
 
@@ -25,7 +27,6 @@
 @synthesize moduleInfoTableView;
 @synthesize infoList;
 @synthesize selectedIndex;
-
 
 
 #pragma mark -
@@ -67,11 +68,10 @@
 	[actionsheet release];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	NSLog(@"button %i clicked", buttonIndex);
-	
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+	NSLog(@"button %i clicked", buttonIndex);	
 }
+
 
 
 - (void)selectModuleView {
@@ -81,7 +81,8 @@
 - (void)configureNavBar{
 	self.navigationController.toolbarHidden = YES;
 	self.navigationController.toolbar.tintColor = [UIColor whiteColor];
-	UIBarButtonItem *selectButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(selectModuleView)];
+	// TODO: if it is selected/ not selected
+	UIBarButtonItem *selectButton = [[UIBarButtonItem alloc] initWithTitle:RIGHTBAR_NAME style:UIBarButtonItemStylePlain target:self action:@selector(selectModuleView)];
 	//self.toolbarItems = [NSArray arrayWithObjects:flexibleSpaceItem,selectButton,nil];
 	self.navigationItem.rightBarButtonItem = selectButton;
 	[selectButton release];
