@@ -14,7 +14,6 @@
 
 @implementation ModuleListViewController
 
-
 #pragma mark -
 #pragma mark synthesize
 @synthesize moduleListTableView;
@@ -46,6 +45,7 @@
 	
 	//Add the search bar
 	self.tableView.tableHeaderView = searchBar;
+	//self.navigationItem.titleView = searchBar;
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	
 	searching = NO;
@@ -165,13 +165,14 @@
 	letUserSelectRow = NO;
 	self.tableView.scrollEnabled = NO;
 	
-	//Add the done button.
-	UIBarButtonItem *item = [[UIBarButtonItem alloc]
-							 initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-							 target:self action:@selector(doneSearching_Clicked:)];
-	self.navigationItem.rightBarButtonItem = item;
-	[item release];
+	// add the cancel button for search
+	[theSearchBar setShowsCancelButton:YES];
 	//NSLog(@"search begin");
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *) theSearchBar{
+	[theSearchBar resignFirstResponder];
+	[theSearchBar setShowsCancelButton:NO];
 }
 
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
