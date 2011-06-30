@@ -129,7 +129,7 @@
 	for(NSMutableArray* eachSelected in result)
 	{
 		//NSLog([[eachSelected objectAtIndex:1]stringValue]);
-		NSLog([[eachSelected objectAtIndex:2]stringValue]);
+		NSLog([[eachSelected objectAtIndex:2] stringValue]);
 		printf("\n");
 	}
     return YES;

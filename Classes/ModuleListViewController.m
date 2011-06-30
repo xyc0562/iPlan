@@ -34,6 +34,10 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+-(void) cartButtonClicked:(id)sender {
+	NSLog(@"haha");
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	NSArray *array = [[NSArray alloc] initWithObjects:@"CH1101E",@"CS1102",nil];
@@ -52,7 +56,13 @@
 	letUserSelectRow = YES;
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	UIImage *cartImage = [UIImage imageNamed:@"shopping_cart.png"];
+	UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[aButton setImage:cartImage forState:UIControlStateNormal];
+	aButton.frame = CGRectMake(0.0, 0.0, cartImage.size.width, cartImage.size.height);
+	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:aButton];
+	[aButton addTarget:self action:@selector(cartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = item;
 }
 
 

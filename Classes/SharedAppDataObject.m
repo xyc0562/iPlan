@@ -15,7 +15,7 @@
 
 @synthesize settingsIdentity;
 @synthesize moduleCode;
-
+@synthesize basket;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -24,6 +24,7 @@
 {
 	self.settingsIdentity = nil;
 	self.moduleCode = nil;
+	[self.basket release];
 	[super dealloc];
 }
 
