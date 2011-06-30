@@ -16,12 +16,16 @@
 #import "ModuleXMLParser.h"
 #import "ModelLogic.h"
 
+#import "AppDelegateProtocol.h"
+#import "SharedAppDataObject.h"
+
 
 @implementation iPlanAppDelegate
 
 @synthesize window;
 @synthesize viewController;
 @synthesize tabBarController;
+@synthesize theAppDataObject;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -173,6 +177,12 @@
 #pragma mark -
 #pragma mark Memory management
 
+-(id) init{
+	self.theAppDataObject = [[SharedAppDataObject alloc] init];
+	[theAppDataObject release];
+	return [super init];
+}
+
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     /*
       Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
@@ -184,6 +194,7 @@
     [tabBarController release];
     [viewController release];
     [window release];
+	[theAppDataObject release];
     [super dealloc];
 }
 
