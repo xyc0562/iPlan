@@ -8,6 +8,7 @@
 
 #import "ModuleListViewController.h"
 #import	"ModuleInfoViewController.h"
+#import "BasketTableViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
@@ -29,12 +30,14 @@
 	return theDataObject;
 }
 
-
 #pragma mark -
 #pragma mark View lifecycle
 
 -(void) cartButtonClicked:(id)sender {
-	NSLog(@"haha");
+	BasketTableViewController *basketController = [[BasketTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:basketController];
+    [[self navigationController] presentModalViewController:navController animated:YES];
+    [navController release];
 }
 
 - (void)viewDidLoad {

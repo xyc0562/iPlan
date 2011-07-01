@@ -32,6 +32,7 @@
 		2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */; };
 		2FD7C8CF13BB2DB000B00C99 /* ModuleInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */; };
 		4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */; };
+		431B7CE513BDB3190051F3FE /* BasketTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 431B7CE413BDB3190051F3FE /* BasketTableViewController.m */; };
 		4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4371926213B8C3E600AAC77C /* shopping_cart.png */; };
 		438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */; };
 		438BC7D813B4B78E003D1B52 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D113B4B78E003D1B52 /* calendar.png */; };
@@ -99,6 +100,8 @@
 		32CA4F630368D1EE00C91783 /* iPlan_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlan_Prefix.pch; sourceTree = "<group>"; };
 		4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewWithLine.h; sourceTree = "<group>"; };
 		4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewWithLine.m; sourceTree = "<group>"; };
+		431B7CE313BDB3190051F3FE /* BasketTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasketTableViewController.h; sourceTree = "<group>"; };
+		431B7CE413BDB3190051F3FE /* BasketTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasketTableViewController.m; sourceTree = "<group>"; };
 		4371926213B8C3E600AAC77C /* shopping_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_cart.png; sourceTree = "<group>"; };
 		438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = Classes/CalendarViewController.xib; sourceTree = "<group>"; };
 		438BC7D113B4B78E003D1B52 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = calendar.png; path = images/calendar.png; sourceTree = SOURCE_ROOT; };
@@ -276,10 +279,12 @@
 				2FD7C7F013BB11FB00B00C99 /* ModuleInfoViewController.m */,
 				2FD7C8CB13BB2DB000B00C99 /* ModuleInfoCell.h */,
 				2FD7C8CC13BB2DB000B00C99 /* ModuleInfoCell.m */,
-				2F468A4913BA03C40087DC3E /* ModuleListViewController.h */,
-				2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */,
 				2F468A7013BA07570087DC3E /* TimeTableViewController.h */,
 				2F468A7113BA07570087DC3E /* TimeTableViewController.m */,
+				2F468A4913BA03C40087DC3E /* ModuleListViewController.h */,
+				2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */,
+				431B7CE313BDB3190051F3FE /* BasketTableViewController.h */,
+				431B7CE413BDB3190051F3FE /* BasketTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				2FD7C8CE13BB2DB000B00C99 /* ModuleInfoCell.m in Sources */,
 				7193087213BD1034001D9F8B /* TimeTable.m in Sources */,
 				7193087413BD1087001D9F8B /* iPlanAppDelegate.m in Sources */,
+				431B7CE513BDB3190051F3FE /* BasketTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
