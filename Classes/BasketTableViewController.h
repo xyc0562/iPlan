@@ -13,4 +13,6 @@
 
 }
 
+- (IBAction) Edit:(id)sender;
+
 @end

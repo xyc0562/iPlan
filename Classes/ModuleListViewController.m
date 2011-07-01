@@ -36,6 +36,7 @@
 -(void) cartButtonClicked:(id)sender {
 	BasketTableViewController *basketController = [[BasketTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:basketController];
+	[basketController release];
     [[self navigationController] presentModalViewController:navController animated:YES];
     [navController release];
 }
@@ -141,11 +142,9 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	if (searching){
-		//NSLog(@"a");
 		theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
 	}else {
 		//set shared object
-		//NSLog(@"b");
 		theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
 	}
 	
@@ -157,7 +156,7 @@
 }
 
 - (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+	[self.tableView resignFirstResponder];
 	if(letUserSelectRow){
 		return indexPath;
 	}else{
@@ -184,11 +183,15 @@
 	self.tableView.scrollEnabled = NO;
 	
 	// add the cancel button for search
-	//[theSearchBar setShowsCancelButton:YES];
+	[theSearchBar setShowsCancelButton:YES];
 	//NSLog(@"search begin");
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *) theSearchBar{
+	searchBar.text = @"";
+	letUserSelectRow = YES;
+	searching = NO;
+	[theSearchBar setShowsCancelButton:NO];
 	[theSearchBar resignFirstResponder];
 }
 
@@ -252,18 +255,13 @@
 	[moduleListTableView reloadData];
 }
 
-- (IBAction)DeleteButtonAction:(id)sender{
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	[theDataObject.basket removeLastObject];
-	[moduleListTableView reloadData];
-}
 
 - (IBAction) Edit:(id)sender{
 	if(self.editing){
 		[super setEditing:NO animated:NO]; 
 		[moduleListTableView setEditing:NO animated:NO];
 		[moduleListTableView reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
 	}else{
 		[super setEditing:YES animated:YES]; 

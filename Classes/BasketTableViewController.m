@@ -84,6 +84,7 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	cell.textLabel.text = [theDataObject.basket objectAtIndex:indexPath.row];
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -142,6 +143,56 @@
     [detailViewController release];
     */
 }
+
+#pragma mark -
+#pragma mark Delete modules from the basket
+
+//- (IBAction)DeleteButtonAction:(id)sender{
+//	SharedAppDataObject* theDataObject = [self theAppDataObject];
+//	[theDataObject.basket removeLastObject];
+//	[moduleListTableView reloadData];
+//}
+
+- (IBAction) Edit:(id)sender{
+	if(self.editing){
+		[super setEditing:NO animated:NO]; 
+		[self.tableView setEditing:NO animated:NO];
+		[self.tableView reloadData];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+	}else{
+		[super setEditing:YES animated:YES]; 
+		[self.tableView setEditing:YES animated:YES];
+		[self.tableView reloadData];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+	}
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return UITableViewCellEditingStyleDelete;	
+}
+
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+	
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		
+		// only add the same module once
+		NSString *deletedModule = cell.textLabel.text;
+		if ([theDataObject.basket containsObject:deletedModule]){
+			[theDataObject.basket removeObject:deletedModule];
+			[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+								  withRowAnimation:UITableViewRowAnimationFade];
+		}
+		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
+    }
+}
+
 
 
 #pragma mark -
