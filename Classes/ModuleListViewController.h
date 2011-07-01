@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleListViewController : UITableViewController<UISearchBarDelegate> {
+@interface ModuleListViewController : UITableViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource> {
 	UITableView *moduleListTableView;
 	NSArray *moduleList;
 	
@@ -27,5 +27,8 @@
 
 - (void) searchTableView;
 - (void) doneSearching_Clicked:(id)sender;
+- (IBAction) Edit:(id)sender;
+
+
 
 @end

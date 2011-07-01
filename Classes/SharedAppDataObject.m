@@ -20,6 +20,13 @@
 #pragma mark -
 #pragma mark -Memory management
 
+-(id) init {
+	if ([super init]){
+		self.basket = [[NSMutableArray alloc] init];
+	}
+	return self;
+}
+
 - (void)dealloc
 {
 	self.settingsIdentity = nil;

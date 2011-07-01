@@ -22,8 +22,7 @@
 #pragma mark -
 #pragma mark instance method
 
-- (SharedAppDataObject*) theAppDataObject
-{
+- (SharedAppDataObject*) theAppDataObject{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
 	SharedAppDataObject* theDataObject;
 	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
@@ -54,8 +53,8 @@
 	
 	searching = NO;
 	letUserSelectRow = YES;
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+	
+	// the shopping cart button
 	UIImage *cartImage = [UIImage imageNamed:@"shopping_cart.png"];
 	UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[aButton setImage:cartImage forState:UIControlStateNormal];
@@ -63,6 +62,12 @@
 	UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:aButton];
 	[aButton addTarget:self action:@selector(cartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = item;
+	[item release];
+	
+	// insert buttons
+	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add to Basket" style:UIBarButtonItemStyleBordered target:self action:@selector(Edit:)];
+	[self.navigationItem setRightBarButtonItem:addButton];
+	[addButton release];
 }
 
 
@@ -234,6 +239,64 @@
 	
 	[self.tableView reloadData];
 }
+
+#pragma mark -
+#pragma mark Add modules to the basket
+
+- (IBAction)AddButtonAction:(id)sender{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	UIButton *button = (UIButton*) sender;
+	[theDataObject.basket addObject:button.titleLabel];
+	[moduleListTableView reloadData];
+}
+
+- (IBAction)DeleteButtonAction:(id)sender{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.basket removeLastObject];
+	[moduleListTableView reloadData];
+}
+
+- (IBAction) Edit:(id)sender{
+	if(self.editing){
+		[super setEditing:NO animated:NO]; 
+		[moduleListTableView setEditing:NO animated:NO];
+		[moduleListTableView reloadData];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+	}
+	else{
+		[super setEditing:YES animated:YES]; 
+		[moduleListTableView setEditing:YES animated:YES];
+		[moduleListTableView reloadData];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+	}
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleInsert;
+}
+
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+	UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+
+	if (editingStyle == UITableViewCellEditingStyleInsert) {
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		
+		// only add the same module once
+		NSString *addedModule = cell.textLabel.text;
+		if (![theDataObject.basket containsObject:addedModule]){
+			[theDataObject.basket insertObject:addedModule atIndex:[theDataObject.basket count]];
+			[moduleListTableView reloadData];
+		}
+		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
+    }
+}
+
+
 
 #pragma mark -
 #pragma mark Memory management
