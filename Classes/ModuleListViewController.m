@@ -263,12 +263,14 @@
 		[moduleListTableView reloadData];
 		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+		[self.navigationItem.leftBarButtonItem setEnabled:YES];
 	}else{
 		[super setEditing:YES animated:YES]; 
 		[moduleListTableView setEditing:YES animated:YES];
 		[moduleListTableView reloadData];
 		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+		[self.navigationItem.leftBarButtonItem setEnabled:NO];
 	}
 }
 

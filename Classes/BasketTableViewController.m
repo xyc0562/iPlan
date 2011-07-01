@@ -48,7 +48,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -158,14 +157,16 @@
 		[super setEditing:NO animated:NO]; 
 		[self.tableView setEditing:NO animated:NO];
 		[self.tableView reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+		[self.navigationItem.rightBarButtonItem setTitle:@"Delete"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+		[self.navigationItem.leftBarButtonItem setEnabled:YES];
 	}else{
 		[super setEditing:YES animated:YES]; 
 		[self.tableView setEditing:YES animated:YES];
 		[self.tableView reloadData];
 		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+		[self.navigationItem.leftBarButtonItem setEnabled:NO];
 	}
 }
 
@@ -193,7 +194,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
+#pragma mark -
+#pragma mark Row reordering
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath 
+	  toIndexPath:(NSIndexPath *)toIndexPath {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray *bkt = theDataObject.basket;
+	NSString *item = [[bkt objectAtIndex:fromIndexPath.row] retain];
+	[bkt removeObject:item];
+	[bkt insertObject:item atIndex:toIndexPath.row];
+	[item release];
+}
 
 #pragma mark -
 #pragma mark Memory management
