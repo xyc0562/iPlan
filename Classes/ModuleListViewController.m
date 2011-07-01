@@ -181,13 +181,12 @@
 	self.tableView.scrollEnabled = NO;
 	
 	// add the cancel button for search
-	[theSearchBar setShowsCancelButton:YES];
+	//[theSearchBar setShowsCancelButton:YES];
 	//NSLog(@"search begin");
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *) theSearchBar{
 	[theSearchBar resignFirstResponder];
-	[theSearchBar setShowsCancelButton:NO];
 }
 
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
@@ -263,8 +262,7 @@
 		[moduleListTableView reloadData];
 		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else{
+	}else{
 		[super setEditing:YES animated:YES]; 
 		[moduleListTableView setEditing:YES animated:YES];
 		[moduleListTableView reloadData];
@@ -274,7 +272,16 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleInsert;
+
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+	NSString *addedModule = cell.textLabel.text;
+	if ([theDataObject.basket containsObject:addedModule]){
+		return UITableViewCellEditingStyleNone;
+	}else {
+		return UITableViewCellEditingStyleInsert;
+	}
+
 }
 
 
@@ -290,6 +297,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 		NSString *addedModule = cell.textLabel.text;
 		if (![theDataObject.basket containsObject:addedModule]){
 			[theDataObject.basket insertObject:addedModule atIndex:[theDataObject.basket count]];
+			cell.editing = NO;
 			[moduleListTableView reloadData];
 		}
 		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
