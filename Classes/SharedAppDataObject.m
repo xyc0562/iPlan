@@ -16,6 +16,7 @@
 @synthesize settingsIdentity;
 @synthesize moduleCode;
 @synthesize basket;
+@synthesize zoomed;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -23,6 +24,7 @@
 -(id) init {
 	if ([super init]){
 		self.basket = [[NSMutableArray alloc] init];
+		zoomed = NO;
 	}
 	return self;
 }

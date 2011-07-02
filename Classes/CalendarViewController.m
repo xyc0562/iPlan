@@ -8,27 +8,37 @@
 
 #import "CalendarViewController.h"
 #import "UIViewWithLine.h"
-
-#define HEADER_ORIGIN_X 10
-#define HEADER_ORIGIN_Y	40
-#define NUMBER_OF_ROW_LINES 16
-#define NUMBER_OF_COL_LINES 7
-#define GAP_HEIGHT 30
-#define GAP_WIDTH 50
-#define TOTAL_HEIGHT (NUMBER_OF_ROW_LINES-1)*GAP_HEIGHT
-#define TOTAL_WIDTH (NUMBER_OF_COL_LINES-1)*GAP_WIDTH
-#define SCROLLVIEW_HEIGHT TOTAL_HEIGHT+HEADER_ORIGIN_Y
-#define SCROLLVIEW_WIDTH TOTAL_WIDTH+HEADER_ORIGIN_X
-
-#define LINE_TAG 100
-#define LABEL_TAG 100
-#define CLASS_VIEW_TAG 200
+#import "ControllerConstant.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 
 @implementation CalendarViewController
 
 @synthesize scrollView;
+@synthesize displaySlots;
 
+
+- (SharedAppDataObject*) theAppDataObject{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
 - (void) configureView {
+	displaySlots = [[NSMutableArray alloc]init];
+	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
+																	   WithVenue:@"Science" 
+																   WithStartTime:[NSNumber numberWithInt:10] 
+																	 WithEndTime:[NSNumber numberWithInt:12]
+																		 WithDay:[NSNumber numberWithInt:1] 
+															  WithClassGroupName:@"SL1" 
+																 WithModuleColor:[UIColor blueColor]
+																	WithProperty:CGRectMake(100, 100, 30, 50)];
+	[displaySlots addObject:slotView];
+	
+	
+	//for each slotView in displaySlots
+
 	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
 	for (int i = 0; i < NUMBER_OF_ROW_LINES; i++){
 		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
@@ -42,8 +52,8 @@
 		if (i != NUMBER_OF_ROW_LINES -1){
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
 			label.text = [NSString stringWithFormat:@"%d:00",i+8];
-			label.textColor = [UIColor whiteColor];
-			label.backgroundColor = [UIColor blackColor];
+			label.textColor = [UIColor blueColor];
+			label.backgroundColor = [UIColor clearColor];
 			[label setTag:LABEL_TAG];
 			[scrollView addSubview:label];
 			[label release];			
@@ -57,8 +67,22 @@
 															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT];
 		[line setTag:LINE_TAG];
 		[scrollView addSubview:line];
+		
 		[line release];
 	}
+	
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+	[tap setNumberOfTapsRequired:2];
+	[scrollView addGestureRecognizer:tap];
+	[tap release];
+	
+	for (SlotViewController* slotView in displaySlots ) 
+	{
+		[scrollView addSubview:slotView.view];
+		[scrollView bringSubviewToFront:slotView.view];
+	}
+	
+	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -66,6 +90,28 @@
     [super viewDidLoad];
 	[self configureView];
 	self.view = scrollView;
+}
+
+
+- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
+	// zoom in
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	if(![theDataObject zoomed])
+	{
+		[UIView beginAnimations:nil context:nil]; 
+		[UIView setAnimationDuration:0.3]; 
+		[scrollView setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
+		[UIView commitAnimations];
+	}
+	else 
+	{
+		[UIView beginAnimations:nil context:nil]; 
+		[UIView setAnimationDuration:0.3]; 
+		[scrollView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+		[UIView commitAnimations];
+	}
+
+	theDataObject.zoomed = !theDataObject.zoomed;
 }
 
 
@@ -102,6 +148,7 @@
 
 - (void)dealloc {
 	[scrollView release];
+	[displaySlots release];
     [super dealloc];
 }
 

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SlotViewController.h"
 
 @interface CalendarViewController : UIViewController {
 	IBOutlet UIScrollView* scrollView;
+	NSMutableArray* displaySlots;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
+@property (nonatomic, retain) NSMutableArray* displaySlots;
 
 -(id)initWithTabBar;
 
