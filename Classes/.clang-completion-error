@@ -1,13 +1,16 @@
-In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:62:102: error: expected ';' after method prototype
-- (void) generateDefaultTimetableFromModules:(NSArray*)modulesSelected Active:(NSArray*)activeIndexes
-                                                                                                     ^
-                                                                                                     ;
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:1: error: illegal interface qualifier
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:13:13: error: synthesized property 'timeTable' must either be named the same as a compatible ivar or must explicitly name an ivar
+@synthesize timeTable;
+            ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:13: error: synthesized property 'moduleObjectsDict' must either be named the same as a compatible ivar or must explicitly name an ivar
 @synthesize moduleObjectsDict;
-^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:16:41: error: expected ';' after method prototype
--(id)initWithTimeTable:(TimeTable*)table
-                                        ^
-                                        ;
-3 errors generated.
+            ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:34:8: error: use of undeclared identifier 'super'
+    if(super !=nil)
+       ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:57:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
+    NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
+                    ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:509:17: warning: collection expression type 'ModuleClassType *' may not respond to 'countByEnumeratingWithState:objects:count:'
+                for (ClassGroup *CG in MCT)
+                ^                      ~~~
+2 warnings and 3 errors generated.
