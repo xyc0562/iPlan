@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "UIViewWithLine.h"
-#import "ControllerConstant.h"
+// #import "ControllerConstant.h" //Temply disable to build
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
@@ -24,6 +24,8 @@
 	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
 	return theDataObject;
 }
+
+/*  //Temply disable to build
 - (void) configureView {
 	displaySlots = [[NSMutableArray alloc]init];
 	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
@@ -85,10 +87,12 @@
 	
 }
 
+*/ 
+ 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[self configureView];
+	//[self configureView]; //Temply disable to build
 	self.view = scrollView;
 }
 

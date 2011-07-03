@@ -13,12 +13,14 @@
 	NSString *settingsIdentity;
 	NSString *moduleCode;
 	NSMutableArray *basket;
+	NSMutableDictionary *moduleCells;
 	BOOL zoomed;
 }
 
 @property (nonatomic, copy) NSString *settingsIdentity;
 @property (nonatomic, copy) NSString *moduleCode;
 @property (nonatomic, retain) NSMutableArray *basket;
+@property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, assign) BOOL zoomed;
 
 @end

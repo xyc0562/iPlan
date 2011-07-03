@@ -10,7 +10,7 @@
 
 
 @interface ModuleInfoCell : UITableViewCell {
-	UILabel *moduleInfoCell;
+	IBOutlet UILabel *moduleInfoCell;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *moduleInfoCell;
