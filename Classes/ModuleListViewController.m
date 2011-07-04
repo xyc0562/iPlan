@@ -49,7 +49,7 @@
 	
 	// initialize the copy array
 	copyModuleList = [[NSMutableArray alloc] init];
-	pathForAlert = [[NSIndexPath alloc] init];
+	pathForAlert = [[NSIndexPath alloc]	init];
 	
 	//Add the search bar
 	self.tableView.tableHeaderView = searchBar;
@@ -73,13 +73,10 @@
 	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Continue" style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
 	[self.navigationItem setRightBarButtonItem:addButton];
 	[addButton release];
-	
-	NSLog(@"debug 1");
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
-	NSLog(@"debug 2");
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSLog(@"debug 3 : %d", [theDataObject.basket count]);
 	[moduleListTableView reloadData];
@@ -210,28 +207,23 @@
 		
 		pathForAlert = indexPath;
 	}else {
-		NSLog(@"debug 7" );
 		[self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 	}
 	
 	[addedModule release];
-	[theDataObject release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
+ 	
 	NSString *addedModule = [moduleList objectAtIndex:pathForAlert.row];
-	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
 	if ([button isEqual:@"OK"]) {
-		NSLog(@"debug 5 " );
 		[theDataObject.basket addObject:addedModule];
-		
 		UITableViewCell *cell = [theDataObject.moduleCells objectForKey:addedModule];
-		
 		UIButton *button = (UIButton *)cell.accessoryView;
-		
+		NSLog(@"debug 5. %@ ", cell.textLabel.text );
 		UIImage *newImage = nil;
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 	}else{
@@ -434,7 +426,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)dealloc {
 	[moduleListTableView release];
 	[moduleList release];
-	[pathForAlert release];
     [super dealloc];
 }
 
