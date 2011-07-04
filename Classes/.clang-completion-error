@@ -10,7 +10,4 @@
 /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:57:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
     NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
                     ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:509:17: warning: collection expression type 'ModuleClassType *' may not respond to 'countByEnumeratingWithState:objects:count:'
-                for (ClassGroup *CG in MCT)
-                ^                      ~~~
-2 warnings and 3 errors generated.
+1 warning and 3 errors generated.

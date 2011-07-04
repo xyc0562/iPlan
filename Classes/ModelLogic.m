@@ -506,7 +506,7 @@
         {
             if ([MCT.name isEqualToString:type])
             {
-                for (ClassGroup *CG in MCT)
+                for (ClassGroup *CG in MCT.classGroups)
                 {
                     if ([CG.selected isEqualToString:MODULE_ACTIVE])
                     {
@@ -537,7 +537,7 @@
         {
             if ([MCT.name isEqualToString:type])
             {
-                for (ClassGroup *CG in MCT)
+                for (ClassGroup *CG in MCT.classGroups)
                 {
                     if ([CG.selected isEqualToString:MODULE_ACTIVE])
                     {
