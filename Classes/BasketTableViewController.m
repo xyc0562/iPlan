@@ -146,11 +146,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 		// only add the same module once
 		NSString *deletedModule = cell.textLabel.text;
 		if ([theDataObject.basket containsObject:deletedModule]){
+			//SharedData manipulation
 			[theDataObject.basket removeObject:deletedModule];
+			
+			[theDataObject.removedCells setObject:[theDataObject.moduleCells objectForKey:deletedModule]  forKey:deletedModule];
+			[theDataObject.moduleCells removeObjectForKey:deletedModule];
+			
 			[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
 								  withRowAnimation:UITableViewRowAnimationFade];
 		}
-		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
+		//NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
     }
 }
 

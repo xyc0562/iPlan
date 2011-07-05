@@ -78,7 +78,16 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSLog(@"debug 3 : %d", [theDataObject.basket count]);
+	
+	for (NSString *key in theDataObject.removedCells) {
+		NSIndexPath *path = [theDataObject.removedCells objectForKey:key];
+		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path];
+		UIButton *button = (UIButton *)cell.accessoryView;
+		
+		UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
+		[button setBackgroundImage:newImage forState:UIControlStateNormal];
+	}
+	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
 }
 
@@ -137,10 +146,7 @@
 		addedModule = [moduleList objectAtIndex:row];
 	}
 	
-	NSLog(@"debug 4 : %d", [theDataObject.basket count]);
-	
 	cell.textLabel.text = addedModule;
-	[theDataObject.moduleCells setObject:cell forKey:addedModule];
 	
 	BOOL checked = [theDataObject.basket containsObject:addedModule];
 
@@ -205,6 +211,8 @@
 		[alert show];
 		[alert release];
 		
+		NSLog(@"test 2");
+		
 		pathForAlert = indexPath;
 	}else {
 		[self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
@@ -221,13 +229,18 @@
 
 	if ([button isEqual:@"OK"]) {
 		[theDataObject.basket addObject:addedModule];
-		UITableViewCell *cell = [theDataObject.moduleCells objectForKey:addedModule];
+		
+		
+		UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:pathForAlert];
+		[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
+		
 		UIButton *button = (UIButton *)cell.accessoryView;
-		NSLog(@"debug 5. %@ ", cell.textLabel.text );
+
 		UIImage *newImage = nil;
+		
+		NSLog(@"test 3");
+		
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
-	}else{
-		NSLog(@"debug 6");
 	}
 }
 
@@ -284,7 +297,6 @@
 }
 
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
-	//NSLog(@"text did change begin");
 	//Remove all objects first.
 	[copyModuleList removeAllObjects];
 	
