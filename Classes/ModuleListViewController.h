@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleListViewController : UITableViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource> {
+@interface ModuleListViewController : UITableViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource, UIAlertViewDelegate> {
 	UITableView *moduleListTableView;
 	NSArray *moduleList;
 	
@@ -17,7 +17,7 @@
 	IBOutlet UISearchBar *searchBar;
 	BOOL searching;
 	BOOL letUserSelectRow;
-		
+	NSIndexPath *pathForAlert;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
@@ -28,5 +28,6 @@
 - (void) searchTableView;
 - (void) doneSearching_Clicked:(id)sender;
 - (IBAction) Edit:(id)sender;
+- (IBAction) forwardToRequirement:(id)sender;
 
 @end

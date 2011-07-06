@@ -6,10 +6,6 @@
 //  Copyright 2011 NUS. All rights reserved.
 //
 //
-//exam date clash check
-//half hour problem
-//program stuck if the first few modules have too many choices
-// currentprogress need modify?
 
 
 #import "TimeTable.h"
@@ -18,8 +14,7 @@
 
 -(BOOL)getOneTimeTableWithIndex:(int)index
 			 WithClassTypeArray:(NSMutableArray**)classTypeArray
-				  WithTimeTable:(NSMutableArray**)timeTable
-					 WithResult:(NSMutableArray*)result;
+				  WithTimeTable:(NSMutableArray**)timeTable;
 
 -(BOOL)checkPossibilityWithCurrentTimeTable:(NSMutableArray*)timeTable
 						   WithCurrentIndex:(int)index
@@ -52,8 +47,6 @@
 
 -(NSMutableArray*)constructInitialTimeTable;
 
--(NSMutableArray*)constructResult;
-
 -(NSMutableArray*)constructClassTypeArrayWithModules;
 
 -(NSMutableArray*)copyClassTypeArray:(NSMutableArray*)classTypeArray;
@@ -63,6 +56,7 @@
 @implementation TimeTable
 @synthesize name;
 @synthesize modules;
+@synthesize result;
 
 -(id)initWithName:(NSString*)naming
 {
@@ -137,24 +131,21 @@
 	return newClassTypeArray;
 }
 
--(NSMutableArray*)planOneTimetable
+-(void)planOneTimetable
 {
 	NSMutableArray* smallClassTypeArray = [self constructClassTypeArrayWithModules];
-	NSMutableArray* result = [self constructResult];
 	NSMutableArray* timeTable = [self constructInitialTimeTable];
 	if ([self getOneTimeTableWithIndex:(int)0
 					WithClassTypeArray:&smallClassTypeArray
-						 WithTimeTable:&timeTable
-							WithResult:result])
+						 WithTimeTable:&timeTable])
 		printf("success\n");
 
-	return smallClassTypeArray;
+	self.result = smallClassTypeArray;
 }
 							
 -(BOOL)getOneTimeTableWithIndex:(int)index
 			 WithClassTypeArray:(NSMutableArray**)classTypeArray
 				  WithTimeTable:(NSMutableArray**)timeTable
-					 WithResult:(NSMutableArray*)result
 {
 	if (index >= [*classTypeArray count])
 		return YES;
@@ -178,14 +169,13 @@
 				
 					if ([self getOneTimeTableWithIndex:index+1
 									WithClassTypeArray:&newClassTypeArray
-										 WithTimeTable:&newTimeTable
-											WithResult:result]) 
+										 WithTimeTable:&newTimeTable]) 
 					{
 						[*classTypeArray release];
 						[*timeTable release];
 						*classTypeArray = newClassTypeArray;
 						*timeTable = newTimeTable;
-						//update timetable and result
+						//update timeTable
 						return YES;
 					}
 			}
@@ -364,14 +354,7 @@
 		[timetable addObject:week];
 	}
 	return timetable;
-}
-
--(NSMutableArray*)constructResult
-{
-	NSMutableArray* result = [[NSMutableArray alloc]init];
-	return result;
-}
-	
+}	
 									   
 									   
 -(NSMutableArray*)constructModuleIndex

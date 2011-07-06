@@ -13,7 +13,7 @@
 
 #define COMMENT_LABEL_WIDTH 230
 #define COMMENT_LABEL_MIN_HEIGHT 65
-#define COMMENT_LABEL_PADDING 10
+#define COMMENT_LABEL_PADDING 0
 
 #define RIGHTBAR_NAME @"Select"
 
@@ -188,9 +188,7 @@
                 cell = (ModuleInfoCell *)currentObject;
                 break;
             }
-        } 
-		
-		//[topLevelObjects autorelease];  //adding this code will cause problem
+        }
     }
 
     // Configure the cell...

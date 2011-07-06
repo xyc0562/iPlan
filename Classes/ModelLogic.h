@@ -42,50 +42,54 @@
 
 - (NSString*) getRemarksFromModule:(NSString*)code;
 
-- (NSArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
+- (NSMutableArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
 // requires: a module's code in NSString (this module can be any module)
 // effects: return an array of NSString: eg: ['Lecture', 'Tutorial', 'Lab']
 
-- (NSArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
+- (NSMutableArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'
 // effects: return an array of string; each string represents the group name, eg: "1", or "LG1", "D5"
 
-- (NSArray*) getTimesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
+- (NSMutableArray*) getTimesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'; group name, eg: "LG5", "D5"
-// effects: return an array of points; each point represents one time, eg: (3,8) represents: Wed 8:00 -9:00
+// effects: return an array(arr) of arrays(subArr); subArr[0] is NSNumber(1-7) representing day, subArr[1] is start time (1530, say), and subArr[2] is end time
 
-- (NSArray*) getVenuesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
+- (NSMutableArray*) getVenuesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
 // effects: return an array of NSString; each string represents one venue
 
-- (NSArray*) getFrequenciesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
+- (NSMutableArray*) getFrequenciesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
 // effects: return an array of NSString
 
-- (void) generateDefaultTimetableFromModules:(NSArray*)modulesSelected Active:(NSArray*)activeIndexes;
+- (void) generateDefaultTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 // effects: nothing returned but will store the defaultTimetable inside model logic
 
-- (void) generateBasicTimetableFromModules:(NSArray*)modulesSelected Active:(NSArray*)activeIndexes;
+- (void) generateBasicTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 // effects: nothing returned but will store the basicTimetable inside model logic
 
 // Not useful, the xml only has examinable to be "-"
-- (NSArray*) getExamDatesForActiveModulesTogetherWithConflits;
-// Return an NSArray arr:
+- (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits;
+// Return an NSMutableArray arr:
 // arr[0] is a NSString denoting whether there are conflicts in active modules ("YES" or "NO")
 // arr[1..n] contains size-2 arrays subArr with subArr[0] denoting module code and subArr[1] denoting exam date
-- (NSArray*) getActiveModules;
+- (NSMutableArray*) getActiveModules;
 // requires: nothing
 // effects: return all the active modules' code (NSString)
 
-- (NSArray*) getClassTypeFromActiveModule:(NSString*)code;
+- (NSMutableArray*) getClassTypesFromModuleCode:(NSString*)code;
 // requires: a module's code in NSString; 
 // effects: return an array of NSString: eg: ['Lecture', 'Tutorial', 'Lab']
 
-- (NSArray*) getSelectedGroupTimesFromActiveModule:(NSString*)code ClassType:(NSString*)type;
+- (NSMutableArray*) getSelectedGroupTimesFromActiveModule:(NSString*)code ModuleClassType:(NSString*)type;
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'; the group type is the one selected in basicTimetable or defaultTimetable
-// effects: return an array of points; each point represents one time, eg: (3,8) represents: Wed 8:00 -9:00
+// Returns: same as getTimesFromModule
 
-- (NSArray*) getSelectedGroupVenuesFromActiveModule:(NSString*)code ClassType:(NSString*)type;
+- (NSMutableArray*) getSelectedGroupVenuesFromActiveModule:(NSString*)code ClassType:(NSString*)type;
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'; the group type is the one selected in basicTimetable or defaultTimetable
-// effects: return an array of NSString; each string representsk
+// effects: return an array of NSString; each string represent one venue
 
+- (void) syncModulesWithBasket:(NSMutableArray*)modules;
+//sync the modules in timetable with those from basket.
 
+- (NSMutableArray*)getSelectedGroupsInfoFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
+//get all selected groups information eg. each slots information
 @end

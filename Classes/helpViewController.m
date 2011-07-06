@@ -11,6 +11,9 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
+#define HELP1 @"1. Please note that if you want to select one module, swipe the module code to right.\n"
+#define HELP2 @"2. Select modules first, after you are done, then click the Continue button.\n"
+#define HELP3 @"3. You can update your requirement any time in the editing mode by clicking the basket button on the top left side.\n"
 #define HELP_MESSAGE @"If you have any questions, please contact Zhan Ying Bo~~~"
 #define ABOUT_MESSAGE @"Thanks!\n We are expecting your support!"
 
@@ -57,7 +60,9 @@
 	SharedAppDataObject *theAppData = [self theAppDataObject];
 	
 	if([theAppData.settingsIdentity isEqual:@"1"]){
-		helpTextView.text = HELP_MESSAGE;
+		NSString *message = [[NSString alloc] initWithFormat:@"%@%@%@%@", HELP1, HELP2, HELP3, HELP_MESSAGE];
+		helpTextView.text = message;
+		[message release];
 	}else if ([theAppData.settingsIdentity isEqual:@"2"]) {
 		helpTextView.text = ABOUT_MESSAGE;
 	}else {

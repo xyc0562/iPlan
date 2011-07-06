@@ -124,9 +124,9 @@
 	printf("before timeTable init timetable\n");
 	TimeTable* testTable = [[TimeTable alloc]initWithName:@"test" WithModules:moduleArray];
 	printf("before planOneTimetable\n");
-	NSMutableArray* result = [testTable planOneTimetable];
+	[testTable planOneTimetable];
 	printf("****************************************************\n");
-	for(NSMutableArray* eachSelected in result)
+	for(NSMutableArray* eachSelected in testTable.result)
 	{
 		//NSLog([[eachSelected objectAtIndex:1]stringValue]);
 		NSLog([[eachSelected objectAtIndex:2] stringValue]);
