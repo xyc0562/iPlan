@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleInfoViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>{
+@interface ModuleInfoViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>{
 	IBOutlet UITableView *moduleInfoTableView;
 	NSArray *infoList;
 	NSInteger selectedIndex;
