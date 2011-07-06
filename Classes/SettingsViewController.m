@@ -24,7 +24,6 @@
 @synthesize settingsList;
 
 
-
 #pragma mark -
 #pragma mark instance methods
 
