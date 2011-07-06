@@ -208,7 +208,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
  	
-	NSString *addedModule = [moduleList objectAtIndex:pathForAlert.row];
+	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
 	if ([button isEqual:@"OK"]) {
