@@ -73,6 +73,9 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
+	[self.view becomeFirstResponder];
+	[moduleListTableView resignFirstResponder];
+	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	for (NSString *key in theDataObject.removedCells) {
@@ -391,6 +394,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 	
     [super viewWillDisappear:animated];
 	// to dismiss the keyboard
+	[moduleListTableView becomeFirstResponder];
     [searchBar resignFirstResponder];
 }
 
