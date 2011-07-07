@@ -43,7 +43,7 @@
         numDay = [NSNumber numberWithInt:7];
     }
     
-    return numDay;
+    return [numDay autorelease];
 }
 
 + (NSArray*) frequencyStringToNSArray:(NSString*)fre
@@ -88,13 +88,128 @@
         while (![scanner isAtEnd]) {
             if ([scanner scanInt:&number])
             {
-                NSLog(@"%i", number);
                 [freArray replaceObjectAtIndex:number withObject:@"YES"];
             }
         }
     }
 
 return [freArray autorelease];
+}
+
++ (NSString*) weekOfDayNSNumberToString:(NSNumber*)day
+{
+    NSString *dayStr;
+    NSInteger dayInt = [day integerValue];
+
+    switch (dayInt)
+    {
+    case 1:
+        dayStr = [NSString stringWithString:@"MONDAY"];
+        break;
+    case 2:
+        dayStr = [NSString stringWithString:@"TUESDAY"];
+        break;
+    case 3:
+        dayStr = [NSString stringWithString:@"WEDNESDAY"];
+        break;
+    case 4:
+        dayStr = [NSString stringWithString:@"THURSDAY"];
+        break;
+    case 5:
+        dayStr = [NSString stringWithString:@"FRIDAY"];
+        break;
+    case 6:
+        dayStr = [NSString stringWithString:@"SATURDAY"];
+        break;
+    case 7:
+        dayStr = [NSString stringWithString:@"SUNDAY"];
+        break;
+    default:
+        dayStr = [NSString stringWithString:@"UNKNOWN"];
+    }
+
+    return dayStr;
+}
+
++ (NSString*) timeIntervalFromStartTime:(NSNumber*)start EndTime:(NSNumber*)end
+{
+    NSMutableString *startStr = [NSMutableString stringWithCapacity:5];
+    NSMutableString *endStr = [NSMutableString stringWithCapacity:5];
+    [startStr appendString:[start stringValue]];
+    [endStr appendString:[end stringValue]];
+    NSInteger startIdx = [startStr length] == 3 ? 1 : 2;
+    NSInteger endIdx = [endStr length] == 3 ? 1 : 2;
+
+    [startStr insertString:@":" atIndex:startIdx];
+    [startStr appendString:@"-"];
+    [endStr insertString:@":" atIndex:endIdx];
+    
+    NSMutableString *result = startStr;
+    [result appendString:endStr];
+    
+    return [result autorelease];
+}
+
++ (NSString*) decodeFrequency:(NSArray*)freArr
+{
+    BOOL everyWeek = YES;
+    for (int i = 1; i < [freArr count]; i ++)
+    {
+        if ([[freArr objectAtIndex:i] isEqualToString:@"NO"])
+        {
+            everyWeek = NO;
+            break;
+        }
+    }
+    if (everyWeek)
+    {
+        return @"EVERY WEEK";
+    }
+
+    BOOL oddWeek = YES;
+    for (int i = 1; i < [freArr count]; i += 2)
+    {
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i+1] isEqualToString:@"YES"]))
+        {
+            oddWeek = NO;
+            break;
+        }
+    }
+    if (oddWeek)
+    {
+        return @"ODD WEEK";
+    }
+
+    BOOL evenWeek = YES;
+    for (int i = 2; i < [freArr count]; i += 2)
+    {
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i-1] isEqualToString:@"YES"]))
+        {
+            evenWeek = NO;
+            break;
+        }
+    }
+    if (evenWeek)
+    {
+        return @"EVEN WEEK";
+    }
+
+    NSMutableString *str = [NSMutableString stringWithString:@"Weeks: "];
+    BOOL start = YES;
+    for (int i = 1; i < [freArr count]; i ++)
+    {
+        if ([[freArr objectAtIndex:i] isEqualToString:@"YES"])
+        {
+            if (!start)
+            {
+                [str appendString:@","];
+            }
+            [str appendString:[NSString stringWithFormat:@"%d", i]];
+            start = NO;
+        }
+    }
+
+    return [str autorelease];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ConstantFile.h"
 #import "TimeTable.h"
+#import "IPlanUtility.h"
 
 @interface ModelLogic : NSObject
 {
@@ -22,6 +23,8 @@
 // effects: return an array of NSString, which is the module code
 
 - (NSString*) getTitleFromModule:(NSString*)code;
+
+-(id)initWithTimeTable:(TimeTable*)table;
 
 - (NSString*) getDescriptionFromModule:(NSString*)code;
 
@@ -41,10 +44,6 @@
 - (NSString*) getWorkloadFromModule:(NSString*)code;
 
 - (NSString*) getRemarksFromModule:(NSString*)code;
-
-- (NSMutableArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
-// requires: a module's code in NSString (this module can be any module)
-// effects: return an array of NSString: eg: ['Lecture', 'Tutorial', 'Lab']
 
 - (NSMutableArray*) getGroupNamesFromModule:(NSString*)code ModuleClassType:(NSString*)type;
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'
@@ -92,4 +91,6 @@
 
 - (NSMutableArray*)getSelectedGroupsInfoFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 //get all selected groups information eg. each slots information
+
+- (NSArray*)getModuleInfoIntoArray:(NSString*)code;
 @end

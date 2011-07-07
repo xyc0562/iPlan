@@ -1,13 +1,23 @@
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:13:13: error: synthesized property 'timeTable' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize timeTable;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:13: error: synthesized property 'moduleObjectsDict' must either be named the same as a compatible ivar or must explicitly name an ivar
-@synthesize moduleObjectsDict;
-            ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:34:8: error: use of undeclared identifier 'super'
-    if(super !=nil)
-       ^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:57:21: warning: incompatible pointer types initializing 'NSMutableArray *' with an expression of type 'NSArray *'
-    NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
-                    ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1 warning and 3 errors generated.
+/Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:171:112: warning: incompatible pointer types sending 'char [4]' to parameter of type 'NSString *'
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i+1] isEqualToString:"YES"]))
+                                                                                                               ^~~~~
+                                                                                                               @
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:15:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/NSCharacterSet.h:8:
+/System/Library/Frameworks/Foundation.framework/Headers/NSString.h:113:37: note: passing argument to parameter 'aString' here
+- (BOOL)isEqualToString:(NSString *)aString;
+                                    ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:184:112: warning: incompatible pointer types sending 'char [4]' to parameter of type 'NSString *'
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i-1] isEqualToString:"YES"]))
+                                                                                                               ^~~~~
+                                                                                                               @
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:15:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/NSCharacterSet.h:8:
+/System/Library/Frameworks/Foundation.framework/Headers/NSString.h:113:37: note: passing argument to parameter 'aString' here
+- (BOOL)isEqualToString:(NSString *)aString;
+                                    ^
+2 warnings generated.
