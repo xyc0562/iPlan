@@ -10,6 +10,7 @@
 #import "AppDelegateProtocol.h"
 #import "SharedAppDataObject.h"
 #import "ModuleInfoCell.h"
+#import "ModelLogic.h"
 
 #define COMMENT_LABEL_WIDTH 230
 #define COMMENT_LABEL_MIN_HEIGHT 65
@@ -106,49 +107,12 @@
 	[self configureNavBar];
 	
 	selectedIndex = -1;
-	
-	NSArray *CS1101E_info = [[NSArray alloc] initWithObjects:@"Code: CH1101E", 
-							@"Title: Introduction to Chinese Studies", 
-							@"Description: An introductory course on some of the central concerns and issues in Chinese literature, history and culture. Students will be familiarized with a variety of literary genres, historical themes, and cultural theories through representative readings from primary and secondary sources. This is an essential module for students majoring in Chinese Studies and is also offered to students across the University with an interest in Chinese studies.", 
-							@"Examinable: no",
-							@"Open_book: unknown",
-							@"Exam_date: 30-04-2011", 
-							@"MC: 4", 
-							@"prerequisites: Must obtain: \n1) At least a B4 for (a) Higher Chinese at GCE 'O' Level, or (b) Chinese Language at GCE 'AO' Level (at GCE 'A' Level examination); OR \n2) At least a pass for (a) Chinese at GCE 'A' Level, or (b) Higher Chinese at GCE 'A' Level; OR \n3) At least C grade for Chinese Language (H1CL) at GCE 'A' Level; OR \n4) At least a pass for (a) Chinese Language and Literature (H2CLL) at GCE 'A' Level, or (b) Chinese Language and Literature (H3CLL) at GCE 'A' Level. \n5) Equivalent qualifications may be accepted." 
-							@"Preclude: nil",
-							@"Workload: 2-1-0-2-5",
-							@"Remarks: nil",
-							@"Lectures: \n1) Lecture 1, WEDNESDAY, 1400-1600, ADM/0402, EVERYWEEK,",
-							@"Tutorials: \n1) Tutorial D4, TUESDAY, 1600-1800, AS3/0305, ODD WEEK \n2) Tutorial D5, THURSDAY, 1600-1800, AS2/0413, ODD WEEK",
-							 nil];
-	NSArray *CS1102_info = [[NSArray alloc] initWithObjects:@"Code: CS1102",
-							@"Title: Data Structures and Algorithms",
-							@"Description: This module is the second part of a two-part series on introductory programming from an object-oriented perspective. It continues the introduction to object-oriented programming begun in CS1101, with an emphasis on data  structures and algorithms. Topics covered include: abstraction and encapsulation for data structures, basic data structures such as lists, stacks, queues, and their algorithmic designs, various forms of sorting methods, trees, binary search tree, hash tables, order property, heap and priority queues, graphs representation and basic graph search algorithms (breadth-first search, depth-first search), and basic algorithmic analysis.",
-							@"Examinable: no",
-							@"Open_book: unknown",
-							@"Exam_date: 25-04-2011 EVENING",
-							@"MC: 5",
-							@"Prerequisites: CS1101",
-							@"Preclude: CG1102, CG1103, CS1020, CS1020E, CS1102C, CS1102S. EEE &amp; CPE students are not allowed to take this module",
-							@"Workload: 3-1-1-3-4",
-							@"Remarks: nil",
-							@"Lectures:\n1) Lecture 1, WEDNESDAY, 1000-1200, COM1/202, EVERYWEEK \n2) Lecture 1, MONDAY, 900-1000, COM1/202, EVERYWEEK",
-							@"Laboratories: \n1) Lab 1, THURSDAY, 1000-1200, COM1/120, EVERYWEEK \n2) Lab 2, THURSDAY, 1200-1400, COM1/120, EVERYWEEK",
-							@"Tutorials: \n1) Tutorial 1, FRIDAY, 900-1000, COM1/207, EVERYWEEK \n2) Tutorial 2, FRIDAY, 1300-1400, COM1/207, EVERYWEEK",
-							nil];
-							
-	SharedAppDataObject *theAppData = [self theAppDataObject];
-	
-	if ([theAppData.moduleCode isEqual:@"CH1101E"]) {
-		infoList = [[NSArray alloc] initWithArray:CS1101E_info];
-	}else if ([theAppData.moduleCode isEqual:@"CS1102"]) {
-		infoList = [[NSArray alloc] initWithArray:CS1102_info];
-	}else{
-		printf("ERROR!");
-	}
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	ModelLogic *ml = [[ModelLogic alloc] init];
+    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:theDataObject.moduleCode];
+	[ml release];
 		   
-	[CS1101E_info release];
-	[CS1102_info release];
+	self.infoList = arr;
 	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;

@@ -11,6 +11,7 @@
 #import "BasketTableViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
+#import "ModelLogic.h"
 
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
@@ -48,9 +49,15 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	NSArray *array = [[NSArray alloc] initWithObjects:@"CH1101E",@"CS1102",nil];
+	ModelLogic *ml = [[ModelLogic alloc] init];
+	
+    NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+	
+	NSArray *array = [[NSArray alloc] initWithArray:arr];
 	self.moduleList = array;
+	
 	[array release];
+	[ml release];
 	
 	// initialize the copy array
 	copyModuleList = [[NSMutableArray alloc] initWithArray:moduleList];
