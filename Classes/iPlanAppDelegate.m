@@ -37,8 +37,9 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
- /*   ModelLogic *ml = [[ModelLogic alloc] init];
-    NSMutableArray *arr = [ml getModuleInfoIntoArray:@"AR3324"];
+/*    ModelLogic *ml = [[ModelLogic alloc] init];
+    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR3324"];
+
     NSLog(@"---start----");
     for (NSString *str in arr)
     {
@@ -105,10 +106,10 @@
 	[moduleNameArray addObject:@"HR2002"];
 	
 	[moduleNameArray addObject:@"MA2108"];
-	[moduleNameArray addObject:@"EE2006"];
+//	[moduleNameArray addObject:@"EE2006"];
 //	[moduleNameArray addObject:@"EE2004"];
-	[moduleNameArray addObject:@"EE3304"];
-	[moduleNameArray addObject:@"EE2001"];
+//	[moduleNameArray addObject:@"EE3304"];
+//	[moduleNameArray addObject:@"EE2001"];
 
 	
 	

@@ -259,6 +259,18 @@
 #pragma mark -
 #pragma mark Search Bar 
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar 
+{
+	[theSearchBar setShowsCancelButton:YES];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)theSearchBar
+{	
+	theSearchBar.text = @"";
+	[theSearchBar setShowsCancelButton:NO];
+	[theSearchBar resignFirstResponder];
+}
+
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
 	//Remove all objects first.
 	[copyModuleList removeAllObjects];
@@ -275,6 +287,7 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
 	[self searchTableView];
+	[theSearchBar setShowsCancelButton:NO];
 	[theSearchBar resignFirstResponder];
 }
 
@@ -395,6 +408,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super viewWillDisappear:animated];
 	// to dismiss the keyboard
 	[moduleListTableView becomeFirstResponder];
+	[searchBar setShowsCancelButton:NO];
     [searchBar resignFirstResponder];
 }
 
