@@ -116,7 +116,6 @@
 	scrollView.canCancelContentTouches = YES;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.slotControllers = displaySlots;
-
 }
 
 
@@ -129,9 +128,24 @@
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
+
+	
+}
+/*
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
 
+}
+
+*/
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
 	
 	
