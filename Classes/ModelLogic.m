@@ -13,6 +13,21 @@
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
 
+- (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
+{
+    Module *module = [self.moduleObjectsDict objectForKey:code];
+    if (!module)
+    {
+        module = [Module ModuleWithModuleCode:code];
+        if (module)
+        {
+            [self.moduleObjectsDict setValue:module forKey:code];
+        }
+    }
+
+    return [module autorelease];
+}
+
 -(id)initWithTimeTable:(TimeTable*)table
 {
     [super init];
@@ -23,10 +38,27 @@
         {
             self.moduleObjectsDict = [NSMutableDictionary dictionary];
         }
+        for (Module* m in self.timeTable.modules)
+        {
+            [self getOrCreateAndGetModuleInstanceByCode:m.code];
+        }
     }
     return self;
 }
 
+-(id)init:(TimeTable*)table
+{
+    [super init];
+    if(super !=nil)
+    {
+        if (!moduleObjectsDict)
+        {
+            self.moduleObjectsDict = [NSMutableDictionary dictionary];
+        }
+    }
+    return self;
+}
+    
 - (NSArray*) getAllModuleCodes
 {
     // Get directory path that stores the module objects
@@ -46,21 +78,6 @@
     }
 
     return moduleNames;
-}
-
-- (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
-{
-    Module *module = [self.moduleObjectsDict objectForKey:code];
-    if (!module)
-    {
-        module = [Module ModuleWithModuleCode:code];
-        if (module)
-        {
-            [self.moduleObjectsDict setValue:module forKey:code];
-        }
-    }
-
-    return module;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -363,7 +380,7 @@
 }
 
 // Not retained!
-- (NSMutableArray*) getExamDatesTogetherWithConflitsInformation
+- (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits
 {
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
 
@@ -468,9 +485,154 @@
 
 - (void) generateBasicTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 {
+    
+}
+
+// Not retained!
+- (NSMutableArray*) getClassTypesFromModuleCode:(NSString*)code
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+    Module *m = [self getOrCreateAndGetModuleInstanceByCode:code];
+
+    if (m)
+    {
+        for (ModuleClassType *MCT in m.moduleClassTypes)
+        {
+            [arr addObject:MCT.name];
+        }
+        return [arr autorelease];
+    }
+    else
+    {
+        return nil;
+    }
 
 }
-   
+
+// Not retained!
+- (NSMutableArray*) getSelectedGroupTimesFromActiveModule:(NSString*)code ModuleClassType:(NSString*)type
+{
+    Module *m = [self getOrCreateAndGetModuleInstanceByCode:code];
+    if (m)
+    {
+        for (ModuleClassType *MCT in m.moduleClassTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.selected isEqualToString:MODULE_ACTIVE])
+                    {
+                        return [[self getTimesFromModule:code ModuleClassType:type GroupName:CG.name] autorelease];
+                    }
+                }
+            }
+        }
+
+        return nil;
+    }
+    else
+    {
+        return nil;
+    }
+    
+}
+
+// Not retained!
+- (NSMutableArray*) getSelectedGroupVenuesFromActiveModule:(NSString*)code ClassType:(NSString*)type
+{
+    Module *m = [self getOrCreateAndGetModuleInstanceByCode:code];
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+
+    if (m)
+    {
+        for (ModuleClassType *MCT in m.moduleClassTypes)
+        {
+            if ([MCT.name isEqualToString:type])
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.selected isEqualToString:MODULE_ACTIVE])
+                    {
+                        for (Slot *s in CG.slots)
+                        {
+                            [arr addObject:s.venue];
+                        }
+                        return [arr autorelease];
+                    }
+                }
+            }
+        }
+
+        return nil;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (NSArray*)getModuleInfoIntoArray:(NSString*)code
+{
+    Module *m = [self getOrCreateAndGetModuleInstanceByCode:code];
+
+    if (m)
+    {
+        NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+        [arr addObject:m.code];
+        [arr addObject:m.title];
+        [arr addObject:m.description];
+        [arr addObject:m.examinable];
+        [arr addObject:m.openBook];
+        [arr addObject:m.examDate];
+        [arr addObject:m.moduleCredit];
+        [arr addObject:m.prerequisite];
+        [arr addObject:m.preclusion];
+        [arr addObject:m.workload];
+        [arr addObject:m.remarks];
+
+        NSArray *classTypes = [self getClassTypesFromModuleCode:code];
+        for (NSString *MCTName in classTypes)
+        {
+            NSMutableString *info = [NSMutableString stringWithCapacity:20];
+            [info appendString:MCTName];
+            [info appendString:@":\n"];
+
+            NSArray *groupNames = [self getGroupNamesFromModule:code ModuleClassType:MCTName];
+            for (NSString *groupName in groupNames)
+            {
+                [info appendString:@"Group "];
+                [info appendString:groupName];
+                [info appendString:@": "];
+                NSArray *timeArrs = [self getTimesFromModule:code ModuleClassType:MCTName GroupName:groupName];
+                NSArray *venues = [self getVenuesFromModule:code ModuleClassType:MCTName GroupName:groupName];
+                NSArray *frequencies = [self getFrequenciesFromModule:code ModuleClassType:MCTName GroupName:groupName];
+                    
+                for (int i = 0; i < [timeArrs count]; i ++)
+                {
+                    NSArray *timeArr = [timeArrs objectAtIndex:i];
+                    NSString *venue = [venues objectAtIndex:i];
+                    NSArray *frequency = [frequencies objectAtIndex:i];
+
+                    NSString *day = [IPlanUtility weekOfDayNSNumberToString:[timeArr objectAtIndex:0]];
+                    NSString *interval = [IPlanUtility timeIntervalFromStartTime:[timeArr objectAtIndex:1] EndTime:[timeArr objectAtIndex:2]];
+                    NSMutableString *groupInfo = [NSMutableString stringWithFormat:@"%@: %@, %@, ", day, interval, venue];
+                    [groupInfo appendString:[IPlanUtility decodeFrequency:frequency]];
+                    [groupInfo appendString:@";\n"];
+                    [info appendString:groupInfo];
+                }
+            }
+            [arr addObject:info];
+        }
+
+        return [arr autorelease];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
 -(void)dealloc
 {
     [timeTable release];

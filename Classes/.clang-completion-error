@@ -1,13 +1,23 @@
-In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:9:
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.h:62:102: error: expected ';' after method prototype
-- (void) generateDefaultTimetableFromModules:(NSArray*)modulesSelected Active:(NSArray*)activeIndexes
-                                                                                                     ^
-                                                                                                     ;
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:14:1: error: illegal interface qualifier
-@synthesize moduleObjectsDict;
-^
-/Users/xuyecheng/Documents/ios/iPlan/Classes/ModelLogic.m:16:41: error: expected ';' after method prototype
--(id)initWithTimeTable:(TimeTable*)table
-                                        ^
-                                        ;
-3 errors generated.
+/Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:171:112: warning: incompatible pointer types sending 'char [4]' to parameter of type 'NSString *'
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i+1] isEqualToString:"YES"]))
+                                                                                                               ^~~~~
+                                                                                                               @
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:15:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/NSCharacterSet.h:8:
+/System/Library/Frameworks/Foundation.framework/Headers/NSString.h:113:37: note: passing argument to parameter 'aString' here
+- (BOOL)isEqualToString:(NSString *)aString;
+                                    ^
+/Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:184:112: warning: incompatible pointer types sending 'char [4]' to parameter of type 'NSString *'
+        if (([[freArr objectAtIndex:i] isEqualToString:@"NO"]) || ([[freArr objectAtIndex:i-1] isEqualToString:"YES"]))
+                                                                                                               ^~~~~
+                                                                                                               @
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:9:
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.h:9:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/Foundation.h:15:
+In file included from /System/Library/Frameworks/Foundation.framework/Headers/NSCharacterSet.h:8:
+/System/Library/Frameworks/Foundation.framework/Headers/NSString.h:113:37: note: passing argument to parameter 'aString' here
+- (BOOL)isEqualToString:(NSString *)aString;
+                                    ^
+2 warnings generated.

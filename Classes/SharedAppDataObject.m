@@ -17,6 +17,8 @@
 @synthesize moduleCode;
 @synthesize basket;
 @synthesize zoomed;
+@synthesize moduleCells;
+@synthesize removedCells;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -24,6 +26,8 @@
 -(id) init {
 	if ([super init]){
 		self.basket = [[NSMutableArray alloc] init];
+		self.moduleCells = [[NSMutableDictionary alloc] init];
+		self.removedCells = [[NSMutableDictionary alloc] init];
 		zoomed = NO;
 	}
 	return self;
@@ -33,7 +37,9 @@
 {
 	self.settingsIdentity = nil;
 	self.moduleCode = nil;
-	[self.basket release];
+	self.basket = nil;
+	self.moduleCells = nil;
+	self.removedCells = nil;
 	[super dealloc];
 }
 

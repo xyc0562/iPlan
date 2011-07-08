@@ -9,24 +9,24 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleListViewController : UITableViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource> {
+@interface ModuleListViewController : UIViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource, UIAlertViewDelegate> {
 	UITableView *moduleListTableView;
 	NSArray *moduleList;
 	
 	NSMutableArray *copyModuleList;
 	IBOutlet UISearchBar *searchBar;
-	BOOL searching;
-	BOOL letUserSelectRow;
-		
+	NSIndexPath *pathForAlert;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
 @property (nonatomic, retain) NSArray *moduleList;
+@property (nonatomic, retain) NSMutableArray *copyModuleList;
 
 - (id)initWithTabBar;
 
 - (void) searchTableView;
 - (void) doneSearching_Clicked:(id)sender;
 - (IBAction) Edit:(id)sender;
+- (IBAction) forwardToRequirement:(id)sender;
 
 @end

@@ -13,7 +13,7 @@
 
 #define COMMENT_LABEL_WIDTH 230
 #define COMMENT_LABEL_MIN_HEIGHT 65
-#define COMMENT_LABEL_PADDING 10
+#define COMMENT_LABEL_PADDING 0
 
 #define RIGHTBAR_NAME @"Select"
 
@@ -62,7 +62,7 @@
 								  initWithTitle:@"Which do you prefer?"
 								  delegate:self 
 								  cancelButtonTitle:@"Cancel" 
-								  destructiveButtonTitle:@"Destuctive Button" 
+								  destructiveButtonTitle:@"Add to Basket" 
 								  otherButtonTitles:@"Button 1", @"Button 2", @"Button 3", nil];
 	[actionsheet showInView:self.view.window];
 	[actionsheet release];
@@ -70,6 +70,19 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSLog(@"button %i clicked", buttonIndex);	
+	if (buttonIndex == 0){
+		// add to basket
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		[theDataObject.basket addObject:theDataObject.moduleCode];
+	}else if(buttonIndex ==1){
+		
+	}else if (buttonIndex == 2){
+		
+	}else if (buttonIndex == 3){
+		
+	}else if (buttonIndex == 4){
+		// cancel
+	}
 }
 
 
@@ -175,9 +188,7 @@
                 cell = (ModuleInfoCell *)currentObject;
                 break;
             }
-        } 
-		
-		//[topLevelObjects autorelease];  //adding this code will cause problem
+        }
     }
 
     // Configure the cell...

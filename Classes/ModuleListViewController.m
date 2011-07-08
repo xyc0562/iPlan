@@ -12,13 +12,13 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
-
 @implementation ModuleListViewController
 
 #pragma mark -
 #pragma mark synthesize
 @synthesize moduleListTableView;
 @synthesize moduleList;
+@synthesize copyModuleList;
 
 #pragma mark -
 #pragma mark instance method
@@ -30,10 +30,12 @@
 	return theDataObject;
 }
 
+
 #pragma mark -
 #pragma mark View lifecycle
 
 -(void) cartButtonClicked:(id)sender {
+	//searching = NO;
 	BasketTableViewController *basketController = [[BasketTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:basketController];
 	[basketController release];
@@ -48,16 +50,11 @@
 	[array release];
 	
 	// initialize the copy array
-	copyModuleList = [[NSMutableArray alloc] init];
+	copyModuleList = [[NSMutableArray alloc] initWithArray:moduleList];
+	pathForAlert = [[NSIndexPath alloc]	init];
 	
-	//Add the search bar
-	self.tableView.tableHeaderView = searchBar;
-	//self.navigationItem.titleView = searchBar;
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	
-	searching = NO;
-	letUserSelectRow = YES;
-	
+
 	// the shopping cart button
 	UIImage *cartImage = [UIImage imageNamed:@"shopping_cart.png"];
 	UIButton *aButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -69,15 +66,34 @@
 	[item release];
 	
 	// insert buttons
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Add to Basket" style:UIBarButtonItemStyleBordered target:self action:@selector(Edit:)];
+	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Continue" style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
 	[self.navigationItem setRightBarButtonItem:addButton];
 	[addButton release];
 }
 
 
+- (void)viewWillAppear:(BOOL)animated{
+	[self.view becomeFirstResponder];
+	[moduleListTableView resignFirstResponder];
+	
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	for (NSString *key in theDataObject.removedCells) {
+		NSIndexPath *path = [theDataObject.removedCells objectForKey:key];
+		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:path];
+		UIButton *button = (UIButton *)cell.accessoryView;
+		
+		UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
+		[button setBackgroundImage:newImage forState:UIControlStateNormal];
+	}
+	[theDataObject.removedCells removeAllObjects];
+	[moduleListTableView reloadData];
+}
+
+
 - (id)initWithTabBar{
 	if (self = [super initWithNibName:@"ModuleListViewController" bundle:nil]){
-		self.title = @"Builder";
+		self.title = @"Modules";
 		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
 	}
@@ -90,63 +106,142 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    if (searching){
-		return 1;
-	}else {
-		return 1;
-	}
-
+	return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-	if (searching){
-		return [copyModuleList count];
-	}else {
-		return [self.moduleList count];
-	}
+	return [copyModuleList count];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ModuleListTableIdentifier = @"ModuleListTableIdentifier";
+	static NSString *moduleListCellIdentifier = @"moduleListCellIdentifier";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ModuleListTableIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:moduleListCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ModuleListTableIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moduleListCellIdentifier] autorelease];
     }
 	
     // Configure the cell...
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
     NSUInteger row = [indexPath row];
+	NSString *addedModule;
 	
-	if (searching){
-		cell.textLabel.text = [copyModuleList objectAtIndex:row];
-	}else{
-		cell.textLabel.text = [moduleList objectAtIndex:row];
-	}
+	addedModule = [copyModuleList objectAtIndex:row];
+	
+	cell.textLabel.text = addedModule;
+	
+	BOOL checked = [theDataObject.basket containsObject:addedModule];
 
-	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+	UIImage *image = (checked) ? nil : [UIImage imageNamed:@"unchecked.png"];
+	
+	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+	addButton.frame = frame;
+
+	[addButton setBackgroundImage:image forState:UIControlStateNormal];
+	
+	if(image == nil){
+		[addButton addTarget:self action:@selector(nullButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}else{
+		[addButton addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}
+	addButton.backgroundColor = [UIColor clearColor];
+	
+	cell.accessoryView = addButton;
 	
     return cell;
 }
 
+- (void) nullButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
+	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+	}
+}
+
+
+- (void) checkButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
+	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:moduleListTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+	}
+}
+
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+	NSString *addedModule = [moduleList objectAtIndex:indexPath.row];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	
+	//Can add module name duplicate checking here
+	BOOL checked = [theDataObject.basket containsObject:addedModule];
+	
+	
+	
+	if(!checked){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Confirm to select this module?"
+											  delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+							  
+		[alert show];
+		[alert release];
+		
+		NSLog(@"test 2");
+		
+		pathForAlert = indexPath;
+	}else {
+		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+	}
+	
+	//[addedModule release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
+ 	
+	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
+	if ([button isEqual:@"OK"]) {
+		[theDataObject.basket addObject:addedModule];
+		
+		
+		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
+		[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
+		
+		UIButton *button = (UIButton *)cell.accessoryView;
+
+		UIImage *newImage = nil;
+		
+		NSLog(@"test 3");
+		
+		[button setBackgroundImage:newImage forState:UIControlStateNormal];
+	}
+}
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self.view resignFirstResponder];
+	//searching = NO;
     NSUInteger row_number = [indexPath row];
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	if (searching){
-		theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
-	}else {
-		//set shared object
-		theDataObject.moduleCode = [moduleList objectAtIndex:row_number];
-	}
+	
+	theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
 	
 	UIViewController *viewController;
 	viewController = [[ModuleInfoViewController alloc] initWithNibName:@"ModuleInfoViewController" bundle:nil];
@@ -156,67 +251,31 @@
 }
 
 - (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self.tableView resignFirstResponder];
-	if(letUserSelectRow){
-		return indexPath;
-	}else{
-		return nil;
-	}
-}
-
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-	//return UITableViewCellAccessoryDetailDisclosureButton;
-	return UITableViewCellAccessoryDisclosureIndicator;
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	[self tableView:tableView didSelectRowAtIndexPath:indexPath];
+	[moduleListTableView resignFirstResponder];
+	return indexPath;
 }
 
 
 #pragma mark -
 #pragma mark Search Bar 
 
-- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	searching = YES;
-	letUserSelectRow = NO;
-	self.tableView.scrollEnabled = NO;
-	
-	// add the cancel button for search
-	[theSearchBar setShowsCancelButton:YES];
-	//NSLog(@"search begin");
-}
-
--(void)searchBarCancelButtonClicked:(UISearchBar *) theSearchBar{
-	searchBar.text = @"";
-	letUserSelectRow = YES;
-	searching = NO;
-	[theSearchBar setShowsCancelButton:NO];
-	[theSearchBar resignFirstResponder];
-}
-
 - (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
-	//NSLog(@"text did change begin");
 	//Remove all objects first.
 	[copyModuleList removeAllObjects];
-	
+
 	if([searchText length] > 0) {
-		searching = YES;
-		letUserSelectRow = YES;
-		self.tableView.scrollEnabled = YES;
 		[self searchTableView];
 	}
 	else {
-		searching = NO;
-		letUserSelectRow = NO;
-		self.tableView.scrollEnabled = NO;
+		[copyModuleList release];
+		copyModuleList = [[NSMutableArray alloc] initWithArray:moduleList];
 	}
-	[self.tableView reloadData];
-	//NSLog(@"text did change end");
+	[moduleListTableView reloadData];
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
 	[self searchTableView];
+	[theSearchBar resignFirstResponder];
 }
 
 - (void) searchTableView {
@@ -226,7 +285,7 @@
 	
 	for (NSString *sTemp in searchArray){
 		NSRange titleResultsRange = [sTemp rangeOfString:searchText options:NSCaseInsensitiveSearch];
-		if (titleResultsRange.length > 0)
+		if (titleResultsRange.length > 0 && ![copyModuleList containsObject:sTemp])
 			[copyModuleList addObject:sTemp];
 	}
 	searchArray = nil;
@@ -237,12 +296,9 @@
 	searchBar.text = @"";
 	[searchBar resignFirstResponder];
 	
-	letUserSelectRow = YES;
-	searching = NO;
 	self.navigationItem.rightBarButtonItem = nil;
-	self.tableView.scrollEnabled = YES;
 	
-	[self.tableView reloadData];
+	[moduleListTableView reloadData];
 }
 
 #pragma mark -
@@ -258,8 +314,8 @@
 
 - (IBAction) Edit:(id)sender{
 	if(self.editing){
-		[super setEditing:NO animated:NO]; 
-		[moduleListTableView setEditing:NO animated:NO];
+		[super setEditing:NO animated:YES]; 
+		[moduleListTableView setEditing:NO animated:YES];
 		[moduleListTableView reloadData];
 		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
 		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
@@ -277,21 +333,20 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+	UITableViewCell *cell = (UITableViewCell *)[moduleListTableView cellForRowAtIndexPath:indexPath];
 	NSString *addedModule = cell.textLabel.text;
 	if ([theDataObject.basket containsObject:addedModule]){
 		return UITableViewCellEditingStyleNone;
 	}else {
 		return UITableViewCellEditingStyleInsert;
 	}
-
 }
 
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
 forRowAtIndexPath:(NSIndexPath *)indexPath {
 
-	UITableViewCell *cell = (UITableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+	UITableViewCell *cell = (UITableViewCell *)[moduleListTableView cellForRowAtIndexPath:indexPath];
 
 	if (editingStyle == UITableViewCellEditingStyleInsert) {
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -307,6 +362,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
+
+
+#pragma mark -
+#pragma mark Go To RequirementPlacingViewController
+
+- (IBAction)forwardToRequirement:(id)sender{
+	self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
+}
 
 
 #pragma mark -
@@ -327,10 +390,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     // For example: self.myOutlet = nil;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	
+    [super viewWillDisappear:animated];
+	// to dismiss the keyboard
+	[moduleListTableView becomeFirstResponder];
+    [searchBar resignFirstResponder];
+}
 
 - (void)dealloc {
 	[moduleListTableView release];
 	[moduleList release];
+	[copyModuleList release];
     [super dealloc];
 }
 
