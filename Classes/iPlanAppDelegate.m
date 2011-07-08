@@ -38,7 +38,7 @@
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
     ModelLogic *ml = [[ModelLogic alloc] init];
-    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR3324"];
+    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR4101"];
     NSLog(@"---start----");
     for (NSString *str in arr)
     {

@@ -43,7 +43,7 @@
         numDay = [NSNumber numberWithInt:7];
     }
     
-    return [numDay autorelease];
+    return numDay;
 }
 
 + (NSArray*) frequencyStringToNSArray:(NSString*)fre
@@ -147,7 +147,7 @@ return [freArray autorelease];
     NSMutableString *result = startStr;
     [result appendString:endStr];
     
-    return [result autorelease];
+    return result;
 }
 
 + (NSString*) decodeFrequency:(NSArray*)freArr
@@ -209,7 +209,7 @@ return [freArray autorelease];
         }
     }
 
-    return [str autorelease];
+    return str;
 }
 
 @end

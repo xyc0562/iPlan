@@ -25,7 +25,7 @@
         }
     }
 
-    return [module autorelease];
+    return module;
 }
 
 -(id)initWithTimeTable:(TimeTable*)table
@@ -259,7 +259,7 @@
                 {
                     [arr addObject:CG.name];
                 }
-                return [arr autorelease];
+                return arr;
             }
         }
         // If such a type not found, return nil
@@ -293,7 +293,7 @@
                             NSMutableArray *one_time = [NSMutableArray arrayWithObjects:s.day, s.startTime, s.endTime, nil];
                             [arr addObject:one_time];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -329,7 +329,7 @@
                         {
                             [arr addObject:s.venue];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -364,7 +364,7 @@
                         {
                             [arr addObject:s.frequency];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -412,7 +412,7 @@
 
     [arr replaceObjectAtIndex:0 withObject:conflict];
 
-    return [arr autorelease];
+    return arr;
 }
 
 // Not retained!
@@ -427,7 +427,7 @@
         }
     }
 
-    return [arr autorelease];
+    return arr;
 }
 
 - (void) syncModulesWithBasket:(NSMutableArray*)modules
@@ -505,7 +505,7 @@
         {
             [arr addObject:MCT.name];
         }
-        return [arr autorelease];
+        return arr;
     }
     else
     {
@@ -528,7 +528,7 @@
                 {
                     if ([CG.selected isEqualToString:MODULE_ACTIVE])
                     {
-                        return [[self getTimesFromModule:code ModuleClassType:type GroupName:CG.name] autorelease];
+                        return [self getTimesFromModule:code ModuleClassType:type GroupName:CG.name];
                     }
                 }
             }
@@ -563,7 +563,7 @@
                         {
                             [arr addObject:s.venue];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
             }
