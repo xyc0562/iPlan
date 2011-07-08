@@ -630,7 +630,7 @@
             [arr addObject:info];
         }
 
-        return [arr autorelease];
+        return arr;
     }
     else
     {
