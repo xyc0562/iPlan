@@ -471,10 +471,15 @@
 			NSDictionary* slotDict = [[NSDictionary alloc]init];
 			[slotDict setValue:[slot venue] forKey:@"venue"];
 			[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
-			NSString* startTime = [[slot startTime]stringValue];
-			NSString* endTime = [[slot endTime]stringValue];
+			int sTime = [[slot startTime]intValue];
+			int eTime = [[slot endTime]intValue];
+			if (sTime/100 == 30) sTime = sTime+20;
+			if (eTime/100 == 30) eTime = eTime+20;
+			NSNumber* startTime = [NSNumber numberWithInt:sTime];
+			NSNumber* endTime = [NSNumber numberWithInt:eTime];
 			[slotDict setValue:startTime forKey:@"startTime"];
 			[slotDict setValue:endTime forKey:@"endTime"];
+			[slotDict setValue:classGroupIndex forKey:@"groupIndex"];
 			[slotInfo addObject:slotDict];
 		}
 		[resultDict setValue:slotInfo forKey:@"slots"];
