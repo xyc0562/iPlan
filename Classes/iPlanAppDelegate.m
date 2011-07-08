@@ -37,7 +37,7 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
-    ModelLogic *ml = [[ModelLogic alloc] init];
+   /* ModelLogic *ml = [[ModelLogic alloc] init];
     NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR3324"];
     NSLog(@"---start----");
     for (NSString *str in arr)
@@ -45,7 +45,7 @@
         NSLog(@"%@\n", str);
     }
     NSLog(@"---end----");
-
+*/
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
@@ -80,7 +80,7 @@
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
-
+/*
 	printf("test algo\n");
 	
 	//Test for main Algo
@@ -140,6 +140,7 @@
 		NSLog([[eachSelected objectAtIndex:2] stringValue]);
 		printf("\n");
 	}
+ */
     return YES;
 }
 
