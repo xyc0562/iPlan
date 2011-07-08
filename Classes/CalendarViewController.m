@@ -12,10 +12,16 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
+@interface CalendarViewController (UtilityMethods)
+
+- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
+
+@end
+
 @implementation CalendarViewController
 
 @synthesize scrollView;
-@synthesize displaySlots;
+@synthesize displayViewController;
 
 
 - (SharedAppDataObject*) theAppDataObject{
@@ -27,7 +33,8 @@
 
 /*  //Temply disable to build
 - (void) configureView {
-	displaySlots = [[NSMutableArray alloc]init];
+	displayViewController = [[DisplayViewController alloc]init];
+	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
 	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
 																	   WithVenue:@"Science" 
 																   WithStartTime:[NSNumber numberWithInt:10] 
@@ -35,7 +42,7 @@
 																		 WithDay:[NSNumber numberWithInt:1] 
 															  WithClassGroupName:@"SL1" 
 																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 30, 50)];
+																	WithProperty:CGRectMake(100, 100, 50, 20)];
 	[displaySlots addObject:slotView];
 	
 	
@@ -49,7 +56,7 @@
 															 Point2X:HEADER_ORIGIN_X+TOTAL_WIDTH 
 															 Point2Y:(HEADER_ORIGIN_Y+i*GAP_HEIGHT)];
 		[line setTag:LINE_TAG];
-		[scrollView addSubview:line];
+		[[displayViewController view]addSubview:line];
 		[line release];
 		if (i != NUMBER_OF_ROW_LINES -1){
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
@@ -57,7 +64,7 @@
 			label.textColor = [UIColor blueColor];
 			label.backgroundColor = [UIColor clearColor];
 			[label setTag:LABEL_TAG];
-			[scrollView addSubview:label];
+			[[displayViewController view]addSubview:label];
 			[label release];			
 		}
 	}
@@ -68,23 +75,32 @@
 															 Point2X:(HEADER_ORIGIN_X+i*GAP_WIDTH) 
 															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT];
 		[line setTag:LINE_TAG];
-		[scrollView addSubview:line];
+		[[displayViewController view] addSubview:line];
 		
 		[line release];
 	}
 	
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-	[tap setNumberOfTapsRequired:2];
-	[scrollView addGestureRecognizer:tap];
-	[tap release];
+	UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+	[tap2 setNumberOfTapsRequired:2];
+	[scrollView addGestureRecognizer:tap2];
+	[tap2 release];
 	
 	for (SlotViewController* slotView in displaySlots ) 
 	{
-		[scrollView addSubview:slotView.view];
-		[scrollView bringSubviewToFront:slotView.view];
+		[[displayViewController view] addSubview:slotView.view];
+		[[displayViewController view] bringSubviewToFront:slotView.view];
+		slotView.scroll = scrollView;
+		slotView.displayView = [displayViewController view];
 	}
 	
 	
+	
+	[scrollView setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
+	[scrollView addSubview:[displayViewController view]];
+	[[displayViewController view]setCenter:scrollView.center];
+	[[displayViewController view]setTag:DISPLAY_TAG];
+	scrollView.canCancelContentTouches = YES;
+
 }
 
 */ 
@@ -94,28 +110,55 @@
     [super viewDidLoad];
 	//[self configureView]; //Temply disable to build
 	self.view = scrollView;
+	scrollView.bounces = NO;
+	scrollView.showsVerticalScrollIndicator = YES;
+	scrollView.showsHorizontalScrollIndicator = YES;
+	[scrollView setTag:SCROLL_TAG];
 }
 
 
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
+	
+	
+	
 	// zoom in
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	if(![theDataObject zoomed])
 	{
-		[UIView beginAnimations:nil context:nil]; 
-		[UIView setAnimationDuration:0.3]; 
-		[scrollView setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
-		[UIView commitAnimations];
+		//[UIView beginAnimations:nil context:nil]; 
+		//[UIView setAnimationDuration:0.3]; 
+		[[displayViewController view]removeFromSuperview];
+		[[displayViewController view]setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
+		
+		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
+		[scrollView setContentOffset:CGPointMake(0, 0)];
+		[scrollView addSubview:[displayViewController view]];
+		//[[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
+
+		//[UIView commitAnimations];
+		
 	}
 	else 
 	{
-		[UIView beginAnimations:nil context:nil]; 
-		[UIView setAnimationDuration:0.3]; 
-		[scrollView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-		[UIView commitAnimations];
+		//[UIView beginAnimations:nil context:nil]; 
+		//[UIView setAnimationDuration:0.3]; 
+		[[displayViewController view]removeFromSuperview];
+		[[displayViewController view]setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+		[scrollView setContentOffset:CGPointMake(0, 0)];
+		[scrollView addSubview:[displayViewController view]];
+		//[[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
+	
+		
+		
+		
+		//[UIView commitAnimations];
+		//[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+
 	}
 
 	theDataObject.zoomed = !theDataObject.zoomed;
+	
 }
 
 
@@ -136,6 +179,10 @@
 	return self;
 }
 
+
+
+
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -152,7 +199,7 @@
 
 - (void)dealloc {
 	[scrollView release];
-	[displaySlots release];
+	[displayViewController release];
     [super dealloc];
 }
 
