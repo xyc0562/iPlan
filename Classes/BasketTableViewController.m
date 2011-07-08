@@ -32,7 +32,7 @@
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization.
+        // Custom initialization.	
     }
     return self;
 }
@@ -50,6 +50,7 @@
     [super viewDidLoad];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	self.tableView.scrollEnabled = NO;
 }
 
 
@@ -82,10 +83,21 @@
     // Configure the cell...
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	cell.textLabel.text = [theDataObject.basket objectAtIndex:indexPath.row];
+	NSString *selected = [theDataObject.basket objectAtIndex:indexPath.row];
+	cell.textLabel.text = selected;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	switch (section) {
+		case 0:
+			return @"Click to active module";
+		default:
+			return @"";
+	}
 }
 
 
@@ -101,6 +113,19 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     */
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSString *selected = [theDataObject.basket objectAtIndex:indexPath.row];
+	
+	if(cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		[theDataObject.activeModules removeObject:selected];
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		[theDataObject.activeModules addObject:selected];
+	}
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 #pragma mark -

@@ -83,7 +83,7 @@
 		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:path];
 		UIButton *button = (UIButton *)cell.accessoryView;
 		
-		UIImage *newImage = [UIImage imageNamed:@"plus.png"];
+		UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 	}
 	[theDataObject.removedCells removeAllObjects];
@@ -137,7 +137,7 @@
 	
 	BOOL checked = [theDataObject.basket containsObject:addedModule];
 
-	UIImage *image = (checked) ? nil : [UIImage imageNamed:@"plus.png"];
+	UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
 	
 	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
@@ -223,7 +223,7 @@
 		
 		UIButton *button = (UIButton *)cell.accessoryView;
 
-		UIImage *newImage = nil;
+		UIImage *newImage = [UIImage imageNamed:@"checked.png"];
 		
 		NSLog(@"test 3");
 		
