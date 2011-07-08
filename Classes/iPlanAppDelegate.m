@@ -38,8 +38,9 @@
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
     ModelLogic *ml = [[ModelLogic alloc] init];
-    NSMutableArray *arr = [ml getModuleInfoIntoArray:@"AR3324"];
-    NSLog(@"---start----");
+    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR3324"];
+    
+	NSLog(@"---start----");
     for (NSString *str in arr)
     {
         NSLog(@"%@\n", str);
@@ -103,11 +104,11 @@
 	[moduleNameArray addObject:@"EG2401"];
 	[moduleNameArray addObject:@"HR2002"];
 	
-	[moduleNameArray addObject:@"MA2108"];
-	[moduleNameArray addObject:@"EE2006"];
+//	[moduleNameArray addObject:@"MA2108"];
+//	[moduleNameArray addObject:@"EE2006"];
 //	[moduleNameArray addObject:@"EE2004"];
-	[moduleNameArray addObject:@"EE3304"];
-	[moduleNameArray addObject:@"EE2001"];
+//	[moduleNameArray addObject:@"EE3304"];
+//	[moduleNameArray addObject:@"EE2001"];
 
 	
 	
@@ -141,6 +142,7 @@
 		printf("\n");
 	}
     return YES;
+	NSLog(@"I am finished !!!!!!!!!");
 }
 
 

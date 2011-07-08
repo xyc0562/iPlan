@@ -36,6 +36,8 @@
 		4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */; };
 		431B7CE513BDB3190051F3FE /* BasketTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 431B7CE413BDB3190051F3FE /* BasketTableViewController.m */; };
 		4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4371926213B8C3E600AAC77C /* shopping_cart.png */; };
+		43889FE613C6F4F7000C235C /* DisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43889FE313C6F4F7000C235C /* DisplayViewController.m */; };
+		43889FE713C6F4F7000C235C /* SlotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43889FE513C6F4F7000C235C /* SlotViewController.m */; };
 		438BC7CE13B4B732003D1B52 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */; };
 		438BC7D813B4B78E003D1B52 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D113B4B78E003D1B52 /* calendar.png */; };
 		438BC7D913B4B78E003D1B52 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D213B4B78E003D1B52 /* gear.png */; };
@@ -108,6 +110,11 @@
 		431B7CE313BDB3190051F3FE /* BasketTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasketTableViewController.h; sourceTree = "<group>"; };
 		431B7CE413BDB3190051F3FE /* BasketTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasketTableViewController.m; sourceTree = "<group>"; };
 		4371926213B8C3E600AAC77C /* shopping_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_cart.png; sourceTree = "<group>"; };
+		43889FE113C6F4F7000C235C /* ControllerConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerConstant.h; sourceTree = "<group>"; };
+		43889FE213C6F4F7000C235C /* DisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayViewController.h; sourceTree = "<group>"; };
+		43889FE313C6F4F7000C235C /* DisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayViewController.m; sourceTree = "<group>"; };
+		43889FE413C6F4F7000C235C /* SlotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotViewController.h; sourceTree = "<group>"; };
+		43889FE513C6F4F7000C235C /* SlotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotViewController.m; sourceTree = "<group>"; };
 		438BC7CB13B4B732003D1B52 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CalendarViewController.xib; path = Classes/CalendarViewController.xib; sourceTree = "<group>"; };
 		438BC7D113B4B78E003D1B52 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = calendar.png; path = images/calendar.png; sourceTree = SOURCE_ROOT; };
 		438BC7D213B4B78E003D1B52 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = images/gear.png; sourceTree = SOURCE_ROOT; };
@@ -273,6 +280,11 @@
 		43D2F43413B0E334006EAA46 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				43889FE113C6F4F7000C235C /* ControllerConstant.h */,
+				43889FE213C6F4F7000C235C /* DisplayViewController.h */,
+				43889FE313C6F4F7000C235C /* DisplayViewController.m */,
+				43889FE413C6F4F7000C235C /* SlotViewController.h */,
+				43889FE513C6F4F7000C235C /* SlotViewController.m */,
 				2F1884D013B9DA79006DCC66 /* HelpViewController.h */,
 				2F1884D113B9DA79006DCC66 /* HelpViewController.m */,
 				2F18849513B9D66A006DCC66 /* OptionViewController.h */,
@@ -433,6 +445,8 @@
 				7193087413BD1087001D9F8B /* iPlanAppDelegate.m in Sources */,
 				431B7CE513BDB3190051F3FE /* BasketTableViewController.m in Sources */,
 				05BE960E13BF4993000DCDDB /* RequirementPlacingViewController.m in Sources */,
+				43889FE613C6F4F7000C235C /* DisplayViewController.m in Sources */,
+				43889FE713C6F4F7000C235C /* SlotViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

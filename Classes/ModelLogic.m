@@ -67,7 +67,7 @@
     NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
     
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSMutableArray *moduleNames = [fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
+    NSMutableArray *moduleNames = (NSMutableArray*)[fm contentsOfDirectoryAtPath:modulesDirectory error:nil];
     
     int count = [moduleNames count], i;
     for(i = 0; i < count; i++)
