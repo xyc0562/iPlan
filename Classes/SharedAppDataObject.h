@@ -13,6 +13,7 @@
 	NSString *settingsIdentity;
 	NSString *moduleCode;
 	NSMutableArray *basket;
+	NSMutableArray *activeIndexes;
 	NSMutableDictionary *moduleCells;
 	NSMutableDictionary *removedCells;
 	BOOL zoomed;
@@ -21,6 +22,7 @@
 @property (nonatomic, copy) NSString *settingsIdentity;
 @property (nonatomic, copy) NSString *moduleCode;
 @property (nonatomic, retain) NSMutableArray *basket;
+@property (nonatomic, retain) NSMutableArray *activeIndexes;
 @property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
 @property (nonatomic, assign) BOOL zoomed;

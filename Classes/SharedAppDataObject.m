@@ -16,6 +16,7 @@
 @synthesize settingsIdentity;
 @synthesize moduleCode;
 @synthesize basket;
+@synthesize activeIndexes;
 @synthesize zoomed;
 @synthesize moduleCells;
 @synthesize removedCells;
@@ -38,6 +39,7 @@
 	self.settingsIdentity = nil;
 	self.moduleCode = nil;
 	self.basket = nil;
+	self.activeIndexes = nil;
 	self.moduleCells = nil;
 	self.removedCells = nil;
 	[super dealloc];
