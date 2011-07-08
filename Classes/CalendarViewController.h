@@ -7,18 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "SlotViewController.h" //Temply disable to build
+#import "SlotViewController.h"
+#import "DisplayViewController.h"
+#import "ControllerConstant.h"
 
+
+@interface CalendarViewController : UIViewController <UIScrollViewDelegate> {
+//#import "SlotViewController.h" //Temply disable to build
 //CalendarView need first display Requirement Placing page, then proceed to time table
 
-@interface CalendarViewController : UIViewController {
 	IBOutlet UIScrollView* scrollView;
-	NSMutableArray* displaySlots;
+	DisplayViewController* displayViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) NSMutableArray* displaySlots;
-
+@property (nonatomic, retain) DisplayViewController* displayViewController;
 -(id)initWithTabBar;
 
 @end

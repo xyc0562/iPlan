@@ -17,6 +17,8 @@
 	NSMutableDictionary *moduleCells;
 	NSMutableDictionary *removedCells;
 	BOOL zoomed;
+	int selectSlotIndex;
+	NSMutableArray* slotControllers;
 }
 
 @property (nonatomic, copy) NSString *settingsIdentity;
@@ -26,5 +28,7 @@
 @property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
 @property (nonatomic, assign) BOOL zoomed;
+@property (nonatomic, assign) int selectSlotIndex;
+@property (nonatomic, retain) NSMutableArray* slotControllers;
 
 @end

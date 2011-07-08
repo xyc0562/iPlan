@@ -37,8 +37,10 @@
     // Add the view controller's view to the window and display.
    // [self.window addSubview:viewController.view];
    // [self.window makeKeyAndVisible];
-   /* ModelLogic *ml = [[ModelLogic alloc] init];
+
+/*    ModelLogic *ml = [[ModelLogic alloc] init];
     NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR3324"];
+
     NSLog(@"---start----");
     for (NSString *str in arr)
     {
@@ -50,8 +52,9 @@
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
+  
 	
-	//ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+//	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 		
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
@@ -138,7 +141,7 @@
 	{
 		//NSLog([[eachSelected objectAtIndex:1]stringValue]);
 		NSLog([[eachSelected objectAtIndex:2] stringValue]);
-		printf("\n");
+		printf("Done\n");
 	}
  */
     return YES;
