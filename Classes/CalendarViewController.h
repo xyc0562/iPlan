@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SlotViewController.h"
-
-@interface CalendarViewController : UIViewController {
+#import "DisplayViewController.h"
+@interface CalendarViewController : UIViewController <UIScrollViewDelegate> {
 	IBOutlet UIScrollView* scrollView;
-	NSMutableArray* displaySlots;
+	DisplayViewController* displayViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) NSMutableArray* displaySlots;
-
+@property (nonatomic, retain) DisplayViewController* displayViewController;
 -(id)initWithTabBar;
 
 @end
