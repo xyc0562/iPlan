@@ -17,6 +17,8 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		1E2DB1B613C6EC6300C3D8CA /* SlotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2DB1B213C6EC6300C3D8CA /* SlotViewController.m */; };
+		1E2DB1B713C6EC6300C3D8CA /* DisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2DB1B413C6EC6300C3D8CA /* DisplayViewController.m */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
@@ -77,6 +79,11 @@
 		1D6058910D05DD3D006BFB54 /* iPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1E26105713B5AF79006CDD7B /* TimeTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTable.h; sourceTree = "<group>"; };
+		1E2DB1B113C6EC6300C3D8CA /* ControllerConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerConstant.h; sourceTree = "<group>"; };
+		1E2DB1B213C6EC6300C3D8CA /* SlotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotViewController.m; sourceTree = "<group>"; };
+		1E2DB1B313C6EC6300C3D8CA /* SlotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotViewController.h; sourceTree = "<group>"; };
+		1E2DB1B413C6EC6300C3D8CA /* DisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayViewController.m; sourceTree = "<group>"; };
+		1E2DB1B513C6EC6300C3D8CA /* DisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayViewController.h; sourceTree = "<group>"; };
 		1E944D3413AC663F00968E0A /* ConstantFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantFile.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2899E5210DE3E06400AC0155 /* iPlanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPlanViewController.xib; sourceTree = "<group>"; };
@@ -273,6 +280,11 @@
 		43D2F43413B0E334006EAA46 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1E2DB1B113C6EC6300C3D8CA /* ControllerConstant.h */,
+				1E2DB1B213C6EC6300C3D8CA /* SlotViewController.m */,
+				1E2DB1B313C6EC6300C3D8CA /* SlotViewController.h */,
+				1E2DB1B413C6EC6300C3D8CA /* DisplayViewController.m */,
+				1E2DB1B513C6EC6300C3D8CA /* DisplayViewController.h */,
 				2F1884D013B9DA79006DCC66 /* HelpViewController.h */,
 				2F1884D113B9DA79006DCC66 /* HelpViewController.m */,
 				2F18849513B9D66A006DCC66 /* OptionViewController.h */,
@@ -433,6 +445,8 @@
 				7193087413BD1087001D9F8B /* iPlanAppDelegate.m in Sources */,
 				431B7CE513BDB3190051F3FE /* BasketTableViewController.m in Sources */,
 				05BE960E13BF4993000DCDDB /* RequirementPlacingViewController.m in Sources */,
+				1E2DB1B613C6EC6300C3D8CA /* SlotViewController.m in Sources */,
+				1E2DB1B713C6EC6300C3D8CA /* DisplayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

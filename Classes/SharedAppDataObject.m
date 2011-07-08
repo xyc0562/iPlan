@@ -19,6 +19,8 @@
 @synthesize zoomed;
 @synthesize moduleCells;
 @synthesize removedCells;
+@synthesize selectSlotIndex;
+@synthesize slotControllers;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -29,17 +31,19 @@
 		self.moduleCells = [[NSMutableDictionary alloc] init];
 		self.removedCells = [[NSMutableDictionary alloc] init];
 		zoomed = NO;
+		selectSlotIndex = -1;
 	}
 	return self;
 }
 
 - (void)dealloc
 {
-	self.settingsIdentity = nil;
-	self.moduleCode = nil;
-	self.basket = nil;
-	self.moduleCells = nil;
-	self.removedCells = nil;
+	[settingsIdentity release];
+	[moduleCode release];
+	[basket release];
+	[moduleCells release];
+	[removedCells release];
+	[slotControllers release];
 	[super dealloc];
 }
 

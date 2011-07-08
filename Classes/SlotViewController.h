@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SlotViewController : UIViewController {
+@interface SlotViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>{
 	NSString* moduleCode;
 	NSString* venue;
 	NSString* classGroupName;
@@ -18,8 +18,8 @@
 	NSNumber* day;
 	UIColor* moduleColor;
 	CGRect displayProperty;
-	BOOL selected;
-	
+	int index;
+	int groupIndex;
 }
 
 @property (nonatomic,retain)NSString* moduleCode;
@@ -30,9 +30,11 @@
 @property (nonatomic,retain)UIColor* moduleColor;
 @property (nonatomic,retain)NSNumber* day;
 @property (nonatomic,readonly)CGRect displayProperty;
-@property (nonatomic,assign) BOOL selected;
 @property (nonatomic,retain)UIScrollView* scroll;
 @property (nonatomic,retain)UIView* displayView;
+@property (nonatomic,assign)int index;
+@property (nonatomic,assign)int groupIndex;
+@property (nonatomic,retain)NSMutableArray* conflictModuleChoice;
 
 - (id)initWithModuleCode:(NSString *)code 
 			   WithVenue:(NSString*)place
@@ -41,6 +43,8 @@
 				 WithDay:(NSNumber*)date
 	  WithClassGroupName:(NSString*)name
 		 WithModuleColor:(UIColor*)color
-				WithProperty:(CGRect)property;
+			WithProperty:(CGRect)property	
+			   WithIndex:(int)indexNumber
+		  WithGroupIndex:(int)groupNumber;
 
 @end

@@ -22,9 +22,11 @@
 @synthesize	moduleColor;
 @synthesize day;
 @synthesize displayProperty;
-@synthesize selected;
 @synthesize scroll;
 @synthesize displayView;
+@synthesize index;
+@synthesize groupIndex;
+@synthesize conflictModuleChoice;
 
 - (SharedAppDataObject*) theAppDataObject{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -52,6 +54,8 @@
 	  WithClassGroupName:(NSString*)name
 		 WithModuleColor:(UIColor*)color
 			WithProperty:(CGRect)property
+			   WithIndex:(int)indexNumber
+		  WithGroupIndex:(int)groupNumber
 					
 {
     self = [super init];
@@ -65,16 +69,14 @@
 		self.moduleColor = color;    
 		self.day = date;
 		displayProperty = property;
-		selected = NO;
+		index = indexNumber;
+		groupIndex = groupNumber;
 		self.view.multipleTouchEnabled = YES;
 		
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 		[self.view addGestureRecognizer:tap];
 		[tap release];
-		
-		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-		[self.view addGestureRecognizer:pan];
-		[pan release];
+
 		
     }
     return self;
@@ -94,9 +96,6 @@
 	self.view.backgroundColor = moduleColor;
 	self.view.frame = displayProperty;	
 	self.view.layer.cornerRadius = 7.5;
-
-		
-	
 }
 
 /*
@@ -110,62 +109,96 @@
 
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer 
 {
-	// zoom in
-	if (selected) 
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray* slotControllers = theDataObject.slotControllers;
+	if (theDataObject.selectSlotIndex == index) 
 	{
-		self.view.backgroundColor = moduleColor;
-		scroll.scrollEnabled = YES;
-		printf("center before selected %f %f\n",self.view.center.x,self.view.center.y);
-		CGPoint center = self.view.center;
-		[self.view	removeFromSuperview];
-		[displayView addSubview:self.view];
-		printf("center After selected %f %f\n",self.view.center.x,self.view.center.y);
-		printf("scroll center %f %f\n",scroll.center.x,scroll.center.y);
-		printf("disply center %f %f\n",displayView.center.x,displayView.center.y);
+		
+		for(SlotViewController* slot in slotControllers)
+		{
+			if(slot.groupIndex==groupIndex)
+			{
+				slot.view.backgroundColor = [self moduleColor];		
+			}
+		}
+		theDataObject.selectSlotIndex = -1;
+		
 	}
 	else
 	{
-		self.view.backgroundColor = [UIColor blackColor];
-		scroll.scrollEnabled = NO;
-		[self.view removeFromSuperview];
-		[scroll addSubview:self.view];
+		for(SlotViewController* slot in slotControllers)
+		{
+			if(slot.groupIndex==groupIndex)
+			{
+				slot.view.backgroundColor = [UIColor blackColor];		
+			}
+		}
+		
+		//scroll.= YES;
+		conflictModuleChoice = [[NSMutableArray alloc]init];
+		for (SlotViewController* slot in slotControllers) 
+		{
+			if ([slot.day intValue]==[self.day intValue]) 
+			{
+				if([slot.startTime intValue]>=[self.endTime intValue]||[slot.endTime intValue]<=[self.startTime intValue]);
+				else 
+				{
+					NSString* displayInfo = [NSString stringWithString:slot.moduleCode];
+					displayInfo = [displayInfo stringByAppendingString:@" "];
+					displayInfo = [displayInfo stringByAppendingString:slot.classGroupName];
+					[conflictModuleChoice addObject:displayInfo];
+				}
+
+			}
+		}
+		
+		if([conflictModuleChoice count]>1)
+		{
+			UIPickerView* smallPicker = [[UIPickerView alloc]init];
+			//smallPicker.bounds = CGRectMake(0, 0, 20, 20);
+			smallPicker.delegate = self;
+			smallPicker.backgroundColor = [UIColor clearColor];
+			smallPicker.showsSelectionIndicator = YES;
+			[displayView addSubview:smallPicker];
+		}
+		
+		theDataObject.selectSlotIndex = index;
+		
 	}
-	selected = !selected;
+	
 }
 
-- (void)handlePan:(UIGestureRecognizer *)gestureRecognizer
-{
-	if(!selected)
-		self.view.backgroundColor = [UIColor blackColor];
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	
-
-	if([theDataObject zoomed])
-	{
-		[displayView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-		[scroll setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
-		[displayView setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
-		theDataObject.zoomed = !theDataObject.zoomed;
-	}
-	
-	UIPanGestureRecognizer *panGesture = (UIPanGestureRecognizer *) gestureRecognizer;
-	UIView *view = panGesture.view;
-	
-	if ([gestureRecognizer state] == UIGestureRecognizerStateChanged) 
-	{
-		CGPoint translation = [panGesture translationInView:view.superview];
-		[panGesture setTranslation:translation inView:view.superview];
-		view.transform = CGAffineTransformMakeTranslation(translation.x, translation.y);
-	}
-	else if([gestureRecognizer state] == UIGestureRecognizerStateEnded)
-	{
-		selected = NO;
-		self.view.backgroundColor = moduleColor;
-	}
-	
-	
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    // Handle the selection
+	[pickerView removeFromSuperview];
 }
+
+// tell the picker how many rows are available for a given component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    NSUInteger numRows = [conflictModuleChoice count];
 	
+    return numRows;
+}
+
+// tell the picker how many components it will have
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+// tell the picker the title for a given component
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *title;
+    title = [conflictModuleChoice objectAtIndex:row];
+	
+    return title;
+}
+
+// tell the picker the width of each row for a given component
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+	int sectionWidth = 300;
+	
+	return sectionWidth;
+}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -178,7 +211,6 @@
     [super viewDidUnload];
 
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 

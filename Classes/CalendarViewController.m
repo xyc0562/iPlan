@@ -14,7 +14,6 @@
 
 @interface CalendarViewController (UtilityMethods)
 
-- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
 
 @end
 
@@ -31,7 +30,7 @@
 	return theDataObject;
 }
 
-/*  //Temply disable to build
+
 - (void) configureView {
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
@@ -42,7 +41,21 @@
 																		 WithDay:[NSNumber numberWithInt:1] 
 															  WithClassGroupName:@"SL1" 
 																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 50, 20)];
+																	WithProperty:CGRectMake(100, 100, 50, 20)
+																	   WithIndex:[displaySlots count]
+																  WithGroupIndex:0];
+	[displaySlots addObject:slotView];
+	slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
+																	   WithVenue:@"Science" 
+																   WithStartTime:[NSNumber numberWithInt:10] 
+																	 WithEndTime:[NSNumber numberWithInt:12]
+																		 WithDay:[NSNumber numberWithInt:1] 
+															  WithClassGroupName:@"SL2" 
+																 WithModuleColor:[UIColor blueColor]
+																	WithProperty:CGRectMake(100, 100, 50, 20)
+																	   WithIndex:[displaySlots count]
+																  WithGroupIndex:1];
+	
 	[displaySlots addObject:slotView];
 	
 	
@@ -61,8 +74,8 @@
 		if (i != NUMBER_OF_ROW_LINES -1){
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
 			label.text = [NSString stringWithFormat:@"%d:00",i+8];
-			label.textColor = [UIColor blueColor];
-			label.backgroundColor = [UIColor clearColor];
+			label.textColor = [UIColor whiteColor];
+			label.backgroundColor = [UIColor blackColor];
 			[label setTag:LABEL_TAG];
 			[[displayViewController view]addSubview:label];
 			[label release];			
@@ -91,6 +104,7 @@
 		[[displayViewController view] bringSubviewToFront:slotView.view];
 		slotView.scroll = scrollView;
 		slotView.displayView = [displayViewController view];
+		//slotView.view.userInteractionEnabled = NO;
 	}
 	
 	
@@ -100,20 +114,21 @@
 	[[displayViewController view]setCenter:scrollView.center];
 	[[displayViewController view]setTag:DISPLAY_TAG];
 	scrollView.canCancelContentTouches = YES;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.slotControllers = displaySlots;
 
 }
 
-*/ 
+
  
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	//[self configureView]; //Temply disable to build
+	[self configureView]; 
 	self.view = scrollView;
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
-	[scrollView setTag:SCROLL_TAG];
 }
 
 
@@ -125,36 +140,41 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	if(![theDataObject zoomed])
 	{
-		//[UIView beginAnimations:nil context:nil]; 
-		//[UIView setAnimationDuration:0.3]; 
+		[UIView beginAnimations:nil context:nil]; 
+		[UIView setAnimationDuration:0.3]; 
 		[[displayViewController view]removeFromSuperview];
 		[[displayViewController view]setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
-		
+		//NSMutableArray* displaySlots = displayViewController.slotViewControllers;
+//		for (SlotViewController* slotView in displaySlots ) 
+//		{
+//			slotView.view.userInteractionEnabled = YES;
+//		}
+//		
 		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
 		[scrollView setContentOffset:CGPointMake(0, 0)];
 		[scrollView addSubview:[displayViewController view]];
-		//[[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
+		[[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
 
-		//[UIView commitAnimations];
+		[UIView commitAnimations];
 		
 	}
 	else 
 	{
-		//[UIView beginAnimations:nil context:nil]; 
-		//[UIView setAnimationDuration:0.3]; 
+		[UIView beginAnimations:nil context:nil]; 
+		[UIView setAnimationDuration:0.3]; 
 		[[displayViewController view]removeFromSuperview];
 		[[displayViewController view]setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
 		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
 		[scrollView setContentOffset:CGPointMake(0, 0)];
 		[scrollView addSubview:[displayViewController view]];
-		//[[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
-	
+		[[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
+		//NSMutableArray* displaySlots = displayViewController.slotViewControllers;
+//		for (SlotViewController* slotView in displaySlots ) 
+//		{
+//			slotView.view.userInteractionEnabled = NO;
+//		}
+		[UIView commitAnimations];
 		
-		
-		
-		//[UIView commitAnimations];
-		//[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
-
 	}
 
 	theDataObject.zoomed = !theDataObject.zoomed;
@@ -172,7 +192,7 @@
 
 - (id)initWithTabBar {
 	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
-		self.title = @"Calendar";
+		//self.title = @"Calendar";
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
 	}
