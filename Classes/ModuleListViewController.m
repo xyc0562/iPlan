@@ -12,6 +12,9 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
+#define SELECT_MODULE @"Do you want to add the module into basket?"
+#define DESELECT_MODULE @"Do you want to remove the module from basket?"
+
 @implementation ModuleListViewController
 
 #pragma mark -
@@ -180,17 +183,17 @@
 
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-	NSString *addedModule = [moduleList objectAtIndex:indexPath.row];
+	[moduleListTableView becomeFirstResponder];
+	[searchBar resignFirstResponder];
+	NSString *addedModule = [copyModuleList objectAtIndex:indexPath.row];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	
 	//Can add module name duplicate checking here
 	BOOL checked = [theDataObject.basket containsObject:addedModule];
-	
-	
-	
+
 	if(!checked){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Confirm to select this module?"
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SELECT_MODULE
 											  delegate:self
 											  cancelButtonTitle:@"Cancel" 
 											  otherButtonTitles:@"OK",nil];
@@ -202,32 +205,62 @@
 		
 		pathForAlert = indexPath;
 	}else {
-		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+		//[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
+													   delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+		
+		[alert show];
+		[alert release];
+		
+		NSLog(@"test deselect");
+		
+		pathForAlert = indexPath;
 	}
 	
-	//[addedModule release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+	
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
  	
 	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
 	if ([button isEqual:@"OK"]) {
-		[theDataObject.basket addObject:addedModule];
 		
-		
-		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
-		[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
-		
-		UIButton *button = (UIButton *)cell.accessoryView;
-
-		UIImage *newImage = [UIImage imageNamed:@"checked.png"];
-		
-		NSLog(@"test 3");
-		
-		[button setBackgroundImage:newImage forState:UIControlStateNormal];
+		if (alertView.message == SELECT_MODULE)
+		{
+			[theDataObject.basket addObject:addedModule];
+			
+			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
+			[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
+			
+			UIButton *button = (UIButton *)cell.accessoryView;
+			
+			UIImage *newImage = [UIImage imageNamed:@"checked.png"];
+			
+			NSLog(@"test 3");
+			
+			[button setBackgroundImage:newImage forState:UIControlStateNormal];
+			
+		}
+		else if (alertView.message == DESELECT_MODULE)
+		{
+			[theDataObject.basket removeObject:addedModule];
+			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
+			[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
+			UIButton *button = (UIButton *)cell.accessoryView;
+			
+			UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
+			
+			NSLog(@"test de3");
+			
+			[button setBackgroundImage:newImage forState:UIControlStateNormal];
+		}else {
+			
+		}
 	}
 }
 

@@ -16,6 +16,7 @@
 	NSMutableArray *copyModuleList;
 	IBOutlet UISearchBar *searchBar;
 	NSIndexPath *pathForAlert;
+	
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
