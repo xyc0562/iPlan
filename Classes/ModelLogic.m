@@ -30,6 +30,60 @@
     return module;
 }
 
+- (ModuleClassType*)getOrCreateClassTypeInstanceByCode:(NSString*)code 
+										   WithClassTypeName:(NSString*)type
+{
+    ModuleClassType* classType = [self.moduleObjectsDict objectForKey:[code stringByAppendingString:type]];
+    if (!classType)
+    {
+		Module* module = [Module ModuleWithModuleCode:code];
+		if (module)
+		{
+			for (ModuleClassType* eachType in [module moduleClassTypes]) 
+			{
+				if ([[eachType name]isEqualToString:type])
+					{
+						[moduleObjectsDict setValue:eachType forKey:[code stringByAppendingString:type]];
+						return eachType;
+					}
+			}
+        }
+    }
+	return classType;
+}
+
+
+- (ClassGroup*)getOrCreateClassGroupInstanceByCode:(NSString*)code 
+								   WithClassTypeName:(NSString*)type
+								 WithClassGroupName:(NSString*)group
+{
+	NSString* key = [[code stringByAppendingString:type]stringByAppendingString:group];
+	ClassGroup* classGroup = [self.moduleObjectsDict objectForKey:key];
+	if (!classGroup)
+	  {
+		  Module* module = [Module ModuleWithModuleCode:code];
+		  if (module)
+		  {
+			  for (ModuleClassType* eachType in [module moduleClassTypes]) 
+			  {
+				  if ([[eachType name]isEqualToString:type])
+				  {
+					  for (ClassGroup* eachGroup in [eachType classGroups]) 
+					  {
+						  if ([[eachGroup name]isEqualToString:group]) 
+						  {
+							  [moduleObjectsDict setValue:eachType forKey:key];
+							  return eachGroup;
+						  }
+					  }
+					  
+				  }
+			  }
+		  }
+	  }
+	return classGroup;
+}
+							 
 -(id)initWithTimeTable:(TimeTable*)table
 {
     [super init];
@@ -469,6 +523,8 @@
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
 		[resultDict setValue:groupName forKey:@"groupName"];
+		[resultDict setValue:[module color] forKey:@"color"];
+		[resultDict setValue:classGroupIndex forKey:@"groupIndex"];
 		NSMutableArray* slotInfo = [[NSMutableArray alloc]init];
 		for (Slot* slot in [classGroup slots]) 
 		{
@@ -483,8 +539,7 @@
 			NSNumber* endTime = [NSNumber numberWithInt:eTime];
 			[slotDict setValue:startTime forKey:@"startTime"];
 			[slotDict setValue:endTime forKey:@"endTime"];
-			[slotDict setValue:classGroupIndex forKey:@"groupIndex"];
-			[slotDict setValue:[module color] forKey:@"color"];
+
 			[slotInfo addObject:slotDict];
 		}
 		[resultDict setValue:slotInfo forKey:@"slots"];
@@ -492,6 +547,20 @@
 	}
 	return selectedGroupsInfo;
 }
+
+//- (NSMutableArray*)getOtherAvailableGroupWithModuleCode:(NSString*)code
+//									 WithClassTypeIndex:(NSString*)classTypeName
+//										  WithGroupName:(NSString*)groupName
+//{
+//	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
+//	for (ClassGroup* eachGroup in [classType classGroups]) 
+//	{
+//		if (![[eachGroup name]isEqualToString:groupName] ) 
+//		{
+//				
+//		}
+//	}
+//}
 
 - (void) generateBasicTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 {
