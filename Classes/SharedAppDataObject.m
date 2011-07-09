@@ -16,6 +16,7 @@
 @synthesize settingsIdentity;
 @synthesize moduleCode;
 @synthesize basket;
+@synthesize activeModules;
 @synthesize activeIndexes;
 @synthesize zoomed;
 @synthesize moduleCells;
@@ -28,9 +29,11 @@
 
 -(id) init {
 	if ([super init]){
-		self.basket = [[NSMutableArray alloc] init];
-		self.moduleCells = [[NSMutableDictionary alloc] init];
-		self.removedCells = [[NSMutableDictionary alloc] init];
+		basket = [[NSMutableArray alloc] init];
+		activeModules = [[NSMutableArray alloc] init];
+		activeIndexes = [[NSMutableArray alloc] init];
+		moduleCells = [[NSMutableDictionary alloc] init];
+		removedCells = [[NSMutableDictionary alloc] init];
 		zoomed = NO;
 		selectSlotIndex = -1;
 	}
@@ -46,6 +49,7 @@
 	[moduleCells release];
 	[removedCells release];
 	[slotControllers release];
+
 
 	[super dealloc];
 }

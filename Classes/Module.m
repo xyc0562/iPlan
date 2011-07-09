@@ -24,6 +24,7 @@
 @synthesize lastUpdated;
 @synthesize selected;
 @synthesize moduleClassTypes;
+@synthesize color;
 
 -(id)initWithDescription:(NSString*)desp
   WithCode:(NSString*)codes

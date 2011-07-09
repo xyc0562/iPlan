@@ -12,6 +12,8 @@
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
+@synthesize currentColorIndex;
+
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
@@ -25,12 +27,14 @@
         }
     }
 
-    return [module autorelease];
+    return module;
 }
 
 -(id)initWithTimeTable:(TimeTable*)table
 {
     [super init];
+//initiallize the 10 colors for module displaying
+	self.currentColorIndex = 0;
     if(super !=nil)
     {
         self.timeTable = table;
@@ -259,7 +263,7 @@
                 {
                     [arr addObject:CG.name];
                 }
-                return [arr autorelease];
+                return arr;
             }
         }
         // If such a type not found, return nil
@@ -293,7 +297,7 @@
                             NSMutableArray *one_time = [NSMutableArray arrayWithObjects:s.day, s.startTime, s.endTime, nil];
                             [arr addObject:one_time];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -329,7 +333,7 @@
                         {
                             [arr addObject:s.venue];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -364,7 +368,7 @@
                         {
                             [arr addObject:s.frequency];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
                 return nil;
@@ -412,7 +416,7 @@
 
     [arr replaceObjectAtIndex:0 withObject:conflict];
 
-    return [arr autorelease];
+    return arr;
 }
 
 // Not retained!
@@ -427,7 +431,7 @@
         }
     }
 
-    return [arr autorelease];
+    return arr;
 }
 
 - (void) syncModulesWithBasket:(NSMutableArray*)modules
@@ -480,6 +484,7 @@
 			[slotDict setValue:startTime forKey:@"startTime"];
 			[slotDict setValue:endTime forKey:@"endTime"];
 			[slotDict setValue:classGroupIndex forKey:@"groupIndex"];
+			[slotDict setValue:[module color] forKey:@"color"];
 			[slotInfo addObject:slotDict];
 		}
 		[resultDict setValue:slotInfo forKey:@"slots"];
@@ -505,7 +510,7 @@
         {
             [arr addObject:MCT.name];
         }
-        return [arr autorelease];
+        return arr;
     }
     else
     {
@@ -528,7 +533,7 @@
                 {
                     if ([CG.selected isEqualToString:MODULE_ACTIVE])
                     {
-                        return [[self getTimesFromModule:code ModuleClassType:type GroupName:CG.name] autorelease];
+                        return [self getTimesFromModule:code ModuleClassType:type GroupName:CG.name];
                     }
                 }
             }
@@ -563,7 +568,7 @@
                         {
                             [arr addObject:s.venue];
                         }
-                        return [arr autorelease];
+                        return arr;
                     }
                 }
             }
@@ -630,13 +635,26 @@
             [arr addObject:info];
         }
 
-        return [arr autorelease];
+        return arr;
     }
     else
     {
         return nil;
     }
 }
+
+- (void)assignNewColorForModule:(NSString*)code
+{
+	Module* cModule = [self getOrCreateAndGetModuleInstanceByCode:code];
+	cModule.color = [colorList objectAtIndex:[currentColorIndex intValue]];
+	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
+}
+
+- (void)releaseOneColor
+{
+	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]-1];
+}
+
 
 -(void)dealloc
 {

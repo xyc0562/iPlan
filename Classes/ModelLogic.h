@@ -17,6 +17,7 @@
 }
 @property(nonatomic, retain)TimeTable *timeTable;
 @property(nonatomic, retain)NSMutableDictionary *moduleObjectsDict;
+@property(nonatomic, retain)NSNumber* currentColorIndex;
 
 
 - (NSArray*) getAllModuleCodes;
@@ -93,4 +94,9 @@
 //get all selected groups information eg. each slots information
 
 - (NSArray*)getModuleInfoIntoArray:(NSString*)code;
+//assign a new color for modules added into basket
+
+- (void)assignNewColorForModule:(NSString*)code;
+//release one color when a module is removed from basket
+
 @end
