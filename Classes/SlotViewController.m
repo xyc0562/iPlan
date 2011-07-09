@@ -28,6 +28,7 @@
 @synthesize groupIndex;
 @synthesize tableChoices;
 @synthesize table;
+@synthesize classTypeName;
 
 
 - (SharedAppDataObject*) theAppDataObject{
@@ -55,7 +56,7 @@
 				 WithDay:(NSNumber*)date
 	  WithClassGroupName:(NSString*)name
 		 WithModuleColor:(UIColor*)color
-			WithProperty:(CGRect)property
+	   WithClassTypeName:(NSString*)classtype
 			   WithIndex:(int)indexNumber
 		  WithGroupIndex:(int)groupNumber
 					
@@ -70,9 +71,10 @@
 		self.classGroupName = name;
 		self.moduleColor = color;    
 		self.day = date;
-		displayProperty = property;
+//		displayProperty = property;
 		index = indexNumber;
 		groupIndex = groupNumber;
+		self.classTypeName = classtype;
 		self.view.multipleTouchEnabled = YES;
 		
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];

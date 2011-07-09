@@ -16,6 +16,7 @@
 	NSNumber* startTime;
 	NSNumber* endTime;
 	NSNumber* day;
+	NSString* classTypeName;
 	UIColor* moduleColor;
 	CGRect displayProperty;
 	int index;
@@ -36,6 +37,7 @@
 @property (nonatomic,assign)int index;
 @property (nonatomic,assign)int groupIndex;
 @property (nonatomic,retain)NSMutableArray* tableChoices;
+@property (nonatomic,retain)NSString* classTypeName;
 
 - (id)initWithModuleCode:(NSString *)code 
 			   WithVenue:(NSString*)place
@@ -44,7 +46,7 @@
 				 WithDay:(NSNumber*)date
 	  WithClassGroupName:(NSString*)name
 		 WithModuleColor:(UIColor*)color
-			WithProperty:(CGRect)property	
+	   WithClassTypeName:(NSString*)classtype
 			   WithIndex:(int)indexNumber
 		  WithGroupIndex:(int)groupNumber;
 

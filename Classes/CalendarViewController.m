@@ -38,35 +38,37 @@
 - (void) configureView 
 {
 	ModelLogic* ml = [[ModelLogic alloc]init];
-	SharedAppDataObject* theDataObject;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfoFromModules:theDataObject.basket Active:theDataObject.activeIndexes];
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
-	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-																	   WithVenue:@"Science" 
-																   WithStartTime:[NSNumber numberWithInt:10] 
-																	 WithEndTime:[NSNumber numberWithInt:12]
-																		 WithDay:[NSNumber numberWithInt:1] 
-															  WithClassGroupName:@"SL1" 
-																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 50, 20)
-																	   WithIndex:[displaySlots count]
-																  WithGroupIndex:0];
-	[displaySlots addObject:slotView];
-	//slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-	//																	   WithVenue:@"Science" 
-	//																   WithStartTime:[NSNumber numberWithInt:10] 
-	//																	 WithEndTime:[NSNumber numberWithInt:12]
-	//																		 WithDay:[NSNumber numberWithInt:1] 
-	//															  WithClassGroupName:@"SL2" 
-	//																 WithModuleColor:[UIColor blueColor]
-	//																	WithProperty:CGRectMake(100, 100, GAP_WIDTH,1)
-	//																	   WithIndex:[displaySlots count]
-	//																  WithGroupIndex:1];
-	//	
-	//	[displaySlots addObject:slotView];
 	
-	
+	for (NSDictionary* dict in defaultAnswer) 
+	{
+		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
+		UIColor* color = [dict objectForKey:@"color"];
+		NSString* classTypeName = [dict objectForKey:@"classTypeName"];
+		NSString* classGroupName = [dict objectForKey:@"classGroupName"];
+		NSMutableArray* slots = [dict objectForKey:@"slots"];
+		for(NSDictionary* dictInner in slots)
+		{
+			
+			SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:moduleCode 
+																			   WithVenue:[dictInner objectForKey:@"venue"]
+																		   WithStartTime:[dictInner objectForKey:@"startTime"]
+																			 WithEndTime:[dictInner objectForKey:@"endTime"]
+																				 WithDay:[dictInner objectForKey:@"day"]
+																	  WithClassGroupName:classGroupName 
+																		 WithModuleColor:color
+																	   WithClassTypeName:classTypeName
+																			   WithIndex:[displaySlots count]
+																		  WithGroupIndex:[[dictInner objectForKey:@"groupIndex"]intValue]];
+			[displaySlots addObject:slotView];
+		}
+		
+		
+	}
+		
 	//for each slotView in displaySlots
 	
 	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
@@ -128,7 +130,7 @@
 	//	[[displayViewController view]setCenter:scrollView.center];
 	[[displayViewController view]setTag:DISPLAY_TAG];
 	scrollView.canCancelContentTouches = YES;
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
 	theDataObject.slotControllers = displaySlots;
 }
 
@@ -181,7 +183,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	//scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
+	scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
@@ -191,9 +193,7 @@
 	[table reloadData];
 	[self configureToolBar];
 	[self configureView];
-	self.view = scrollView;
-	[self configureToolBar];
-	[self configureView];
+
 }
 
 /*
@@ -368,7 +368,7 @@
 	int selectIndex = theDataObject.selectSlotIndex;
 	SlotViewController* slot = [[displayViewController slotViewControllers]objectAtIndex:selectIndex];
 	//model logic get all available but not this one slots
-	availableSlots;
+//	if(availableSlots)
 	
 	//handle and make the content for table choices
 	tableChoices = availableSlots;
