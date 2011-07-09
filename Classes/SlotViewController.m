@@ -26,7 +26,9 @@
 @synthesize displayView;
 @synthesize index;
 @synthesize groupIndex;
-@synthesize conflictModuleChoice;
+@synthesize tableChoices;
+@synthesize table;
+
 
 - (SharedAppDataObject*) theAppDataObject{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -111,19 +113,22 @@
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* slotControllers = theDataObject.slotControllers;
+	
+	//restore selection
 	if (theDataObject.selectSlotIndex == index) 
 	{
 		
 		for(SlotViewController* slot in slotControllers)
 		{
-			if(slot.groupIndex==groupIndex)
-			{
+			//if(slot.groupIndex==groupIndex)
+			//{
 				slot.view.backgroundColor = [self moduleColor];		
-			}
+			//}
 		}
 		theDataObject.selectSlotIndex = -1;
 		
 	}
+	//selection start
 	else
 	{
 		for(SlotViewController* slot in slotControllers)
@@ -132,10 +137,15 @@
 			{
 				slot.view.backgroundColor = [UIColor blackColor];		
 			}
+			else 
+			{
+				slot.view.backgroundColor = [slot moduleColor];
+			}
+
 		}
 		
 		//scroll.= YES;
-		conflictModuleChoice = [[NSMutableArray alloc]init];
+		tableChoices = [[NSMutableArray alloc]init];
 		for (SlotViewController* slot in slotControllers) 
 		{
 			if ([slot.day intValue]==[self.day intValue]) 
@@ -146,59 +156,34 @@
 					NSString* displayInfo = [NSString stringWithString:slot.moduleCode];
 					displayInfo = [displayInfo stringByAppendingString:@" "];
 					displayInfo = [displayInfo stringByAppendingString:slot.classGroupName];
-					[conflictModuleChoice addObject:displayInfo];
+					[tableChoices addObject:displayInfo];
 				}
 
 			}
 		}
 		
-		if([conflictModuleChoice count]>1)
+		if([tableChoices count]>0)
+			[tableChoices addObject:CLASH];
+		else 
 		{
-			UIPickerView* smallPicker = [[UIPickerView alloc]init];
-			//smallPicker.bounds = CGRectMake(0, 0, 20, 20);
-			smallPicker.delegate = self;
-			smallPicker.backgroundColor = [UIColor clearColor];
-			smallPicker.showsSelectionIndicator = YES;
-			[displayView addSubview:smallPicker];
+			//call Model Logic
+			NSMutableArray* availableSlot;
+			for(int i=0;i<[availableSlot count];i++)
+			{
+				NSString* displayInfo = [NSString stringWithString:@"module code"];
+				[tableChoices addObject:displayInfo];
+			}
+			if([availableSlot count]!=0)
+				[tableChoices addObject:SLOTS];
+			
 		}
-		
+
 		theDataObject.selectSlotIndex = index;
 		
 	}
 	
 }
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    // Handle the selection
-	[pickerView removeFromSuperview];
-}
-
-// tell the picker how many rows are available for a given component
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    NSUInteger numRows = [conflictModuleChoice count];
-	
-    return numRows;
-}
-
-// tell the picker how many components it will have
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
-}
-
-// tell the picker the title for a given component
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *title;
-    title = [conflictModuleChoice objectAtIndex:row];
-	
-    return title;
-}
-
-// tell the picker the width of each row for a given component
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-	int sectionWidth = 300;
-	
-	return sectionWidth;
-}
+ 
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

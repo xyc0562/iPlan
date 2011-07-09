@@ -1,4 +1,4 @@
-    //
+//
 //  CalendarViewController.m
 //  iPlan
 //
@@ -21,6 +21,8 @@
 
 @synthesize scrollView;
 @synthesize displayViewController;
+@synthesize toolbar;
+@synthesize tableChoices;
 
 
 - (SharedAppDataObject*) theAppDataObject{
@@ -31,7 +33,8 @@
 }
 
 
-- (void) configureView {
+- (void) configureView 
+{
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
 	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
@@ -41,27 +44,28 @@
 																		 WithDay:[NSNumber numberWithInt:1] 
 															  WithClassGroupName:@"SL1" 
 																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 50, 20)
+																	WithProperty:CGRectMake(100, 100, 10, 1)
 																	   WithIndex:[displaySlots count]
 																  WithGroupIndex:0];
 	[displaySlots addObject:slotView];
-	slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-																	   WithVenue:@"Science" 
-																   WithStartTime:[NSNumber numberWithInt:10] 
-																	 WithEndTime:[NSNumber numberWithInt:12]
-																		 WithDay:[NSNumber numberWithInt:1] 
-															  WithClassGroupName:@"SL2" 
-																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 50, 20)
-																	   WithIndex:[displaySlots count]
-																  WithGroupIndex:1];
-	
-	[displaySlots addObject:slotView];
+	//slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
+	//																	   WithVenue:@"Science" 
+	//																   WithStartTime:[NSNumber numberWithInt:10] 
+	//																	 WithEndTime:[NSNumber numberWithInt:12]
+	//																		 WithDay:[NSNumber numberWithInt:1] 
+	//															  WithClassGroupName:@"SL2" 
+	//																 WithModuleColor:[UIColor blueColor]
+	//																	WithProperty:CGRectMake(100, 100, GAP_WIDTH,1)
+	//																	   WithIndex:[displaySlots count]
+	//																  WithGroupIndex:1];
+	//	
+	//	[displaySlots addObject:slotView];
 	
 	
 	//for each slotView in displaySlots
-
+	
 	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+	
 	for (int i = 0; i < NUMBER_OF_ROW_LINES; i++){
 		UIViewWithLine *line = [[UIViewWithLine alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000) 
 															 Point1X:HEADER_ORIGIN_X 
@@ -73,7 +77,14 @@
 		[line release];
 		if (i != NUMBER_OF_ROW_LINES -1){
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(HEADER_ORIGIN_X,(HEADER_ORIGIN_Y+i*GAP_HEIGHT), GAP_WIDTH, GAP_HEIGHT)];
-			label.text = [NSString stringWithFormat:@"%d:00",i+8];
+			if(i!=0)
+			{
+				label.text = [NSString stringWithFormat:@"%d:00",i+7];
+			}
+			else {
+				label.text = @"Class";
+			}
+			
 			label.textColor = [UIColor whiteColor];
 			label.backgroundColor = [UIColor blackColor];
 			[label setTag:LABEL_TAG];
@@ -93,120 +104,171 @@
 		[line release];
 	}
 	
-	UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-	[tap2 setNumberOfTapsRequired:2];
-	[scrollView addGestureRecognizer:tap2];
-	[tap2 release];
-	
 	for (SlotViewController* slotView in displaySlots ) 
 	{
 		[[displayViewController view] addSubview:slotView.view];
 		[[displayViewController view] bringSubviewToFront:slotView.view];
+		[slotView.view setFrame:slotView.displayProperty];
 		slotView.scroll = scrollView;
 		slotView.displayView = [displayViewController view];
+		slotView.table = table;
+		slotView.tableChoices = tableChoices;
 		//slotView.view.userInteractionEnabled = NO;
 	}
 	
 	
 	
-	[scrollView setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
+	//	[scrollView setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
 	[scrollView addSubview:[displayViewController view]];
-	[[displayViewController view]setCenter:scrollView.center];
+	//	[[displayViewController view]setCenter:scrollView.center];
 	[[displayViewController view]setTag:DISPLAY_TAG];
 	scrollView.canCancelContentTouches = YES;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.slotControllers = displaySlots;
 }
 
-
- 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	[self configureView]; 
-	self.view = scrollView;
-	scrollView.bounces = NO;
-	scrollView.showsVerticalScrollIndicator = YES;
-	scrollView.showsHorizontalScrollIndicator = YES;
-
+- (void) configureToolBar
+{ 	
 	
-}
-/*
-- (void) viewWillAppear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
-
-}
-
-*/
-- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
-	
-	
-	
-	// zoom in
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	if(![theDataObject zoomed])
+	NSMutableArray* modules = theDataObject.basket;
+	
+	NSMutableArray* activeindexes = theDataObject.activeIndexes;
+	
+	modules = [[NSMutableArray alloc]init];
+	activeindexes = [[NSMutableArray alloc]init];
+	for(int i=0;i<10;i++)
 	{
-		[UIView beginAnimations:nil context:nil]; 
-		[UIView setAnimationDuration:0.3]; 
-		[[displayViewController view]removeFromSuperview];
-		[[displayViewController view]setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
-		//NSMutableArray* displaySlots = displayViewController.slotViewControllers;
-//		for (SlotViewController* slotView in displaySlots ) 
-//		{
-//			slotView.view.userInteractionEnabled = YES;
-//		}
-//		
-		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
-		[scrollView setContentOffset:CGPointMake(0, 0)];
-		[scrollView addSubview:[displayViewController view]];
-		[[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
-
-		[UIView commitAnimations];
-		
+		[modules addObject:@"CMA1101"];
+		[activeindexes addObject:[NSNumber numberWithInt:i]];
+		printf("count %d",[activeindexes count]);
+	}
+	
+	if([activeindexes count]!=0)
+	{
+		CGRect frame = CGRectMake(NAV_FRAME_X,NAV_FRAME_Y,NAV_FRAME_W,NAV_FRAME_H);
+		UIView* temp = [[UIView alloc]initWithFrame:frame];
+		float cellWidth = (NAV_FRAME_W-3*NAV_BORDER_X)/(float)(NAV_COL);
+		float cellHight = (NAV_FRAME_H-3*NAV_BORDER_Y)/(float)(NAV_ROW);
+		for (int i=0;i<[activeindexes count];i++) 
+		{
+			int col = i%NAV_COL;
+			int row = i/NAV_COL;
+			
+			NSString* selectedModule = [modules objectAtIndex:[[activeindexes objectAtIndex:i]intValue]];
+			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
+			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
+			[titleLabel setBackgroundColor:[UIColor blueColor]];
+			[titleLabel setTextColor:[UIColor whiteColor]];
+			[titleLabel setText:selectedModule];
+			[titleLabel setTextAlignment:UITextAlignmentCenter];
+			[temp addSubview:titleLabel];
+		}
+		self.navigationItem.titleView = temp;
 	}
 	else 
 	{
-		[UIView beginAnimations:nil context:nil]; 
-		[UIView setAnimationDuration:0.3]; 
-		[[displayViewController view]removeFromSuperview];
-		[[displayViewController view]setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-		[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
-		[scrollView setContentOffset:CGPointMake(0, 0)];
-		[scrollView addSubview:[displayViewController view]];
-		[[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
-		//NSMutableArray* displaySlots = displayViewController.slotViewControllers;
-//		for (SlotViewController* slotView in displaySlots ) 
-//		{
-//			slotView.view.userInteractionEnabled = NO;
-//		}
-		[UIView commitAnimations];
-		
+		self.title = @"Calendar";
 	}
-
-	theDataObject.zoomed = !theDataObject.zoomed;
 	
 }
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
+	scrollView.bounces = NO;
+	scrollView.showsVerticalScrollIndicator = YES;
+	scrollView.showsHorizontalScrollIndicator = YES;
+	[self.view addSubview: scrollView];
+	[self configureToolBar];
+	[self configureView];
+	//self.view = scrollView;
+	
+	
+	
+	
+	
+}
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ - (void) viewWillAppear:(BOOL)animated
+ {
+ [self.navigationController setNavigationBarHidden:YES animated:animated];
+ [super viewWillAppear:animated];
+ }
+ 
+ - (void) viewWillDisappear:(BOOL)animated
+ {
+ [self.navigationController setNavigationBarHidden:NO animated:animated];
+ [super viewWillDisappear:animated];
+ 
+ }
+ */
+/*
+ - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
+ 
+ 
+ 
+ // zoom in
+ SharedAppDataObject* theDataObject = [self theAppDataObject];
+ if(![theDataObject zoomed])
+ {
+ [UIView beginAnimations:nil context:nil]; 
+ [UIView setAnimationDuration:0.3]; 
+ [[displayViewController view]removeFromSuperview];
+ [[displayViewController view]setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
+ //NSMutableArray* displaySlots = displayViewController.slotViewControllers;
+ //		for (SlotViewController* slotView in displaySlots ) 
+ //		{
+ //			slotView.view.userInteractionEnabled = YES;
+ //		}
+ //		
+ [scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
+ [scrollView setContentOffset:CGPointMake(0, 0)];
+ [scrollView addSubview:[displayViewController view]];
+ [[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
+ 
+ [UIView commitAnimations];
+ 
+ }
+ else 
+ {
+ [UIView beginAnimations:nil context:nil]; 
+ [UIView setAnimationDuration:0.3]; 
+ [[displayViewController view]removeFromSuperview];
+ [[displayViewController view]setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+ [scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
+ [scrollView setContentOffset:CGPointMake(0, 0)];
+ [scrollView addSubview:[displayViewController view]];
+ [[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
+ //NSMutableArray* displaySlots = displayViewController.slotViewControllers;
+ //		for (SlotViewController* slotView in displaySlots ) 
+ //		{
+ //			slotView.view.userInteractionEnabled = NO;
+ //		}
+ [UIView commitAnimations];
+ 
+ }
+ 
+ theDataObject.zoomed = !theDataObject.zoomed;
+ 
+ }
+ 
+ 
+ /*
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
-- (id)initWithTabBar {
-	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) {
-		//self.title = @"Calendar";
+- (id)initWithTabBar 
+{
+	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) 
+	{
+		
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
 	}
@@ -215,6 +277,110 @@
 
 
 
+
+
+//table View Adjustment
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+	return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+    // Return the number of rows in the section.
+	return [tableChoices count]-1;
+}
+
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault] autorelease];
+	
+    // Configure the cell...
+    NSUInteger row = [indexPath row];
+	cell.textLabel.text = [tableChoices objectAtIndex:row];
+	
+	
+	BOOL checked = [theDataObject.basket containsObject:addedModule];
+	
+	UIImage *image = (checked) ? nil : [UIImage imageNamed:@"checked.png"];
+	
+	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+	addButton.frame = frame;
+	
+	[addButton setBackgroundImage:image forState:UIControlStateNormal];
+	
+	if(image == nil){
+		[addButton addTarget:self action:@selector(nullButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}else{
+		[addButton addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}
+	addButton.backgroundColor = [UIColor clearColor];
+	
+	cell.accessoryView = addButton;
+	
+    return cell;
+}
+
+- (void) nullButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
+	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+	}
+}
+
+
+- (void) checkButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
+	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:moduleListTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+	}
+}
+
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+	NSString *addedModule = [moduleList objectAtIndex:indexPath.row];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	
+	//Can add module name duplicate checking here
+	BOOL checked = [theDataObject.basket containsObject:addedModule];
+	
+	
+	
+	if(!checked){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Confirm to select this module?"
+													   delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+		
+		[alert show];
+		[alert release];
+		
+		NSLog(@"test 2");
+		
+		pathForAlert = indexPath;
+	}else {
+		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
+	}
+	
+	//[addedModule release];
+}
+*/
+
+//end of table view adjustment
 
 
 - (void)didReceiveMemoryWarning {

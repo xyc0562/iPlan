@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SlotViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>{
+@interface SlotViewController : UIViewController {
 	NSString* moduleCode;
 	NSString* venue;
 	NSString* classGroupName;
@@ -32,9 +32,10 @@
 @property (nonatomic,readonly)CGRect displayProperty;
 @property (nonatomic,retain)UIScrollView* scroll;
 @property (nonatomic,retain)UIView* displayView;
+@property (nonatomic,retain)UIView* table;
 @property (nonatomic,assign)int index;
 @property (nonatomic,assign)int groupIndex;
-@property (nonatomic,retain)NSMutableArray* conflictModuleChoice;
+@property (nonatomic,retain)NSMutableArray* tableChoices;
 
 - (id)initWithModuleCode:(NSString *)code 
 			   WithVenue:(NSString*)place

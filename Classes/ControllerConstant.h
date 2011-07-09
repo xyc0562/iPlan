@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define HEADER_ORIGIN_X 10
+#define HEADER_ORIGIN_X 5
 #define HEADER_ORIGIN_Y	10
 #define NUMBER_OF_ROW_LINES 17
 #define NUMBER_OF_COL_LINES 7
@@ -30,6 +30,28 @@
 #define CLASS_VIEW_TAG 200
 #define SCROLL_TAG 0
 #define DISPLAY_TAG 1
+
+
+#define NAV_FRAME_X 0
+#define NAV_FRAME_Y 0
+#define NAV_FRAME_W 320
+#define NAV_FRAME_H 44
+#define NAV_FONT_SIZE 12
+
+#define NAV_ROW 2
+#define NAV_COL 5
+#define NAV_BORDER_X 5
+#define NAV_BORDER_Y 4
+#define CELL_BORDER 2
+
+#define SCROLL_X 2
+#define SCROLL_Y 5
+#define SCROLL_W 320
+#define SCROLL_H 360
+#define SCROLL_H_BEFORE 445
+
+#define CLASH "Clash"
+#define SLOTS "Slots"
 @interface ControllerConstant : NSObject {
 
 }
