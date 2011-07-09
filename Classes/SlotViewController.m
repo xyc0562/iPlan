@@ -113,6 +113,16 @@
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* slotControllers = theDataObject.slotControllers;
+	if([tableChoices count]!=0)
+	{
+		for(SlotViewController* slot in slotControllers)
+		{
+			if(slot.groupIndex==-1)
+			{
+				[slotControllers removeObject:slot];		
+			}
+		}
+	}
 	
 	//restore selection
 	if (theDataObject.selectSlotIndex == index) 

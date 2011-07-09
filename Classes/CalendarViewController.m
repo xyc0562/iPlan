@@ -11,6 +11,7 @@
 // #import "ControllerConstant.h" //Temply disable to build
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
+#import "ModelLogic.h"
 
 @interface CalendarViewController (UtilityMethods)
 
@@ -21,8 +22,9 @@
 
 @synthesize scrollView;
 @synthesize displayViewController;
-@synthesize toolbar;
 @synthesize tableChoices;
+@synthesize availableSlots;
+@synthesize table;
 
 
 - (SharedAppDataObject*) theAppDataObject{
@@ -35,6 +37,9 @@
 
 - (void) configureView 
 {
+	ModelLogic* ml = [[ModelLogic alloc]init];
+	SharedAppDataObject* theDataObject;
+	NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfoFromModules:theDataObject.basket Active:theDataObject.activeIndexes];
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
 	SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
@@ -44,7 +49,7 @@
 																		 WithDay:[NSNumber numberWithInt:1] 
 															  WithClassGroupName:@"SL1" 
 																 WithModuleColor:[UIColor blueColor]
-																	WithProperty:CGRectMake(100, 100, 10, 1)
+																	WithProperty:CGRectMake(100, 100, 50, 20)
 																	   WithIndex:[displaySlots count]
 																  WithGroupIndex:0];
 	[displaySlots addObject:slotView];
@@ -97,7 +102,7 @@
 															 Point1X:(HEADER_ORIGIN_X+i*GAP_WIDTH)
 															 Point1Y:HEADER_ORIGIN_Y
 															 Point2X:(HEADER_ORIGIN_X+i*GAP_WIDTH) 
-															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT];
+															 Point2Y:HEADER_ORIGIN_Y+TOTAL_HEIGHT ];
 		[line setTag:LINE_TAG];
 		[[displayViewController view] addSubview:line];
 		
@@ -176,19 +181,19 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
+	//scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
 	[self.view addSubview: scrollView];
+	[self.view addSubview:table];
+	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
+	[table reloadData];
 	[self configureToolBar];
 	[self configureView];
-	//self.view = scrollView;
-	
-	
-	
-	
-	
+	self.view = scrollView;
+	[self configureToolBar];
+	[self configureView];
 }
 
 /*
@@ -271,6 +276,7 @@
 		
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
+		self.tableChoices = [[NSMutableArray alloc]init];
 	}
 	return self;
 }
@@ -290,95 +296,135 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
     // Return the number of rows in the section.
-	return [tableChoices count]-1;
+	if([tableChoices count]==0)
+		return 1;
+	else
+		return [tableChoices count]-1;
 }
 
 
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    NSString *CellIdentifier = [@"Cell" stringByAppendingFormat:@"%d",indexPath.row];
+	
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
     
-    
-    UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault] autorelease];
+
 	
     // Configure the cell...
-    NSUInteger row = [indexPath row];
-	cell.textLabel.text = [tableChoices objectAtIndex:row];
-	
-	
-	BOOL checked = [theDataObject.basket containsObject:addedModule];
-	
-	UIImage *image = (checked) ? nil : [UIImage imageNamed:@"checked.png"];
-	
-	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
-	addButton.frame = frame;
-	
-	[addButton setBackgroundImage:image forState:UIControlStateNormal];
-	
-	if(image == nil){
-		[addButton addTarget:self action:@selector(nullButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-	}else{
-		[addButton addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	//if([tableChoices count]==0)
+		cell.textLabel.text = @"Only One Slot Avaiable";
+	//else
+/*	{
+		
+		NSUInteger row = [indexPath row];
+		cell.textLabel.text = [tableChoices objectAtIndex:row];
+		UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		
+		if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:CLASH])
+		{
+			UIImage *image =  [UIImage imageNamed:@"next.png"];
+			CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+			addButton.frame = frame;
+			
+			[addButton setBackgroundImage:image forState:UIControlStateNormal];
+			
+			[addButton addTarget:self action:@selector(nextButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+			
+			addButton.backgroundColor = [UIColor clearColor];
+			
+			cell.accessoryView = addButton;
+		}
+		else if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:SLOTS])
+		{
+			UIImage *image =  [UIImage imageNamed:@"refresh.png"];
+			UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+			CGRect frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+			addButton.frame = frame;
+			
+			[addButton setBackgroundImage:image forState:UIControlStateNormal];
+			
+			[addButton addTarget:self action:@selector(refreshButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+			
+			addButton.backgroundColor = [UIColor clearColor];
+			
+			cell.accessoryView = addButton;
+		}			
+		else
+			printf("Error");
 	}
-	addButton.backgroundColor = [UIColor clearColor];
-	
-	cell.accessoryView = addButton;
-	
+*/	
     return cell;
 }
 
-- (void) nullButtonTapped:(id)sender event:(id)event{
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
-	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
-	if(indexPath != nil){
-		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
-	}
-}
-
-
-- (void) checkButtonTapped:(id)sender event:(id)event{
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:moduleListTableView];
-	NSIndexPath *indexPath = [moduleListTableView indexPathForRowAtPoint:currentTouchPosition];
-	if(indexPath != nil){
-		[self tableView:moduleListTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-	}
-}
-
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-	NSString *addedModule = [moduleList objectAtIndex:indexPath.row];
+- (void) nextButtonTapped:(id)sender event:(id)event
+{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	int selectIndex = theDataObject.selectSlotIndex;
+	SlotViewController* slot = [[displayViewController slotViewControllers]objectAtIndex:selectIndex];
+	//model logic get all available but not this one slots
+	availableSlots;
 	
-	
-	//Can add module name duplicate checking here
-	BOOL checked = [theDataObject.basket containsObject:addedModule];
-	
-	
-	
-	if(!checked){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Confirm to select this module?"
-													   delegate:self
-											  cancelButtonTitle:@"Cancel" 
-											  otherButtonTitles:@"OK",nil];
-		
-		[alert show];
-		[alert release];
-		
-		NSLog(@"test 2");
-		
-		pathForAlert = indexPath;
-	}else {
-		[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
-	}
-	
-	//[addedModule release];
+	//handle and make the content for table choices
+	tableChoices = availableSlots;
+	if([availableSlots count]>0)
+		[tableChoices addObject:SLOTS];
+	[table reloadData];
 }
-*/
+
+
+- (void) refreshButtonTapped:(id)sender event:(id)event
+{
+	[tableChoices removeAllObjects];
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:CLASH])
+	{
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		NSMutableArray* slotControllers = theDataObject.slotControllers;
+		if([tableChoices count]!=0)
+		{
+			for(SlotViewController* slot in slotControllers)
+			{
+				if(slot.groupIndex==-1)
+				{
+					[slot.view removeFromSuperview];
+					[slotControllers removeObject:slot];
+					[slot release];
+				}
+			}
+		}
+		for(int i =0;i<[slotControllers count];i++)
+		{
+			SlotViewController* slot = [slotControllers objectAtIndex:i];
+			slot.index = i;
+		}
+		int row = indexPath.row;
+		SlotViewController* slotView = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
+																		   WithVenue:@"Science" 
+																	   WithStartTime:[NSNumber numberWithInt:10] 
+																		 WithEndTime:[NSNumber numberWithInt:12]
+																			 WithDay:[NSNumber numberWithInt:1] 
+																  WithClassGroupName:@"SL1" 
+																	 WithModuleColor:[UIColor blueColor]
+																		WithProperty:CGRectMake(100, 100, 10, 1)
+																		   WithIndex:[slotControllers count]
+																	  WithGroupIndex:-1];
+		[[displayViewController slotViewControllers]addObject:slotView];
+		[[displayViewController view]addSubview:[slotView view]];
+		
+		
+	}
+		
+}
 
 //end of table view adjustment
 
@@ -395,7 +441,6 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
 
 - (void)dealloc {
 	[scrollView release];

@@ -47,11 +47,15 @@
 #define SCROLL_X 2
 #define SCROLL_Y 5
 #define SCROLL_W 320
-#define SCROLL_H 360
-#define SCROLL_H_BEFORE 445
+#define SCROLL_H 356
 
-#define CLASH "Clash"
-#define SLOTS "Slots"
+#define TABLE_X 2
+#define TABLE_Y 275
+#define TABLE_W 320
+#define TABLE_H 220
+
+#define CLASH @"Clash"
+#define SLOTS @"Slots"
 @interface ControllerConstant : NSObject {
 
 }

@@ -34,6 +34,7 @@
 		activeIndexes = [[NSMutableArray alloc] init];
 		moduleCells = [[NSMutableDictionary alloc] init];
 		removedCells = [[NSMutableDictionary alloc] init];
+		slotControllers =[[NSMutableArray alloc]init];
 		zoomed = NO;
 		selectSlotIndex = -1;
 	}
