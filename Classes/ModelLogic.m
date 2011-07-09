@@ -12,6 +12,8 @@
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
+@synthesize currentColorIndex;
+
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
@@ -31,6 +33,8 @@
 -(id)initWithTimeTable:(TimeTable*)table
 {
     [super init];
+//initiallize the 10 colors for module displaying
+	self.currentColorIndex = 0;
     if(super !=nil)
     {
         self.timeTable = table;
@@ -480,6 +484,7 @@
 			[slotDict setValue:startTime forKey:@"startTime"];
 			[slotDict setValue:endTime forKey:@"endTime"];
 			[slotDict setValue:classGroupIndex forKey:@"groupIndex"];
+			[slotDict setValue:[module color] forKey:@"color"];
 			[slotInfo addObject:slotDict];
 		}
 		[resultDict setValue:slotInfo forKey:@"slots"];
@@ -637,6 +642,19 @@
         return nil;
     }
 }
+
+- (void)assignNewColorForModule:(NSString*)code
+{
+	Module* cModule = [self getOrCreateAndGetModuleInstanceByCode:code];
+	cModule.color = [colorList objectAtIndex:[currentColorIndex intValue]];
+	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
+}
+
+- (void)releaseOneColor
+{
+	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]-1];
+}
+
 
 -(void)dealloc
 {

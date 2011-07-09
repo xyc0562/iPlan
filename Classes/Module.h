@@ -27,6 +27,7 @@
 @property(nonatomic,readonly)NSString* lastUpdated;
 @property(nonatomic,retain)NSString* selected;
 @property(nonatomic,readonly)NSArray* moduleClassTypes;
+@property(nonatomic,retain)UIColor* color;
 -(BOOL)checkSelected;
 
 -(id)initWithDescription:(NSString*)desp

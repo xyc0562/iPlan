@@ -94,7 +94,7 @@
 {
 	switch (section) {
 		case 0:
-			return @"Click to active module";
+			return @"Click to activate module";
 		default:
 			return @"";
 	}

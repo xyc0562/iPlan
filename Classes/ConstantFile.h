@@ -7,7 +7,6 @@
 //
 
 
-
 #define LANG_CHINESE @"Chinese"
 #define FREQUENCY_INVALID 0
 #define MODULE_DOCUMENT_NAME @"Modules"
@@ -27,3 +26,5 @@
 #define MODULE_INACTIVE @"NO"
 
 #define MODULE_EXAM_NO_EXAM @"No Exam Date."
+
+#define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor blackColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]
