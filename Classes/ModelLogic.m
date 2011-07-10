@@ -494,7 +494,7 @@
 	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 }
 
-- (void) generateDefaultTimetale
+- (void) generateDefaultTimetable
 {
 	[timeTable planOneTimetable];
 }
