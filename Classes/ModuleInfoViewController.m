@@ -121,7 +121,6 @@
 - (void)configureNavBar:(BOOL)added{
 	self.navigationController.toolbarHidden = YES;
 	self.navigationController.toolbar.tintColor = [UIColor whiteColor];
-	// TODO: if it is selected/ not selected
 	if (added){
 		[self configureDeselectBar];
 	}else {
