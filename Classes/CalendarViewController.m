@@ -12,6 +12,8 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+// import parser to check
+#import "ModuleXMLParser.h"
 
 @interface CalendarViewController (UtilityMethods)
 
@@ -180,6 +182,22 @@
 	
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
+	if ([button isEqual:@"Update"]){
+		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+	}
+}
+
+- (void)alertForUpdate {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	if (theDataObject.needUpdate == YES){
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Update Reminder" message:@"The new course schedules are out. Do you want to update now? This may take some time." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Update",nil];
+		[alertView show];
+		[alertView release];
+	}
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -193,7 +211,9 @@
 	[table reloadData];
 	[self configureToolBar];
 	[self configureView];
-
+	
+	// ZY: alert for update the xml file or not
+	[self alertForUpdate];
 }
 
 /*
