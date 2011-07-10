@@ -39,7 +39,7 @@
 {
 	ModelLogic* ml = [[ModelLogic alloc]init];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfoFromModules:theDataObject.basket Active:theDataObject.activeIndexes];
+	NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfo];
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
 	
