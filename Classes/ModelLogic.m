@@ -494,18 +494,14 @@
 	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 }
 
-- (void) generateDefaultTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes
+- (void) generateDefaultTimetale
 {
-	for (NSNumber* index in activeIndexes) 
-	{
-		Module* selectedModule = [modulesSelected objectAtIndex:[index intValue]];
-		selectedModule.selected = @"YES";
-	}
-	timeTable.modules = modulesSelected;
 	[timeTable planOneTimetable];
 }
-- (NSMutableArray*)getSelectedGroupsInfoFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes
+
+- (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
 {
+	
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
@@ -514,7 +510,7 @@
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
 		NSNumber* classGroupIndex =	[eachSelected objectAtIndex:2];
 		
-		Module* module = [modulesSelected objectAtIndex:[moduleIndex intValue]];
+		Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
 		NSString* moduleCode = [module code];
 		ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
 		NSString* classTypeName = [classType name];
@@ -522,7 +518,7 @@
 		NSString* groupName = [classGroup name];
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
-		[resultDict setValue:groupName forKey:@"groupName"];
+		[resultDict setValue:groupName forKey:@"classGroupName"];
 		[resultDict setValue:[module color] forKey:@"color"];
 		[resultDict setValue:classGroupIndex forKey:@"groupIndex"];
 		NSMutableArray* slotInfo = [[NSMutableArray alloc]init];
@@ -548,23 +544,48 @@
 	return selectedGroupsInfo;
 }
 
-//- (NSMutableArray*)getOtherAvailableGroupWithModuleCode:(NSString*)code
-//									 WithClassTypeIndex:(NSString*)classTypeName
-//										  WithGroupName:(NSString*)groupName
-//{
-//	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
-//	for (ClassGroup* eachGroup in [classType classGroups]) 
-//	{
-//		if (![[eachGroup name]isEqualToString:groupName] ) 
-//		{
-//				
-//		}
-//	}
-//}
-
-- (void) generateBasicTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
+- (NSMutableArray*)getOtherAvailableGroupsWithModuleCode:(NSString*)code
+									 WithClassTypeIndex:(NSString*)classTypeName
+										  WithGroupName:(NSString*)groupName
 {
-    
+	NSMutableArray* otherAvailableGroups= [[NSMutableArray alloc]init];
+	Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
+	int classGroupIndex =0;
+	for (ClassGroup* eachGroup in [classType classGroups]) 
+	{
+		if (![[eachGroup name]isEqualToString:groupName] ) 
+		{
+			NSDictionary* resultDict = [[NSDictionary alloc]init];
+			[resultDict setValue:code forKey:@"moduleCode"];
+			[resultDict setValue:classTypeName forKey:@"classTypeName"];
+			[resultDict setValue:[eachGroup name] forKey:@"classGroupName"];
+			[resultDict setValue:[module color] forKey:@"color"];
+			[resultDict setValue:[NSNumber numberWithInt:classGroupIndex] forKey:@"groupIndex"];
+			NSMutableArray* slotInfo = [[NSMutableArray alloc]init];
+			
+			for (Slot* slot in [eachGroup slots]) 
+			{
+				NSDictionary* slotDict = [[NSDictionary alloc]init];
+				[slotDict setValue:[slot venue] forKey:@"venue"];
+				[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
+				int sTime = [[slot startTime]intValue];
+				int eTime = [[slot endTime]intValue];
+				if (sTime/100 == 30) sTime = sTime+20;
+				if (eTime/100 == 30) eTime = eTime+20;
+				NSNumber* startTime = [NSNumber numberWithInt:sTime];
+				NSNumber* endTime = [NSNumber numberWithInt:eTime];
+				[slotDict setValue:startTime forKey:@"startTime"];
+				[slotDict setValue:endTime forKey:@"endTime"];
+				
+				[slotInfo addObject:slotDict];
+			}
+			
+		}
+		[otherAvailableGroups addObject:resultDict];
+		classGroupIndex++;
+	}
+	return otherAvailableGroups;
 }
 
 // Not retained!
