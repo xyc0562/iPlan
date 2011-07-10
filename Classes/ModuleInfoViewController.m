@@ -17,7 +17,9 @@
 #define COMMENT_LABEL_PADDING 0
 
 #define RIGHTBAR_NAME @"Select"
-
+#define DESELECT_NAME @"Deselect"
+#define ADD_ACTION @"Add to Basket"
+#define REMOVE_ACTION @"Remove from Basket"
 
 @implementation ModuleInfoViewController
 
@@ -58,12 +60,24 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void)showActionSheet{
+- (void)configureSelectBar {
+	UIBarButtonItem *selectButton = [[UIBarButtonItem alloc] initWithTitle:RIGHTBAR_NAME style:UIBarButtonItemStylePlain target:self action:@selector(selectModuleView)];
+	self.navigationItem.rightBarButtonItem = selectButton;
+	[selectButton release];
+}
+
+- (void)configureDeselectBar {
+	UIBarButtonItem *deselectButton = [[UIBarButtonItem alloc] initWithTitle:DESELECT_NAME style:UIBarButtonItemStylePlain target:self action:@selector(deselectModuleView)];
+	self.navigationItem.rightBarButtonItem = deselectButton;
+	[deselectButton release];
+}
+
+- (void)showActionSheet:(NSString*)action{
 	UIActionSheet *actionsheet = [[UIActionSheet alloc] 
 								  initWithTitle:@"Which do you prefer?"
 								  delegate:self 
 								  cancelButtonTitle:@"Cancel" 
-								  destructiveButtonTitle:@"Add to Basket" 
+								  destructiveButtonTitle:action 
 								  otherButtonTitles:/*@"Button 1", @"Button 2", @"Button 3",*/ nil];
 	[actionsheet showInView:self.view.window];
 	[actionsheet release];
@@ -77,7 +91,12 @@
 		if (![theDataObject.basket containsObject:theDataObject.moduleCode])
 		{
 			[theDataObject.basket addObject:theDataObject.moduleCode];
+			[self configureDeselectBar];
+		}else {
+			[theDataObject.basket removeObject:theDataObject.moduleCode];
+			[self configureSelectBar];
 		}
+
 	}else if(buttonIndex ==1){
 		
 	}else if (buttonIndex == 2){
@@ -92,25 +111,41 @@
 
 
 - (void)selectModuleView {
-	[self showActionSheet];
+	[self showActionSheet:ADD_ACTION];
 }
 
-- (void)configureNavBar{
+- (void)deselectModuleView {
+	[self showActionSheet:REMOVE_ACTION];
+}
+
+- (void)configureNavBar:(BOOL)added{
 	self.navigationController.toolbarHidden = YES;
 	self.navigationController.toolbar.tintColor = [UIColor whiteColor];
 	// TODO: if it is selected/ not selected
-	UIBarButtonItem *selectButton = [[UIBarButtonItem alloc] initWithTitle:RIGHTBAR_NAME style:UIBarButtonItemStylePlain target:self action:@selector(selectModuleView)];
-	//self.toolbarItems = [NSArray arrayWithObjects:flexibleSpaceItem,selectButton,nil];
-	self.navigationItem.rightBarButtonItem = selectButton;
-	[selectButton release];
+	if (added){
+		[self configureDeselectBar];
+	}else {
+		[self configureSelectBar];
+	}
+
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self configureNavBar];
 	
 	selectedIndex = -1;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	BOOL added;
+	
+	if ([theDataObject.basket containsObject:theDataObject.moduleCode]){
+		added = YES;
+	}else {
+		added = NO;
+	}
+
+	
+	[self configureNavBar:added];
+
 	ModelLogic *ml = [[ModelLogic alloc] init];
     NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:theDataObject.moduleCode];
 	[ml release];
