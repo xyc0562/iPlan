@@ -64,7 +64,7 @@
 								  delegate:self 
 								  cancelButtonTitle:@"Cancel" 
 								  destructiveButtonTitle:@"Add to Basket" 
-								  otherButtonTitles:@"Button 1", @"Button 2", @"Button 3", nil];
+								  otherButtonTitles:/*@"Button 1", @"Button 2", @"Button 3",*/ nil];
 	[actionsheet showInView:self.view.window];
 	[actionsheet release];
 }
@@ -73,8 +73,11 @@
 	NSLog(@"button %i clicked", buttonIndex);	
 	if (buttonIndex == 0){
 		// add to basket
-		SharedAppDataObject* theDataObject = [self theAppDataObject];
-		[theDataObject.basket addObject:theDataObject.moduleCode];
+		SharedAppDataObject* theDataObject = [self theAppDataObject]; 
+		if (![theDataObject.basket containsObject:theDataObject.moduleCode])
+		{
+			[theDataObject.basket addObject:theDataObject.moduleCode];
+		}
 	}else if(buttonIndex ==1){
 		
 	}else if (buttonIndex == 2){
