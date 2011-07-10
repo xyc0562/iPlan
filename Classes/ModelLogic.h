@@ -87,7 +87,7 @@
 - (void) syncModulesWithBasket:(NSMutableArray*)modules;
 //sync the modules in timetable with those from basket.
 
-- (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
+- (NSMutableArray*)getSelectedGroupsInfo;//FromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 //get all selected groups information eg. each slots information
 
 - (NSMutableArray*)getOtherAvailableGroupsWithModuleCode:(NSString*)code WithClassTypeIndex:(NSString*)classTypeName WithGroupName:(NSString*)groupName;

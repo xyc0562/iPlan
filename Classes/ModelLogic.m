@@ -580,9 +580,9 @@
 				
 				[slotInfo addObject:slotDict];
 			}
-			
-		}
 		[otherAvailableGroups addObject:resultDict];
+		}
+		
 		classGroupIndex++;
 	}
 	return otherAvailableGroups;
