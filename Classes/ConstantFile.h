@@ -24,6 +24,7 @@
 
 #define MODULE_ACTIVE @"YES"
 #define MODULE_INACTIVE @"NO"
+#define MODULE_ACTIVE_NUMBER 10
 
 #define MODULE_EXAM_NO_EXAM @"No Exam Date."
 

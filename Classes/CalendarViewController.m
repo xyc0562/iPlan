@@ -143,7 +143,9 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* modules = theDataObject.basket;
 	
-	NSMutableArray* activeindexes = theDataObject.activeIndexes;
+	NSMutableArray* activeindexes ;//= theDataObject.activeIndexes;
+	
+	// @YB: no more active indexes in shared app, please use activeModules instead
 	
 	modules = [[NSMutableArray alloc]init];
 	activeindexes = [[NSMutableArray alloc]init];

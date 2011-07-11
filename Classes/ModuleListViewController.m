@@ -12,6 +12,7 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+#import "ConstantFile.h"
 
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
@@ -247,7 +248,7 @@
 			[theDataObject.basket addObject:addedModule];
 			
 			// set the added module as active (defaultly)
-			if ([theDataObject.activeModules count] <10){
+			if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 				[theDataObject.activeModules addObject:addedModule];
 			}
 			// testing
@@ -384,7 +385,7 @@
 //	[theDataObject.basket addObject:button.titleLabel];
 //	
 //	// set the added module as active (defaultly)
-//	if ([theDataObject.activeModules count] <10){
+//	if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 //		[theDataObject.activeModules addObject:button.titleLabel];
 //	}
 //	

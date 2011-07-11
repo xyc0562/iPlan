@@ -484,7 +484,7 @@ static ModelLogic* modelLogic;
 // Not retained!
 - (NSMutableArray*) getActiveModules
 {
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:MODULE_ACTIVE_NUMBER];
     for (Module *module in self.timeTable.modules)
     {
         if ([module.selected isEqualToString:MODULE_ACTIVE])
