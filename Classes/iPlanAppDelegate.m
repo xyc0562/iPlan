@@ -19,6 +19,8 @@
 #import "AppDelegateProtocol.h"
 #import "SharedAppDataObject.h"
 
+#import "ConstantFile.h"
+
 @implementation iPlanAppDelegate
 
 @synthesize window;
@@ -47,22 +49,27 @@
     NSLog(@"---end----");
 */
 	
-	NSLog(@"test for checking whether need update or not");
-	// compare and save a new copy of cors.xml into your dir or not doing anything
+	// check whether we need update or not
 	
 	// get the xml from the web
 	NSURL *url = [NSURL URLWithString:@"http://cors.i-cro.net/cors.xml"];
 	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url];  // Load XML data from web
 	
 	// construct path within our documents directory
-	//NSString* currentDirectory = [[NSBundle mainBundle] bundlePath];
-	//NSString *storePath = [NSString stringWithFormat:@"%@/cors.xml",currentDirectory];
 	NSString *storePath = [[NSBundle mainBundle] pathForResource:@"cors" ofType:@"xml"];
-	//NSString *applicationDocumentsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	//NSString *storePath = [applicationDocumentsDir stringByAppendingPathComponent:@"cors.xml"];
+	NSString *applicationDocumentsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+	NSString *plistPath = [[applicationDocumentsDir stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
 	
 	// get the xml from the file
 	NSData *dataFromFile = [NSData dataWithContentsOfFile:storePath];
+	
+	// the first time the user opens the application and doesn't have network connection, create for them
+	NSFileManager * fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:plistPath] && dataFromWeb == nil)
+	{
+		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+	}
+	
 	if (dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
 		// need to replace the old xml with new one and call parser
 		// write to file atomically (using temp file)

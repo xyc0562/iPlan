@@ -2,7 +2,7 @@
 //  ModuleInfoViewController.m
 //  iPlan
 //
-//  Created by Zhao Cong on 6/29/11.
+//  Created by Zhao Cong on 6/29/10.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -91,9 +91,31 @@
 		if (![theDataObject.basket containsObject:theDataObject.moduleCode])
 		{
 			[theDataObject.basket addObject:theDataObject.moduleCode];
+			// set the added module as active (defaultly)
+			if ([theDataObject.activeModules count] <10){
+				[theDataObject.activeModules addObject:theDataObject.moduleCode];
+			}
+			
+			// testing
+//			for (NSString *var in theDataObject.activeModules)
+//				NSLog(var);
+//			for (NSString *var in theDataObject.basket)
+//				NSLog(var);
+			
 			[self configureDeselectBar];
 		}else {
 			[theDataObject.basket removeObject:theDataObject.moduleCode];
+			// also remove from the activeModule array
+			if ([theDataObject.activeModules containsObject:theDataObject.moduleCode]) {
+				[theDataObject.activeModules removeObject:theDataObject.moduleCode];
+			}
+			
+			// testing
+//			for (NSString *var in theDataObject.activeModules)
+//				NSLog(var);
+//			for (NSString *var in theDataObject.basket)
+//				NSLog(var);
+			
 			[self configureSelectBar];
 		}
 

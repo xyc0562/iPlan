@@ -50,7 +50,7 @@
     [super viewDidLoad];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] autorelease];
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	self.tableView.scrollEnabled = NO;
+	self.tableView.scrollEnabled = YES;
 }
 
 
@@ -86,6 +86,13 @@
 	NSString *selected = [theDataObject.basket objectAtIndex:indexPath.row];
 	cell.textLabel.text = selected;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	
+	if ([theDataObject.activeModules containsObject:selected]){
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+	}else {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+
     
     return cell;
 }

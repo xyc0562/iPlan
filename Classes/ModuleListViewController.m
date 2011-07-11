@@ -2,7 +2,7 @@
 //  ModuleListViewController.m
 //  iPlan
 //
-//  Created by Zhao Cong on 6/28/11.
+//  Created by Zhao Cong on 6/28/10.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -241,29 +241,46 @@
 		{
 			[theDataObject.basket addObject:addedModule];
 			
+			// set the added module as active (defaultly)
+			if ([theDataObject.activeModules count] <10){
+				[theDataObject.activeModules addObject:addedModule];
+			}
+			
+			// testing
+//			for (NSString *var in theDataObject.activeModules)
+//				NSLog(var);
+//			for (NSString *var in theDataObject.basket)
+//				NSLog(var);
+			
 			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 			[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
 			
 			UIButton *button = (UIButton *)cell.accessoryView;
 			
 			UIImage *newImage = [UIImage imageNamed:@"checked.png"];
-			
-			NSLog(@"test 3");
-			
+						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
 			
 		}
 		else if (alertView.message == DESELECT_MODULE)
 		{
 			[theDataObject.basket removeObject:addedModule];
+			if ([theDataObject.activeModules containsObject:addedModule]){
+				[theDataObject.activeModules removeObject:addedModule];
+			}
+			
+			// testing
+//			for (NSString *var in theDataObject.activeModules)
+//				NSLog(var);
+//			for (NSString *var in theDataObject.basket)
+//				NSLog(var);
+			
 			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 			[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
 			UIButton *button = (UIButton *)cell.accessoryView;
 			
 			UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
-			
-			NSLog(@"test de3");
-			
+						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		}else {
 			
@@ -357,31 +374,38 @@
 #pragma mark -
 #pragma mark Add modules to the basket
 
-- (IBAction)AddButtonAction:(id)sender{
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	UIButton *button = (UIButton*) sender;
-	[theDataObject.basket addObject:button.titleLabel];
-	[moduleListTableView reloadData];
-}
+//- (IBAction)AddButtonAction:(id)sender{
+//	SharedAppDataObject* theDataObject = [self theAppDataObject];
+//	UIButton *button = (UIButton*) sender;
+//	[theDataObject.basket addObject:button.titleLabel];
+//	
+//	// set the added module as active (defaultly)
+//	if ([theDataObject.activeModules count] <10){
+//		[theDataObject.activeModules addObject:button.titleLabel];
+//	}
+//	
+//	
+//	[moduleListTableView reloadData];
+//}
 
 
-- (IBAction) Edit:(id)sender{
-	if(self.editing){
-		[super setEditing:NO animated:YES]; 
-		[moduleListTableView setEditing:NO animated:YES];
-		[moduleListTableView reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-		[self.navigationItem.leftBarButtonItem setEnabled:YES];
-	}else{
-		[super setEditing:YES animated:YES]; 
-		[moduleListTableView setEditing:YES animated:YES];
-		[moduleListTableView reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-		[self.navigationItem.leftBarButtonItem setEnabled:NO];
-	}
-}
+//- (IBAction) Edit:(id)sender{
+//	if(self.editing){
+//		[super setEditing:NO animated:YES]; 
+//		[moduleListTableView setEditing:NO animated:YES];
+//		[moduleListTableView reloadData];
+//		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
+//		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+//		[self.navigationItem.leftBarButtonItem setEnabled:YES];
+//	}else{
+//		[super setEditing:YES animated:YES]; 
+//		[moduleListTableView setEditing:YES animated:YES];
+//		[moduleListTableView reloadData];
+//		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+//		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+//		[self.navigationItem.leftBarButtonItem setEnabled:NO];
+//	}
+//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -396,24 +420,24 @@
 }
 
 
-- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-forRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	UITableViewCell *cell = (UITableViewCell *)[moduleListTableView cellForRowAtIndexPath:indexPath];
-
-	if (editingStyle == UITableViewCellEditingStyleInsert) {
-		SharedAppDataObject* theDataObject = [self theAppDataObject];
-		
-		// only add the same module once
-		NSString *addedModule = cell.textLabel.text;
-		if (![theDataObject.basket containsObject:addedModule]){
-			[theDataObject.basket insertObject:addedModule atIndex:[theDataObject.basket count]];
-			cell.editing = NO;
-			[moduleListTableView reloadData];
-		}
-		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
-    }
-}
+//- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+//forRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//	UITableViewCell *cell = (UITableViewCell *)[moduleListTableView cellForRowAtIndexPath:indexPath];
+//
+//	if (editingStyle == UITableViewCellEditingStyleInsert) {
+//		SharedAppDataObject* theDataObject = [self theAppDataObject];
+//		
+//		// only add the same module once
+//		NSString *addedModule = cell.textLabel.text;
+//		if (![theDataObject.basket containsObject:addedModule]){
+//			[theDataObject.basket insertObject:addedModule atIndex:[theDataObject.basket count]];
+//			cell.editing = NO;
+//			[moduleListTableView reloadData];
+//		}
+//		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
+//    }
+//}
 
 
 
@@ -421,7 +445,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark Go To RequirementPlacingViewController
 
 - (IBAction)forwardToRequirement:(id)sender{
-	//TODO: requirements part
+	//TODO: requirements part (present model view for requirements, after done, dismiss and then call sync and then to cal
 	//self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
 }
 
