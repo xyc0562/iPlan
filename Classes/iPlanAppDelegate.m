@@ -173,6 +173,9 @@
 		printf("Done\n");
 	}
  */
+	
+	// model logic load
+	[ModelLogic modelLogic];
     return YES;
 }
 

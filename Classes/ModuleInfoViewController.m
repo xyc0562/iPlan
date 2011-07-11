@@ -167,9 +167,10 @@
 	
 	[self configureNavBar:added];
 
-	ModelLogic *ml = [[ModelLogic alloc] init];
-    NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:theDataObject.moduleCode];
-	[ml release];
+	//ModelLogic *ml = [[ModelLogic alloc] init];
+    //NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:theDataObject.moduleCode];
+	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getModuleInfoIntoArray:theDataObject.moduleCode];
+	//[ml release];
 		   
 	self.infoList = arr;
 	

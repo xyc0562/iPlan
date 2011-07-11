@@ -49,15 +49,16 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	ModelLogic *ml = [[ModelLogic alloc] init];
+	//ModelLogic *ml = [[ModelLogic alloc] init];
 	
-    NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+    //NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getAllModuleCodes];
 	
 	NSArray *array = [[NSArray alloc] initWithArray:arr];
 	self.moduleList = array;
 	
 	[array release];
-	[ml release];
+	//[ml release];
 	
 	// initialize the copy array
 	copyModuleList = [[NSMutableArray alloc] initWithArray:moduleList];
