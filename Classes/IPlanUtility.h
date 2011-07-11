@@ -19,5 +19,6 @@
 + (NSString*) weekOfDayNSNumberToString:(NSNumber*)day;
 + (NSString*) timeIntervalFromStartTime:(NSNumber*)start EndTime:(NSNumber*)end;
 + (NSString*) decodeFrequency:(NSArray*)freArr;
++ (NSDate*) getSemesterStart;
 
 @end

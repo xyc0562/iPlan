@@ -8,12 +8,20 @@
 
 #import "ModelLogic.h"
 
-
+static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
 @synthesize currentColorIndex;
 
++(id)modelLogic
+{
+	if (modelLogic==nil)
+	{
+		modelLogic = [[ModelLogic alloc]init];
+	}
+	return modelLogic;
+}
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
@@ -499,13 +507,18 @@
 	[timeTable planOneTimetable];
 }
 
+- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+{
+	[timeTable planOneTimetableWithRequirements:requirements];
+}
+
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
 {
 	
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
-		NSDictionary* resultDict = [[NSDictionary alloc]init];
+		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
 		NSNumber* classGroupIndex =	[eachSelected objectAtIndex:2];
@@ -524,7 +537,7 @@
 		NSMutableArray* slotInfo = [[NSMutableArray alloc]init];
 		for (Slot* slot in [classGroup slots]) 
 		{
-			NSDictionary* slotDict = [[NSDictionary alloc]init];
+			NSMutableDictionary* slotDict = [[NSMutableDictionary alloc]init];
 			[slotDict setValue:[slot venue] forKey:@"venue"];
 			[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
 			int sTime = [[slot startTime]intValue];
@@ -556,7 +569,7 @@
 	{
 		if (![[eachGroup name]isEqualToString:groupName] ) 
 		{
-			NSDictionary* resultDict = [[NSDictionary alloc]init];
+			NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 			[resultDict setValue:code forKey:@"moduleCode"];
 			[resultDict setValue:classTypeName forKey:@"classTypeName"];
 			[resultDict setValue:[eachGroup name] forKey:@"classGroupName"];
@@ -566,7 +579,7 @@
 			
 			for (Slot* slot in [eachGroup slots]) 
 			{
-				NSDictionary* slotDict = [[NSDictionary alloc]init];
+				NSMutableDictionary* slotDict = [[NSMutableDictionary alloc]init];
 				[slotDict setValue:[slot venue] forKey:@"venue"];
 				[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
 				int sTime = [[slot startTime]intValue];
@@ -679,17 +692,17 @@
     if (m)
     {
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
-        [arr addObject:m.code];
-        [arr addObject:m.title];
-        [arr addObject:m.description];
-        [arr addObject:m.examinable];
-        [arr addObject:m.openBook];
-        [arr addObject:m.examDate];
-        [arr addObject:m.moduleCredit];
-        [arr addObject:m.prerequisite];
-        [arr addObject:m.preclusion];
-        [arr addObject:m.workload];
-        [arr addObject:m.remarks];
+        [arr addObject:[NSString stringWithFormat:@"Code: %@", m.code]];
+        [arr addObject:[NSString stringWithFormat:@"Title: %@", m.title]];
+        [arr addObject:[NSString stringWithFormat:@"Description: %@", m.description]];
+        [arr addObject:[NSString stringWithFormat:@"Examinable: %@", m.examinable]];
+        [arr addObject:[NSString stringWithFormat:@"Openbook: %@", m.openBook]];
+        [arr addObject:[NSString stringWithFormat:@"Examdate: %@", m.examDate]];
+        [arr addObject:[NSString stringWithFormat:@"Module Credit: %@", m.moduleCredit]];
+        [arr addObject:[NSString stringWithFormat:@"Prerequisite: %@", m.prerequisite]];
+        [arr addObject:[NSString stringWithFormat:@"Preclusion: %@", m.preclusion]];
+        [arr addObject:[NSString stringWithFormat:@"Workload: %@", m.workload]];
+        [arr addObject:[NSString stringWithFormat:@"Remarks: %@", m.remarks]];
 
         NSArray *classTypes = [self getClassTypesFromModuleCode:code];
         for (NSString *MCTName in classTypes)
@@ -738,6 +751,29 @@
 	Module* cModule = [self getOrCreateAndGetModuleInstanceByCode:code];
 	cModule.color = [colorList objectAtIndex:[currentColorIndex intValue]];
 	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
+}
+
+- (BOOL)exportTimetableToiCalendar
+{
+    if (!self.timeTable)
+    {
+        return NO;
+    }
+
+    NSDate *semesterStart = [IPlanUtility getSemesterStart];
+
+    EKEventStore *eventDB = [[EKEventStore alloc] init];
+    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+
+    myEvent.title     = @"New Event";
+    myEvent.startDate = [[NSDate alloc] init];
+    myEvent.endDate   = [[NSDate alloc] init];
+    myEvent.allDay = NO;
+
+    // Need to change to name with 
+    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+
+    return YES;
 }
 
 - (void)releaseOneColor
