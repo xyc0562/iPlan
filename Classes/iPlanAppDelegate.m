@@ -65,7 +65,7 @@
 	
 	// the first time the user opens the application and doesn't have network connection, create for them
 	NSFileManager * fm = [NSFileManager defaultManager];
-	if (![fm fileExistsAtPath:plistPath] && dataFromWeb == nil)
+	if (![fm fileExistsAtPath:plistPath] && dataFromWeb != nil)
 	{
 		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	}
