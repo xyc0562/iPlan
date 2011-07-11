@@ -679,17 +679,17 @@
     if (m)
     {
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
-        [arr addObject:m.code];
-        [arr addObject:m.title];
-        [arr addObject:m.description];
-        [arr addObject:m.examinable];
-        [arr addObject:m.openBook];
-        [arr addObject:m.examDate];
-        [arr addObject:m.moduleCredit];
-        [arr addObject:m.prerequisite];
-        [arr addObject:m.preclusion];
-        [arr addObject:m.workload];
-        [arr addObject:m.remarks];
+        [arr addObject:[NSString stringWithFormat:@"Code: %@", m.code]];
+        [arr addObject:[NSString stringWithFormat:@"Title: %@", m.title]];
+        [arr addObject:[NSString stringWithFormat:@"Description: %@", m.description]];
+        [arr addObject:[NSString stringWithFormat:@"Examinable: %@", m.examinable]];
+        [arr addObject:[NSString stringWithFormat:@"Openbook: %@", m.openBook]];
+        [arr addObject:[NSString stringWithFormat:@"Examdate: %@", m.examDate]];
+        [arr addObject:[NSString stringWithFormat:@"Module Credit: %@", m.moduleCredit]];
+        [arr addObject:[NSString stringWithFormat:@"Prerequisite: %@", m.prerequisite]];
+        [arr addObject:[NSString stringWithFormat:@"Preclusion: %@", m.preclusion]];
+        [arr addObject:[NSString stringWithFormat:@"Workload: %@", m.workload]];
+        [arr addObject:[NSString stringWithFormat:@"Remarks: %@", m.remarks]];
 
         NSArray *classTypes = [self getClassTypesFromModuleCode:code];
         for (NSString *MCTName in classTypes)
