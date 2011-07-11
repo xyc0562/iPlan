@@ -421,7 +421,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark Go To RequirementPlacingViewController
 
 - (IBAction)forwardToRequirement:(id)sender{
-	self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
+	//TODO: requirements part
+	//self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
 }
 
 

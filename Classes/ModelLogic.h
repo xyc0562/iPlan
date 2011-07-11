@@ -61,11 +61,8 @@
 - (NSMutableArray*) getFrequenciesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
 // effects: return an array of NSString
 
-- (void) generateDefaultTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
+- (void) generateDefaultTimetable;
 // effects: nothing returned but will store the defaultTimetable inside model logic
-
-- (void) generateBasicTimetableFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
-// effects: nothing returned but will store the basicTimetable inside model logic
 
 // Not useful, the xml only has examinable to be "-"
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits;
@@ -91,8 +88,11 @@
 - (void) syncModulesWithBasket:(NSMutableArray*)modules;
 //sync the modules in timetable with those from basket.
 
-- (NSMutableArray*)getSelectedGroupsInfoFromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
+- (NSMutableArray*)getSelectedGroupsInfo;//FromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
 //get all selected groups information eg. each slots information
+
+- (NSMutableArray*)getOtherAvailableGroupsWithModuleCode:(NSString*)code WithClassTypeIndex:(NSString*)classTypeName WithGroupName:(NSString*)groupName;
+//get other Available groups' info with the current selected group
 
 - (NSArray*)getModuleInfoIntoArray:(NSString*)code;
 //assign a new color for modules added into basket

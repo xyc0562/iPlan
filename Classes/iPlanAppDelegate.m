@@ -19,7 +19,6 @@
 #import "AppDelegateProtocol.h"
 #import "SharedAppDataObject.h"
 
-
 @implementation iPlanAppDelegate
 
 @synthesize window;
@@ -47,14 +46,38 @@
     }
     NSLog(@"---end----");
 */
+	
+	NSLog(@"test for checking whether need update or not");
+	// compare and save a new copy of cors.xml into your dir or not doing anything
+	
+	// get the xml from the web
+	NSURL *url = [NSURL URLWithString:@"http://cors.i-cro.net/cors.xml"];
+	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url];  // Load XML data from web
+	
+	// construct path within our documents directory
+	//NSString* currentDirectory = [[NSBundle mainBundle] bundlePath];
+	//NSString *storePath = [NSString stringWithFormat:@"%@/cors.xml",currentDirectory];
+	NSString *storePath = [[NSBundle mainBundle] pathForResource:@"cors" ofType:@"xml"];
+	//NSString *applicationDocumentsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	//NSString *storePath = [applicationDocumentsDir stringByAppendingPathComponent:@"cors.xml"];
+	
+	// get the xml from the file
+	NSData *dataFromFile = [NSData dataWithContentsOfFile:storePath];
+	if (dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
+		// need to replace the old xml with new one and call parser
+		// write to file atomically (using temp file)
+		[dataFromWeb writeToFile:storePath atomically:TRUE];
+		// tell the update available and need to parse again
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		theDataObject.needUpdate = YES;
+	}else {
+		// don't need to replace
+	}
+	
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	
 	// for tab bar controllers
-  
-	
-//	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
-		
 	tabBarController = [[UITabBarController alloc] init];
 	NSMutableArray *localControllerArray = [[NSMutableArray alloc] initWithCapacity:3];
 	

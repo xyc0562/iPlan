@@ -20,6 +20,7 @@
 	BOOL zoomed;
 	int selectSlotIndex;
 	NSMutableArray* slotControllers;
+	BOOL needUpdate;
 }
 
 @property (nonatomic, copy) NSString *settingsIdentity;
@@ -32,5 +33,6 @@
 @property (nonatomic, assign) BOOL zoomed;
 @property (nonatomic, assign) int selectSlotIndex;
 @property (nonatomic, retain) NSMutableArray* slotControllers;
+@property (nonatomic, assign) BOOL needUpdate;
 
 @end

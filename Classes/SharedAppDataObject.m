@@ -23,6 +23,7 @@
 @synthesize removedCells;
 @synthesize selectSlotIndex;
 @synthesize slotControllers;
+@synthesize needUpdate;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -37,6 +38,7 @@
 		slotControllers =[[NSMutableArray alloc]init];
 		zoomed = NO;
 		selectSlotIndex = -1;
+		needUpdate = NO;
 	}
 	return self;
 }
@@ -50,7 +52,6 @@
 	[moduleCells release];
 	[removedCells release];
 	[slotControllers release];
-
 
 	[super dealloc];
 }
