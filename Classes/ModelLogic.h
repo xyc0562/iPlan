@@ -106,4 +106,5 @@
 
 - (BOOL)exportTimetableToiCalendar;
 
++(id)modelLogic;
 @end

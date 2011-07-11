@@ -8,12 +8,20 @@
 
 #import "ModelLogic.h"
 
-
+static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
 @synthesize currentColorIndex;
 
++(id)modelLogic
+{
+	if (modelLogic==nil)
+	{
+		modelLogic = [[ModelLogic alloc]init];
+	}
+	return modelLogic;
+}
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
