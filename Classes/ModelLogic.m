@@ -719,6 +719,29 @@
 	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
 }
 
+- (BOOL)exportTimetableToiCalendar
+{
+    if (!self.timeTable)
+    {
+        return NO;
+    }
+
+    NSDate *semesterStart = [IPlanUtility getSemesterStart];
+
+    EKEventStore *eventDB = [[EKEventStore alloc] init];
+    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+
+    myEvent.title     = @"New Event";
+    myEvent.startDate = [[NSDate alloc] init];
+    myEvent.endDate   = [[NSDate alloc] init];
+    myEvent.allDay = NO;
+
+    // Need to change to name with 
+    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+
+    return YES;
+}
+
 - (void)releaseOneColor
 {
 	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]-1];

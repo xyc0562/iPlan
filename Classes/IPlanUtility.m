@@ -212,4 +212,42 @@ return [freArray autorelease];
     return str;
 }
 
+// According to NUS academic calendar, sem starts on 2nd Monday of Aug for sem 1 and 1st Monday of Jan for sem2
++ (NSDate*) getSemesterStart
+{
+    NSDate *today = [NSDate date];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:today];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    NSDate *semesterStart;
+
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+
+    // First sem
+    if (month >= 3 && month <= 9 )
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%d-08-07", year]];
+    }
+    // Second sem
+    else
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%d-12-31", year - 1]];
+    }
+
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSInteger weekday;
+    do
+    {
+        semesterStart = [[semesterStart dateByAddingTimeInterval:86400] retain];
+        NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:semesterStart];
+        weekday = [weekdayComponents weekday];
+        // weekday 2 = Monday for Gregorian calendar
+    }while(weekday != 2);
+
+    [gregorian release];
+
+    return [semesterStart autorelease];
+}
+
 @end

@@ -61,6 +61,7 @@
 		B6ED0EC713ADE1F8003C229D /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EBE13ADE1F8003C229D /* Module.m */; };
 		B6ED0EC813ADE1F8003C229D /* ModuleClassType.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EC013ADE1F8003C229D /* ModuleClassType.m */; };
 		B6ED0EC913ADE1F8003C229D /* Slot.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0EC213ADE1F8003C229D /* Slot.m */; };
+		B6F6AD3013C9B5C800E13203 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F6AD2F13C9B5C800E13203 /* EventKit.framework */; };
 		B6FE12F913B0E67900570671 /* cors.xml in Resources */ = {isa = PBXBuildFile; fileRef = B6FE12F813B0E67900570671 /* cors.xml */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +153,7 @@
 		B6ED0EC013ADE1F8003C229D /* ModuleClassType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleClassType.m; sourceTree = "<group>"; };
 		B6ED0EC113ADE1F8003C229D /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		B6ED0EC213ADE1F8003C229D /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
+		B6F6AD2F13C9B5C800E13203 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		B6FE12F813B0E67900570671 /* cors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cors.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				B6F6AD3013C9B5C800E13203 /* EventKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +266,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				B6F6AD2F13C9B5C800E13203 /* EventKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

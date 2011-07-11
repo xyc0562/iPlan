@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <EventKit/EventKit.h>
 #import "ConstantFile.h"
 #import "TimeTable.h"
 #import "IPlanUtility.h"
@@ -98,5 +99,7 @@
 
 - (void)assignNewColorForModule:(NSString*)code;
 //release one color when a module is removed from basket
+
+- (BOOL)exportTimetableToiCalendar;
 
 @end
