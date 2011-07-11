@@ -232,6 +232,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
+	NSLog(@"dddddddddddddddddd %i", buttonIndex);
  	
 	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -246,7 +247,7 @@
 			if ([theDataObject.activeModules count] <10){
 				[theDataObject.activeModules addObject:addedModule];
 			}
-			
+			NSLog(@"test for 1, path for alert: %i",pathForAlert.row);
 			// testing
 //			for (NSString *var in theDataObject.activeModules)
 //				NSLog(var);
