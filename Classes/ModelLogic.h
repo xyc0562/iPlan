@@ -64,6 +64,10 @@
 - (void) generateDefaultTimetable;
 // effects: nothing returned but will store the defaultTimetable inside model logic
 
+- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
+// requires: a 7X2 array which indicates if the user like to have no class on certain time
+// effects: nothing returned but will store the defaultTimetable with requirements inside model logic
+
 // Not useful, the xml only has examinable to be "-"
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits;
 // Return an NSMutableArray arr:
