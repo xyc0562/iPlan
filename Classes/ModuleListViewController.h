@@ -22,12 +22,13 @@
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
 @property (nonatomic, retain) NSArray *moduleList;
 @property (nonatomic, retain) NSMutableArray *copyModuleList;
+@property (nonatomic, retain) NSIndexPath *pathForAlert;
 
 - (id)initWithTabBar;
 
 - (void) searchTableView;
 - (void) doneSearching_Clicked:(id)sender;
-- (IBAction) Edit:(id)sender;
-- (IBAction) forwardToRequirement:(id)sender;
+//- (IBAction) Edit:(id)sender;
+//- (IBAction) forwardToRequirement:(id)sender;
 
 @end

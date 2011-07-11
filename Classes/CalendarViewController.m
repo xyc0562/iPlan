@@ -39,9 +39,10 @@
 
 - (void) configureView 
 {
-	ModelLogic* ml = [[ModelLogic alloc]init];
+	//ModelLogic* ml = [[ModelLogic alloc]init];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfo];
+	//NSMutableArray* defaultAnswer = [ml getSelectedGroupsInfo];
+	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
 	displayViewController = [[DisplayViewController alloc]init];
 	NSMutableArray* displaySlots = displayViewController.slotViewControllers;
 	
