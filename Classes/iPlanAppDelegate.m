@@ -32,10 +32,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
-
-    // Add the view controller's view to the window and display.
-   // [self.window addSubview:viewController.view];
-   // [self.window makeKeyAndVisible];
 /*    ModelLogic *ml = [[ModelLogic alloc] init];
     NSMutableArray *arr = (NSMutableArray*)[ml getModuleInfoIntoArray:@"AR4101"];
 
@@ -74,6 +70,19 @@
 		// don't need to replace
 	}
 	
+	//Connect to LAPI server
+	//if iPlanViewController runs successfully, then connect already
+/*
+	viewController = [[iPlanViewController alloc] initWithNibName:@"iPlanViewController" bundle:nil];
+	[viewController loadView];
+	[viewController viewDidLoad];
+	[viewController webViewDidFinishLoad:viewController.webView];
+	[viewController viewDidUnload];
+	[viewController dealloc];
+Still can not work, not sure how to make view load without showing */
+	
+	
+	//iPlan view controllers
 	// for navigation bar
 	UINavigationController *localNavigationController;
 	

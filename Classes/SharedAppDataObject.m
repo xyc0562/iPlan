@@ -15,6 +15,7 @@
 
 @synthesize settingsIdentity;
 @synthesize moduleCode;
+@synthesize requestedToken;
 @synthesize basket;
 @synthesize activeModules;
 @synthesize activeIndexes;
@@ -48,6 +49,7 @@
 
 	[settingsIdentity release];
 	[moduleCode release];
+	[requestedToken release];
 	[basket release];
 	[moduleCells release];
 	[removedCells release];
