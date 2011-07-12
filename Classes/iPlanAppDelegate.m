@@ -99,17 +99,6 @@
 		// don't need to replace
 	}
 	
-	//Connect to LAPI server
-	//if iPlanViewController runs successfully, then connect already
-/*
-	viewController = [[iPlanViewController alloc] initWithNibName:@"iPlanViewController" bundle:nil];
-	[viewController loadView];
-	[viewController viewDidLoad];
-	[viewController webViewDidFinishLoad:viewController.webView];
-	[viewController viewDidUnload];
-	[viewController dealloc];
-Still can not work, not sure how to make view load without showing */
-	
 	
 	//iPlan view controllers
 	// for navigation bar
@@ -139,6 +128,7 @@ Still can not work, not sure how to make view load without showing */
 	
 	tabBarController.viewControllers = localControllerArray;
 	[localControllerArray release];
+	
 	
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];

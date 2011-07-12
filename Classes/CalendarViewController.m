@@ -15,6 +15,9 @@
 // import parser to check
 #import "ModuleXMLParser.h"
 
+#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
+
+
 @interface CalendarViewController (UtilityMethods)
 
 
@@ -23,6 +26,7 @@
 @implementation CalendarViewController
 
 @synthesize scrollView;
+@synthesize theWeb;
 @synthesize displayViewController;
 @synthesize tableChoices;
 @synthesize availableSlots;
@@ -206,8 +210,22 @@
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
+	
+	//Lapi issue
+	NSURL *url = [NSURL URLWithString:SERVER_URL];
+	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+	
+	[theWeb loadRequest:requestObj];
+	theWeb.opaque = NO;
+	theWeb.backgroundColor = [UIColor clearColor];
+	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
+	NSLog(@"compile Lapi connection!");
+	
+	[self.view addSubview:theWeb];
 	[self.view addSubview: scrollView];
 	[self.view addSubview:table];
+	[self.view sendSubviewToBack:theWeb];
+	
 	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
 	[table reloadData];
 	[self configureToolBar];
@@ -215,6 +233,8 @@
 	
 	// ZY: alert for update the xml file or not
 	[self alertForUpdate];
+	NSLog(@"%@", theWeb.loading ? @"YES":@"NO");
+	NSLog(@"%@", theWeb.request.URL.absoluteString);
 }
 
 /*
@@ -303,7 +323,8 @@
 }
 
 
-
+#pragma mark -
+#pragma mark table view 
 
 
 //table View Adjustment
@@ -449,6 +470,9 @@
 
 //end of table view adjustment
 
+#pragma mark -
+#pragma mark memory management
+
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -461,10 +485,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+	theWeb.delegate = nil;
 }
 
 - (void)dealloc {
 	[scrollView release];
+	[theWeb release];
 	[displayViewController release];
     [super dealloc];
 }

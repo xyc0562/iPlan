@@ -37,20 +37,19 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSURL *url = [NSURL URLWithString:SERVER_URL];
-		
-		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-		
-		[webView loadRequest:requestObj];
-		
-		NSLog(@"compile iPlanViewController!");
     }
     return self;
 }
 
 
 - (void)viewDidLoad{
+	NSURL *url = [NSURL URLWithString:SERVER_URL];
 	
+	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+	
+	[webView loadRequest:requestObj];
+	
+	NSLog(@"compile iPlanViewController!");
 }
 
 
