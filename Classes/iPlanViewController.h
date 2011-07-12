@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface iPlanViewController : UIViewController {
+@interface iPlanViewController : UIViewController <UIWebViewDelegate>{
+	IBOutlet UIWebView *webView;
+} 
 
-}
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
+												   
 
 @end
 

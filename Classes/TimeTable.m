@@ -39,13 +39,13 @@
 			 WithCurrentIndex:(int)currentIndex
 		   WithClassTypeArray:(NSMutableArray**)classTypeArray;
 
+
 //new add in 
 -(NSMutableArray*)constructNewTimeTableBasedOnTimeTable:(NSMutableArray*)timeTable;
 
-
-
-
 -(NSMutableArray*)constructInitialTimeTable;
+
+-(void)updateTimeTable:(NSMutableArray **)timeTable WithRequirements:(NSMutableArray *)requirements;
 
 -(NSMutableArray*)constructClassTypeArrayWithModules;
 
@@ -133,14 +133,25 @@
 
 -(void)planOneTimetable
 {
-	NSMutableArray* smallClassTypeArray = [self constructClassTypeArrayWithModules];
+	NSMutableArray* ClassTypeArray = [self constructClassTypeArrayWithModules];
 	NSMutableArray* timeTable = [self constructInitialTimeTable];
 	if ([self getOneTimeTableWithIndex:(int)0
-					WithClassTypeArray:&smallClassTypeArray
+					WithClassTypeArray:&ClassTypeArray
 						 WithTimeTable:&timeTable])
 		printf("success\n");
+	self.result = ClassTypeArray;
+}
 
-	self.result = smallClassTypeArray;
+-(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements
+{
+	NSMutableArray* ClassTypeArray = [self constructClassTypeArrayWithModules];
+	NSMutableArray* timeTable = [self constructInitialTimeTable];
+	[self updateTimeTable:&timeTable WithRequirements:requirements];
+	if ([self getOneTimeTableWithIndex:(int)0
+					WithClassTypeArray:&ClassTypeArray
+						 WithTimeTable:&timeTable])
+		printf("success\n");
+	self.result = ClassTypeArray;
 }
 							
 -(BOOL)getOneTimeTableWithIndex:(int)index
@@ -356,7 +367,37 @@
 	return timetable;
 }	
 									   
-									   
+-(void)updateTimeTable:(NSMutableArray**)timeTable WithRequirements:(NSMutableArray*)requirements
+{
+	int dayIndex = 0, i, k;
+	NSNumber *occupied = [NSNumber numberWithInt:1];
+	for (NSMutableArray* eachDayReq in requirements) 
+	{
+		for (k=0; k<=14; k++) 
+		{
+			NSMutableArray* week = [*timeTable objectAtIndex:k];
+			NSMutableArray* day = [week objectAtIndex:dayIndex];
+			if ([eachDayReq objectAtIndex:0])
+			{
+				for (i=0; i<24; i++) 
+				{
+					[day removeObjectAtIndex:i];
+					[day insertObject:occupied atIndex:i];
+				}
+			}
+			if ([eachDayReq objectAtIndex:1])
+			{
+				for (i=24; i<48; i++) 
+				{
+					[day removeObjectAtIndex:i];
+					[day insertObject:occupied atIndex:i];
+				}
+			}
+		}
+		dayIndex++;
+	}
+}
+
 -(NSMutableArray*)constructModuleIndex
 {
 	NSMutableArray* moduleIndex = [[NSMutableArray alloc]init];

@@ -8,12 +8,20 @@
 
 #import "ModelLogic.h"
 
-
+static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
 @synthesize currentColorIndex;
 
++(id)modelLogic
+{
+	if (modelLogic==nil)
+	{
+		modelLogic = [[ModelLogic alloc]init];
+	}
+	return modelLogic;
+}
 
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
@@ -499,13 +507,18 @@
 	[timeTable planOneTimetable];
 }
 
+- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+{
+	[timeTable planOneTimetableWithRequirements:requirements];
+}
+
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
 {
 	
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
-		NSDictionary* resultDict = [[NSDictionary alloc]init];
+		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
 		NSNumber* classGroupIndex =	[eachSelected objectAtIndex:2];
@@ -524,7 +537,7 @@
 		NSMutableArray* slotInfo = [[NSMutableArray alloc]init];
 		for (Slot* slot in [classGroup slots]) 
 		{
-			NSDictionary* slotDict = [[NSDictionary alloc]init];
+			NSMutableDictionary* slotDict = [[NSMutableDictionary alloc]init];
 			[slotDict setValue:[slot venue] forKey:@"venue"];
 			[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
 			int sTime = [[slot startTime]intValue];
@@ -556,7 +569,7 @@
 	{
 		if (![[eachGroup name]isEqualToString:groupName] ) 
 		{
-			NSDictionary* resultDict = [[NSDictionary alloc]init];
+			NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 			[resultDict setValue:code forKey:@"moduleCode"];
 			[resultDict setValue:classTypeName forKey:@"classTypeName"];
 			[resultDict setValue:[eachGroup name] forKey:@"classGroupName"];
@@ -566,7 +579,7 @@
 			
 			for (Slot* slot in [eachGroup slots]) 
 			{
-				NSDictionary* slotDict = [[NSDictionary alloc]init];
+				NSMutableDictionary* slotDict = [[NSMutableDictionary alloc]init];
 				[slotDict setValue:[slot venue] forKey:@"venue"];
 				[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
 				int sTime = [[slot startTime]intValue];
