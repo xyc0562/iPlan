@@ -91,7 +91,7 @@
 // requires: the module's code, eg: 'CS1101S' and the class type, eg: 'Tutorial'; the group type is the one selected in basicTimetable or defaultTimetable
 // effects: return an array of NSString; each string represent one venue
 
-- (void) syncModulesWithBasket:(NSMutableArray*)modules;
+- (void) syncModulesWithBasket:(NSMutableArray*)codes;
 //sync the modules in timetable with those from basket.
 
 - (NSMutableArray*)getSelectedGroupsInfo;//FromModules:(NSMutableArray*)modulesSelected Active:(NSMutableArray*)activeIndexes;
