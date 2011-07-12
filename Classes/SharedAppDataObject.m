@@ -18,7 +18,7 @@
 @synthesize requestedToken;
 @synthesize basket;
 @synthesize activeModules;
-@synthesize activeIndexes;
+@synthesize requirements;
 @synthesize zoomed;
 @synthesize moduleCells;
 @synthesize removedCells;
@@ -33,7 +33,7 @@
 	if ([super init]){
 		basket = [[NSMutableArray alloc] init];
 		activeModules = [[NSMutableArray alloc] init];
-		activeIndexes = [[NSMutableArray alloc] init];
+		requirements = [[NSMutableArray alloc] init];
 		moduleCells = [[NSMutableDictionary alloc] init];
 		removedCells = [[NSMutableDictionary alloc] init];
 		slotControllers =[[NSMutableArray alloc]init];
@@ -54,7 +54,7 @@
 	[moduleCells release];
 	[removedCells release];
 	[slotControllers release];
-
+	[requirements release];
 	[super dealloc];
 }
 

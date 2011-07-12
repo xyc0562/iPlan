@@ -7,51 +7,40 @@
 //
 
 #import "RequirementPlacingViewController.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 
+#define	MORNING @"Morning"
+#define AFTERNOON @"Afternoon"
+#define MONDAY @"Monday"
+#define TUESDAY @"Tuesday"
+#define WEDNESDAY @"Wednesday"
+#define THURSDAY @"Thursday"
+#define FRIDAY @"Friday"
 
 @implementation RequirementPlacingViewController
 
 
 #pragma mark -
+#pragma mark instance method
+
+- (SharedAppDataObject*) theAppDataObject{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
+#pragma mark -
 #pragma mark View lifecycle
 
-/*
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-*/
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 
 #pragma mark -
 #pragma mark Table view data source
@@ -64,9 +53,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    return 10;
 }
 
+- (void)switchToggled:(id)sender {
+	UISwitch *switchEnabled = (UISwitch*)sender;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	//theDataObject.requirements = 
+	NSLog(@"tag: %i",[switchEnabled tag]);
+}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,10 +70,59 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
+	CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
+	UISwitch *switchEnabled = [[UISwitch alloc] initWithFrame:frameSwitch];
+	switchEnabled.tag = indexPath.row;
+	[switchEnabled addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];
+	cell.accessoryView = switchEnabled;
+	[switchEnabled release];
+	
+	switch (indexPath.row){
+		case 0:
+			cell.textLabel.text= MONDAY;
+			cell.detailTextLabel.text = MORNING;
+			break;
+		case 1:
+			cell.textLabel.text= MONDAY;
+			cell.detailTextLabel.text = AFTERNOON;
+			break;
+		case 2:
+			cell.textLabel.text= TUESDAY;
+			cell.detailTextLabel.text = MORNING;
+			break;
+		case 3:
+			cell.textLabel.text= TUESDAY;
+			cell.detailTextLabel.text = AFTERNOON;
+			break;
+		case 4:
+			cell.textLabel.text= WEDNESDAY;
+			cell.detailTextLabel.text = MORNING;
+			break;
+		case 5:
+			cell.textLabel.text= WEDNESDAY;
+			cell.detailTextLabel.text = AFTERNOON;
+			break;
+		case 6:
+			cell.textLabel.text= THURSDAY;
+			cell.detailTextLabel.text = MORNING;
+			break;
+		case 7:
+			cell.textLabel.text= THURSDAY;
+			cell.detailTextLabel.text = AFTERNOON;
+			break;
+		case 8:
+			cell.textLabel.text= FRIDAY;
+			cell.detailTextLabel.text = MORNING;
+			break;
+		case 9:
+			cell.textLabel.text= FRIDAY;
+			cell.detailTextLabel.text = AFTERNOON;
+			break;
+	}
     
     return cell;
 }

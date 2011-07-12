@@ -15,7 +15,7 @@
 	NSString *requestedToken;
 	NSMutableArray *basket;
 	NSMutableArray *activeModules;
-	NSMutableArray *activeIndexes;
+	NSMutableArray *requirements;
 	NSMutableDictionary *moduleCells;
 	NSMutableDictionary *removedCells;
 	BOOL zoomed;
@@ -29,7 +29,7 @@
 @property (nonatomic, copy) NSString *requestedToken;
 @property (nonatomic, retain) NSMutableArray *basket;
 @property (nonatomic, retain) NSMutableArray *activeModules;
-@property (nonatomic, retain) NSMutableArray *activeIndexes;
+@property (nonatomic, retain) NSMutableArray *requirements;
 @property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
 @property (nonatomic, assign) BOOL zoomed;
