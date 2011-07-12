@@ -12,6 +12,7 @@
 @interface SharedAppDataObject : AppDataObject {
 	NSString *settingsIdentity;
 	NSString *moduleCode;
+	NSString *requestedToken;
 	NSMutableArray *basket;
 	NSMutableArray *activeModules;
 	NSMutableArray *activeIndexes;
@@ -25,6 +26,7 @@
 
 @property (nonatomic, copy) NSString *settingsIdentity;
 @property (nonatomic, copy) NSString *moduleCode;
+@property (nonatomic, copy) NSString *requestedToken;
 @property (nonatomic, retain) NSMutableArray *basket;
 @property (nonatomic, retain) NSMutableArray *activeModules;
 @property (nonatomic, retain) NSMutableArray *activeIndexes;
@@ -34,5 +36,6 @@
 @property (nonatomic, assign) int selectSlotIndex;
 @property (nonatomic, retain) NSMutableArray* slotControllers;
 @property (nonatomic, assign) BOOL needUpdate;
+
 
 @end

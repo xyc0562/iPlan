@@ -1,4 +1,5 @@
-/Users/xuyecheng/Documents/ios/iPlan/Classes/IPlanUtility.m:219:147: warning: method '+today' not found (return type defaults to 'id')
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate today]];
-                                                                                                                                                  ^~~~~~~~~~~~~~
-1 warning generated.
+In file included from /Users/xuyecheng/Documents/ios/iPlan/Classes/iPlanAppDelegate.m:9:
+/Users/xuyecheng/Documents/ios/iPlan/Classes/iPlanAppDelegate.h:9:9: fatal error: 'UIKit/UIKit.h' file not found
+#import <UIKit/UIKit.h>
+        ^
+1 error generated.
