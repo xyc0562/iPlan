@@ -94,7 +94,7 @@ static ModelLogic* modelLogic;
 							 
 -(id)initWithTimeTable:(TimeTable*)table
 {
-    [super init];
+//  [super init];
 //initiallize the 10 colors for module displaying
 	self.currentColorIndex = 0;
     if(super != nil)
@@ -112,18 +112,18 @@ static ModelLogic* modelLogic;
     return self;
 }
 
--(id)init:(TimeTable*)table
-{
-    [super init];
-    if(super !=nil)
-    {
-        if (!moduleObjectsDict)
-        {
-            self.moduleObjectsDict = [NSMutableDictionary dictionary];
-        }
-    }
-    return self;
-}
+//-(id)init:(TimeTable*)table
+//{
+//    [super init];
+//    if(super !=nil)
+//    {
+//        if (!moduleObjectsDict)
+//        {
+//            self.moduleObjectsDict = [NSMutableDictionary dictionary];
+//        }
+//    }
+//    return self;
+//}
     
 - (NSArray*) getAllModuleCodes
 {
@@ -496,11 +496,22 @@ static ModelLogic* modelLogic;
     return arr;
 }
 
-- (void) syncModulesWithBasket:(NSMutableArray*)modules
-{
+- (void) syncModulesWithBasket:(NSMutableArray*)codes{
 	[timeTable release];
+	NSMutableArray* modules= [[NSMutableArray alloc]init];
+	for (NSString* code in codes) {
+		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+		module.selected = @"YES";
+		[modules addObject:module];
+	}
 	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 }
+
+//- (void) syncModulesWithBasket:(NSMutableArray*)modules
+//{
+//	[timeTable release];
+//	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
+//}
 
 - (void) generateDefaultTimetable
 {

@@ -23,6 +23,7 @@
 		1E2DB4A713C74BBB00C3D8CA /* ModuleListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DB4A613C74BBB00C3D8CA /* ModuleListViewController.xib */; };
 		1E2DB94213C84AFC00C3D8CA /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DB94113C84AFC00C3D8CA /* next.png */; };
 		1E2DB94413C84D9600C3D8CA /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DB94313C84D9600C3D8CA /* refresh.png */; };
+		1E2DD11313CC1F4400C3D8CA /* timetable with days.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DD11213CC1F4400C3D8CA /* timetable with days.png */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
@@ -92,6 +93,7 @@
 		1E2DB4A613C74BBB00C3D8CA /* ModuleListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModuleListViewController.xib; path = Classes/ModuleListViewController.xib; sourceTree = "<group>"; };
 		1E2DB94113C84AFC00C3D8CA /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
 		1E2DB94313C84D9600C3D8CA /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		1E2DD11213CC1F4400C3D8CA /* timetable with days.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timetable with days.png"; sourceTree = "<group>"; };
 		1E944D3413AC663F00968E0A /* ConstantFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantFile.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2899E5210DE3E06400AC0155 /* iPlanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iPlanViewController.xib; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				05BE962C13BF4DDC000DCDDB /* plus.png */,
 				4371926213B8C3E600AAC77C /* shopping_cart.png */,
 				438BC7D113B4B78E003D1B52 /* calendar.png */,
+				1E2DD11213CC1F4400C3D8CA /* timetable with days.png */,
 				438BC7D213B4B78E003D1B52 /* gear.png */,
 				2F18842013B9CA3B006DCC66 /* logo.png */,
 				1E2DB94313C84D9600C3D8CA /* refresh.png */,
@@ -425,6 +428,7 @@
 				1E2DB94213C84AFC00C3D8CA /* next.png in Resources */,
 				1E2DB94413C84D9600C3D8CA /* refresh.png in Resources */,
 				43E627CB13C9FC5D0016A8C2 /* Default.png in Resources */,
+				1E2DD11313CC1F4400C3D8CA /* timetable with days.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -513,7 +517,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
