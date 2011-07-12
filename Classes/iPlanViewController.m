@@ -7,51 +7,97 @@
 //
 
 #import "iPlanViewController.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
+
+
+#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
+
 
 @implementation iPlanViewController
+
+@synthesize webView;
 
 #pragma mark -
 #pragma mark instance method
 
-/*
+- (SharedAppDataObject*) theAppDataObject{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
+
+#pragma mark -
+#pragma mark view life cycle
+
+
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        NSURL *url = [NSURL URLWithString:SERVER_URL];
+		
+		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+		
+		[webView loadRequest:requestObj];
+		
+		NSLog(@"compile iPlanViewController!");
     }
     return self;
 }
-*/
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)viewDidLoad{
+	
 }
-*/
+
+
+#pragma mark -
+#pragma mark web view delegate
+
+- (void)webViewDidStartLoad:(UIWebView *)theWebView{
+	NSLog(@"web view started!");
+}
+
+- (void) webViewDidFinishLoad:(UIWebView *)theWebView{
+	NSLog(@"response received!");
+	
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	NSString *requestTokenUrl = [[NSString alloc] initWithString:theWebView.request.URL.absoluteString];
+	
+	NSLog(@"%@", requestTokenUrl);
+	
+	
+	[requestTokenUrl release];
+}
+
+- (void)webView:(UIWebView *)theWebView didFailLoadWithError:(NSError *)error{
+	
+}
+
+- (BOOL)webView:(UIWebView *)theWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+	return YES;
+}
+
+
+#pragma mark -
+#pragma mark memory management
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+	webView.delegate = nil;
 }
 
 
 - (void)dealloc {
+	[webView release];
     [super dealloc];
 }
 

@@ -14,7 +14,7 @@ static ModelLogic* modelLogic;
 @synthesize moduleObjectsDict;
 @synthesize currentColorIndex;
 
-+(id)modelLogic
++ (id)modelLogic
 {
 	if (modelLogic==nil)
 	{
@@ -94,10 +94,10 @@ static ModelLogic* modelLogic;
 							 
 -(id)initWithTimeTable:(TimeTable*)table
 {
-    [super init];
+//  [super init];
 //initiallize the 10 colors for module displaying
 	self.currentColorIndex = 0;
-    if(super !=nil)
+    if(super != nil)
     {
         self.timeTable = table;
         if (!moduleObjectsDict)
@@ -112,18 +112,18 @@ static ModelLogic* modelLogic;
     return self;
 }
 
--(id)init:(TimeTable*)table
-{
-    [super init];
-    if(super !=nil)
-    {
-        if (!moduleObjectsDict)
-        {
-            self.moduleObjectsDict = [NSMutableDictionary dictionary];
-        }
-    }
-    return self;
-}
+//-(id)init:(TimeTable*)table
+//{
+//    [super init];
+//    if(super !=nil)
+//    {
+//        if (!moduleObjectsDict)
+//        {
+//            self.moduleObjectsDict = [NSMutableDictionary dictionary];
+//        }
+//    }
+//    return self;
+//}
     
 - (NSArray*) getAllModuleCodes
 {
@@ -496,11 +496,22 @@ static ModelLogic* modelLogic;
     return arr;
 }
 
-- (void) syncModulesWithBasket:(NSMutableArray*)modules
-{
+- (void) syncModulesWithBasket:(NSMutableArray*)codes{
 	[timeTable release];
+	NSMutableArray* modules= [[NSMutableArray alloc]init];
+	for (NSString* code in codes) {
+		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+		module.selected = @"YES";
+		[modules addObject:module];
+	}
 	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 }
+
+//- (void) syncModulesWithBasket:(NSMutableArray*)modules
+//{
+//	[timeTable release];
+//	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
+//}
 
 - (void) generateDefaultTimetable
 {
@@ -761,17 +772,44 @@ static ModelLogic* modelLogic;
     }
 
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
-
     EKEventStore *eventDB = [[EKEventStore alloc] init];
-    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+    for (Module *m in self.timeTable.modules)
+    {
+        if ([m.selected isEqualToString:MODULE_ACTIVE])
+        {
+            for (ModuleClassType *MCT in m.moduleClassTypes)
+            {
+                for (ClassGroup *CG in MCT.classGroups)
+                {
+                    if ([CG.selected isEqualToString:MODULE_ACTIVE])
+                    {
+                        for (Slot *s in CG.slots)
+                        {
+                            for (int i = 1; i < [s.frequency count]; i ++)
+                            {
+                                if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
+                                {
+                                    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 
-    myEvent.title     = @"New Event";
-    myEvent.startDate = [[NSDate alloc] init];
-    myEvent.endDate   = [[NSDate alloc] init];
-    myEvent.allDay = NO;
+                                    myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", m.code, CG.name, MCT.name];
+                                    int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
+                                    int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
+                                    myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
+                                    myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
+                                    myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
+                                    myEvent.allDay = NO;
 
-    // Need to change to name with 
-    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+                                    // For now we use the default calendar, we may change to other specific calendars later
+                                    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    [eventDB release];
 
     return YES;
 }
