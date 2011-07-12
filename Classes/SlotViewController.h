@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ModelLogic.h"
 
 @interface SlotViewController : UIViewController {
 	NSString* moduleCode;
@@ -33,11 +33,12 @@
 @property (nonatomic,readonly)CGRect displayProperty;
 @property (nonatomic,retain)UIScrollView* scroll;
 @property (nonatomic,retain)UIView* displayView;
-@property (nonatomic,retain)UIView* table;
+@property (nonatomic,retain)UITableView* table;
 @property (nonatomic,assign)int index;
 @property (nonatomic,assign)int groupIndex;
 @property (nonatomic,retain)NSMutableArray* tableChoices;
 @property (nonatomic,retain)NSString* classTypeName;
+@property (nonatomic,retain)NSMutableArray* availableSlots;
 
 - (id)initWithModuleCode:(NSString *)code 
 			   WithVenue:(NSString*)place
@@ -49,5 +50,7 @@
 	   WithClassTypeName:(NSString*)classtype
 			   WithIndex:(int)indexNumber
 		  WithGroupIndex:(int)groupNumber;
+
+-(CGRect)calculateDisplayProperty;
 
 @end

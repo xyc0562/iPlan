@@ -18,14 +18,16 @@
 
 	IBOutlet UIScrollView* scrollView;
 	IBOutlet UITableView* table;
-	DisplayViewController* displayViewController;
+	NSMutableArray* slotViewControllers;
+	UIImageView* imageView;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
-@property (nonatomic, retain) DisplayViewController* displayViewController;
+@property (nonatomic, retain) NSMutableArray* slotViewControllers;
 @property (nonatomic, retain) NSMutableArray* tableChoices;
 @property (nonatomic, retain) NSMutableArray* availableSlots;
 @property (nonatomic, retain) IBOutlet UITableView* table;
+@property (nonatomic, retain) UIImageView* imageView;
 -(id)initWithTabBar;
 
 @end

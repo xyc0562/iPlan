@@ -22,7 +22,7 @@
 @synthesize zoomed;
 @synthesize moduleCells;
 @synthesize removedCells;
-@synthesize selectSlotIndex;
+@synthesize selectSlot;
 @synthesize slotControllers;
 @synthesize needUpdate;
 
@@ -38,7 +38,7 @@
 		removedCells = [[NSMutableDictionary alloc] init];
 		slotControllers =[[NSMutableArray alloc]init];
 		zoomed = NO;
-		selectSlotIndex = -1;
+		selectSlot = nil;
 		needUpdate = NO;
 	}
 	return self;
@@ -55,6 +55,7 @@
 	[removedCells release];
 	[slotControllers release];
 	[requirements release];
+	[selectSlot release];
 	[super dealloc];
 }
 

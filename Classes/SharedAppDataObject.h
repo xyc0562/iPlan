@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDataObject.h"
-
+#import "SlotViewController.h"
 @interface SharedAppDataObject : AppDataObject {
 	NSString *settingsIdentity;
 	NSString *moduleCode;
@@ -19,7 +19,7 @@
 	NSMutableDictionary *moduleCells;
 	NSMutableDictionary *removedCells;
 	BOOL zoomed;
-	int selectSlotIndex;
+	SlotViewController* selectSlot;
 	NSMutableArray* slotControllers;
 	BOOL needUpdate;
 }
@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
 @property (nonatomic, assign) BOOL zoomed;
-@property (nonatomic, assign) int selectSlotIndex;
+@property (nonatomic, assign) SlotViewController* selectSlot;
 @property (nonatomic, retain) NSMutableArray* slotControllers;
 @property (nonatomic, assign) BOOL needUpdate;
 
