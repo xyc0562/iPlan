@@ -22,6 +22,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
 @property (nonatomic, retain) NSArray *moduleList;
 @property (nonatomic, retain) NSMutableArray *copyModuleList;
+@property (nonatomic, retain) NSIndexPath *pathForAlert;
 
 - (id)initWithTabBar;
 

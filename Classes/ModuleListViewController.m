@@ -24,6 +24,7 @@
 @synthesize moduleListTableView;
 @synthesize moduleList;
 @synthesize copyModuleList;
+@synthesize pathForAlert;
 
 #pragma mark -
 #pragma mark instance method
@@ -50,19 +51,19 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	ModelLogic *ml = [[ModelLogic alloc] init];
+	//ModelLogic *ml = [[ModelLogic alloc] init];
 	
-    NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+    //NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getAllModuleCodes];
 	
 	NSArray *array = [[NSArray alloc] initWithArray:arr];
 	self.moduleList = array;
 	
 	[array release];
-	[ml release];
+	//[ml release];
 	
 	// initialize the copy array
 	copyModuleList = [[NSMutableArray alloc] initWithArray:moduleList];
-	pathForAlert = [[NSIndexPath alloc]	init];
 	
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 
@@ -211,7 +212,7 @@
 		
 		NSLog(@"test 2");
 		
-		pathForAlert = indexPath;
+		self.pathForAlert = indexPath;
 	}else {
 		//[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
@@ -224,16 +225,20 @@
 		
 		NSLog(@"test deselect");
 		
-		pathForAlert = indexPath;
+		self.pathForAlert = indexPath;
 	}
 	
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-	
+	NSLog(@"haha");
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
- 	
+ 	NSLog(@"abc");
+	NSLog(@"test for 1, path for alert: %@",pathForAlert);
+
 	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
+	NSLog(@"def");
+
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
 	if ([button isEqual:@"OK"]) {
@@ -246,7 +251,6 @@
 			if ([theDataObject.activeModules count] <10){
 				[theDataObject.activeModules addObject:addedModule];
 			}
-			
 			// testing
 //			for (NSString *var in theDataObject.activeModules)
 //				NSLog(var);
@@ -487,6 +491,7 @@
 	[moduleListTableView release];
 	[moduleList release];
 	[copyModuleList release];
+	[pathForAlert release];
     [super dealloc];
 }
 
