@@ -7,7 +7,7 @@
 //
 
 #import "DisplayViewController.h"
-
+#import "ControllerConstant.h"
 
 @implementation DisplayViewController
 @synthesize slotViewControllers;
@@ -26,8 +26,14 @@
 
 - (id)init {
     self = [super init];
-    if (self) {
+    if (self) 
+	{
         slotViewControllers = [[NSMutableArray alloc]init];
+		
+		UIImageView* imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"timetable with days.png"]];
+		imageView.frame =  CGRectMake(TIMETABLE_X,TIMETABLE_Y,TIMETABLE_W,TIMETABLE_H);
+		self.view = imageView;
+		[imageView release];
     }
     return self;
 }
