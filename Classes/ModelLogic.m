@@ -748,6 +748,17 @@
     }
 
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
+    NSString *timetableName = self.timeTable.name;
+    for (Module *m in self.timeTable.modules)
+    {
+        if ([m.selected isEqualToString:MODULE_ACTIVE])
+        {
+            for (ModuleClassType *MCT in m.moduleClassTypes)
+            {
+                
+            }
+        }
+    }
 
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
