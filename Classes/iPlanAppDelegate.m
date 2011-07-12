@@ -46,6 +46,28 @@
 */
 	
 	// check whether we need update or not
+    ModelLogic *ml = [[ModelLogic alloc] initWithTimeTable:nil];
+    Module *m1 = [ml getOrCreateAndGetModuleInstanceByCode:@"EE2001"];
+    Module *m2 = [ml getOrCreateAndGetModuleInstanceByCode:@"EG1108"];
+    Module *m3 = [ml getOrCreateAndGetModuleInstanceByCode:@"MA1506"];
+    TimeTable *tt = [[TimeTable alloc] initWithName:@"MyTT" WithModules:[NSArray arrayWithObjects:m1, m2, m3, nil]];
+    m1.selected = @"YES";
+    m2.selected = @"NO";
+    m3.selected = @"YES";
+    for (ModuleClassType *MCT in m1.moduleClassTypes)
+    {
+        ClassGroup *CG = [MCT.classGroups objectAtIndex:0];
+        CG.selected = @"YES";
+    }
+    for (ModuleClassType *MCT in m2.moduleClassTypes)
+    {
+        ClassGroup *CG = [MCT.classGroups objectAtIndex:0];
+        CG.selected = @"YES";
+    }
+
+    ModelLogic *ml1 = [[ModelLogic alloc] initWithTimeTable:tt];
+    [ml1 exportTimetableToiCalendar];
+    NSLog(@"Successful!");
 	
 	// get the xml from the web
 	NSURL *url = [NSURL URLWithString:@"http://cors.i-cro.net/cors.xml"];

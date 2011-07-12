@@ -26,6 +26,8 @@
 
 - (NSString*) getTitleFromModule:(NSString*)code;
 
+- (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code;
+
 -(id)initWithTimeTable:(TimeTable*)table;
 
 - (NSString*) getDescriptionFromModule:(NSString*)code;
