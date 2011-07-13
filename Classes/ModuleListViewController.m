@@ -452,12 +452,12 @@
 
 - (IBAction)forwardToRequirement:(id)sender{
 	//TODO: requirements part (present model view for requirements, after done, dismiss and then call sync and then to cal
-	//self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
 	RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
 	[reqController release];
     [[self navigationController] presentModalViewController:navController animated:YES];
     [navController release];
+	self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
 }
 
 
