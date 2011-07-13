@@ -103,9 +103,8 @@
 - (NSArray*)getModuleInfoIntoArray:(NSString*)code;
 //assign a new color for modules added into basket
 
-- (void)assignNewColorForModule:(NSString*)code;
-//release one color when a module is removed from basket
-
+- (UIColor*)getNewColor;
+- (void)resetColorIndex;
 - (BOOL)exportTimetableToiCalendar;
 
 +(id)modelLogic;
