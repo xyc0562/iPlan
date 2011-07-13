@@ -502,7 +502,7 @@
 //				UIColor* mcolor = [info valueForKey:@"color"];
 //				NSLog(@"result%@ %@", mcode, mcolor);
 //			}
-//		theDataObject.continueToCalendar = NO;
+		theDataObject.continueToCalendar = NO;
 		self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];	
 	}else {
 		theDataObject.continueToCalendar = NO;
