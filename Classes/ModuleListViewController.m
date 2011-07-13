@@ -9,9 +9,11 @@
 #import "ModuleListViewController.h"
 #import	"ModuleInfoViewController.h"
 #import "BasketTableViewController.h"
+#import "RequirementPlacingViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+#import "ConstantFile.h"
 
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
@@ -247,7 +249,7 @@
 			[theDataObject.basket addObject:addedModule];
 			
 			// set the added module as active (defaultly)
-			if ([theDataObject.activeModules count] <10){
+			if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 				[theDataObject.activeModules addObject:addedModule];
 			}
 			// testing
@@ -384,7 +386,7 @@
 //	[theDataObject.basket addObject:button.titleLabel];
 //	
 //	// set the added module as active (defaultly)
-//	if ([theDataObject.activeModules count] <10){
+//	if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 //		[theDataObject.activeModules addObject:button.titleLabel];
 //	}
 //	
@@ -451,6 +453,11 @@
 - (IBAction)forwardToRequirement:(id)sender{
 	//TODO: requirements part (present model view for requirements, after done, dismiss and then call sync and then to cal
 	//self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
+	RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
+	[reqController release];
+    [[self navigationController] presentModalViewController:navController animated:YES];
+    [navController release];
 }
 
 

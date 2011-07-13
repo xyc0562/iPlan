@@ -11,6 +11,7 @@
 #import "SharedAppDataObject.h"
 #import "ModuleInfoCell.h"
 #import "ModelLogic.h"
+#import "ConstantFile.h"
 
 #define COMMENT_LABEL_WIDTH 230
 #define COMMENT_LABEL_MIN_HEIGHT 65
@@ -92,7 +93,7 @@
 		{
 			[theDataObject.basket addObject:theDataObject.moduleCode];
 			// set the added module as active (defaultly)
-			if ([theDataObject.activeModules count] <10){
+			if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 				[theDataObject.activeModules addObject:theDataObject.moduleCode];
 			}
 			

@@ -96,7 +96,7 @@ static ModelLogic* modelLogic;
 {
 //  [super init];
 //initiallize the 10 colors for module displaying
-	self.currentColorIndex = 0;
+	self.currentColorIndex = [NSNumber numberWithInt:0];
     if(super != nil)
     {
         self.timeTable = table;
@@ -484,7 +484,7 @@ static ModelLogic* modelLogic;
 // Not retained!
 - (NSMutableArray*) getActiveModules
 {
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:MODULE_ACTIVE_NUMBER];
     for (Module *module in self.timeTable.modules)
     {
         if ([module.selected isEqualToString:MODULE_ACTIVE])
@@ -501,6 +501,7 @@ static ModelLogic* modelLogic;
 	NSMutableArray* modules= [[NSMutableArray alloc]init];
 	for (NSString* code in codes) {
 		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+		[self assignNewColorForModule:code];
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
@@ -760,7 +761,8 @@ static ModelLogic* modelLogic;
 - (void)assignNewColorForModule:(NSString*)code
 {
 	Module* cModule = [self getOrCreateAndGetModuleInstanceByCode:code];
-	cModule.color = [colorList objectAtIndex:[currentColorIndex intValue]];
+	cModule.color = [UIColor redColor];
+	//[colorList objectAtIndex:[currentColorIndex intValue]];
 	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
 }
 
