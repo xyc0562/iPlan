@@ -53,7 +53,7 @@
 	
 	[scrollView addSubview:imageView];
 
-	/*
+	
 	for (NSDictionary* dict in defaultAnswer) 
 	{
 		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
@@ -72,82 +72,17 @@
 																	  WithClassGroupName:classGroupName 
 																		 WithModuleColor:color
 																	   WithClassTypeName:classTypeName
-																			   WithIndex:[displaySlots count]
+																			   WithIndex:[slotViewControllers count]
 																		  WithGroupIndex:[[dictInner objectForKey:@"groupIndex"]intValue]];
 			[slotViewControllers addObject:slotView];
 		}
 		
 		
 	}
-	*/
 	
-	//testing
 	
-	SlotViewController* slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-																	   WithVenue:@"place"
-																   WithStartTime:[NSNumber	numberWithInt:1200]
-																	 WithEndTime:[NSNumber numberWithInt:1400]
-																		 WithDay:[NSNumber numberWithInt:2]
-															  WithClassGroupName:@"SL1"
-																 WithModuleColor:[UIColor blueColor]
-															   WithClassTypeName:@"Lecture"
-																	   WithIndex:0
-																  WithGroupIndex:1];
-	[slotViewControllers addObject:slot];
-	[slot release];
-	
-	slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-																	   WithVenue:@"place"
-																   WithStartTime:[NSNumber	numberWithInt:1200]
-																	 WithEndTime:[NSNumber numberWithInt:1400]
-																		 WithDay:[NSNumber numberWithInt:2]
-															  WithClassGroupName:@"SL2"
-																 WithModuleColor:[UIColor orangeColor]
-															   WithClassTypeName:@"Lecture"
-																	   WithIndex:1
-																  WithGroupIndex:1];
-	[slotViewControllers addObject:slot];
-	[slot release];
-	slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-												   WithVenue:@"place"
-											   WithStartTime:[NSNumber	numberWithInt:1600]
-												 WithEndTime:[NSNumber numberWithInt:1800]
-													 WithDay:[NSNumber numberWithInt:3]
-										  WithClassGroupName:@"SL1"
-											 WithModuleColor:[UIColor orangeColor]
-										   WithClassTypeName:@"Lecture"
-												   WithIndex:1
-											  WithGroupIndex:2];
-	[slotViewControllers addObject:slot];
-	[slot release];
-	
-	slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-												   WithVenue:@"place"
-											   WithStartTime:[NSNumber	numberWithInt:2000]
-												 WithEndTime:[NSNumber numberWithInt:2030]
-													 WithDay:[NSNumber numberWithInt:4]
-										  WithClassGroupName:@"SL1"
-											 WithModuleColor:[UIColor orangeColor]
-										   WithClassTypeName:@"Lecture"
-												   WithIndex:1
-											  WithGroupIndex:2];
-	[slotViewControllers addObject:slot];
-	[slot release];
-	
-	/*slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-												   WithVenue:@"place"
-											   WithStartTime:[NSNumber	numberWithInt:1900]
-												 WithEndTime:[NSNumber numberWithInt:2200]
-													 WithDay:[NSNumber numberWithInt:5]
-										  WithClassGroupName:@"SL1"
-											 WithModuleColor:[UIColor orangeColor]
-										   WithClassTypeName:@"Lecture"
-												   WithIndex:1
-											  WithGroupIndex:3];
-	[slotViewControllers addObject:slot];
-	[slot release];
-	 */
-	//end of Testing
+		
+
 	
 	//for each slotView in displaySlots
 	
@@ -256,7 +191,7 @@
 	theWeb.opaque = NO;
 	theWeb.backgroundColor = [UIColor clearColor];
 	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	NSLog(@"compile Lapi connection!");
+
 	
 	[self.view addSubview:theWeb];
 	[self.view addSubview: scrollView];
@@ -270,82 +205,9 @@
 	[table reloadData];
 	// ZY: alert for update the xml file or not
 	[self alertForUpdate];
-	NSLog(@"%@", theWeb.loading ? @"YES":@"NO");
-	NSLog(@"%@", theWeb.request.URL.absoluteString);
+
 }
 
-/*
- - (void) viewWillAppear:(BOOL)animated
- {
- [self.navigationController setNavigationBarHidden:YES animated:animated];
- [super viewWillAppear:animated];
- }
- 
- - (void) viewWillDisappear:(BOOL)animated
- {
- [self.navigationController setNavigationBarHidden:NO animated:animated];
- [super viewWillDisappear:animated];
- 
- }
- */
-/*
- - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
- 
- 
- 
- // zoom in
- SharedAppDataObject* theDataObject = [self theAppDataObject];
- if(![theDataObject zoomed])
- {
- [UIView beginAnimations:nil context:nil]; 
- [UIView setAnimationDuration:0.3]; 
- [[displayViewController view]removeFromSuperview];
- [[displayViewController view]setTransform:CGAffineTransformMakeScale(2.0, 2.0)];
- //NSMutableArray* displaySlots = displayViewController.slotViewControllers;
- //		for (SlotViewController* slotView in displaySlots ) 
- //		{
- //			slotView.view.userInteractionEnabled = YES;
- //		}
- //		
- [scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH_ZOOM, SCROLLVIEW_HEIGHT_ZOOM)];
- [scrollView setContentOffset:CGPointMake(0, 0)];
- [scrollView addSubview:[displayViewController view]];
- [[displayViewController view] setCenter:CGPointMake(SCROLL_AFTER_ZOOM_X, SCROLL_AFTER_ZOOM_Y)];
- 
- [UIView commitAnimations];
- 
- }
- else 
- {
- [UIView beginAnimations:nil context:nil]; 
- [UIView setAnimationDuration:0.3]; 
- [[displayViewController view]removeFromSuperview];
- [[displayViewController view]setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
- [scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
- [scrollView setContentOffset:CGPointMake(0, 0)];
- [scrollView addSubview:[displayViewController view]];
- [[displayViewController view] setCenter:CGPointMake(SCROLL_BEFORE_ZOOM_X, SCROLL_BEFORE_ZOOM_Y)];
- //NSMutableArray* displaySlots = displayViewController.slotViewControllers;
- //		for (SlotViewController* slotView in displaySlots ) 
- //		{
- //			slotView.view.userInteractionEnabled = NO;
- //		}
- [UIView commitAnimations];
- 
- }
- 
- theDataObject.zoomed = !theDataObject.zoomed;
- 
- }
- 
- 
- /*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations.
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
 
 - (id)initWithTabBar 
 {
@@ -405,6 +267,7 @@
     // Configure the cell...
 	if([tableChoices count]==0)
 		cell.textLabel.text = @"Only One Slot Avaiable";
+	
 	else
 	{
 		
@@ -438,7 +301,8 @@
 				
 				cell.accessoryView = addButton;
 			}
-		}			
+		}
+		
 		else if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:CLASH])
 		{
 			if(row==-1)
@@ -470,21 +334,23 @@
 		{
 			[slotViewControllers addObject:slot];
 			[imageView addSubview:slot.view];
+			[slot.view setFrame:[slot calculateDisplayProperty]];
 		}
 	}
 	
 	//remove previous selected
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	groupIndex = theDataObject.selectSlot.groupIndex;
-	for (SlotViewController* slot in availableSlots) 
+	for (SlotViewController* slot in slotViewControllers) 
 	{
 		if(slot.groupIndex == groupIndex)
 		{
 			[slot.view removeFromSuperview];
 			[slotViewControllers removeObject:slot];
 		}
-		
 	}
+	
+
 	//refresh whole table to set to original color
 	for(SlotViewController* slot in slotViewControllers)
 	{
@@ -492,7 +358,6 @@
 	}
 	theDataObject.selectSlot = nil;
 	[availableSlots removeAllObjects];
-	
 	[table reloadData];
 }
 
@@ -572,9 +437,11 @@
 			{
 				
 				SlotViewController* slot = [slotViewControllers objectAtIndex:i];
+				NSLog([slot classGroupName]);
 				if(slot.groupIndex == selectSlot.groupIndex)
 				{
 					[slot.view removeFromSuperview];
+					NSLog([slot classGroupName]);
 					[slotViewControllers removeObjectAtIndex:i];
 				}
 			}

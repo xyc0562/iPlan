@@ -257,31 +257,7 @@
 					[availableSlots addObject:slot];
 				}
 			}
-			SlotViewController* slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-													   WithVenue:@"place"
-												   WithStartTime:[NSNumber	numberWithInt:2000]
-													 WithEndTime:[NSNumber numberWithInt:2030]
-														 WithDay:[NSNumber numberWithInt:4]
-											  WithClassGroupName:@"SL1"
-												 WithModuleColor:[UIColor orangeColor]
-											   WithClassTypeName:@"Lecture"
-													   WithIndex:1
-												  WithGroupIndex:2];
-			[availableSlots addObject:slot];
 			
-			slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-														WithVenue:@"place"
-												   WithStartTime:[NSNumber	numberWithInt:1900]
-													WithEndTime:[NSNumber numberWithInt:2200]
-														 WithDay:[NSNumber numberWithInt:5]
-											  WithClassGroupName:@"SL1"
-												 WithModuleColor:[UIColor orangeColor]
-											   WithClassTypeName:@"Lecture"
-													   WithIndex:1
-												  WithGroupIndex:3];
-			 [availableSlots addObject:slot];
-			 
-
 			
 			
 			for(int i=0;i<[availableSlots count];i++)
