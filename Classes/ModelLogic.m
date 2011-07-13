@@ -96,7 +96,6 @@ static ModelLogic* modelLogic;
 {
 //  [super init];
 //initiallize the 10 colors for module displaying
-	self.currentColorIndex = [NSNumber numberWithInt:0];
     if(super != nil)
     {
         self.timeTable = table;
@@ -498,10 +497,11 @@ static ModelLogic* modelLogic;
 
 - (void) syncModulesWithBasket:(NSMutableArray*)codes{
 	[timeTable release];
+	[self resetColorIndex];
 	NSMutableArray* modules= [[NSMutableArray alloc]init];
 	for (NSString* code in codes) {
 		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
-		[self assignNewColorForModule:code];
+		module.color = [self getNewColor];
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
@@ -758,12 +758,16 @@ static ModelLogic* modelLogic;
     }
 }
 
-- (void)assignNewColorForModule:(NSString*)code
+- (UIColor*)getNewColor
 {
-	Module* cModule = [self getOrCreateAndGetModuleInstanceByCode:code];
-	cModule.color = [UIColor redColor];
-	//[colorList objectAtIndex:[currentColorIndex intValue]];
-	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
+	UIColor* color = [colorList objectAtIndex:[currentColorIndex intValue]];
+	self.currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]+1];
+	return color;
+}
+
+- (void)resetColorIndex
+{
+	currentColorIndex = [NSNumber numberWithInt:0];
 }
 
 - (BOOL)exportTimetableToiCalendar
@@ -814,11 +818,6 @@ static ModelLogic* modelLogic;
     [eventDB release];
 
     return YES;
-}
-
-- (void)releaseOneColor
-{
-	currentColorIndex = [NSNumber numberWithInt:[currentColorIndex intValue]-1];
 }
 
 
