@@ -22,6 +22,7 @@
 	SlotViewController* selectSlot;
 	NSMutableArray* slotControllers;
 	BOOL needUpdate;
+	BOOL continueToCalendar;
 }
 
 @property (nonatomic, copy) NSString *settingsIdentity;
@@ -36,6 +37,7 @@
 @property (nonatomic, assign) SlotViewController* selectSlot;
 @property (nonatomic, retain) NSMutableArray* slotControllers;
 @property (nonatomic, assign) BOOL needUpdate;
+@property (nonatomic, assign) BOOL continueToCalendar;
 
 
 @end
