@@ -71,9 +71,7 @@
 																				 WithDay:[dictInner objectForKey:@"day"]
 																	  WithClassGroupName:classGroupName 
 																		 WithModuleColor:color
-																	   WithClassTypeName:classTypeName
-																			   WithIndex:[slotViewControllers count]
-																		  WithGroupIndex:[[dictInner objectForKey:@"groupIndex"]intValue]];
+																	   WithClassTypeName:classTypeName];
 			[slotViewControllers addObject:slotView];
 		}
 		
@@ -106,7 +104,7 @@
 	
 	for (SlotViewController* slot1 in slotViewControllers ) 
 		for(SlotViewController* slot2 in slotViewControllers)
-			if(slot1!=slot2&&[slot1.day intValue]==[slot2.day intValue])
+			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
@@ -265,8 +263,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) 
 	{
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+	}
     
 
 	
@@ -326,43 +324,55 @@
 
 - (void) refreshButtonTapped:(id)sender event:(id)event
 {
-	[tableChoices removeAllObjects];
+	
 	NSSet *touches = [event allTouches];
 	UITouch *touch = [touches anyObject];
 	CGPoint currentTouchPosition = [touch locationInView:table];
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
-	
-	//add in new slots selected
-	int groupIndex = [[availableSlots objectAtIndex:indexPath.row-1]groupIndex];
+	SlotViewController* select = [availableSlots objectAtIndex:indexPath.row-1];
 	for(SlotViewController* slot in availableSlots)
 	{
-		if(slot.groupIndex == groupIndex)
+		[slot.view removeFromSuperview];
+	}
+	
+	//remove from slotviewcontrollers
+	//remove previous selected
+	
+	for (int i =0;i<[slotViewControllers count];i++) 
+	{
+		SlotViewController* slot = [slotViewControllers objectAtIndex:i];
+		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName])
 		{
-			[slotViewControllers addObject:slot];
-			[imageView addSubview:slot.view];
-			[slot.view setFrame:[slot calculateDisplayProperty]];
+			[slot.view removeFromSuperview];
+			[slotViewControllers removeObjectAtIndex:i];
 		}
 	}
 	
-	//remove previous selected
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	groupIndex = theDataObject.selectSlot.groupIndex;
-	for (SlotViewController* slot in slotViewControllers) 
+	
+	//add in new slots selected
+	for(SlotViewController* slot in availableSlots)
 	{
-		if(slot.groupIndex == groupIndex)
+		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
 		{
-			[slot.view removeFromSuperview];
-			[slotViewControllers removeObject:slot];
+			[slotViewControllers addObject:slot];
 		}
 	}
+	
 	
 
 	//refresh whole table to set to original color
 	for(SlotViewController* slot in slotViewControllers)
 	{
-		slot.view.backgroundColor = [slot moduleColor];		
+		[slot.view removeFromSuperview];
+		[imageView addSubview:slot.view];
+		slot.view.backgroundColor = [slot moduleColor];
+		slot.view.multipleTouchEnabled = YES;
+		slot.view.userInteractionEnabled = YES;
+		[slot.view setFrame:[slot calculateDisplayProperty]];
 	}
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.selectSlot = nil;
+	[tableChoices removeAllObjects];
 	[availableSlots removeAllObjects];
 	[table reloadData];
 }
@@ -392,9 +402,7 @@
 																			 WithDay:[dictInner objectForKey:@"day"]
 																  WithClassGroupName:groupName 
 																	 WithModuleColor:color
-																   WithClassTypeName:typeName
-																		   WithIndex:[availableSlots count]
-																	  WithGroupIndex:[[dictInner objectForKey:@"groupIndex"]intValue]];
+																   WithClassTypeName:typeName];
 			[availableSlots addObject:slot];
 		}
 	}
@@ -404,7 +412,7 @@
 		SlotViewController* slot = [availableSlots objectAtIndex:i];
 		NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 		displayInfo = [displayInfo stringByAppendingString:@" "];
-		displayInfo = [displayInfo stringByAppendingString:[[slot day]stringValue]];
+		displayInfo = [displayInfo stringByAppendingString:[[slot dayNumber]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@" "];
 		displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@"-"];
@@ -422,11 +430,15 @@
 		//Handle Available Slot
 		if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:SLOTS])
 		{
+			for(SlotViewController* slot in availableSlots)
+			{
+				[slot.view removeFromSuperview];
+			}
 			int row = indexPath.row-1;
 			SlotViewController* slot = [availableSlots objectAtIndex:row];
 			[imageView addSubview:slot.view];
 			slot.view.frame = [slot calculateDisplayProperty];
-			slot.view.backgroundColor = [UIColor blackColor];
+			slot.view.backgroundColor = [UIColor darkGrayColor];
 			slot.view.alpha = 1;
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:3];
@@ -437,19 +449,20 @@
 			[slot.view setAlpha:1];
 			[UIView commitAnimations];
 			[slot.view setAlpha:1];
-			SharedAppDataObject* theDataObject = [self theAppDataObject];
-			SlotViewController* selectSlot = [theDataObject selectSlot];
+		/*	SharedAppDataObject* theDataObject = [self theAppDataObject];
+			SlotViewController* select = [theDataObject selectSlot];
 			for (int i =0;i<[slotViewControllers count];i++) 
 			{
 				
 				SlotViewController* slot = [slotViewControllers objectAtIndex:i];
-				if(slot.groupIndex == selectSlot.groupIndex)
+				if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
 				{
 					[slot.view removeFromSuperview];
 					[slotViewControllers removeObjectAtIndex:i];
 				}
 			}
-			selectSlot = nil;
+			theDataObject.selectSlot = nil;
+		 */
 		}
 		
 		//Handle Clash
@@ -461,7 +474,7 @@
 			int count = 0;
 			for (SlotViewController* slot in slotViewControllers) 
 			{
-				if ([slot.day intValue]==[slotSelect.day intValue]&&slot!=slotSelect) 
+				if ([slot.dayNumber intValue]==[slotSelect.dayNumber intValue]&&slot!=slotSelect) 
 				{
 					if([slot.startTime intValue]>=[slotSelect.endTime intValue]||[slot.endTime intValue]<=[slotSelect.startTime intValue]);
 					else 

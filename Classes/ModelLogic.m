@@ -605,7 +605,9 @@ static ModelLogic* modelLogic;
 				
 				[slotInfo addObject:slotDict];
 			}
-		[otherAvailableGroups addObject:resultDict];
+			//printf("available slots in model logic %d\n",[slotInfo count]);
+			[resultDict setValue:slotInfo forKey:@"slots"];
+			[otherAvailableGroups addObject:resultDict];
 		}
 		
 		classGroupIndex++;
