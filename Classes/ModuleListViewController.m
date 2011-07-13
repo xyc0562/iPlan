@@ -492,7 +492,17 @@
 	// check whether user clicks cancel or continue in the requirements view
 	if (theDataObject.continueToCalendar == YES){
 		// TODO: call the model logic stuff here....
-		theDataObject.continueToCalendar = NO;
+		ModelLogic* modelLogic = [ModelLogic modelLogic];
+		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
+		[modelLogic generateDefaultTimetable];
+//			NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
+//			for (NSMutableDictionary* info in infos)
+//			{
+//				NSString* mcode = [info valueForKey:@"moduleCode"];
+//				UIColor* mcolor = [info valueForKey:@"color"];
+//				NSLog(@"result%@ %@", mcode, mcolor);
+//			}
+//		theDataObject.continueToCalendar = NO;
 		self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];	
 	}else {
 		theDataObject.continueToCalendar = NO;
