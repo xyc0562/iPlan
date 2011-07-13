@@ -195,23 +195,23 @@
 	}
  */
 	
-	// model logic load
-	[[theAppDataObject basket]addObject:@"MA1104"];
-	[[theAppDataObject basket]addObject:@"EC1301"];
-	[[theAppDataObject basket]addObject:@"EG2401"];
-	NSMutableArray* codes = [theAppDataObject basket];
-	ModelLogic* modelLogic = [ModelLogic modelLogic];
-	[modelLogic syncModulesWithBasket:codes];
-	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
-	[modelLogic generateDefaultTimetable];
-	
-	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
-	for (NSMutableDictionary* info in infos)
-	{
-		NSString* mcode = [info valueForKey:@"moduleCode"];
-		UIColor* mcolor = [info valueForKey:@"color"];
-		NSLog(@"result%@ %@", mcode, mcolor);
-	}
+// model logic test
+//	[[theAppDataObject basket]addObject:@"MA1104"];
+//	[[theAppDataObject basket]addObject:@"EC1301"];
+//	[[theAppDataObject basket]addObject:@"EG2401"];
+//	NSMutableArray* codes = [theAppDataObject basket];
+//	ModelLogic* modelLogic = [ModelLogic modelLogic];
+//	[modelLogic syncModulesWithBasket:codes];
+//	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
+//	[modelLogic generateDefaultTimetable];
+//	
+//	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
+//	for (NSMutableDictionary* info in infos)
+//	{
+//		NSString* mcode = [info valueForKey:@"moduleCode"];
+//		UIColor* mcolor = [info valueForKey:@"color"];
+//		NSLog(@"result%@ %@", mcode, mcolor);
+//	}
     return YES;
 }
 
