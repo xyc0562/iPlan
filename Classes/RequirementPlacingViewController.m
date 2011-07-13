@@ -38,9 +38,18 @@
 #pragma mark View lifecycle
 
 
-- (void)cancelClicked:(id)sender {
+- (void)continueClicked:(id)sender {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.continueToCalendar = YES;
+	NSLog(theDataObject.continueToCalendar?@"cc: Y":@"cc: N");
 	[self dismissModalViewControllerAnimated:YES];
-	//TODO: call model logic and go to calendar view
+}
+
+- (void)cancelClicked:(id)sender {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.continueToCalendar = NO;
+	NSLog(theDataObject.continueToCalendar?@"cancel c: Y":@"cancel c: N");
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
@@ -50,7 +59,7 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	if ([theDataObject.requirements count]==0){
-		// NSLog(@"123");
+		// //NSLog(@"123");
 		for (int i = 0; i < 8; i ++ ){
 			if (i == 0 || i == 6 || i == 7) {
 				NSMutableArray *element = [[NSMutableArray alloc] initWithObjects:SWITCH_NO,SWITCH_NO,nil];
@@ -61,15 +70,15 @@
 				[theDataObject.requirements addObject:element];
 				[element release];
 			}
-//			NSLog([[theDataObject.requirements objectAtIndex:i] objectAtIndex:0]);
-//			NSLog([[theDataObject.requirements objectAtIndex:i] objectAtIndex:1]);
+//			//NSLog([[theDataObject.requirements objectAtIndex:i] objectAtIndex:0]);
+//			//NSLog([[theDataObject.requirements objectAtIndex:i] objectAtIndex:1]);
 		}
 	}//else {
-//		NSLog(@"456");
+//		//NSLog(@"456");
 //		for (int i = 1; i < 6; i++){
 //			NSMutableArray *element = [theDataObject.requirements objectAtIndex:i];
 //			for (int j = 0; j< [element count]; j++){
-//				NSLog([element objectAtIndex:j]);
+//				//NSLog([element objectAtIndex:j]);
 //			}
 //		}
 //	}
@@ -77,6 +86,9 @@
 	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] autorelease];
+	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Continue" style:UIBarButtonItemStyleBordered target:self action:@selector(continueClicked:)];
+	[self.navigationItem setRightBarButtonItem:addButton];
+	[addButton release];
 }
 
 #pragma mark -

@@ -25,6 +25,7 @@
 @synthesize selectSlot;
 @synthesize slotControllers;
 @synthesize needUpdate;
+@synthesize continueToCalendar;
 
 #pragma mark -
 #pragma mark -Memory management
@@ -40,6 +41,7 @@
 		zoomed = NO;
 		selectSlot = nil;
 		needUpdate = NO;
+		continueToCalendar = NO;
 	}
 	return self;
 }

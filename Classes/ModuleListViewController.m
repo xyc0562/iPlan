@@ -452,12 +452,23 @@
 
 - (IBAction)forwardToRequirement:(id)sender{
 	//TODO: requirements part (present model view for requirements, after done, dismiss and then call sync and then to cal
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.continueToCalendar = NO;
+	NSLog(theDataObject.continueToCalendar?@"c: Y":@"c: N");
 	RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
 	[reqController release];
     [[self navigationController] presentModalViewController:navController animated:YES];
     [navController release];
-	self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];
+	if (theDataObject.continueToCalendar == YES){
+		// TODO: call the model logic stuff here....
+		NSLog(theDataObject.continueToCalendar?@"continue: Y":@"cancel: N");
+		self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];	
+	}else {
+		NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");
+		// do nothing
+	}
+
 }
 
 
