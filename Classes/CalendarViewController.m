@@ -99,6 +99,8 @@
 		slot.view.backgroundColor = [slot moduleColor];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
+		slot.view.userInteractionEnabled = YES;
+		slot.view.multipleTouchEnabled = YES;
 		//slot.view.alpha = 0.3;
 	}
 	
@@ -129,19 +131,23 @@
 { 	
 	if([slotViewControllers count]!=0)
 	{
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		NSMutableArray* active = [theDataObject activeModules];
 		CGRect frame = CGRectMake(NAV_FRAME_X,NAV_FRAME_Y,NAV_FRAME_W,NAV_FRAME_H);
 		UIView* temp = [[UIView alloc]initWithFrame:frame];
 		float cellWidth = (NAV_FRAME_W-3*NAV_BORDER_X)/(float)(NAV_COL);
 		float cellHight = (NAV_FRAME_H-3*NAV_BORDER_Y)/(float)(NAV_ROW);
-		for (int i=0;i<[slotViewControllers count];i++) 
+		
+		for (int i=0;i<[active count];i++) 
 		{
 			int col = i%NAV_COL;
 			int row = i/NAV_COL;
-			SlotViewController* slot = [slotViewControllers objectAtIndex:i];
-			NSString* selectedModule = [slot moduleCode];
+			NSString* selectedModule = [active objectAtIndex:i];
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
-			[titleLabel setBackgroundColor:[slot moduleColor]];
+			
+			//[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
+			[titleLabel setBackgroundColor:[UIColor blueColor]];
 			[titleLabel setTextColor:[UIColor whiteColor]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
@@ -437,11 +443,9 @@
 			{
 				
 				SlotViewController* slot = [slotViewControllers objectAtIndex:i];
-				NSLog([slot classGroupName]);
 				if(slot.groupIndex == selectSlot.groupIndex)
 				{
 					[slot.view removeFromSuperview];
-					NSLog([slot classGroupName]);
 					[slotViewControllers removeObjectAtIndex:i];
 				}
 			}

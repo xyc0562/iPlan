@@ -106,6 +106,7 @@
 - (UIColor*)getNewColor;
 - (void)resetColorIndex;
 - (BOOL)exportTimetableToiCalendar;
+- (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
 +(id)modelLogic;
 @end

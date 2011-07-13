@@ -165,10 +165,10 @@
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* slotControllers = theDataObject.slotControllers;
-
+	SlotViewController* slot = [theDataObject selectSlot];
 	
 	//restore selection
-	if ([[theDataObject selectSlot]groupIndex] == groupIndex) 
+	if ([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName]) 
 	{
 		
 		for(SlotViewController* slot in slotControllers)
@@ -185,7 +185,7 @@
 	{
 		for(SlotViewController* slot in slotControllers)
 		{
-			if(slot.groupIndex==groupIndex)
+			if([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName])
 			{
 				slot.view.layer.borderColor = [UIColor blackColor].CGColor;
 				slot.view.layer.borderWidth = 3.0f;
@@ -233,7 +233,8 @@
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
 																							   WithGroupName:[self classGroupName]];
-			
+			printf("available count %d\n",[availableAnswer count]);
+		
 			for (NSDictionary* dict in availableAnswer) 
 			{
 				NSString* code = [dict objectForKey:@"moduleCode"];
@@ -241,6 +242,7 @@
 				NSString* typeName = [dict objectForKey:@"classTypeName"];
 				NSString* groupName = [dict objectForKey:@"classGroupName"];
 				NSMutableArray* slots = [dict objectForKey:@"slots"];
+				printf("available slots %d\n",[slots count]);
 				for(NSDictionary* dictInner in slots)
 				{
 					
@@ -273,7 +275,7 @@
 				[tableChoices addObject:displayInfo];
 			}
 			
-			if([availableSlots count]!=0)
+			if([tableChoices count]!=0)
 				[tableChoices addObject:SLOTS];
 			
 		}
