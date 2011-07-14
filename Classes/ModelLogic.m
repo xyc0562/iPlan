@@ -845,6 +845,13 @@ static ModelLogic* modelLogic;
 	
 }
 
+- (BOOL)checkClashedModulesFrequencyWithCode:(NSString*)code1 AndCode:(NSString*)code2
+{
+	Module* module1 = [self getOrCreateAndGetModuleInstanceByCode:code1];
+	Module* module2 = [self getOrCreateAndGetModuleInstanceByCode:code2];
+	
+}
+
 -(void)dealloc
 {
     [timeTable release];
