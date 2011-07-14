@@ -491,7 +491,7 @@
 	
 	// check whether user clicks cancel or continue in the requirements view
 	if (theDataObject.continueToCalendar == YES){
-		// TODO: call the model logic stuff here....
+		// call the model logic and direct to the calendar view
 		ModelLogic* modelLogic = [ModelLogic modelLogic];
 		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 		[modelLogic generateDefaultTimetable];

@@ -19,6 +19,7 @@
 	DisplayViewController* displayViewController;
 	NSMutableArray* slotViewControllers;
 	UIImageView* imageView;
+	UIActivityIndicatorView *spinner;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) NSMutableArray* availableSlots;
 @property (nonatomic, retain) IBOutlet UITableView* table;
 @property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, retain) UIActivityIndicatorView *spinner;
 
 -(id)initWithTabBar;
 
