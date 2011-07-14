@@ -14,6 +14,8 @@
 		05BF137513C0164600CDDB6C /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BF137413C0164600CDDB6C /* unchecked.png */; };
 		05CC47BA13BA23500075B186 /* AppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47B913BA23500075B186 /* AppDataObject.m */; };
 		05CC47BD13BA24760075B186 /* SharedAppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47BC13BA24760075B186 /* SharedAppDataObject.m */; };
+		05E9D5FA13CF28E600B75CDF /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */; };
+		05E9D5FF13CF294000B75CDF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E9D5FE13CF294000B75CDF /* Security.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -79,6 +81,9 @@
 		05CC47B913BA23500075B186 /* AppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataObject.m; sourceTree = "<group>"; };
 		05CC47BB13BA24760075B186 /* SharedAppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedAppDataObject.h; sourceTree = "<group>"; };
 		05CC47BC13BA24760075B186 /* SharedAppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedAppDataObject.m; sourceTree = "<group>"; };
+		05E9D5F813CF28E600B75CDF /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		05E9D5FE13CF294000B75CDF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iPlanAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlanAppDelegate.h; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +175,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				B6F6AD3013C9B5C800E13203 /* EventKit.framework in Frameworks */,
+				05E9D5FF13CF294000B75CDF /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +278,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				B6F6AD2F13C9B5C800E13203 /* EventKit.framework */,
+				05E9D5FE13CF294000B75CDF /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -279,6 +286,8 @@
 		4308D82C13B5CED700E1AEF2 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				05E9D5F813CF28E600B75CDF /* SFHFKeychainUtils.h */,
+				05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */,
 				4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */,
 				4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */,
 				05CC47B713BA231D0075B186 /* AppDelegateProtocol.h */,
@@ -467,6 +476,7 @@
 				05BE960E13BF4993000DCDDB /* RequirementPlacingViewController.m in Sources */,
 				1E2DB1B613C6EC6300C3D8CA /* SlotViewController.m in Sources */,
 				1E2DB1B713C6EC6300C3D8CA /* DisplayViewController.m in Sources */,
+				05E9D5FA13CF28E600B75CDF /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,8 @@
 //
 
 #import "OptionViewController.h"
-
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 
 @implementation OptionViewController
 
@@ -20,14 +21,24 @@
 
 
 #pragma mark -
+#pragma mark instance methods
+
+- (SharedAppDataObject*) theAppDataObject{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
+#pragma mark -
 #pragma mark View lifecycle
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSLog(@"Happy to see the token = %@", theDataObject.requestedToken);
 }
 
 

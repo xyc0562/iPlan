@@ -12,7 +12,7 @@
 #import "ControllerConstant.h"
 
 
-@interface CalendarViewController : UIViewController <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource> {
+@interface CalendarViewController : UIViewController <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource, UIWebViewDelegate> {
 	IBOutlet UIScrollView* scrollView;
 	IBOutlet UITableView* table;
 	IBOutlet UIWebView* theWeb;
