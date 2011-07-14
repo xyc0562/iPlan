@@ -18,5 +18,7 @@
 @property(nonatomic,retain)NSMutableArray* result;
 -(void)planOneTimetable;
 -(void)planOneTimetableWithRequirements:(NSMutableArray *)requirements;
+-(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements WithResult:(NSMutableArray*)lastResult;
+-(NSMutableArray*)copyClassTypeArray:(NSMutableArray*)classTypeArray;
 -(id)initWithName:(NSString*)naming WithModules:(NSMutableArray*)module;
 @end
