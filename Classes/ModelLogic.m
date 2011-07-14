@@ -571,10 +571,10 @@ static ModelLogic* modelLogic;
 			for (NSString* eachWeek in [slot frequency]) 
 			{
 				frequency = frequency<<1;
-				if (eachWeek == @"YES") frequency++;
+				if ([eachWeek isEqualToString:@"YES"]) frequency++;
 			}
 			NSNumber* freq = [NSNumber numberWithInt:frequency];
-			NSLog(@"freq%@",[freq stringValue]);
+//			NSLog(@"freq%@",[freq stringValue]);
 			[slotDict setValue:freq forKey:@"frequency"];
 			[slotInfo addObject:slotDict];
 		}
