@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "UIViewWithLine.h"
-// #import "ControllerConstant.h" //Temply disable to build
+#import "ControllerConstant.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
@@ -34,7 +34,8 @@
 @synthesize imageView;
 @synthesize spinner;
 
-- (SharedAppDataObject*) theAppDataObject{
+- (SharedAppDataObject*) theAppDataObject
+{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
 	SharedAppDataObject* theDataObject;
 	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
@@ -48,7 +49,7 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
-	printf("default Answer %d\n",[defaultAnswer count]);
+	// add in imageview
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
 
@@ -72,6 +73,7 @@
 																		 WithModuleColor:color
 																	   WithClassTypeName:classTypeName];
 			[theDataObject.slotViewControllers addObject:slotView];
+			[slotView release];
 		}
 		
 		
@@ -89,12 +91,10 @@
 	for (SlotViewController* slot in theDataObject.slotViewControllers ) 
 	{
 		[imageView addSubview:slot.view];
-		slot.view.backgroundColor = [slot moduleColor];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
 		slot.view.userInteractionEnabled = YES;
 		slot.view.multipleTouchEnabled = YES;
-		//slot.view.alpha = 0.3;
 	}
 	
 	for (SlotViewController* slot1 in theDataObject.slotViewControllers ) 
@@ -135,8 +135,8 @@
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
-			//[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
-			[titleLabel setBackgroundColor:[UIColor blueColor]];
+			[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
+			//[titleLabel setBackgroundColor:[UIColor blueColor]];
 			[titleLabel setTextColor:[UIColor whiteColor]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
@@ -243,6 +243,46 @@
 	// ZY: alert for update the xml file or not
 	[self alertForUpdate];
 }
+
+- (void)refresh {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+    [super viewDidLoad];
+	[self.view addSubview: scrollView];
+	scrollView.multipleTouchEnabled = YES;
+	scrollView.userInteractionEnabled = YES;
+	scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
+	scrollView.bounces = NO;
+	scrollView.showsVerticalScrollIndicator = YES;
+	scrollView.showsHorizontalScrollIndicator = YES;
+	
+	//Lapi issue
+	NSURL *url = [NSURL URLWithString:SERVER_URL];
+	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+	
+	[theWeb loadRequest:requestObj];
+	theWeb.opaque = NO;
+	theWeb.backgroundColor = [UIColor clearColor];
+	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
+	
+	
+	[self.view addSubview:theWeb];
+	[self.view addSubview: scrollView];
+	[self.view addSubview:table];
+	[self.view sendSubviewToBack:theWeb];
+	theDataObject.table = self.table;
+	
+	
+	[self configureView];
+	[self configureToolBar];
+	
+	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
+	[table reloadData];
+	// ZY: alert for update the xml file or not
+	[self alertForUpdate];
+	
+}
+
 
 - (id)initWithTabBar 
 {
@@ -478,7 +518,7 @@
 			[imageView addSubview:slot.view];
 			slot.view.frame = [slot calculateDisplayProperty];
 			slot.view.backgroundColor = [UIColor darkGrayColor];
-			slot.view.alpha = 1;
+		//	slot.view.alpha = 1;
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:3];
 			[slot.view setAlpha:0.2];

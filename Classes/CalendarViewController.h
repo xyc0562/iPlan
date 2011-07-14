@@ -27,5 +27,6 @@
 @property (nonatomic, retain) UIActivityIndicatorView *spinner;
 
 -(id)initWithTabBar;
+-(void)refresh;
 
 @end

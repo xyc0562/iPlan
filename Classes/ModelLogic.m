@@ -843,7 +843,6 @@ static ModelLogic* modelLogic;
 	
     if (module)
     {
-//		NSLog(@"%@",[module color]);
         return [module color];
     }
     else
