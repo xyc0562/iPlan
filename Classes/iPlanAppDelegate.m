@@ -52,7 +52,7 @@
     Module *m3 = [ml getOrCreateAndGetModuleInstanceByCode:@"MA1506"];
     TimeTable *tt = [[TimeTable alloc] initWithName:@"MyTT" WithModules:[NSArray arrayWithObjects:m1, m2, m3, nil]];
     m1.selected = @"YES";
-    m2.selected = @"NO";
+    m2.selected = @"YES";
     m3.selected = @"YES";
     for (ModuleClassType *MCT in m1.moduleClassTypes)
     {

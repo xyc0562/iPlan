@@ -813,9 +813,9 @@ static ModelLogic* modelLogic;
                                     myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
                                     myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
                                     myEvent.allDay = NO;
-
-                                    // For now we use the default calendar, we may change to other specific calendars later
+									// For now we use the default calendar, we may change to other specific calendars later
                                     [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+									[eventDB saveEvent:myEvent span:EKSpanThisEvent error:nil];
                                 }
                             }
                         }
