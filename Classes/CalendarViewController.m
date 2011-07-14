@@ -240,10 +240,9 @@
 	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
 	theWeb.delegate = self;
 	[theWeb loadRequest:requestObj];
-	theWeb.opaque = YES;
-	//theWeb.backgroundColor = [UIColor clearColor];
-	//[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	NSLog(@"compile Lapi connection!");
+	theWeb.opaque = NO;
+	theWeb.backgroundColor = [UIColor clearColor];
+	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 	
 	//secure password
 	[[NSUserDefaults standardUserDefaults] setObject:USERNAME forKey:@"username"];
@@ -253,7 +252,7 @@
 	[self.view addSubview:theWeb];
 	[self.view addSubview: scrollView];
 	[self.view addSubview:table];
-	[self.view bringSubviewToFront:theWeb];
+	[self.view sendSubviewToBack:theWeb];
 	theDataObject.table = self.table;
 	
 	[self configureView];
