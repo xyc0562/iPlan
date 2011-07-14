@@ -432,7 +432,7 @@
 		{
 			NSMutableArray* week = [*timeTable objectAtIndex:k];
 			NSMutableArray* day = [week objectAtIndex:dayIndex];
-			if ([[eachDayReq objectAtIndex:0]isEqualToString:@"YES"])
+			if ([[eachDayReq objectAtIndex:0]isEqualToString:@"NO"])
 			{
 				for (i=0; i<24; i++) 
 				{
@@ -440,7 +440,7 @@
 					[day insertObject:occupied atIndex:i];
 				}
 			}
-			if ([[eachDayReq objectAtIndex:1]isEqualToString:@"YES"])
+			if ([[eachDayReq objectAtIndex:1]isEqualToString:@"NO"])
 			{
 				for (i=24; i<48; i++) 
 				{
