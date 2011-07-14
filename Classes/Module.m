@@ -58,6 +58,7 @@ WithModuleClassType:(NSArray*)moduleClassType
 		lastUpdated = update;
 		selected = @"NO";
 		moduleClassTypes = moduleClassType;
+		color = [UIColor clearColor];
 	}
 	return self;
 }

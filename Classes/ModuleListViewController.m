@@ -14,7 +14,7 @@
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
 #import "ConstantFile.h"
-
+#import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
 
@@ -495,19 +495,15 @@
 		ModelLogic* modelLogic = [ModelLogic modelLogic];
 		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 		[modelLogic generateDefaultTimetableWithRequirements:nil];
-//		[modelLogic generateDefaultTimetableWithRequirements:[theDataObject requirements]];
-//			NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
-//			for (NSMutableDictionary* info in infos)
-//			{
-//				NSString* m = [info valueForKey:@"classGroupName"];
-//				NSLog(@"result %@", m);
-//			}
+
 
 		theDataObject.continueToCalendar = NO;
-		UIViewController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
-		[controller viewDidLoad];
+		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+		[[controller.viewControllers objectAtIndex:0]viewDidLoad];
 		self.tabBarController.selectedViewController = 	controller;
-	}else {
+	}
+	else 
+	{
 		theDataObject.continueToCalendar = NO;
 		//NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");
 		// do nothing
