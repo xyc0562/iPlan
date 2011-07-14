@@ -504,7 +504,9 @@
 //			}
 
 		theDataObject.continueToCalendar = NO;
-		self.tabBarController.selectedViewController = [self.tabBarController.viewControllers objectAtIndex:0];	
+		UIViewController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+		[controller viewDidLoad];
+		self.tabBarController.selectedViewController = 	controller;
 	}else {
 		theDataObject.continueToCalendar = NO;
 		//NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");

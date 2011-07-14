@@ -71,7 +71,8 @@
 	
 	// get the xml from the web
 	NSURL *url = [NSURL URLWithString:@"http://cors.i-cro.net/cors.xml"];
-	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url];  // Load XML data from web
+	NSError *errorPtr = nil;
+	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&errorPtr];  // Load XML data from web
 	
 	// construct path within our documents directory
 	NSString *storePath = [[NSBundle mainBundle] pathForResource:@"cors" ofType:@"xml"];
@@ -81,14 +82,14 @@
 	// get the xml from the file
 	NSData *dataFromFile = [NSData dataWithContentsOfFile:storePath];
 	
-	// the first time the user opens the application and doesn't have network connection, create for them
+	// the first time the user opens the application and doesn't have network connection or problematic network connection, create for them
 	NSFileManager * fm = [NSFileManager defaultManager];
-	if (![fm fileExistsAtPath:plistPath] && dataFromWeb != nil)
+	if (![fm fileExistsAtPath:plistPath] && (dataFromWeb != nil || errorPtr != nil))
 	{
 		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	}
 	
-	if (dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
+	if (errorPtr == nil && dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
 		// need to replace the old xml with new one and call parser
 		// write to file atomically (using temp file)
 		[dataFromWeb writeToFile:storePath atomically:TRUE];
