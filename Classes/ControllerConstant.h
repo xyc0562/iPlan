@@ -46,6 +46,7 @@
 #define CLASH @"Clash"
 #define SLOTS @"Slots"
 #define NORMAL @"Normal"
+#define AVAILABLE @"Available"
 
 #define TIMETABLE_X 10
 #define TIMETABLE_Y 0

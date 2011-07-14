@@ -25,6 +25,7 @@
 @synthesize displayProperty;
 @synthesize classTypeName;
 @synthesize available;
+@synthesize frequency;
 
 - (SharedAppDataObject*) theAppDataObject
 {
@@ -85,6 +86,7 @@
   WithClassGroupName:(NSString*)name
 	 WithModuleColor:(UIColor*)color
    WithClassTypeName:(NSString*)classtype
+	   WithFrequency:(NSNumber*)freq
 
 					
 {
@@ -102,6 +104,7 @@
 		self.view.multipleTouchEnabled = YES;
 		self.view.userInteractionEnabled = YES;
 		self.available = NO;
+		self.frequency = freq;
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 		[self.view addGestureRecognizer:tap];
 		[tap release];
@@ -131,7 +134,10 @@
 	{
 		self.view.backgroundColor = [self moduleColor];
 	}
-	
+	else if([condition isEqualToString:AVAILABLE])
+	{
+		self.view.backgroundColor = [UIColor darkGrayColor];
+	}
 }
 
 - (void)setLabelContentWithCondition:(NSString*)condition
@@ -180,7 +186,7 @@
 	SlotViewController* slot = [theDataObject selectSlot];
 	
 	//clear all the availableSlots display
-	for (SlotViewController* slot in theDataObject.slotViewControllers)
+	for (SlotViewController* slot in theDataObject.availableSlots)
 	{
 		[slot.view removeFromSuperview];
 	}
@@ -256,10 +262,7 @@
 		else 
 		{
 			//call Model Logic
-			UIView* rect = [[UIView alloc]initWithFrame:[theDataObject.image frame]];
-			rect.backgroundColor = [UIColor lightGrayColor];
-			rect.alpha = 0.3;
-			[theDataObject.image addSubview:rect];
+
 			
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
@@ -284,7 +287,8 @@
 																					 WithDay:[dictInner objectForKey:@"day"]
 																		  WithClassGroupName:groupName 
 																			 WithModuleColor:color
-																		   WithClassTypeName:typeName];
+																		   WithClassTypeName:typeName
+																			   WithFrequency:[dictInner objectForKey:@"frequency"]];
 					slot.available = YES;
 			
 

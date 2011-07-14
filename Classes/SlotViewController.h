@@ -17,6 +17,7 @@
 	NSNumber* endTime;
 	NSNumber* dayNumber;
 	NSString* classTypeName;
+	NSNumber* frequency;
 	UIColor* moduleColor;
 	CGRect displayProperty;
 	BOOL available;
@@ -31,6 +32,7 @@
 @property (nonatomic,retain)NSNumber* dayNumber;
 @property (nonatomic,readonly)CGRect displayProperty;
 @property (nonatomic,retain)NSString* classTypeName;
+@property (nonatomic,retain)NSNumber* frequency;
 @property (nonatomic,assign)BOOL available;
 
 
@@ -41,7 +43,8 @@
 				 WithDay:(NSNumber*)date
 	  WithClassGroupName:(NSString*)name
 		 WithModuleColor:(UIColor*)color
-	   WithClassTypeName:(NSString*)classtype;
+	   WithClassTypeName:(NSString*)classtype
+		   WithFrequency:(NSNumber*)freq;
 
 -(CGRect)calculateDisplayProperty;
 - (void)setBackGroundColorWithCondition:(NSString*)condition;
