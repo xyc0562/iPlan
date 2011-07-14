@@ -52,7 +52,7 @@
     Module *m3 = [ml getOrCreateAndGetModuleInstanceByCode:@"MA1506"];
     TimeTable *tt = [[TimeTable alloc] initWithName:@"MyTT" WithModules:[NSArray arrayWithObjects:m1, m2, m3, nil]];
     m1.selected = @"YES";
-    m2.selected = @"NO";
+    m2.selected = @"YES";
     m3.selected = @"YES";
     for (ModuleClassType *MCT in m1.moduleClassTypes)
     {
@@ -197,25 +197,7 @@
 	}
  */
 	
- //model logic test
-	[[theAppDataObject basket]addObject:@"MA1104"];
-	[[theAppDataObject basket]addObject:@"EC1301"];
-	[[theAppDataObject basket]addObject:@"EG2401"];
-	NSMutableArray* codes = [theAppDataObject basket];
-	ModelLogic* modelLogic = [ModelLogic modelLogic];
-	[modelLogic syncModulesWithBasket:codes];
-	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
-	[modelLogic generateDefaultTimetableWithRequirements:nil];
-	[modelLogic generateNextDefaultTimetableWithRequirements:nil];
-	
-	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
-	for (NSMutableDictionary* info in infos)
-	{
-		NSString* cgn = [info valueForKey:@"classGroupName"];
-		UIColor* mcolor = [info valueForKey:@"color"];
-		NSLog(@"result%@ %@", cgn, mcolor);
-	}
-    return YES;
+	return YES;
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "UIViewWithLine.h"
-// #import "ControllerConstant.h" //Temply disable to build
+#import "ControllerConstant.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
@@ -40,7 +40,8 @@
 @synthesize imageView;
 @synthesize spinner;
 
-- (SharedAppDataObject*) theAppDataObject{
+- (SharedAppDataObject*) theAppDataObject
+{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
 	SharedAppDataObject* theDataObject;
 	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
@@ -54,7 +55,7 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
-	printf("default Answer %d\n",[defaultAnswer count]);
+	// add in imageview
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
 
@@ -76,11 +77,11 @@
 																				 WithDay:[dictInner objectForKey:@"day"]
 																	  WithClassGroupName:classGroupName 
 																		 WithModuleColor:color
-																	   WithClassTypeName:classTypeName];
+																	   WithClassTypeName:classTypeName
+																		   WithFrequency:[dictInner objectForKey:@"frequency"]];
 			[theDataObject.slotViewControllers addObject:slotView];
+			[slotView release];
 		}
-		
-		
 	}
 	
 	
@@ -95,29 +96,55 @@
 	for (SlotViewController* slot in theDataObject.slotViewControllers ) 
 	{
 		[imageView addSubview:slot.view];
-		slot.view.backgroundColor = [slot moduleColor];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
+		[slot setBackGroundColorWithCondition:NORMAL];
+		[slot setLabelContentWithCondition:NORMAL];
 		slot.view.userInteractionEnabled = YES;
 		slot.view.multipleTouchEnabled = YES;
-		//slot.view.alpha = 0.3;
 	}
 	
-	for (SlotViewController* slot1 in theDataObject.slotViewControllers ) 
-		for(SlotViewController* slot2 in theDataObject.slotViewControllers)
-			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+	//set UI display for clash modules
+	for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
+	{
+		SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
+		BOOL clash = NO;
+		BOOL manyModule = NO;
+
+		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		{
+			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					slot1.view.alpha = 0.3;
-					slot2.view.alpha = 0.3;
-					for(UIView*any in [slot1.view subviews])
-						[any removeFromSuperview];
-					for (UIView*any in [slot2.view subviews])
-						[any removeFromSuperview];
+					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue])
+					{
+						manyModule = YES;
+					}
+					else
+					{
+						clash = YES;
+					}
 				}
 			}
+		}
+		
+		if(clash)
+		{
+			[slot1 setBackGroundColorWithCondition:CLASH];
+			[slot1 setLabelContentWithCondition:CLASH];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+		else if(manyModule)
+		{
+			[slot1 setBackGroundColorWithCondition:AVAILABLE];
+			[slot1 setLabelContentWithCondition:AVAILABLE];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+	}
+	
 }
 
 - (void) configureToolBar
@@ -141,8 +168,7 @@
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
-			//[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
-			[titleLabel setBackgroundColor:[UIColor blueColor]];
+			[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
 			[titleLabel setTextColor:[UIColor whiteColor]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
@@ -194,6 +220,10 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	for (UIView* any in [self.view subviews]) 
+	{
+		[any removeFromSuperview];
+	}
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
     [super viewDidLoad];
@@ -230,10 +260,12 @@
 	[self configureToolBar];
 	
 	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
+	table.bounces = NO;
 	[table reloadData];
 	// ZY: alert for update the xml file or not
 	[self alertForUpdate];
 }
+
 
 - (id)initWithTabBar 
 {
@@ -270,7 +302,6 @@
 {
     // Return the number of rows in the section.
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	printf("table row %d\n",[theDataObject.tableChoices count]);
 	return [theDataObject.tableChoices count]+1;
 }
 
@@ -295,7 +326,7 @@
 	
     // Configure the cell...
 	if([theDataObject.tableChoices count]==0)
-		cell.textLabel.text = @"Only One Slot Avaiable";
+		cell.textLabel.text = @"Welcome to Use iPlan~~~";
 	
 	else
 	{
@@ -336,7 +367,7 @@
 		{
 			if(row==-1)
 			{
-				cell.textLabel.text = @"Select one Crashed Module";
+				cell.textLabel.text = @"Select one From Overlapped Modules";
 			}
 
 		}
@@ -355,6 +386,7 @@
 	UITouch *touch = [touches anyObject];
 	CGPoint currentTouchPosition = [touch locationInView:table];
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
+	
 	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
 	for(SlotViewController* slot in theDataObject.availableSlots)
 	{
@@ -392,11 +424,55 @@
 		[slot.view removeFromSuperview];
 		[imageView addSubview:slot.view];
 		slot.moduleColor = [[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
-		slot.view.backgroundColor = slot.moduleColor;
+		[slot setBackGroundColorWithCondition:NORMAL];
+		[slot setLabelContentWithCondition:NORMAL];
 		slot.view.multipleTouchEnabled = YES;
 		slot.view.userInteractionEnabled = YES;
 		[slot.view setFrame:[slot calculateDisplayProperty]];
 	}
+	
+	//display clash
+	for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
+	{
+		SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
+		BOOL clash = NO;
+		BOOL manyModule = NO;
+		
+		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		{
+			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			{
+				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
+				else 
+				{
+					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue])
+					{
+						manyModule = YES;
+					}
+					else
+					{
+						clash = YES;
+					}
+				}
+			}
+		}
+		
+		if(clash)
+		{
+			[slot1 setBackGroundColorWithCondition:CLASH];
+			[slot1 setLabelContentWithCondition:CLASH];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+		else if(manyModule)
+		{
+			[slot1 setBackGroundColorWithCondition:AVAILABLE];
+			[slot1 setLabelContentWithCondition:AVAILABLE];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+	}
+	
+	
 	theDataObject.selectSlot = nil;
 	[theDataObject.tableChoices removeAllObjects];
 	[theDataObject.availableSlots removeAllObjects];
@@ -430,7 +506,8 @@
 																			 WithDay:[dictInner objectForKey:@"day"]
 																  WithClassGroupName:groupName 
 																	 WithModuleColor:color
-																   WithClassTypeName:typeName];
+																   WithClassTypeName:typeName
+																	   WithFrequency:[dictInner objectForKey:@"frequency"]];
 			[theDataObject.availableSlots addObject:slot];
 		}
 	}
@@ -440,7 +517,18 @@
 		SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
 		NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 		displayInfo = [displayInfo stringByAppendingString:@" "];
-		displayInfo = [displayInfo stringByAppendingString:[[slot dayNumber]stringValue]];
+		
+		if([[slot dayNumber]intValue]==1)
+			displayInfo = [displayInfo stringByAppendingString:@"MON"];
+		else if([[slot dayNumber]intValue]==2)
+			displayInfo = [displayInfo stringByAppendingString:@"TUE"];
+		else if([[slot dayNumber]intValue]==3)
+			displayInfo = [displayInfo stringByAppendingString:@"WED"];
+		else if([[slot dayNumber]intValue]==4)
+			displayInfo = [displayInfo stringByAppendingString:@"THU"];
+		else if([[slot dayNumber]intValue]==5)
+			displayInfo = [displayInfo stringByAppendingString:@"FRI"];
+		
 		displayInfo = [displayInfo stringByAppendingString:@" "];
 		displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@"-"];
@@ -465,20 +553,26 @@
 				[slot.view removeFromSuperview];
 			}
 			int row = indexPath.row-1;
-			SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:row];
-			[imageView addSubview:slot.view];
-			slot.view.frame = [slot calculateDisplayProperty];
-			slot.view.backgroundColor = [UIColor darkGrayColor];
-			slot.view.alpha = 1;
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationDuration:3];
-			[slot.view setAlpha:0.2];
-			[UIView commitAnimations];
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationDuration:3];
-			[slot.view setAlpha:1];
-			[UIView commitAnimations];
-			[slot.view setAlpha:1];
+			SlotViewController* select = [theDataObject.availableSlots objectAtIndex:row];
+			for(SlotViewController* slot in theDataObject.availableSlots)
+			{
+				if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
+				{
+					[imageView addSubview:slot.view];
+					slot.view.frame = [slot calculateDisplayProperty];
+					[slot setBackGroundColorWithCondition:AVAILABLE];
+					[slot setLabelContentWithCondition:NORMAL];
+					[UIView beginAnimations:nil context:nil];
+					[UIView setAnimationDuration:3];
+					[slot.view setAlpha:0.2];
+					[UIView commitAnimations];
+					[UIView beginAnimations:nil context:nil];
+					[UIView setAnimationDuration:3];
+					[slot.view setAlpha:1];
+					[UIView commitAnimations];
+					[slot.view setAlpha:1];
+				}
+			}
 		/*	SharedAppDataObject* theDataObject = [self theAppDataObject];
 			SlotViewController* select = [theDataObject selectSlot];
 			for (int i =0;i<[slotViewControllers count];i++) 
@@ -501,8 +595,9 @@
 			SlotViewController* slotSelect = [theDataObject selectSlot];
 			int row = indexPath.row - 1;
 			int count = 0;
-			for (SlotViewController* slot in theDataObject.slotViewControllers) 
+			for (int i=0;i<[theDataObject.slotViewControllers count];i++) 
 			{
+				SlotViewController* slot = [theDataObject.slotViewControllers objectAtIndex:i];
 				if ([slot.dayNumber intValue]==[slotSelect.dayNumber intValue]&&slot!=slotSelect) 
 				{
 					if([slot.startTime intValue]>=[slotSelect.endTime intValue]||[slot.endTime intValue]<=[slotSelect.startTime intValue]);
@@ -512,16 +607,12 @@
 						{
 							[self getAvailableSlotsWithSlot:slot];
 							break;
-							
-							
 						}
 						count = count + 1;
 					}
 					
 				}
 			}
-			if(count == row)
-				[self getAvailableSlotsWithSlot:slotSelect];
 			[table reloadData];
 		
 		}

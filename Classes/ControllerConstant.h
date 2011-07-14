@@ -29,7 +29,7 @@
 
 #define NAV_ROW 2
 #define NAV_COL 5
-#define NAV_BORDER_X 5
+#define NAV_BORDER_X 0
 #define NAV_BORDER_Y 4
 #define CELL_BORDER 2
 
@@ -45,6 +45,8 @@
 
 #define CLASH @"Clash"
 #define SLOTS @"Slots"
+#define NORMAL @"Normal"
+#define AVAILABLE @"Available"
 
 #define TIMETABLE_X 10
 #define TIMETABLE_Y 0

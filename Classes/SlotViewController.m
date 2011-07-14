@@ -25,24 +25,16 @@
 @synthesize displayProperty;
 @synthesize classTypeName;
 @synthesize available;
+@synthesize frequency;
 
-- (SharedAppDataObject*) theAppDataObject{
+- (SharedAppDataObject*) theAppDataObject
+{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
 	SharedAppDataObject* theDataObject;
 	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
 	return theDataObject;
 }
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
 -(CGRect)calculateDisplayProperty
 {
 	float x,y,w,h;
@@ -83,10 +75,6 @@
 		w = w-6;
 		x = x-2;
 	}
-	
-	
-	printf("slot %f %f %f %f\n",x,y,w,h);
-
 	return CGRectMake(x,y,w,h);
 }
 
@@ -98,6 +86,7 @@
   WithClassGroupName:(NSString*)name
 	 WithModuleColor:(UIColor*)color
    WithClassTypeName:(NSString*)classtype
+	   WithFrequency:(NSNumber*)freq
 
 					
 {
@@ -115,33 +104,70 @@
 		self.view.multipleTouchEnabled = YES;
 		self.view.userInteractionEnabled = YES;
 		self.available = NO;
+		self.frequency = freq;
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 		[self.view addGestureRecognizer:tap];
 		[tap release];
-
-		
     }
     return self;
 }
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad 
 {
-    [super viewDidLoad];
-	CGRect frame = [self calculateDisplayProperty];
+    [super viewDidLoad];	
 	self.view.layer.cornerRadius = 7.5;
-	UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,frame.size.width	,frame.size.height )];
-	label.text = classGroupName;
-	label.backgroundColor = [UIColor clearColor];
-	label.layer.cornerRadius = 3.5;
-	[self.view addSubview:label];
+	self.view.alpha = 0.7;
+}
+
+- (void)setBackGroundColorWithCondition:(NSString*)condition
+{
+	if([condition isEqualToString:CLASH])
+	{
+		self.view.backgroundColor = [UIColor clearColor];
+		self.view.layer.borderColor = [UIColor redColor].CGColor;
+		self.view.layer.borderWidth = 3.0f;
+	}
+	else if([condition isEqualToString:NORMAL])
+	{
+		self.view.backgroundColor = [self moduleColor];
+	}
+	else if([condition isEqualToString:AVAILABLE])
+	{
+		self.view.backgroundColor = [UIColor darkGrayColor];
+	}
+}
+
+- (void)setLabelContentWithCondition:(NSString*)condition
+{
+	CGRect frame = [self calculateDisplayProperty];
+	if([condition isEqualToString:CLASH])
+	{
+		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,frame.size.width	,frame.size.height )];
+		label.text = @"CLASH";
+		label.backgroundColor = [UIColor clearColor];
+		label.layer.cornerRadius = 3.5;
+		[self.view addSubview:label];
+	}
+	else if([condition isEqualToString:NORMAL])
+	{
+		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,frame.size.width	,frame.size.height )];
+		label.text = classGroupName;
+		label.backgroundColor = [UIColor clearColor];
+		label.layer.cornerRadius = 3.5;
+		[self.view addSubview:label];
+	}
+	else 
+	{
+		UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,frame.size.width	,frame.size.height )];
+		label.text = @"Several modules";
+		label.backgroundColor = [UIColor clearColor];
+		label.layer.cornerRadius = 3.5;
+		[self.view addSubview:label];
+	}
+		
 }
 
 /*
@@ -158,21 +184,14 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
 	SlotViewController* slot = [theDataObject selectSlot];
-
-	if(available)
+	
+	//clear all the availableSlots display
+	for (SlotViewController* slot in theDataObject.availableSlots)
 	{
+		[slot.view removeFromSuperview];
 	}
-	else 
-	{
-		for(int i=0;i<[theDataObject.availableSlots count];i++)
-		{
-			
-			SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
-			[slot.view removeFromSuperview];
-		}
-	}
-
-	//restore selection
+	
+	//recover selection
 	if ([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName]) 
 	{
 		
@@ -198,6 +217,7 @@
 				slot.view.layer.borderWidth = 3.0f;
 		
 			}
+			//part of recover selection
 			else 
 			{
 				slot.view.layer.borderColor = [UIColor clearColor].CGColor;
@@ -209,8 +229,9 @@
 		[theDataObject.tableChoices removeAllObjects];
 		
 		//check for clashes
-		for (SlotViewController* slot in slotViewControllers) 
+		for (int i=0;i<[slotViewControllers count];i++) 
 		{
+			SlotViewController* slot = [slotViewControllers objectAtIndex:i];
 			if ([slot.dayNumber intValue]==[self.dayNumber intValue]&&slot!=self) 
 			{
 				if([slot.startTime intValue]>=[self.endTime intValue]||[slot.endTime intValue]<=[self.startTime intValue]);
@@ -227,7 +248,7 @@
 		
 		[theDataObject.availableSlots removeAllObjects];
 
-		
+		//if there is clash
 		if([theDataObject.tableChoices count]>0)
 		{
 			NSString* displayInfo = [NSString stringWithString:self.moduleCode];
@@ -237,19 +258,15 @@
 			[theDataObject.tableChoices addObject:CLASH];
 		}
 		
-
+		//no clash
 		else 
 		{
 			//call Model Logic
-			UIView* rect = [[UIView alloc]initWithFrame:[theDataObject.image frame]];
-			rect.backgroundColor = [UIColor lightGrayColor];
-			rect.alpha = 0.3;
-			[theDataObject.image addSubview:rect];
+
 			
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
 																							   WithGroupName:[self classGroupName]];
-			printf("available ans %d\n",[availableAnswer count]);
 		
 			for (NSDictionary* dict in availableAnswer) 
 			{
@@ -270,16 +287,12 @@
 																					 WithDay:[dictInner objectForKey:@"day"]
 																		  WithClassGroupName:groupName 
 																			 WithModuleColor:color
-																		   WithClassTypeName:typeName];
+																		   WithClassTypeName:typeName
+																			   WithFrequency:[dictInner objectForKey:@"frequency"]];
 					slot.available = YES;
 			
 
 					[theDataObject.availableSlots addObject:slot ];
-					[theDataObject.image addSubview:slot.view];
-					[slot.view setFrame:[slot calculateDisplayProperty]];
-					slot.view.layer.borderColor = [UIColor blackColor].CGColor;
-					slot.view.layer.borderWidth = 2.0f;
-					printf("available count %d\n",[theDataObject.availableSlots count]);
 				}
 				
 			}
@@ -292,8 +305,18 @@
 				SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
 				NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 				displayInfo = [displayInfo stringByAppendingString:@" "];
-				printf("dayNumber %d\n",[[slot dayNumber]intValue]);
-				displayInfo = [displayInfo stringByAppendingString:[NSString stringWithFormat:@"%d", [[slot dayNumber] intValue]]];
+				
+				if([[slot dayNumber]intValue]==1)
+					displayInfo = [displayInfo stringByAppendingString:@"MON"];
+				else if([[slot dayNumber]intValue]==2)
+					displayInfo = [displayInfo stringByAppendingString:@"TUE"];
+				else if([[slot dayNumber]intValue]==3)
+					displayInfo = [displayInfo stringByAppendingString:@"WED"];
+				else if([[slot dayNumber]intValue]==4)
+					displayInfo = [displayInfo stringByAppendingString:@"THU"];
+				else if([[slot dayNumber]intValue]==5)
+					displayInfo = [displayInfo stringByAppendingString:@"FRI"];
+				
 				displayInfo = [displayInfo stringByAppendingString:@" "];
 				displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 				displayInfo = [displayInfo stringByAppendingString:@"-"];
@@ -310,17 +333,18 @@
 		
 	}
 	
-	for (SlotViewController* slot1 in slotViewControllers ) 
+	/*
+	for (int i=0;i<[slotViewControllers count];i++ ) 
 	{
-		for(SlotViewController* slot2 in slotViewControllers)
+		SlotViewController* slot1 = [slotViewControllers objectAtIndex:i];
+		for(int j=i+1;j<[slotViewControllers count];j++)
 		{
+			SlotViewController* slot2 = [slotViewControllers objectAtIndex:j];
 			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					slot1.view.alpha = 0.3;
-					slot2.view.alpha = 0.3;
 					for(UIView*any in [slot1.view subviews])
 						[any removeFromSuperview];
 					for (UIView*any in [slot2.view subviews])
@@ -329,8 +353,7 @@
 			}
 		}
 	}
-	
-	printf("before reload %d\n",[theDataObject.tableChoices count]);
+	*/
 	[theDataObject.table reloadData];
 }
  
@@ -349,15 +372,17 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-	[moduleCode dealloc];
-	[venue dealloc];
-	[classGroupName dealloc];
-	[startTime dealloc];
-	[endTime dealloc];
-	[moduleColor dealloc];
-	[dayNumber dealloc];
+- (void)dealloc 
+{
+	[moduleCode release];
+	[venue release];
+	[classGroupName release];
+	[startTime release];
+	[endTime release];
+	[moduleColor release];
+	[dayNumber release];
+	[classTypeName release];
+	[super dealloc];
 }
 
 
