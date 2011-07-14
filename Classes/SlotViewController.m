@@ -256,6 +256,11 @@
 		else 
 		{
 			//call Model Logic
+			UIView* rect = [[UIView alloc]initWithFrame:[theDataObject.image frame]];
+			rect.backgroundColor = [UIColor lightGrayColor];
+			rect.alpha = 0.3;
+			[theDataObject.image addSubview:rect];
+			
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
 																							   WithGroupName:[self classGroupName]];
@@ -268,6 +273,7 @@
 				NSString* groupName = [dict objectForKey:@"classGroupName"];
 				NSMutableArray* slots = [dict objectForKey:@"slots"];
 				printf("available slots %d\n",[slots count]);
+				
 				for(NSDictionary* dictInner in slots)
 				{
 					
@@ -284,6 +290,7 @@
 
 					[theDataObject.availableSlots addObject:slot ];
 				}
+				
 			}
 			
 			

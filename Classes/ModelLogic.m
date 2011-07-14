@@ -502,6 +502,7 @@ static ModelLogic* modelLogic;
 	for (NSString* code in codes) {
 		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
 		module.color = [self getNewColor];
+//		NSLog(@"get new color %@",[module color]);
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
@@ -834,7 +835,6 @@ static ModelLogic* modelLogic;
 	
     if (module)
     {
-		NSLog(@"%@",[module color]);
         return [module color];
     }
     else

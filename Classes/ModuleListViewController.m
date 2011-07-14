@@ -495,8 +495,6 @@
 		ModelLogic* modelLogic = [ModelLogic modelLogic];
 		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 		[modelLogic generateDefaultTimetableWithRequirements:nil];
-
-
 		theDataObject.continueToCalendar = NO;
 		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 		[[controller.viewControllers objectAtIndex:0]viewDidLoad];
