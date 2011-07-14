@@ -250,18 +250,37 @@
 	
 	//Lapi issue
 	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+	[requestObj setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+	[requestObj setTimeoutInterval:20.0];
 	
-	[theWeb loadRequest:requestObj];
-	theWeb.opaque = NO;
-	theWeb.backgroundColor = [UIColor clearColor];
-	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
+	[requestObj setHTTPMethod:@"POST"];
+	
+	NSString *postString = [NSString stringWithFormat:@"username=%@&password=%@", @"U0807275", @"hq.nusinml128"];
+	[requestObj setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:requestObj delegate:self];
+	NSMutableData *receivedData = [[NSMutableData alloc] initWithLength:1000];
+	if(theConnection){
+		receivedData = [[NSMutableData data] retain];
+	}else {
+		NSLog(@"Connection failed!");
+	}
+	unsigned char *buffer[1000];
+	
+	[receivedData getBytes:buffer];
+	NSLog(@"data is: %s, %s", "strange",(char *)buffer);
+	
+	//[theWeb loadRequest:requestObj];
+	//theWeb.opaque = YES;
+	//theWeb.backgroundColor = [UIColor clearColor];
+	//[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 	NSLog(@"compile Lapi connection!");
 	
 	[self.view addSubview:theWeb];
 	[self.view addSubview: scrollView];
 	[self.view addSubview:table];
-	[self.view sendSubviewToBack:theWeb];
+	[self.view bringSubviewToFront:theWeb];
 	
 	[self configureView];
 	[self configureToolBar];
@@ -272,6 +291,8 @@
 	[self alertForUpdate];
 	NSLog(@"%@", theWeb.loading ? @"YES":@"NO");
 	NSLog(@"%@", theWeb.request.URL.absoluteString);
+	
+	
 }
 
 /*
