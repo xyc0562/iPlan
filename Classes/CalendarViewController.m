@@ -28,10 +28,6 @@
 
 @synthesize scrollView;
 @synthesize theWeb;
-@synthesize displayViewController;
-@synthesize slotViewControllers;
-@synthesize tableChoices;
-@synthesize availableSlots;
 @synthesize table;
 @synthesize imageView;
 
@@ -50,8 +46,9 @@
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
-	
+	printf("default Answer %d\n",[defaultAnswer count]);
 	[scrollView addSubview:imageView];
+	theDataObject.image = self.imageView;
 
 	
 	for (NSDictionary* dict in defaultAnswer) 
@@ -72,7 +69,7 @@
 																	  WithClassGroupName:classGroupName 
 																		 WithModuleColor:color
 																	   WithClassTypeName:classTypeName];
-			[slotViewControllers addObject:slotView];
+			[theDataObject.slotViewControllers addObject:slotView];
 		}
 		
 		
@@ -87,12 +84,8 @@
 	[scrollView setContentSize:CGSizeMake(SCROLLVIEW_WIDTH, SCROLLVIEW_HEIGHT)];
 	
 		
-	for (SlotViewController* slot in slotViewControllers ) 
+	for (SlotViewController* slot in theDataObject.slotViewControllers ) 
 	{
-		slot.scroll = scrollView;
-		slot.table = table;
-		slot.tableChoices = tableChoices;
-		slot.availableSlots = availableSlots;
 		[imageView addSubview:slot.view];
 		slot.view.backgroundColor = [slot moduleColor];
 		[imageView	bringSubviewToFront:slot.view];
@@ -102,8 +95,8 @@
 		//slot.view.alpha = 0.3;
 	}
 	
-	for (SlotViewController* slot1 in slotViewControllers ) 
-		for(SlotViewController* slot2 in slotViewControllers)
+	for (SlotViewController* slot1 in theDataObject.slotViewControllers ) 
+		for(SlotViewController* slot2 in theDataObject.slotViewControllers)
 			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
@@ -117,17 +110,13 @@
 						[any removeFromSuperview];
 				}
 			}
-		
-			
-	
-	
-	
-	theDataObject.slotControllers = slotViewControllers;
 }
 
 - (void) configureToolBar
 { 	
-	if([slotViewControllers count]!=0)
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
+	if([theDataObject.slotViewControllers count]!=0)
 	{
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		NSMutableArray* active = [theDataObject activeModules];
@@ -144,7 +133,7 @@
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
-			//[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
+			//[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
 			[titleLabel setBackgroundColor:[UIColor blueColor]];
 			[titleLabel setTextColor:[UIColor whiteColor]];
 			[titleLabel setText:selectedModule];
@@ -178,6 +167,8 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
     [super viewDidLoad];
 	[self.view addSubview: scrollView];
 	scrollView.multipleTouchEnabled = YES;
@@ -201,6 +192,8 @@
 	[self.view addSubview: scrollView];
 	[self.view addSubview:table];
 	[self.view sendSubviewToBack:theWeb];
+	theDataObject.table = self.table;
+
 	
 	[self configureView];
 	[self configureToolBar];
@@ -212,21 +205,20 @@
 
 }
 
-
 - (id)initWithTabBar 
 {
 	if (self = [super initWithNibName:@"CalendarViewController" bundle:nil]) 
 	{
-		
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+
 		self.tabBarItem.image =[UIImage imageNamed:@"calendar.png"];
 		self.navigationController.title = @"nav title";
-		self.tableChoices = [[NSMutableArray alloc]init];
-		self.slotViewControllers = [[NSMutableArray alloc]init];
 		self.imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"timetable with days.png"]];
 		self.imageView.frame =  CGRectMake(TIMETABLE_X,TIMETABLE_Y,TIMETABLE_W,TIMETABLE_H);
 		self.imageView.multipleTouchEnabled = YES;
 		self.imageView.userInteractionEnabled = YES;
-		self.availableSlots = [[NSMutableArray alloc]init];
+		theDataObject.table = self.table;
+		theDataObject.image = self.imageView;
 	}
 	return self;
 }
@@ -247,8 +239,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
     // Return the number of rows in the section.
-
-		return [tableChoices count]+1;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	printf("table row %d\n",[theDataObject.tableChoices count]);
+	return [theDataObject.tableChoices count]+1;
 }
 
 
@@ -256,9 +249,11 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
     NSString *CellIdentifier = [@"Cell" stringByAppendingFormat:@"%d",indexPath.row];
-	if([tableChoices count]!=0)
-	CellIdentifier = [CellIdentifier stringByAppendingString:[tableChoices objectAtIndex:[tableChoices count]-1]];
+	if([theDataObject.tableChoices count]!=0)
+	CellIdentifier = [CellIdentifier stringByAppendingString:[theDataObject.tableChoices objectAtIndex:[theDataObject.tableChoices count]-1]];
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) 
@@ -269,28 +264,28 @@
 
 	
     // Configure the cell...
-	if([tableChoices count]==0)
+	if([theDataObject.tableChoices count]==0)
 		cell.textLabel.text = @"Only One Slot Avaiable";
 	
 	else
 	{
 		
 		NSUInteger row = [indexPath row]-1;
-		if(row!=-1&&row!=[tableChoices count]-1)
-		cell.textLabel.text = [tableChoices objectAtIndex:row];
+		if(row!=-1&&row!=[theDataObject.tableChoices count]-1)
+		cell.textLabel.text = [theDataObject.tableChoices objectAtIndex:row];
 		
 		
 		
 		//DISPLAY CLASH CHOICES
 				
 		//DISPLAY AVALIABLE SLOTS
-		if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:SLOTS])
+		if([[theDataObject.tableChoices objectAtIndex:[theDataObject.tableChoices count]-1]isEqualToString:SLOTS])
 		{
 			if(row==-1)
 			{	
 				cell.textLabel.text = @"Other available slots";
 			}
-			else if(row!=[tableChoices count]-1)
+			else if(row!=[theDataObject.tableChoices count]-1)
 			{	
 				UIImage *image =  [UIImage imageNamed:@"refresh.png"];
 				UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -307,7 +302,7 @@
 			}
 		}
 		
-		else if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:CLASH])
+		else if([[theDataObject.tableChoices objectAtIndex:[theDataObject.tableChoices count]-1]isEqualToString:CLASH])
 		{
 			if(row==-1)
 			{
@@ -324,13 +319,14 @@
 
 - (void) refreshButtonTapped:(id)sender event:(id)event
 {
-	
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
 	NSSet *touches = [event allTouches];
 	UITouch *touch = [touches anyObject];
 	CGPoint currentTouchPosition = [touch locationInView:table];
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
-	SlotViewController* select = [availableSlots objectAtIndex:indexPath.row-1];
-	for(SlotViewController* slot in availableSlots)
+	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
+	for(SlotViewController* slot in theDataObject.availableSlots)
 	{
 		[slot.view removeFromSuperview];
 	}
@@ -338,49 +334,51 @@
 	//remove from slotviewcontrollers
 	//remove previous selected
 	
-	for (int i =0;i<[slotViewControllers count];i++) 
+	for (int i =0;i<[theDataObject.slotViewControllers count];i++) 
 	{
-		SlotViewController* slot = [slotViewControllers objectAtIndex:i];
+		SlotViewController* slot = [theDataObject.slotViewControllers objectAtIndex:i];
 		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName])
 		{
 			[slot.view removeFromSuperview];
-			[slotViewControllers removeObjectAtIndex:i];
+			[theDataObject.slotViewControllers removeObjectAtIndex:i];
 		}
 	}
 	
 	
 	//add in new slots selected
-	for(SlotViewController* slot in availableSlots)
+	for(SlotViewController* slot in theDataObject.availableSlots)
 	{
 		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
 		{
-			[slotViewControllers addObject:slot];
+			[theDataObject.slotViewControllers addObject:slot];
 		}
 	}
 	
 	
 
 	//refresh whole table to set to original color
-	for(SlotViewController* slot in slotViewControllers)
+	for(SlotViewController* slot in theDataObject.slotViewControllers)
 	{
 		[slot.view removeFromSuperview];
 		[imageView addSubview:slot.view];
-		slot.view.backgroundColor = [slot moduleColor];
+		slot.moduleColor = [[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
+		slot.view.backgroundColor = slot.moduleColor;
 		slot.view.multipleTouchEnabled = YES;
 		slot.view.userInteractionEnabled = YES;
 		[slot.view setFrame:[slot calculateDisplayProperty]];
 	}
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.selectSlot = nil;
-	[tableChoices removeAllObjects];
-	[availableSlots removeAllObjects];
+	[theDataObject.tableChoices removeAllObjects];
+	[theDataObject.availableSlots removeAllObjects];
 	[table reloadData];
 }
 
 - (void)getAvailableSlotsWithSlot:(SlotViewController*)slot
 {
-	[tableChoices removeAllObjects];
-	[availableSlots removeAllObjects];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
+	[theDataObject.tableChoices removeAllObjects];
+	[theDataObject.availableSlots removeAllObjects];
 	NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[slot moduleCode]
 																				  WithClassTypeIndex:[slot classTypeName]
 																					   WithGroupName:[slot classGroupName]];
@@ -403,13 +401,13 @@
 																  WithClassGroupName:groupName 
 																	 WithModuleColor:color
 																   WithClassTypeName:typeName];
-			[availableSlots addObject:slot];
+			[theDataObject.availableSlots addObject:slot];
 		}
 	}
 	
-	for(int i=0;i<[availableSlots count];i++)
+	for(int i=0;i<[theDataObject.availableSlots count];i++)
 	{
-		SlotViewController* slot = [availableSlots objectAtIndex:i];
+		SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
 		NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 		displayInfo = [displayInfo stringByAppendingString:@" "];
 		displayInfo = [displayInfo stringByAppendingString:[[slot dayNumber]stringValue]];
@@ -417,25 +415,27 @@
 		displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@"-"];
 		displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
-		[tableChoices addObject:displayInfo];
+		[theDataObject.tableChoices addObject:displayInfo];
 	}
 	
-	if([availableSlots count]!=0)
-		[tableChoices addObject:SLOTS];
+	if([theDataObject.availableSlots count]!=0)
+		[theDataObject.tableChoices addObject:SLOTS];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	if([tableChoices count]!=0)
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+
+	if([theDataObject.tableChoices count]!=0)
 	{
 		//Handle Available Slot
-		if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:SLOTS])
+		if([[theDataObject.tableChoices objectAtIndex:[theDataObject.tableChoices count]-1]isEqualToString:SLOTS])
 		{
-			for(SlotViewController* slot in availableSlots)
+			for(SlotViewController* slot in theDataObject.availableSlots)
 			{
 				[slot.view removeFromSuperview];
 			}
 			int row = indexPath.row-1;
-			SlotViewController* slot = [availableSlots objectAtIndex:row];
+			SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:row];
 			[imageView addSubview:slot.view];
 			slot.view.frame = [slot calculateDisplayProperty];
 			slot.view.backgroundColor = [UIColor darkGrayColor];
@@ -466,13 +466,12 @@
 		}
 		
 		//Handle Clash
-		else if([[tableChoices objectAtIndex:[tableChoices count]-1]isEqualToString:CLASH])
+		else if([[theDataObject.tableChoices objectAtIndex:[theDataObject.tableChoices count]-1]isEqualToString:CLASH])
 		{
-			SharedAppDataObject* theDataObject = [self theAppDataObject];
 			SlotViewController* slotSelect = [theDataObject selectSlot];
 			int row = indexPath.row - 1;
 			int count = 0;
-			for (SlotViewController* slot in slotViewControllers) 
+			for (SlotViewController* slot in theDataObject.slotViewControllers) 
 			{
 				if ([slot.dayNumber intValue]==[slotSelect.dayNumber intValue]&&slot!=slotSelect) 
 				{
@@ -528,8 +527,6 @@
 - (void)dealloc {
 	[scrollView release];
 	[theWeb release];
-	[displayViewController release];
-	[availableSlots release];
     [super dealloc];
 }
 

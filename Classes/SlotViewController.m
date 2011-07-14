@@ -23,12 +23,8 @@
 @synthesize	moduleColor;
 @synthesize dayNumber;
 @synthesize displayProperty;
-@synthesize scroll;
-@synthesize displayView;
-@synthesize tableChoices;
-@synthesize table;
 @synthesize classTypeName;
-@synthesize availableSlots;
+@synthesize available;
 
 - (SharedAppDataObject*) theAppDataObject{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -118,6 +114,7 @@
 		self.classTypeName = classtype;
 		self.view.multipleTouchEnabled = YES;
 		self.view.userInteractionEnabled = YES;
+		self.available = NO;
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 		[self.view addGestureRecognizer:tap];
 		[tap release];
@@ -159,28 +156,41 @@
 - (void)handleTap:(UIGestureRecognizer *)gestureRecognizer 
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* slotControllers = theDataObject.slotControllers;
+	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
 	SlotViewController* slot = [theDataObject selectSlot];
-	
+
+	if(available)
+	{
+	}
+	else 
+	{
+		for(int i=0;i<[theDataObject.availableSlots count];i++)
+		{
+			
+			SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
+			[slot.view removeFromSuperview];
+		}
+	}
+
 	//restore selection
 	if ([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName]) 
 	{
 		
-		for(SlotViewController* slot in slotControllers)
+		for(SlotViewController* slot in slotViewControllers)
 		{
 			slot.view.layer.borderColor = [UIColor clearColor].CGColor;
 			slot.view.layer.borderWidth = 0.0f;
 		}
 		theDataObject.selectSlot = nil;
-		[tableChoices removeAllObjects];
-		[availableSlots removeAllObjects];
+		[theDataObject.tableChoices removeAllObjects];
+		[theDataObject.availableSlots removeAllObjects];
 		
 	}
 	
 	//selection start
 	else
 	{
-		for(SlotViewController* slot in slotControllers)
+		for(SlotViewController* slot in slotViewControllers)
 		{
 			if([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName])
 			{
@@ -196,11 +206,10 @@
 
 		}
 		
-		[tableChoices removeAllObjects];
-		[availableSlots removeAllObjects];
+		[theDataObject.tableChoices removeAllObjects];
 		
 		//check for clashes
-		for (SlotViewController* slot in slotControllers) 
+		for (SlotViewController* slot in slotViewControllers) 
 		{
 			if ([slot.dayNumber intValue]==[self.dayNumber intValue]&&slot!=self) 
 			{
@@ -210,28 +219,32 @@
 					NSString* displayInfo = [NSString stringWithString:slot.moduleCode];
 					displayInfo = [displayInfo stringByAppendingString:@" "];
 					displayInfo = [displayInfo stringByAppendingString:slot.classGroupName];
-					[tableChoices addObject:displayInfo];
+					[theDataObject.tableChoices addObject:displayInfo];
 				}
 
 			}
 		}
 		
-		if([tableChoices count]>0)
+		[theDataObject.availableSlots removeAllObjects];
+
+		
+		if([theDataObject.tableChoices count]>0)
 		{
 			NSString* displayInfo = [NSString stringWithString:self.moduleCode];
 			displayInfo = [displayInfo stringByAppendingString:@" "];
 			displayInfo = [displayInfo stringByAppendingString:self.classGroupName];
-			[tableChoices addObject:displayInfo];
-			[tableChoices addObject:CLASH];
+			[theDataObject.tableChoices addObject:displayInfo];
+			[theDataObject.tableChoices addObject:CLASH];
 		}
 		
+
 		else 
 		{
 			//call Model Logic
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
 																							   WithGroupName:[self classGroupName]];
-			printf("available count %d\n",[availableAnswer count]);
+			printf("available ans %d\n",[availableAnswer count]);
 		
 			for (NSDictionary* dict in availableAnswer) 
 			{
@@ -245,24 +258,31 @@
 				{
 					
 					SlotViewController* slot = [[SlotViewController alloc]initWithModuleCode:code 
-																					   WithVenue:[dictInner objectForKey:@"venue"]
-																				   WithStartTime:[dictInner objectForKey:@"startTime"]
-																					 WithEndTime:[dictInner objectForKey:@"endTime"]
-																						 WithDay:[dictInner objectForKey:@"day"]
-																			  WithClassGroupName:groupName 
-																				 WithModuleColor:color
-																			   WithClassTypeName:typeName];
-	
-					[availableSlots addObject:slot];
-					//printf("dayNumber %d\n",[[slot dayNumber]intValue]);
+																				   WithVenue:[dictInner objectForKey:@"venue"]
+																			   WithStartTime:[dictInner objectForKey:@"startTime"]
+																				 WithEndTime:[dictInner objectForKey:@"endTime"]
+																					 WithDay:[dictInner objectForKey:@"day"]
+																		  WithClassGroupName:groupName 
+																			 WithModuleColor:color
+																		   WithClassTypeName:typeName];
+					slot.available = YES;
+			
+
+					[theDataObject.availableSlots addObject:slot ];
+					[theDataObject.image addSubview:slot.view];
+					[slot.view setFrame:[slot calculateDisplayProperty]];
+					slot.view.layer.borderColor = [UIColor blackColor].CGColor;
+					slot.view.layer.borderWidth = 2.0f;
+					printf("available count %d\n",[theDataObject.availableSlots count]);
 				}
 			}
 			
 			
 			
-			for(int i=0;i<[availableSlots count];i++)
+			for(int i=0;i<[theDataObject.availableSlots count];i++)
 			{
-				SlotViewController* slot = [availableSlots objectAtIndex:i];
+				
+				SlotViewController* slot = [theDataObject.availableSlots objectAtIndex:i];
 				NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 				displayInfo = [displayInfo stringByAppendingString:@" "];
 				printf("dayNumber %d\n",[[slot dayNumber]intValue]);
@@ -271,11 +291,11 @@
 				displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 				displayInfo = [displayInfo stringByAppendingString:@"-"];
 				displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
-				[tableChoices addObject:displayInfo];
+				[theDataObject.tableChoices addObject:displayInfo];
 			}
 			
-			if([tableChoices count]!=0)
-				[tableChoices addObject:SLOTS];
+			if([theDataObject.tableChoices count]!=0)
+				[theDataObject.tableChoices addObject:SLOTS];
 			
 		}
 
@@ -283,8 +303,10 @@
 		
 	}
 	
-	for (SlotViewController* slot1 in slotControllers ) 
-		for(SlotViewController* slot2 in slotControllers)
+	for (SlotViewController* slot1 in slotViewControllers ) 
+	{
+		for(SlotViewController* slot2 in slotViewControllers)
+		{
 			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
@@ -298,7 +320,11 @@
 						[any removeFromSuperview];
 				}
 			}
-	[table reloadData];
+		}
+	}
+	
+	printf("before reload %d\n",[theDataObject.tableChoices count]);
+	[theDataObject.table reloadData];
 }
  
 
@@ -318,8 +344,6 @@
 
 - (void)dealloc {
     [super dealloc];
-	[scroll dealloc];
-	[displayView dealloc];
 	[moduleCode dealloc];
 	[venue dealloc];
 	[classGroupName dealloc];

@@ -23,10 +23,13 @@
 @synthesize moduleCells;
 @synthesize removedCells;
 @synthesize selectSlot;
-@synthesize slotControllers;
+@synthesize slotViewControllers;
 @synthesize needUpdate;
 @synthesize continueToCalendar;
-
+@synthesize tableChoices;
+@synthesize availableSlots;
+@synthesize table;
+@synthesize image;
 #pragma mark -
 #pragma mark -Memory management
 
@@ -37,7 +40,9 @@
 		requirements = [[NSMutableArray alloc] init];
 		moduleCells = [[NSMutableDictionary alloc] init];
 		removedCells = [[NSMutableDictionary alloc] init];
-		slotControllers =[[NSMutableArray alloc]init];
+		slotViewControllers =[[NSMutableArray alloc]init];
+		tableChoices = [[NSMutableArray alloc]init];
+		availableSlots = [[NSMutableArray alloc]init];
 		zoomed = NO;
 		selectSlot = nil;
 		needUpdate = NO;
@@ -57,7 +62,7 @@
 	[requirements release];
 	[moduleCells release];
 	[removedCells release];
-	[slotControllers release];
+	[slotViewControllers release];
 	[requirements release];
 	[selectSlot release];
 	[super dealloc];

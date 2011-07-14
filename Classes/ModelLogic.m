@@ -822,6 +822,20 @@ static ModelLogic* modelLogic;
     return YES;
 }
 
+- (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
+{
+	Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
+	
+    if (module)
+    {
+        return [module color];
+    }
+    else
+    {
+        return nil;
+    }
+	
+}
 
 -(void)dealloc
 {

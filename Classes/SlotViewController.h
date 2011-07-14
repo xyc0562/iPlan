@@ -19,8 +19,7 @@
 	NSString* classTypeName;
 	UIColor* moduleColor;
 	CGRect displayProperty;
-	int index;
-	int groupIndex;
+	BOOL available;
 }
 
 @property (nonatomic,retain)NSString* moduleCode;
@@ -31,13 +30,9 @@
 @property (nonatomic,retain)UIColor* moduleColor;
 @property (nonatomic,retain)NSNumber* dayNumber;
 @property (nonatomic,readonly)CGRect displayProperty;
-@property (nonatomic,retain)UIScrollView* scroll;
-@property (nonatomic,retain)UIView* displayView;
-@property (nonatomic,retain)UITableView* table;
-
-@property (nonatomic,retain)NSMutableArray* tableChoices;
 @property (nonatomic,retain)NSString* classTypeName;
-@property (nonatomic,retain)NSMutableArray* availableSlots;
+@property (nonatomic,assign)BOOL available;
+
 
 - (id)initWithModuleCode:(NSString *)code 
 			   WithVenue:(NSString*)place
