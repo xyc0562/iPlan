@@ -567,7 +567,15 @@ static ModelLogic* modelLogic;
 			NSNumber* endTime = [NSNumber numberWithInt:eTime];
 			[slotDict setValue:startTime forKey:@"startTime"];
 			[slotDict setValue:endTime forKey:@"endTime"];
-
+			int frequency = 0;
+			for (NSString* eachWeek in [slot frequency]) 
+			{
+				frequency = frequency<<1;
+				if (eachWeek == @"YES") frequency++;
+			}
+			NSNumber* freq = [NSNumber numberWithInt:frequency];
+			NSLog(@"freq%@",[freq stringValue]);
+			[slotDict setValue:freq forKey:@"frequency"];
 			[slotInfo addObject:slotDict];
 		}
 		[resultDict setValue:slotInfo forKey:@"slots"];
@@ -842,13 +850,6 @@ static ModelLogic* modelLogic;
     {
         return nil;
     }
-	
-}
-
-- (BOOL)checkClashedModulesFrequencyWithCode:(NSString*)code1 AndCode:(NSString*)code2
-{
-	Module* module1 = [self getOrCreateAndGetModuleInstanceByCode:code1];
-	Module* module2 = [self getOrCreateAndGetModuleInstanceByCode:code2];
 	
 }
 

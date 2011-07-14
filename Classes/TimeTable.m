@@ -425,7 +425,6 @@
 {
 	int dayIndex = 0, i, k;
 	NSNumber *occupied = [NSNumber numberWithInt:1];
-	printf("%dreqs",[requirements count]);
 	for (NSMutableArray* eachDayReq in requirements) 
 	{
 		for (k=0; k<=14; k++) 
