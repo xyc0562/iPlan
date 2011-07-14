@@ -111,18 +111,18 @@ static ModelLogic* modelLogic;
     return self;
 }
 
-//-(id)init:(TimeTable*)table
-//{
-//    [super init];
-//    if(super !=nil)
-//    {
-//        if (!moduleObjectsDict)
-//        {
-//            self.moduleObjectsDict = [NSMutableDictionary dictionary];
-//        }
-//    }
-//    return self;
-//}
+-(id)init
+{
+    [super init];
+    if(super !=nil)
+    {
+        if (!moduleObjectsDict)
+        {
+            self.moduleObjectsDict = [NSMutableDictionary dictionary];
+        }
+    }
+    return self;
+}
     
 - (NSArray*) getAllModuleCodes
 {
@@ -502,6 +502,7 @@ static ModelLogic* modelLogic;
 	for (NSString* code in codes) {
 		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
 		module.color = [self getNewColor];
+//		NSLog(@"get new color %@",[module color]);
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
@@ -522,6 +523,12 @@ static ModelLogic* modelLogic;
 - (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
 {
 	[timeTable planOneTimetableWithRequirements:requirements];
+}
+
+- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+{
+	NSMutableArray* result = [timeTable copyClassTypeArray:[timeTable result]];
+	[timeTable planOneTimetableWithRequirements:requirements WithResult:result];
 }
 
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
@@ -605,7 +612,9 @@ static ModelLogic* modelLogic;
 				
 				[slotInfo addObject:slotDict];
 			}
-		[otherAvailableGroups addObject:resultDict];
+			//printf("available slots in model logic %d\n",[slotInfo count]);
+			[resultDict setValue:slotInfo forKey:@"slots"];
+			[otherAvailableGroups addObject:resultDict];
 		}
 		
 		classGroupIndex++;
@@ -820,6 +829,21 @@ static ModelLogic* modelLogic;
     return YES;
 }
 
+- (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
+{
+	Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
+	
+    if (module)
+    {
+//		NSLog(@"%@",[module color]);
+        return [module color];
+    }
+    else
+    {
+        return nil;
+    }
+	
+}
 
 -(void)dealloc
 {

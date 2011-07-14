@@ -28,4 +28,4 @@
 
 #define MODULE_EXAM_NO_EXAM @"No Exam Date."
 
-#define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor blackColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]
+#define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor lightGrayColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]

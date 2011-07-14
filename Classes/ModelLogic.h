@@ -30,6 +30,8 @@
 
 -(id)initWithTimeTable:(TimeTable*)table;
 
+-(id)init;
+
 - (NSString*) getDescriptionFromModule:(NSString*)code;
 
 - (NSString*) isExaminableFromModule:(NSString*)code;
@@ -67,8 +69,10 @@
 // effects: nothing returned but will store the defaultTimetable inside model logic
 
 - (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
-// requires: a 7X2 array which indicates if the user like to have no class on certain time
+// requires: a 7X2 array which indicates if the user like to have no class on certain time   requirements can be nil
 // effects: nothing returned but will store the defaultTimetable with requirements inside model logic
+
+- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
 
 // Not useful, the xml only has examinable to be "-"
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits;
@@ -106,6 +110,7 @@
 - (UIColor*)getNewColor;
 - (void)resetColorIndex;
 - (BOOL)exportTimetableToiCalendar;
+- (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
 +(id)modelLogic;
 @end

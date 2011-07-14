@@ -144,14 +144,68 @@
 
 -(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements
 {
-	NSMutableArray* ClassTypeArray = [self constructClassTypeArrayWithModules];
+	NSMutableArray* classTypeArray = [self constructClassTypeArrayWithModules];
 	NSMutableArray* timeTable = [self constructInitialTimeTable];
-	[self updateTimeTable:&timeTable WithRequirements:requirements];
+	if (requirements) [self updateTimeTable:&timeTable WithRequirements:requirements];
 	if ([self getOneTimeTableWithIndex:(int)0
-					WithClassTypeArray:&ClassTypeArray
+					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
 		printf("success\n");
-	self.result = ClassTypeArray;
+	self.result = classTypeArray;
+}
+
+-(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements WithResult:(NSMutableArray*)lastResult
+{
+	int i, groupIndex;
+	NSMutableArray* classTypeArray = [self constructClassTypeArrayWithModules];
+	NSMutableArray* timeTable = [self constructInitialTimeTable];
+	if (requirements) [self updateTimeTable:&timeTable WithRequirements:requirements];
+	
+	for (i = 0; i < [classTypeArray count]; i++) 
+	{
+		NSMutableArray* classGroups =[self getClassGroupsWithClassTypeArray:classTypeArray WithIndex:i];
+		if (i!=0)
+		{
+			[[classTypeArray objectAtIndex:i-1]removeObjectAtIndex:2];
+			[[classTypeArray objectAtIndex:i-1]insertObject:[[lastResult objectAtIndex:i-1]objectAtIndex:2] atIndex:2];
+			[self addGroup:[classGroups objectAtIndex:[[[lastResult objectAtIndex:i-1]objectAtIndex:2]intValue]] WithTimeTable:&timeTable];
+		}
+		NSMutableArray* newClassTypeArray = [self copyClassTypeArray:classTypeArray];
+		NSMutableArray* newTimeTable = [self constructNewTimeTableBasedOnTimeTable:timeTable];
+
+		for (groupIndex = [[[lastResult objectAtIndex:i]objectAtIndex:2]intValue]+1 ; groupIndex < [classGroups count] ; groupIndex++) 
+		{
+			if ([self checkPossibilityWithCurrentTimeTable:timeTable 
+										  WithCurrentIndex:i 
+									   WithAddInClassGroup:[classGroups objectAtIndex:groupIndex]
+										WithClassTypeArray:classTypeArray])
+			{
+				[self addGroup:[classGroups objectAtIndex:groupIndex] WithTimeTable:&newTimeTable];
+				[self addGroupWithGroupIndex:groupIndex 
+							WithCurrentIndex:i
+						  WithClassTypeArray:&newClassTypeArray];
+				
+				if ([self getOneTimeTableWithIndex:i+1
+								WithClassTypeArray:&newClassTypeArray
+									 WithTimeTable:&newTimeTable]) 
+				{
+					[classTypeArray release];
+					[timeTable release];
+					classTypeArray = newClassTypeArray;
+					timeTable = newTimeTable;
+					//update timeTable
+					self.result = classTypeArray;
+					return;
+				}
+			}
+			
+		}
+	}
+	if ([self getOneTimeTableWithIndex:(int)0
+					WithClassTypeArray:&classTypeArray
+						 WithTimeTable:&timeTable])
+		printf("success\n");
+	self.result = classTypeArray;
 }
 							
 -(BOOL)getOneTimeTableWithIndex:(int)index
@@ -371,13 +425,14 @@
 {
 	int dayIndex = 0, i, k;
 	NSNumber *occupied = [NSNumber numberWithInt:1];
+	printf("%dreqs",[requirements count]);
 	for (NSMutableArray* eachDayReq in requirements) 
 	{
 		for (k=0; k<=14; k++) 
 		{
 			NSMutableArray* week = [*timeTable objectAtIndex:k];
 			NSMutableArray* day = [week objectAtIndex:dayIndex];
-			if ([eachDayReq objectAtIndex:0])
+			if ([[eachDayReq objectAtIndex:0]isEqualToString:@"NO"])
 			{
 				for (i=0; i<24; i++) 
 				{
@@ -385,7 +440,7 @@
 					[day insertObject:occupied atIndex:i];
 				}
 			}
-			if ([eachDayReq objectAtIndex:1])
+			if ([[eachDayReq objectAtIndex:1]isEqualToString:@"NO"])
 			{
 				for (i=24; i<48; i++) 
 				{

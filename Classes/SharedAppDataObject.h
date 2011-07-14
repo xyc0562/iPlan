@@ -18,10 +18,14 @@
 	NSMutableArray *requirements;
 	NSMutableDictionary *moduleCells;
 	NSMutableDictionary *removedCells;
-	BOOL zoomed;
 	SlotViewController* selectSlot;
-	NSMutableArray* slotControllers;
+	NSMutableArray* slotViewControllers;
+	NSMutableArray* availableSlots;
+	NSMutableArray* tableChoices;
 	BOOL needUpdate;
+	BOOL continueToCalendar;
+	UITableView* table;
+	UIImageView* image;
 }
 
 @property (nonatomic, copy) NSString *settingsIdentity;
@@ -34,8 +38,14 @@
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
 @property (nonatomic, assign) BOOL zoomed;
 @property (nonatomic, assign) SlotViewController* selectSlot;
-@property (nonatomic, retain) NSMutableArray* slotControllers;
+@property (nonatomic, retain) NSMutableArray* slotViewControllers;
 @property (nonatomic, assign) BOOL needUpdate;
+@property (nonatomic, assign) BOOL continueToCalendar;
+@property (nonatomic, retain) NSMutableArray* availableSlots;
+@property (nonatomic, retain) NSMutableArray* tableChoices;
+@property (nonatomic, retain) UITableView* table;
+@property (nonatomic, retain) UIImageView* image;
+
 
 
 @end
