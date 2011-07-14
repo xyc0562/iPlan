@@ -75,8 +75,6 @@
 			[theDataObject.slotViewControllers addObject:slotView];
 			[slotView release];
 		}
-		
-		
 	}
 	
 	
@@ -93,25 +91,37 @@
 		[imageView addSubview:slot.view];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
+		[slot setBackGroundColorWithCondition:NORMAL];
+		[slot setLabelContentWithCondition:NORMAL];
 		slot.view.userInteractionEnabled = YES;
 		slot.view.multipleTouchEnabled = YES;
 	}
 	
-	for (SlotViewController* slot1 in theDataObject.slotViewControllers ) 
-		for(SlotViewController* slot2 in theDataObject.slotViewControllers)
-			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+	//set UI display for clash modules
+	for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
+	{
+		SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
+		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		{
+			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					slot1.view.alpha = 0.3;
-					slot2.view.alpha = 0.3;
 					for(UIView*any in [slot1.view subviews])
 						[any removeFromSuperview];
 					for (UIView*any in [slot2.view subviews])
 						[any removeFromSuperview];
+					[slot1 setBackGroundColorWithCondition:CLASH];
+					[slot2 setBackGroundColorWithCondition:CLASH];
+					[slot1 setLabelContentWithCondition:CLASH];
+					[slot2 setLabelContentWithCondition:CLASH];
 				}
 			}
+		}
+	}
+	
 }
 
 - (void) configureToolBar
@@ -136,7 +146,6 @@
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
 			[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
-			//[titleLabel setBackgroundColor:[UIColor blueColor]];
 			[titleLabel setTextColor:[UIColor whiteColor]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
@@ -239,48 +248,10 @@
 	[self configureToolBar];
 	
 	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
+	table.bounces = NO;
 	[table reloadData];
 	// ZY: alert for update the xml file or not
 	[self alertForUpdate];
-}
-
-- (void)refresh {
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	
-    [super viewDidLoad];
-	[self.view addSubview: scrollView];
-	scrollView.multipleTouchEnabled = YES;
-	scrollView.userInteractionEnabled = YES;
-	scrollView.frame = CGRectMake(SCROLL_X, SCROLL_Y, SCROLL_W, SCROLL_H);
-	scrollView.bounces = NO;
-	scrollView.showsVerticalScrollIndicator = YES;
-	scrollView.showsHorizontalScrollIndicator = YES;
-	
-	//Lapi issue
-	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-	
-	[theWeb loadRequest:requestObj];
-	theWeb.opaque = NO;
-	theWeb.backgroundColor = [UIColor clearColor];
-	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	
-	
-	[self.view addSubview:theWeb];
-	[self.view addSubview: scrollView];
-	[self.view addSubview:table];
-	[self.view sendSubviewToBack:theWeb];
-	theDataObject.table = self.table;
-	
-	
-	[self configureView];
-	[self configureToolBar];
-	
-	table.frame = CGRectMake(TABLE_X, TABLE_Y, TABLE_W,TABLE_H);
-	[table reloadData];
-	// ZY: alert for update the xml file or not
-	[self alertForUpdate];
-	
 }
 
 
