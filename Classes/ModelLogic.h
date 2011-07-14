@@ -30,6 +30,8 @@
 
 -(id)initWithTimeTable:(TimeTable*)table;
 
+-(id)init;
+
 - (NSString*) getDescriptionFromModule:(NSString*)code;
 
 - (NSString*) isExaminableFromModule:(NSString*)code;

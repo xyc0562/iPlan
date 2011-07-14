@@ -111,18 +111,18 @@ static ModelLogic* modelLogic;
     return self;
 }
 
-//-(id)init:(TimeTable*)table
-//{
-//    [super init];
-//    if(super !=nil)
-//    {
-//        if (!moduleObjectsDict)
-//        {
-//            self.moduleObjectsDict = [NSMutableDictionary dictionary];
-//        }
-//    }
-//    return self;
-//}
+-(id)init
+{
+    [super init];
+    if(super !=nil)
+    {
+        if (!moduleObjectsDict)
+        {
+            self.moduleObjectsDict = [NSMutableDictionary dictionary];
+        }
+    }
+    return self;
+}
     
 - (NSArray*) getAllModuleCodes
 {
@@ -502,6 +502,7 @@ static ModelLogic* modelLogic;
 	for (NSString* code in codes) {
 		Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
 		module.color = [self getNewColor];
+//		NSLog(@"get new color %@",[module color]);
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
@@ -834,6 +835,7 @@ static ModelLogic* modelLogic;
 	
     if (module)
     {
+//		NSLog(@"%@",[module color]);
         return [module color];
     }
     else
