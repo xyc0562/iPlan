@@ -197,6 +197,10 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	for (UIView* any in [self.view subviews]) 
+	{
+		[any removeFromSuperview];
+	}
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
     [super viewDidLoad];
