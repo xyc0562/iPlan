@@ -44,5 +44,7 @@
 	   WithClassTypeName:(NSString*)classtype;
 
 -(CGRect)calculateDisplayProperty;
+- (void)setBackGroundColorWithCondition:(NSString*)condition;
+- (void)setLabelContentWithCondition:(NSString*)condition;
 
 @end
