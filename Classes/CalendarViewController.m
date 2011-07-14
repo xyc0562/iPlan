@@ -16,6 +16,8 @@
 // import parser to check
 #import "ModuleXMLParser.h"
 
+
+#define TIMER_DURATION 0.0
 #define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
 
 
@@ -30,7 +32,7 @@
 @synthesize theWeb;
 @synthesize table;
 @synthesize imageView;
-
+@synthesize spinner;
 
 - (SharedAppDataObject*) theAppDataObject{
 	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -149,10 +151,29 @@
 	
 }
 
+- (void)spinningViewLoad {
+	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
+	// TODO: !!!
+	//NSLog(@"spinning load");
+	[spinner stopAnimating];
+	[spinner removeFromSuperview];
+	[spinner release];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
 	if ([button isEqual:@"Update"]){
-		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
+		//NSLog(@"alert view update called");
+		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		spinner.frame = CGRectMake(140, 130, 50, 50);
+		[self.view addSubview:spinner];
+		[spinner startAnimating];
+		[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION
+										 target:self
+									   selector:@selector(spinningViewLoad)
+									   userInfo:nil
+										repeats:NO];
+		//NSLog(@"alert view ended");
 	}
 }
 

@@ -17,12 +17,14 @@
 	IBOutlet UITableView* table;
 	IBOutlet UIWebView* theWeb;
 	UIImageView* imageView;
+	UIActivityIndicatorView *spinner;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, retain) IBOutlet UIWebView* theWeb;
 @property (nonatomic, retain) IBOutlet UITableView* table;
 @property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, retain) UIActivityIndicatorView *spinner;
 
 -(id)initWithTabBar;
 

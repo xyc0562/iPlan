@@ -71,7 +71,9 @@
 	
 	// get the xml from the web
 	NSURL *url = [NSURL URLWithString:@"http://cors.i-cro.net/cors.xml"];
-	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url];  // Load XML data from web
+	NSError *errorPtr1 = nil;
+	NSError *errorPtr2 = nil;
+	NSData *dataFromWeb = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&errorPtr1];  // Load XML data from web
 	
 	// construct path within our documents directory
 	NSString *storePath = [[NSBundle mainBundle] pathForResource:@"cors" ofType:@"xml"];
@@ -79,16 +81,16 @@
 	NSString *plistPath = [[applicationDocumentsDir stringByAppendingString:@"/"] stringByAppendingString:MODULE_DOCUMENT_NAME];
 	
 	// get the xml from the file
-	NSData *dataFromFile = [NSData dataWithContentsOfFile:storePath];
+	NSData *dataFromFile = [NSData dataWithContentsOfFile:storePath options:NSDataReadingUncached error:&errorPtr2];
 	
-	// the first time the user opens the application and doesn't have network connection, create for them
+	// the first time the user opens the application and doesn't have network connection or problematic network connection, create for them
 	NSFileManager * fm = [NSFileManager defaultManager];
-	if (![fm fileExistsAtPath:plistPath] && dataFromWeb != nil)
+	if (![fm fileExistsAtPath:plistPath] && (dataFromWeb != nil || errorPtr1 != nil))
 	{
 		ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];
 	}
 	
-	if (dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
+	if (errorPtr1 == nil && dataFromWeb !=nil && ![dataFromWeb isEqualToData:dataFromFile]){
 		// need to replace the old xml with new one and call parser
 		// write to file atomically (using temp file)
 		[dataFromWeb writeToFile:storePath atomically:TRUE];
@@ -196,27 +198,23 @@
  */
 	
 // model logic test
-	
-	[[theAppDataObject basket]addObject:@"MA1104"];
-	[[theAppDataObject basket]addObject:@"EC1301"];
-	[[theAppDataObject basket]addObject:@"EG2401"];
-	[[theAppDataObject activeModules]addObject:@"MA1104"];
-	[[theAppDataObject activeModules]addObject:@"EC1301"];
-	[[theAppDataObject activeModules]addObject:@"EG2401"];
-	NSMutableArray* codes = [theAppDataObject basket];
-	ModelLogic* modelLogic = [ModelLogic modelLogic];
-	[modelLogic syncModulesWithBasket:codes];
-	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
-	[modelLogic generateDefaultTimetable];
-	
-	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
-	for (NSMutableDictionary* info in infos)
-	{
-		NSString* mcode = [info valueForKey:@"moduleCode"];
-		UIColor* mcolor = [info valueForKey:@"color"];
-		NSLog(@"result%@ %@", mcode, mcolor);
-	}
-	
+//	[[theAppDataObject basket]addObject:@"MA1104"];
+//	[[theAppDataObject basket]addObject:@"EC1301"];
+//	[[theAppDataObject basket]addObject:@"EG2401"];
+//	NSMutableArray* codes = [theAppDataObject basket];
+//	ModelLogic* modelLogic = [ModelLogic modelLogic];
+//	[modelLogic syncModulesWithBasket:codes];
+//	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
+//	[modelLogic generateDefaultTimetableWithRequirements:nil];
+//	[modelLogic generateNextDefaultTimetableWithRequirements:nil];
+//	
+//	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
+//	for (NSMutableDictionary* info in infos)
+//	{
+//		NSString* cgn = [info valueForKey:@"classGroupName"];
+//		UIColor* mcolor = [info valueForKey:@"color"];
+//		NSLog(@"result%@ %@", cgn, mcolor);
+//	}
     return YES;
 }
 
