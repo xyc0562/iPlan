@@ -524,6 +524,12 @@ static ModelLogic* modelLogic;
 	[timeTable planOneTimetableWithRequirements:requirements];
 }
 
+- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+{
+	NSMutableArray* result = [timeTable copyClassTypeArray:[timeTable result]];
+	[timeTable planOneTimetableWithRequirements:requirements WithResult:result];
+}
+
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
 {
 	
@@ -605,7 +611,9 @@ static ModelLogic* modelLogic;
 				
 				[slotInfo addObject:slotDict];
 			}
-		[otherAvailableGroups addObject:resultDict];
+			//printf("available slots in model logic %d\n",[slotInfo count]);
+			[resultDict setValue:slotInfo forKey:@"slots"];
+			[otherAvailableGroups addObject:resultDict];
 		}
 		
 		classGroupIndex++;

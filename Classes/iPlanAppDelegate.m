@@ -203,14 +203,15 @@
 //	ModelLogic* modelLogic = [ModelLogic modelLogic];
 //	[modelLogic syncModulesWithBasket:codes];
 //	//	NSLog(@"%d",[[[modelLogic timeTable]modules]count]);
-//	[modelLogic generateDefaultTimetable];
+//	[modelLogic generateDefaultTimetableWithRequirements:nil];
+//	[modelLogic generateNextDefaultTimetableWithRequirements:nil];
 //	
 //	NSMutableArray* infos = [modelLogic getSelectedGroupsInfo];
 //	for (NSMutableDictionary* info in infos)
 //	{
-//		NSString* mcode = [info valueForKey:@"moduleCode"];
+//		NSString* cgn = [info valueForKey:@"classGroupName"];
 //		UIColor* mcolor = [info valueForKey:@"color"];
-//		NSLog(@"result%@ %@", mcode, mcolor);
+//		NSLog(@"result%@ %@", cgn, mcolor);
 //	}
     return YES;
 }

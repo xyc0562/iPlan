@@ -21,12 +21,10 @@
 @synthesize endTime;
 @synthesize classGroupName;
 @synthesize	moduleColor;
-@synthesize day;
+@synthesize dayNumber;
 @synthesize displayProperty;
 @synthesize scroll;
 @synthesize displayView;
-@synthesize index;
-@synthesize groupIndex;
 @synthesize tableChoices;
 @synthesize table;
 @synthesize classTypeName;
@@ -52,30 +50,30 @@
 -(CGRect)calculateDisplayProperty
 {
 	float x,y,w,h;
-	int dayNumber = [day intValue];
+	int dayNumberNumber = [dayNumber intValue];
 	float startTimeNumber = [startTime intValue];
 	int endTimeNumber = [endTime intValue];
-	if(dayNumber==1)
+	if(dayNumberNumber==1)
 	{
 		x = SLOT_FIRST_CELL_WIDTH;
 		w = SLOT_MON_CELL_WIDTH;
 	}
-	else if(dayNumber==2)
+	else if(dayNumberNumber==2)
 	{
 		w = SLOT_TUE_CELL_WIDTH;
 		x = SLOT_TUE_CELL_X;
 	}
-	else if(dayNumber==3)
+	else if(dayNumberNumber==3)
 	{
 		w = SLOT_WED_CELL_WIDTH;
 		x = SLOT_WED_CELL_X;
 	}
-	else if(dayNumber == 4)
+	else if(dayNumberNumber == 4)
 	{
 		w = SLOT_THU_CELL_WIDTH;
 		x = SLOT_THU_CELL_X;
 	}
-	else if(dayNumber == 5)
+	else if(dayNumberNumber == 5)
 	{
 		w = SLOT_FRI_CELL_WIDTH;
 		x = SLOT_FRI_CELL_X;
@@ -84,7 +82,7 @@
 	if(endTimeNumber%100==30)
 		endTimeNumber = endTimeNumber+20;
 	h = SLOT_NORMAL_CELL_HEIGHT*(endTimeNumber-startTimeNumber)/100;
-	if(dayNumber ==5)
+	if(dayNumberNumber ==5)
 	{
 		w = w-6;
 		x = x-2;
@@ -96,16 +94,15 @@
 	return CGRectMake(x,y,w,h);
 }
 
-- (id)initWithModuleCode:(NSString *)code 
-			   WithVenue:(NSString*)place
-		   WithStartTime:(NSNumber*)start
-			 WithEndTime:(NSNumber*)end
-				 WithDay:(NSNumber*)date
-	  WithClassGroupName:(NSString*)name
-		 WithModuleColor:(UIColor*)color
-	   WithClassTypeName:(NSString*)classtype
-			   WithIndex:(int)indexNumber
-		  WithGroupIndex:(int)groupNumber
+- initWithModuleCode:(NSString *)code 
+		   WithVenue:(NSString*)place
+	   WithStartTime:(NSNumber*)start
+		 WithEndTime:(NSNumber*)end
+			 WithDay:(NSNumber*)date
+  WithClassGroupName:(NSString*)name
+	 WithModuleColor:(UIColor*)color
+   WithClassTypeName:(NSString*)classtype
+
 					
 {
     self = [super init];
@@ -117,9 +114,7 @@
 		self.endTime = end;
 		self.classGroupName = name;
 		self.moduleColor = color;    
-		self.day = date;
-		index = indexNumber;
-		groupIndex = groupNumber;
+		self.dayNumber = date;
 		self.classTypeName = classtype;
 		self.view.multipleTouchEnabled = YES;
 		self.view.userInteractionEnabled = YES;
@@ -165,10 +160,10 @@
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	NSMutableArray* slotControllers = theDataObject.slotControllers;
-
+	SlotViewController* slot = [theDataObject selectSlot];
 	
 	//restore selection
-	if ([[theDataObject selectSlot]groupIndex] == groupIndex) 
+	if ([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName]) 
 	{
 		
 		for(SlotViewController* slot in slotControllers)
@@ -177,6 +172,8 @@
 			slot.view.layer.borderWidth = 0.0f;
 		}
 		theDataObject.selectSlot = nil;
+		[tableChoices removeAllObjects];
+		[availableSlots removeAllObjects];
 		
 	}
 	
@@ -185,7 +182,7 @@
 	{
 		for(SlotViewController* slot in slotControllers)
 		{
-			if(slot.groupIndex==groupIndex)
+			if([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName])
 			{
 				slot.view.layer.borderColor = [UIColor blackColor].CGColor;
 				slot.view.layer.borderWidth = 3.0f;
@@ -200,11 +197,12 @@
 		}
 		
 		[tableChoices removeAllObjects];
+		[availableSlots removeAllObjects];
 		
 		//check for clashes
 		for (SlotViewController* slot in slotControllers) 
 		{
-			if ([slot.day intValue]==[self.day intValue]&&slot!=self) 
+			if ([slot.dayNumber intValue]==[self.dayNumber intValue]&&slot!=self) 
 			{
 				if([slot.startTime intValue]>=[self.endTime intValue]||[slot.endTime intValue]<=[self.startTime intValue]);
 				else 
@@ -233,7 +231,8 @@
 			NSMutableArray* availableAnswer = [[ModelLogic modelLogic] getOtherAvailableGroupsWithModuleCode:[self moduleCode]
 																						  WithClassTypeIndex:[self classTypeName]
 																							   WithGroupName:[self classGroupName]];
-			
+			printf("available count %d\n",[availableAnswer count]);
+		
 			for (NSDictionary* dict in availableAnswer) 
 			{
 				NSString* code = [dict objectForKey:@"moduleCode"];
@@ -241,6 +240,7 @@
 				NSString* typeName = [dict objectForKey:@"classTypeName"];
 				NSString* groupName = [dict objectForKey:@"classGroupName"];
 				NSMutableArray* slots = [dict objectForKey:@"slots"];
+				printf("available slots %d\n",[slots count]);
 				for(NSDictionary* dictInner in slots)
 				{
 					
@@ -251,37 +251,13 @@
 																						 WithDay:[dictInner objectForKey:@"day"]
 																			  WithClassGroupName:groupName 
 																				 WithModuleColor:color
-																			   WithClassTypeName:typeName
-																					   WithIndex:[availableSlots count]
-																				  WithGroupIndex:[[dictInner objectForKey:@"groupIndex"]intValue]];
+																			   WithClassTypeName:typeName];
+	
 					[availableSlots addObject:slot];
+					//printf("dayNumber %d\n",[[slot dayNumber]intValue]);
 				}
 			}
-			SlotViewController* slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-													   WithVenue:@"place"
-												   WithStartTime:[NSNumber	numberWithInt:2000]
-													 WithEndTime:[NSNumber numberWithInt:2030]
-														 WithDay:[NSNumber numberWithInt:4]
-											  WithClassGroupName:@"SL1"
-												 WithModuleColor:[UIColor orangeColor]
-											   WithClassTypeName:@"Lecture"
-													   WithIndex:1
-												  WithGroupIndex:2];
-			[availableSlots addObject:slot];
 			
-			slot = [[SlotViewController alloc]initWithModuleCode:@"MA1101" 
-														WithVenue:@"place"
-												   WithStartTime:[NSNumber	numberWithInt:1900]
-													WithEndTime:[NSNumber numberWithInt:2200]
-														 WithDay:[NSNumber numberWithInt:5]
-											  WithClassGroupName:@"SL1"
-												 WithModuleColor:[UIColor orangeColor]
-											   WithClassTypeName:@"Lecture"
-													   WithIndex:1
-												  WithGroupIndex:3];
-			 [availableSlots addObject:slot];
-			 
-
 			
 			
 			for(int i=0;i<[availableSlots count];i++)
@@ -289,7 +265,8 @@
 				SlotViewController* slot = [availableSlots objectAtIndex:i];
 				NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 				displayInfo = [displayInfo stringByAppendingString:@" "];
-				displayInfo = [displayInfo stringByAppendingString:[[slot day]stringValue]];
+				printf("dayNumber %d\n",[[slot dayNumber]intValue]);
+				displayInfo = [displayInfo stringByAppendingString:[NSString stringWithFormat:@"%d", [[slot dayNumber] intValue]]];
 				displayInfo = [displayInfo stringByAppendingString:@" "];
 				displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 				displayInfo = [displayInfo stringByAppendingString:@"-"];
@@ -297,7 +274,7 @@
 				[tableChoices addObject:displayInfo];
 			}
 			
-			if([availableSlots count]!=0)
+			if([tableChoices count]!=0)
 				[tableChoices addObject:SLOTS];
 			
 		}
@@ -308,7 +285,7 @@
 	
 	for (SlotViewController* slot1 in slotControllers ) 
 		for(SlotViewController* slot2 in slotControllers)
-			if(slot1!=slot2&&[slot1.day intValue]==[slot2.day intValue])
+			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
@@ -349,7 +326,7 @@
 	[startTime dealloc];
 	[endTime dealloc];
 	[moduleColor dealloc];
-	[day dealloc];
+	[dayNumber dealloc];
 }
 
 
