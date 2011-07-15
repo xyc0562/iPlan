@@ -187,6 +187,9 @@
 	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	// TODO: !!!
 	//NSLog(@"spinning load");
+	UITextView* text = (UITextView*)[spinner viewWithTag:150];
+	[text removeFromSuperview];
+	[text release];
 	[spinner stopAnimating];
 	[spinner removeFromSuperview];
 	[spinner release];
@@ -198,6 +201,14 @@
 		//NSLog(@"alert view update called");
 		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		spinner.frame = CGRectMake(140, 130, 50, 50);
+		spinner.backgroundColor = [UIColor lightGrayColor];
+		UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(-15, 45, 150, 60)];
+		text.backgroundColor = [UIColor clearColor];
+		text.tag = 150;
+		text.text = @"Updating...";
+		text.font = [UIFont systemFontOfSize:15];
+		text.textColor = [UIColor darkGrayColor];
+		[spinner addSubview:text];
 		[self.view addSubview:spinner];
 		[spinner startAnimating];
 		[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION
