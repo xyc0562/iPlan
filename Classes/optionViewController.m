@@ -10,6 +10,12 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 
+#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
+#define EXPORT_TO_IVLE_SUCCESS @"Thanks! Export calendar to IVLE is successful!"
+#define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
+#define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
+#define EXPORT_TO_ICAL_FAIL @"Sorry, can not connect server!"
+
 @implementation OptionViewController
 
 
@@ -18,7 +24,7 @@
 
 @synthesize optionTableView;
 @synthesize optionsList;
-
+@synthesize ivlePage;
 
 #pragma mark -
 #pragma mark instance methods
@@ -36,124 +42,166 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSLog(@"Happy to see the token = %@", theDataObject.requestedToken);
+	
+	ivlePage.delegate = self;
+	
+	optionsList = [[NSArray alloc] initWithObjects:@"export to IVLE", @"export to iCal", @"disable requirement placement", nil];
+	
 }
-
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+	return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+	return [optionsList count];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+	static NSString *moduleListCellIdentifier = @"moduleListCellIdentifier";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:moduleListCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moduleListCellIdentifier] autorelease];
     }
-    
+	
     // Configure the cell...
-    
+    NSUInteger row = [indexPath row];
+	NSString *optionName;
+	
+	optionName = [optionsList objectAtIndex:row];
+	
+	cell.textLabel.text = optionName;
+	
+	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	CGRect frame = CGRectMake(0.0, 0.0, 50, 50);
+	addButton.frame = frame;
+	
+	if(row == 0){
+		[addButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}else if(row == 1){
+		[addButton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}else if (row == 2) {
+		[addButton addTarget:self action:@selector(requirementButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+	}
+	
+	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+	cell.accessoryView = addButton;
+	
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void) ivleButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
+	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:optionTableView didSelectRowAtIndexPath:indexPath];
+	}
 }
-*/
 
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }   
+- (void) iCalButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
+	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+	}
 }
-*/
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)requirementButtonTapped:(id)sender event:(id)event{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
+	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
+	if(indexPath != nil){
+		[self tableView:optionTableView requirementButtonTappedForRowWithIndexPath:indexPath];
+	}
 }
-*/
 
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+	NSUInteger row = indexPath.row;
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	NSLog(@"clicked row %d", row);
+	if(row == 0){
+		//Lapi issue
+		NSURL *url = [NSURL URLWithString:SERVER_URL];
+		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+		[ivlePage loadRequest:requestObj];		
+		[self.view	addSubview:ivlePage];
+	}else if (row == 1) {
+		
+	}
+	
+	
 }
-*/
 
+- (void)tableView:(UITableView *)tableView requirementButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+	NSUInteger row = [indexPath row];
+}
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    */
+	NSURL *url = [NSURL URLWithString:SERVER_URL];
+	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+	ivlePage.delegate = self;
+	[ivlePage loadRequest:requestObj];		
+	[self.view	addSubview:ivlePage];
+}
+
+
+
+#pragma mark -
+#pragma mark web view for authentication
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+	//can do nothing
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+	
+    //verify view is on the login page of the site (simplified)
+    NSURL *requestURL = [self.ivlePage.request URL];
+	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
+		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
+		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
+		
+		ivlePage.opaque = YES;
+		[self.view sendSubviewToBack:ivlePage];
+		
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_SUCCESS
+													   delegate:self
+											  cancelButtonTitle:@"Ok" 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+    }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
+		//do nothing
+	}else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_FAIL
+													   delegate:self
+											  cancelButtonTitle:@"Ok" 
+											  otherButtonTitles:nil];
+		
+		[alert show];
+		[alert release];
+	}
+	
 }
 
 
@@ -172,6 +220,7 @@
     // For example: self.myOutlet = nil;
 	self.optionTableView = nil;
 	self.optionsList = nil;
+	ivlePage.delegate = nil;
 	[super viewDidUnload];
 }
 
@@ -179,6 +228,7 @@
 - (void)dealloc {
 	[optionTableView release];
 	[optionsList release];
+	[ivlePage release];
     [super dealloc];
 }
 
