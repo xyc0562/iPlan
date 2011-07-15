@@ -787,6 +787,19 @@ static ModelLogic* modelLogic;
 	currentColorIndex = [NSNumber numberWithInt:0];
 }
 
+- (NSString*)getCurrentTimeTableEventIdsPath
+{
+    	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+        
+	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
+
+        return fullPath;
+}
+
+
 - (BOOL)exportTimetableToiCalendar
 {
     if (!self.timeTable)
@@ -839,19 +852,8 @@ static ModelLogic* modelLogic;
             }
         }
     }
-    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentDirectory = [paths objectAtIndex:0];
-    NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
-    // Tell if plists directory exists, if not, create it
-    NSFileManager * fm = [NSFileManager defaultManager];
-    if (![fm fileExistsAtPath:eventIdsDirectory])
-    {
-        [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
-    }
-    NSString *filename = self.timeTable.name;
-    filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
-    filename = [filename stringByAppendingString:@".plist"];
-    NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
+
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
 
     NSMutableData* data = [[NSMutableData alloc] init];
     NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -871,24 +873,19 @@ static ModelLogic* modelLogic;
 // If not exists, return nil
 - (NSMutableArray*) getExportedEventIds
 {
-	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString* documentDirectory = [paths objectAtIndex:0];
-	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
-        
-	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
-	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
-	NSData *data = [NSData dataWithContentsOfFile:fullPath];
-        if (data)
-        {
-            NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-            NSMutableArray* eventIds = [unarc decodeObjectForKey:@"event"];
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSData *data = [NSData dataWithContentsOfFile:fullPath];
+    if (data)
+    {
+        NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        NSMutableArray* eventIds = [unarc decodeObjectForKey:@"event"];
 
-            return [eventIds autorelease];
-        }
-        else
-        {
-            return nil;
-        }
+        return [eventIds autorelease];
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 // Return NSError* if an error occurs. If everything goes well, return nil
@@ -908,6 +905,10 @@ static ModelLogic* modelLogic;
             }
         }
     }
+
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:fullPath error:NULL];
 
     return nil;
 }
