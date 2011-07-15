@@ -17,7 +17,7 @@
 #define WEDNESDAY @"Wednesday"
 #define THURSDAY @"Thursday"
 #define FRIDAY @"Friday"
-#define TITLE @"Which time do you want to have classes?"
+#define TITLE @"Switch off the time interval which you do not want any classes"
 #define SWITCH_YES @"YES"
 #define SWITCH_NO @"NO"
 
@@ -41,14 +41,14 @@
 - (void)continueClicked:(id)sender {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.continueToCalendar = YES;
-	NSLog(theDataObject.continueToCalendar?@"cc: Y":@"cc: N");
+//	NSLog(theDataObject.continueToCalendar?@"cc: Y":@"cc: N");
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)cancelClicked:(id)sender {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.continueToCalendar = NO;
-	NSLog(theDataObject.continueToCalendar?@"cancel c: Y":@"cancel c: N");
+//	NSLog(theDataObject.continueToCalendar?@"cancel c: Y":@"cancel c: N");
 	[self dismissModalViewControllerAnimated:YES];
 }
 

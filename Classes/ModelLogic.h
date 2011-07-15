@@ -65,14 +65,14 @@
 - (NSMutableArray*) getFrequenciesFromModule:(NSString*)code ModuleClassType:(NSString*)type GroupName:(NSString*)name;
 // effects: return an array of NSString
 
-- (void) generateDefaultTimetable;
+- (BOOL) generateDefaultTimetable;
 // effects: nothing returned but will store the defaultTimetable inside model logic
 
-- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
+- (BOOL) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
 // requires: a 7X2 array which indicates if the user like to have no class on certain time   requirements can be nil
 // effects: nothing returned but will store the defaultTimetable with requirements inside model logic
 
-- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
+- (BOOL) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements;
 
 // Not useful, the xml only has examinable to be "-"
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits;

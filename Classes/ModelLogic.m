@@ -515,20 +515,20 @@ static ModelLogic* modelLogic;
 //	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 //}
 
-- (void) generateDefaultTimetable
+- (BOOL) generateDefaultTimetable
 {
-	[timeTable planOneTimetable];
+	return [timeTable planOneTimetable];
 }
 
-- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+- (BOOL) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
 {
-	[timeTable planOneTimetableWithRequirements:requirements];
+	return [timeTable planOneTimetableWithRequirements:requirements];
 }
 
-- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+- (BOOL) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
 {
 	NSMutableArray* result = [timeTable copyClassTypeArray:[timeTable result]];
-	[timeTable planOneTimetableWithRequirements:requirements WithResult:result];
+	return [timeTable planOneTimetableWithRequirements:requirements WithResult:result];
 }
 
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
