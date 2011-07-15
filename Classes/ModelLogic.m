@@ -796,6 +796,7 @@ static ModelLogic* modelLogic;
 
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
+    NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
     for (Module *m in self.timeTable.modules)
     {
         if ([m.selected isEqualToString:MODULE_ACTIVE])
@@ -823,7 +824,13 @@ static ModelLogic* modelLogic;
                                     myEvent.allDay = NO;
 									// For now we use the default calendar, we may change to other specific calendars later
                                     [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-									[eventDB saveEvent:myEvent span:EKSpanThisEvent error:nil];
+                                    NSError *err = nil;
+                                    [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+                                    if (err == nil)
+                                    {
+                                        NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
+                                        [eventIds addObject:str];
+                                    }
                                 }
                             }
                         }
@@ -832,14 +839,82 @@ static ModelLogic* modelLogic;
             }
         }
     }
-    [eventDB release];
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentDirectory = [paths objectAtIndex:0];
+    NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+    // Tell if plists directory exists, if not, create it
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:eventIdsDirectory])
+    {
+        [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+    }
+    NSString *filename = self.timeTable.name;
+    filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
+    filename = [filename stringByAppendingString:@".plist"];
+    NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
+
+    NSMutableData* data = [[NSMutableData alloc] init];
+    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+    [arc encodeObject:eventIds forKey:@"event"];
+	
+    [arc finishEncoding];
+    BOOL success = [data writeToFile:fullPath atomically:YES];
+    [arc release];
+    [data release];
+    if(!success)
+        [eventDB release];
 
     return YES;
 }
 
+// If not exists, return nil
+- (NSMutableArray*) getExportedEventIds
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+        
+	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
+	NSData *data = [NSData dataWithContentsOfFile:fullPath];
+        if (data)
+        {
+            NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            NSMutableArray* eventIds = [unarc decodeObjectForKey:@"event"];
+
+            return [eventIds autorelease];
+        }
+        else
+        {
+            return nil;
+        }
+}
+
+// Return NSError* if an error occurs. If everything goes well, return nil
+- (NSError*) deleteEvents:(NSMutableArray*)eventIds
+{
+    EKEventStore* store = [[[EKEventStore alloc] init] autorelease];
+    for (NSString *eventId in eventIds)
+    {
+        EKEvent* event = [store eventWithIdentifier:eventId];
+        if (event != nil)
+        {  
+            NSError* error = nil;
+            [store removeEvent:event span:EKSpanThisEvent error:&error];
+            if (error)
+            {
+                return error;
+            }
+        }
+    }
+
+    return nil;
+}
+
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
-	Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
 	
     if (module)
     {

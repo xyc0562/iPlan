@@ -10,6 +10,7 @@
 #define LANG_CHINESE @"Chinese"
 #define FREQUENCY_INVALID 0
 #define MODULE_DOCUMENT_NAME @"Modules"
+#define EVENT_DOCUMENT_NAME @"EventIds"
 
 // Module Class Types
 #define MODULE_CLASS_TYPE_LECTURE @"LECTURE"
