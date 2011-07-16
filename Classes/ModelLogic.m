@@ -12,6 +12,7 @@ static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
 @synthesize moduleObjectsDict;
+@synthesize indexesDict;
 @synthesize currentColorIndex;
 
 + (id)modelLogic
@@ -103,6 +104,10 @@ static ModelLogic* modelLogic;
         {
             self.moduleObjectsDict = [NSMutableDictionary dictionary];
         }
+		if (!indexesDict)
+        {
+            self.indexesDict = [NSMutableDictionary dictionary];
+        }
         for (Module* m in self.timeTable.modules)
         {
             [self getOrCreateAndGetModuleInstanceByCode:m.code];
@@ -119,6 +124,10 @@ static ModelLogic* modelLogic;
         if (!moduleObjectsDict)
         {
             self.moduleObjectsDict = [NSMutableDictionary dictionary];
+        }
+		if (!indexesDict)
+        {
+            self.indexesDict = [NSMutableDictionary dictionary];
         }
     }
     return self;
@@ -558,7 +567,7 @@ static ModelLogic* modelLogic;
 		{
 			NSMutableDictionary* slotDict = [[NSMutableDictionary alloc]init];
 			[slotDict setValue:[slot venue] forKey:@"venue"];
-			[slotDict setValue:[[slot day]stringValue] forKey:@"day"];
+			[slotDict setValue:[slot day] forKey:@"day"];
 			int sTime = [[slot startTime]intValue];
 			int eTime = [[slot endTime]intValue];
 			if (sTime/100 == 30) sTime = sTime+20;
@@ -925,6 +934,87 @@ static ModelLogic* modelLogic;
     {
         return nil;
     }
+	
+}
+-(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code
+{
+	int i = 0;
+	NSNumber* index = [indexesDict valueForKey:code];
+	if (index) return index;
+	for (Module* module in timeTable.modules) 
+	{
+		if ([code isEqualToString:[module code]]) 
+		{
+			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:code];
+			return [NSNumber numberWithInt:i];
+		}
+		i++;
+	}
+	return nil;
+}
+-(NSNumber*)getOrCreateClassTypeIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName
+{
+	int i = 0;
+	NSNumber* index = [indexesDict valueForKey:[code stringByAppendingString:classTypeName]];
+	if (index) return index;
+	Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+	for (ModuleClassType* classType in [module moduleClassTypes]) 
+	{
+		if ([[classType name]isEqualToString:classTypeName]) 
+		{
+			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[code stringByAppendingString:classTypeName]];
+			return [NSNumber numberWithInt:i];
+		}
+		i++;
+	}
+	return nil;
+}
+			 
+-(NSNumber*)getOrCreateClassGroupIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName WithClassGroupName:(NSString*)classGroupName
+{
+	int i= 0;
+	NSNumber* index = [indexesDict valueForKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+	if (index) return nil;
+	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
+	for (ClassGroup* classGroup in [classType classGroups]) 
+	{
+		if ([[classGroup name]isEqualToString:classGroupName]) 
+		{
+			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+			return [NSNumber numberWithInt:i];
+		}
+		i++;
+	}
+	return nil;
+}
+			 
+- (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray
+{
+	NSMutableArray* newResult = [[NSMutableArray alloc]init];
+	NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
+	for (NSMutableDictionary* eachSelected in resultArray) 
+	{
+		NSString* code = [eachSelected valueForKey:@"moduleCode"];
+		NSString* classType = [eachSelected valueForKey:@"classTypeName"];
+		NSString* classGroup = [eachSelected valueForKey:@"classGroupName"];
+		classGroupIndex = [self getOrCreateClassGroupIndexByCode:code WithClassTypeName:classType WithClassGroupName:classGroup];
+		if (classGroupIndex)
+		{
+			moduleIndex = [self getOrCreateModuleIndexByCode:code];
+			classTypeIndex = [self getOrCreateClassTypeIndexByCode:code WithClassTypeName:classType];
+			NSMutableArray* eachResultRow = [[NSMutableArray alloc]init];
+			[eachResultRow addObject:moduleIndex];
+			[eachResultRow addObject:classTypeIndex];
+			[eachResultRow addObject:classGroupIndex];
+			[newResult addObject:eachResultRow];
+		}
+	}
+	[self timeTable].result = newResult;
+}
+
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
+{
+	timeTable = storedTimeTable;
 	
 }
 
