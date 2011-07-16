@@ -258,4 +258,42 @@ return [freArray autorelease];
     return interval + hour*3600 + min*60;
 }
 
++ (NSDate*) LAPIGetSemesterStartFromAY:(NSString*)AY Semester:(NSString*)sem
+{
+    NSString *startYear = [AY substringToIndex:4];
+    NSString *endYear = [AY substringFromIndex:5];
+
+    NSDate *semesterStart;
+
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+
+    // First sem
+    if ([sem isEqualToString:@"1"])
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@-08-07", startYear]];
+    }
+    // Second sem
+    else if ([sem isEqualToString:@"2"])
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@-01-07", endYear]];
+    }
+
+    // TODO, special terms
+
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSInteger weekday;
+    do
+    {
+        semesterStart = [[semesterStart dateByAddingTimeInterval:86400] retain];
+        NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:semesterStart];
+        weekday = [weekdayComponents weekday];
+        // weekday 2 = Monday for Gregorian calendar
+    }while(weekday != 2);
+
+    [gregorian release];
+
+    return [semesterStart autorelease];
+}
+
 @end

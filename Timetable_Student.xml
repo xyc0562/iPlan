@@ -1,0 +1,33 @@
+<APIDataOfData_Timetable_StudentMTRdQN6P xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<Comments>Valid login!</Comments>
+<LastUpdate>2011-07-16T22:00:08.902302+08:00</LastUpdate>
+<Results>
+<Data_Timetable_Student>
+<AcadYear>2010/2011</AcadYear>
+<ClassNo>1</ClassNo>
+<DayCode>2</DayCode>
+<DayText>Tuesday</DayText>
+<EndTime>1700</EndTime>
+<LessonType>LECTURE</LessonType>
+<ModuleCode>GEK1546</ModuleCode>
+<Semester>2</Semester>
+<StartTime>1400</StartTime>
+<Venue>EA-06-04</Venue>
+<WeekCode>0</WeekCode>
+<WeekText>EVERY WEEK</WeekText>
+</Data_Timetable_Student><Data_Timetable_Student>
+<AcadYear>2010/2011</AcadYear>
+<ClassNo>1</ClassNo>
+<DayCode>4</DayCode>
+<DayText>Thursday</DayText>
+<EndTime>1700</EndTime>
+<LessonType>LECTURE</LessonType>
+<ModuleCode>GEK1546</ModuleCode>
+<Semester>2</Semester>
+<StartTime>1400</StartTime>
+<Venue>EA-06-04</Venue>
+<WeekCode>0</WeekCode>
+<WeekText>EVERY WEEK</WeekText>
+</Data_Timetable_Student>
+</Results>
+</APIDataOfData_Timetable_StudentMTRdQN6P>
