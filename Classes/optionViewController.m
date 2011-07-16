@@ -158,6 +158,14 @@
 	//NSLog(switchEnabled.on?@"s:y":@"s:n");
 }
 
+
+#pragma mark -
+#pragma mark Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
 #pragma mark -
 #pragma mark Memory management
 

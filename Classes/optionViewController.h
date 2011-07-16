@@ -11,6 +11,7 @@
 
 @interface OptionViewController : UITableViewController{
 	IBOutlet UITableView *optionTableView;
+	
 	NSArray *optionsList;
 	UISwitch *switchEnabled;
 	UIButton *exportIVLEButton;

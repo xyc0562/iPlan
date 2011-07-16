@@ -17,7 +17,7 @@
 #import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
-#define SURE_TO_CHANGE_TO_CALENDAR @"Do you want to switch to Calendar? Calendar Content will be modified."
+#define SURE_TO_CHANGE_TO_CALENDAR @"Are you sure to change the modules? Calendar Content will be modified accordingly."
 #define NO_SOLUTION @"Sorry there is no possible Timetable based on your selection."
 
 @implementation ModuleListViewController
@@ -95,6 +95,7 @@
 		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
 		self.toRequirement = NO;
+		self.tabBarController.delegate = self;
 	}
 	return self;
 }
@@ -267,6 +268,7 @@
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
+				[[ModelLogic modelLogic]exportTimetableToiCalendar];
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
@@ -512,6 +514,11 @@
 	}
 
 		
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+	printf("pass in");
 }
 
 - (void)dealloc {
