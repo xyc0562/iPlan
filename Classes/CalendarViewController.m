@@ -58,8 +58,6 @@
 	// add in imageview
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
-
-	
 	for (NSDictionary* dict in defaultAnswer) 
 	{
 		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
@@ -84,9 +82,6 @@
 		}
 	}
 	
-	
-		
-
 	
 	//for each slotView in displaySlots
 	
@@ -135,13 +130,13 @@
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
 			[slot1 setLabelContentWithCondition:CLASH];
-			[theDataObject.image bringSubviewToFront:slot1.view];
+			[imageView bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
 			[slot1 setLabelContentWithCondition:AVAILABLE];
-			[theDataObject.image bringSubviewToFront:slot1.view];
+			[imageView bringSubviewToFront:slot1.view];
 		}
 	}
 	
@@ -150,10 +145,11 @@
 - (void) configureToolBar
 { 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-
+	for(UIView* any in [self.navigationItem.titleView subviews])
+		[any removeFromSuperview];
+	
 	if([theDataObject.slotViewControllers count]!=0)
 	{
-		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		NSMutableArray* active = [theDataObject activeModules];
 		CGRect frame = CGRectMake(NAV_FRAME_X,NAV_FRAME_Y,NAV_FRAME_W,NAV_FRAME_H);
 		UIView* temp = [[UIView alloc]initWithFrame:frame];
@@ -173,8 +169,10 @@
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
 			[temp addSubview:titleLabel];
+			[titleLabel release];
 		}
 		self.navigationItem.titleView = temp;
+		[temp release];
 	}
 	else 
 	{
@@ -183,7 +181,8 @@
 	
 }
 
-- (void)spinningViewLoad {
+- (void)spinningViewLoad 
+{
 	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	// TODO: !!!
 	//NSLog(@"spinning load");
@@ -230,14 +229,42 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-	for (UIView* any in [self.view subviews]) 
+- (void)viewWillAppear:(BOOL)animated 
+{
+	[super viewWillAppear:animated];
+	for (UIView* any in [imageView subviews]) 
 	{
 		[any removeFromSuperview];
 	}
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.tableChoices removeAllObjects];
+	[theDataObject.availableSlots removeAllObjects];
+	[theDataObject.slotViewControllers removeAllObjects];
+	[self configureView];
+	[self configureToolBar];
 
-    [super viewDidLoad];
+	
+	[table reloadData];
+}
+		
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	CGRect frame = self.view.frame;
+	self.view = [[UIView alloc]initWithFrame:frame];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.tableChoices removeAllObjects];
+	[theDataObject.availableSlots removeAllObjects];
+	for (UIView* any in [imageView subviews]) 
+	{
+		[any removeFromSuperview];
+	}
+	[self.imageView removeFromSuperview];
+	[self.scrollView removeFromSuperview];
+	[self.table removeFromSuperview];
+	
+	[theDataObject.slotViewControllers removeAllObjects];
+ 
 	[self.view addSubview: scrollView];
 	scrollView.multipleTouchEnabled = YES;
 	scrollView.userInteractionEnabled = YES;
@@ -261,7 +288,6 @@
 
 	
 	[self.view addSubview:theWeb];
-	[self.view addSubview: scrollView];
 	[self.view addSubview:table];
 	[self.view sendSubviewToBack:theWeb];
 	theDataObject.table = self.table;
@@ -336,7 +362,17 @@
 	
     // Configure the cell...
 	if([theDataObject.tableChoices count]==0)
+	{
 		cell.textLabel.text = @"Welcome to Use iPlan~~~";
+		
+		UIButton *addButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[addButton setTitle:@"Save" forState:UIControlStateNormal];
+		[addButton setTitleColor: [UIColor blueColor] forState: UIControlStateNormal];
+		CGRect frame = CGRectMake(0.0, 0.0, 60, 30);
+		addButton.frame = frame;
+		[addButton addTarget:self action:@selector(saveButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = addButton;
+	}
 	
 	else
 	{
@@ -355,6 +391,13 @@
 			if(row==-1)
 			{	
 				cell.textLabel.text = @"Other available slots";
+				UIButton *addButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+				[addButton setTitle:@"Save" forState:UIControlStateNormal];
+				[addButton setTitleColor: [UIColor blueColor] forState: UIControlStateNormal];
+				CGRect frame = CGRectMake(0.0, 0.0, 60, 30);
+				addButton.frame = frame;
+				[addButton addTarget:self action:@selector(saveButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+				cell.accessoryView = addButton;
 			}
 			else if(row!=[theDataObject.tableChoices count]-1)
 			{	
@@ -378,6 +421,13 @@
 			if(row==-1)
 			{
 				cell.textLabel.text = @"Select one From Overlapped Modules";
+				UIButton *addButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+				[addButton setTitle:@"Save" forState:UIControlStateNormal];
+				[addButton setTitleColor: [UIColor blueColor] forState: UIControlStateNormal];
+				CGRect frame = CGRectMake(0.0, 0.0, 60, 30);
+				addButton.frame = frame;
+				[addButton addTarget:self action:@selector(saveButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+				cell.accessoryView = addButton;
 			}
 
 		}
@@ -489,6 +539,11 @@
 	[table reloadData];
 }
 
+- (void) saveButtonTapped:(id)sender event:(id)event
+{
+	[[ModelLogic modelLogic]save:[self configureSaveFile]];
+}
+
 - (void)getAvailableSlotsWithSlot:(SlotViewController*)slot
 {
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -563,24 +618,27 @@
 				[slot.view removeFromSuperview];
 			}
 			int row = indexPath.row-1;
-			SlotViewController* select = [theDataObject.availableSlots objectAtIndex:row];
-			for(SlotViewController* slot in theDataObject.availableSlots)
+			if(row!=-1)
 			{
-				if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
+				SlotViewController* select = [theDataObject.availableSlots objectAtIndex:row];
+				for(SlotViewController* slot in theDataObject.availableSlots)
 				{
-					[imageView addSubview:slot.view];
-					slot.view.frame = [slot calculateDisplayProperty];
-					[slot setBackGroundColorWithCondition:AVAILABLE];
-					[slot setLabelContentWithCondition:NORMAL];
-					[UIView beginAnimations:nil context:nil];
-					[UIView setAnimationDuration:3];
-					[slot.view setAlpha:0.2];
-					[UIView commitAnimations];
-					[UIView beginAnimations:nil context:nil];
-					[UIView setAnimationDuration:3];
-					[slot.view setAlpha:1];
-					[UIView commitAnimations];
-					[slot.view setAlpha:1];
+					if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
+					{
+						[imageView addSubview:slot.view];
+						slot.view.frame = [slot calculateDisplayProperty];
+						[slot setBackGroundColorWithCondition:AVAILABLE];
+						[slot setLabelContentWithCondition:NORMAL];
+						[UIView beginAnimations:nil context:nil];
+						[UIView setAnimationDuration:3];
+						[slot.view setAlpha:0.2];
+						[UIView commitAnimations];
+						[UIView beginAnimations:nil context:nil];
+						[UIView setAnimationDuration:3];
+						[slot.view setAlpha:1];
+						[UIView commitAnimations];
+						[slot.view setAlpha:1];
+					}
 				}
 			}
 		/*	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -685,6 +743,39 @@
     }
 }
 
+
+- (NSMutableArray*)configureSaveFile
+{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
+	NSMutableArray* result = [[NSMutableArray alloc]init];
+	for (SlotViewController* eachSelected in slotViewControllers) 
+	{
+		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
+		NSString* moduleCode = [eachSelected moduleCode];
+		NSString* classTypeName = [eachSelected classTypeName];
+		NSString* groupName = [eachSelected classGroupName];
+		
+		[resultDict setValue:moduleCode forKey:@"moduleCode"];
+		[resultDict setValue:classTypeName forKey:@"classTypeName"];
+		[resultDict setValue:groupName forKey:@"classGroupName"];
+	 /*	
+		[resultDict setValue:[eachSelected venue] forKey:@"venue"];
+		[resultDict setValue:[eachSelected dayNumber] forKey:@"day"];
+		[resultDict setValue:[eachSelected startTime] forKey:@"startTime"];
+		[resultDict setValue:[eachSelected endTime] forKey:@"endTime"];
+		[resultDict setValue:[eachSelected frequency] forKey:@"frequency"];
+		[resultDict setValue:freq forKey:@"frequency"];
+		[resultInfo addObject:slotDict];
+	  */
+		
+		[result addObject:resultDict];
+
+	}
+	return result;
+	
+	
+}
 
 #pragma mark -
 #pragma mark memory management
