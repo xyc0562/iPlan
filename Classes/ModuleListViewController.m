@@ -28,6 +28,7 @@
 @synthesize moduleList;
 @synthesize copyModuleList;
 @synthesize pathForAlert;
+@synthesize toRequirement;
 
 #pragma mark -
 #pragma mark instance method
@@ -57,6 +58,7 @@
 	//ModelLogic *ml = [[ModelLogic alloc] init];
 	
     //NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
+	toRequirement = NO;
 	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getAllModuleCodes];
 	
 	NSArray *array = [[NSArray alloc] initWithArray:arr];
@@ -81,7 +83,7 @@
 	[item release];
 	
 	// insert buttons
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Continue" style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
+	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Requirement" style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
 	[self.navigationItem setRightBarButtonItem:addButton];
 	[addButton release];
 }
@@ -92,6 +94,7 @@
 		self.title = @"Modules";
 		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
+		self.toRequirement = NO;
 	}
 	return self;
 }
@@ -126,6 +129,8 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
     NSUInteger row = [indexPath row];
 	NSString *addedModule;
+	
+	NSLog(@"Module List Table load again! %d", row);
 	
 	addedModule = [copyModuleList objectAtIndex:row];
 	
@@ -263,6 +268,7 @@
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
 			}
 			else 
@@ -286,8 +292,32 @@
 		theDataObject.continueToCalendar = NO;
 	}
 
+
 }
 
+- (void)moveToCalendar
+{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	ModelLogic* modelLogic = [ModelLogic modelLogic];
+	[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
+	if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
+	{
+		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+		[controller viewWillAppear:YES];
+		self.tabBarController.selectedViewController = 	controller;
+	}
+	else 
+	{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:NO_SOLUTION
+													   delegate:self
+											  cancelButtonTitle:@"Sure" otherButtonTitles:nil];
+		
+		[alert show];
+		[alert release];
+		
+	}
+	theDataObject.continueToCalendar = NO;
+}
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -296,6 +326,7 @@
 	//searching = NO;
     NSUInteger row_number = [indexPath row];
 	
+	toRequirement = YES;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
@@ -305,6 +336,8 @@
 	
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
+	
+	
 }
 
 - (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -394,46 +427,21 @@
 #pragma mark -
 #pragma mark Go To RequirementPlacingViewController
 
-- (void)moveToCalendar
-{
-	// check whether user clicks cancel or continue in the requirements view
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	if (theDataObject.continueToCalendar == YES)
-	{
-		// call the model logic and direct to the calendar view
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SURE_TO_CHANGE_TO_CALENDAR
-													   delegate:self
-											  cancelButtonTitle:@"Cancel" 
-											  otherButtonTitles:@"OK",nil];
-		
-		[alert show];
-		[alert release];
-		
-	}
-	else 
-	{
-		theDataObject.continueToCalendar = NO;
-		//NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");
-		// do nothing
-	}
-	
-}
-
-
 - (IBAction)forwardToRequirement:(id)sender{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	//NSLog(theDataObject.requirementEnabled?@"Y":@"N");
 	if (theDataObject.requirementEnabled == NO){
 		theDataObject.continueToCalendar = NO;
+		self.toRequirement = YES;
 		RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
 		[reqController release];
 		[[self navigationController] presentModalViewController:navController animated:YES];
 		[navController release];
-	}else {
-		// call ZYB's alert view function
+	}
+	else 
+	{
 		theDataObject.continueToCalendar = YES;
-		[self moveToCalendar];
 	}
 }
 
@@ -459,10 +467,23 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	
     [super viewWillDisappear:animated];
+
 	// to dismiss the keyboard
 	[moduleListTableView becomeFirstResponder];
 	[searchBar setShowsCancelButton:NO];
     [searchBar resignFirstResponder];
+
+	if(!toRequirement&&![[ModelLogic modelLogic]checkTheSame:[[self theAppDataObject] activeModules]])
+	{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SURE_TO_CHANGE_TO_CALENDAR
+													   delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+		
+		[alert show];
+		[alert release];
+	}
+	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -483,7 +504,13 @@
 	}
 	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
-	[self moveToCalendar];
+	if([theDataObject continueToCalendar])
+		[self moveToCalendar];
+	else {
+		toRequirement = NO;
+	}
+
+		
 }
 
 - (void)dealloc {
