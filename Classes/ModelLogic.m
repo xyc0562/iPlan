@@ -548,14 +548,9 @@ static ModelLogic* modelLogic;
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
-	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
+	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable" WithModules:modules];
 }
 
-//- (void) syncModulesWithBasket:(NSMutableArray*)modules
-//{
-//	[timeTable release];
-//	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
-//}
 
 - (BOOL) generateDefaultTimetable
 {
@@ -873,8 +868,8 @@ static ModelLogic* modelLogic;
 				{
 					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
+					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[s.day intValue] Time:s.startTime];
+					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[s.day intValue] Time:s.endTime];
 					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
 					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
 					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
@@ -1051,11 +1046,14 @@ static ModelLogic* modelLogic;
 	[self timeTable].result = newResult;
 }
 
-- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable
+/*
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
+>>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
 {
 	if (timeTable!=nil) [timeTable release];
 	self.timeTable = storedTimeTable;
 }
+ */
 
 
 -(void)encodeWithCoder:(NSCoder *)coder

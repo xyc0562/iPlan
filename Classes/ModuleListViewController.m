@@ -130,6 +130,8 @@
     NSUInteger row = [indexPath row];
 	NSString *addedModule;
 	
+	NSLog(@"Module List Table load again! %d", row);
+	
 	addedModule = [copyModuleList objectAtIndex:row];
 	
 	cell.textLabel.text = addedModule;
@@ -362,6 +364,7 @@
 	//searching = NO;
     NSUInteger row_number = [indexPath row];
 	
+	toRequirement = YES;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
@@ -371,6 +374,8 @@
 	
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
+	
+	
 }
 
 - (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {

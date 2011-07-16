@@ -11,22 +11,21 @@
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
 
-#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
-#define EXPORT_TO_IVLE_SUCCESS @"Thanks! Export calendar to IVLE is successful!"
-#define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
+
 #define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
 #define EXPORT_TO_ICAL_FAIL @"Sorry, can not connect server!"
 
-@implementation OptionViewController
 
+@implementation OptionViewController
 
 #pragma mark -
 #pragma mark synthesize
 
 @synthesize optionTableView;
 @synthesize optionsList;
-@synthesize ivlePage;
 @synthesize switchEnabled;
+@synthesize exportIVLEButton;
+@synthesize exportICALBUtton;
 
 #pragma mark -
 #pragma mark instance methods
@@ -44,8 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	ivlePage.delegate = self;
+	self.tableView.allowsSelection = NO;
 	
 	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
 	
@@ -83,20 +81,23 @@
 	optionName = [optionsList objectAtIndex:row];
 	
 	cell.textLabel.text = optionName;
-	
-	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	CGRect frame = CGRectMake(0.0, 0.0, 50, 50);
-	addButton.frame = frame;
+	CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
 	
 	if(row == 0){
-		[addButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-		cell.accessoryView = addButton;
+		exportIVLEButton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		exportIVLEButton.frame = frame;
+		[exportIVLEButton setTitle:@"Export" forState:UIControlStateNormal];
+		[exportIVLEButton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportIVLEButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportIVLEButton;
 	}else if(row == 1){
-		[addButton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-		cell.accessoryView = addButton;
-	}else if (row == 2) {
+		exportICALBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		exportICALBUtton.frame = frame;
+		[exportICALBUtton setTitle:@"Export" forState:UIControlStateNormal];
+		[exportICALBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportICALBUtton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportICALBUtton;
+	}else if (row == 2) {	
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		theDataObject.requirementEnabled = NO;
 		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
@@ -115,7 +116,7 @@
 	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
 	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
 	if(indexPath != nil){
-		[self tableView:optionTableView didSelectRowAtIndexPath:indexPath];
+		[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
 	}
 }
 
@@ -130,27 +131,13 @@
 	}
 }
 
-- (void)requirementButtonTapped:(id)sender event:(id)event{
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
-	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
-	if(indexPath != nil){
-		[self tableView:optionTableView requirementButtonTappedForRowWithIndexPath:indexPath];
-	}
-}
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 	NSUInteger row = indexPath.row;
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	NSLog(@"clicked row %d", row);
 	if(row == 0){
 		//Lapi issue
-		//NSURL *url = [NSURL URLWithString:SERVER_URL];
-		//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-		//[ivlePage loadRequest:requestObj];		
-		//[self.view	addSubview:ivlePage];
 	}else if (row == 1) {
 		if ([[ModelLogic modelLogic]exportTimetableToiCalendar]) 
 		{
@@ -161,9 +148,8 @@
 		}
 
 		
+		
 	}
-	
-	
 }
 
 - (void)switchToggled:(id)sender {
@@ -171,58 +157,6 @@
 	theDataObject.requirementEnabled = switchEnabled.on;
 	//NSLog(switchEnabled.on?@"s:y":@"s:n");
 }
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	ivlePage.delegate = self;
-	[ivlePage loadRequest:requestObj];		
-	[self.view	addSubview:ivlePage];
-}
-
-
-
-#pragma mark -
-#pragma mark web view for authentication
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-	//can do nothing
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-	
-    //verify view is on the login page of the site (simplified)
-    NSURL *requestURL = [self.ivlePage.request URL];
-	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
-		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		
-		ivlePage.opaque = YES;
-		[self.view sendSubviewToBack:ivlePage];
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_SUCCESS
-													   delegate:self
-											  cancelButtonTitle:@"Ok" 
-											  otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-    }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		//do nothing
-	}else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_FAIL
-													   delegate:self
-											  cancelButtonTitle:@"Ok" 
-											  otherButtonTitles:nil];
-		
-		[alert show];
-		[alert release];
-	}
-	
-}
-
 
 #pragma mark -
 #pragma mark Memory management
@@ -239,7 +173,7 @@
     // For example: self.myOutlet = nil;
 	self.optionTableView = nil;
 	self.optionsList = nil;
-	ivlePage.delegate = nil;
+	NSLog(@"Option ‰View Unload");
 	[super viewDidUnload];
 }
 
@@ -247,8 +181,9 @@
 - (void)dealloc {
 	[optionTableView release];
 	[optionsList release];
-	[ivlePage release];
 	[switchEnabled release];
+	[exportIVLEButton release];
+	[exportICALBUtton release];
     [super dealloc];
 }
 
