@@ -110,6 +110,8 @@
 
 - (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray;
 //save the modified Timetable result for later restoring
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable;
+//
 
 -(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code;
 -(NSNumber*)getOrCreateClassTypeIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName;
