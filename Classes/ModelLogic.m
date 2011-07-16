@@ -822,7 +822,7 @@ static ModelLogic* modelLogic;
     {
         return NO;
     }
-
+	[self resetCalender];
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
@@ -902,6 +902,7 @@ static ModelLogic* modelLogic;
     }
 }
 
+
 // Return NSError* if an error occurs. If everything goes well, return nil
 - (NSError*) deleteEvents:(NSMutableArray*)eventIds
 {
@@ -925,6 +926,11 @@ static ModelLogic* modelLogic;
     [fileManager removeItemAtPath:fullPath error:NULL];
 
     return nil;
+}
+
+- (NSError*)resetCalender
+{
+	return [self deleteEvents:[self getExportedEventIds]];
 }
 
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode

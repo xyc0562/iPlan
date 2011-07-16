@@ -121,6 +121,7 @@
 - (BOOL)exportTimetableToiCalendar;
 - (NSMutableArray*) getExportedEventIds;
 - (NSError*) deleteEvents:(NSMutableArray*)eventIds;
+- (NSError*)resetCalender;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
 +(id)modelLogic;
