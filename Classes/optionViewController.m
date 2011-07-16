@@ -9,6 +9,7 @@
 #import "OptionViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
+#import "ModelLogic.h"
 
 
 #define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
@@ -139,6 +140,14 @@
 		//Lapi issue
 		
 	}else if (row == 1) {
+		if ([[ModelLogic modelLogic]exportTimetableToiCalendar]) 
+		{
+			//success
+		}else 
+		{
+			//fail
+		}
+
 		
 		
 	}
