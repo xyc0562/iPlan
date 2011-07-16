@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05B74F2513D1D617006DEC04 /* IVLEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B74F2413D1D617006DEC04 /* IVLEWebViewController.m */; };
 		05BE960E13BF4993000DCDDB /* RequirementPlacingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BE960C13BF4993000DCDDB /* RequirementPlacingViewController.m */; };
 		05BE960F13BF4993000DCDDB /* RequirementPlacingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BE960D13BF4993000DCDDB /* RequirementPlacingViewController.xib */; };
 		05BE962D13BF4DDC000DCDDB /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BE962C13BF4DDC000DCDDB /* plus.png */; };
@@ -74,6 +75,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05B74F2313D1D612006DEC04 /* IVLEWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVLEWebViewController.h; sourceTree = "<group>"; };
+		05B74F2413D1D617006DEC04 /* IVLEWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVLEWebViewController.m; sourceTree = "<group>"; };
 		05BE960B13BF4993000DCDDB /* RequirementPlacingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequirementPlacingViewController.h; sourceTree = "<group>"; };
 		05BE960C13BF4993000DCDDB /* RequirementPlacingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequirementPlacingViewController.m; sourceTree = "<group>"; };
 		05BE960D13BF4993000DCDDB /* RequirementPlacingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RequirementPlacingViewController.xib; path = Classes/RequirementPlacingViewController.xib; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 			children = (
 				1E2DB1B113C6EC6300C3D8CA /* ControllerConstant.h */,
 				1E2DB1B213C6EC6300C3D8CA /* SlotViewController.m */,
+				05B74F2313D1D612006DEC04 /* IVLEWebViewController.h */,
+				05B74F2413D1D617006DEC04 /* IVLEWebViewController.m */,
 				1E2DB1B313C6EC6300C3D8CA /* SlotViewController.h */,
 				1E2DB1B413C6EC6300C3D8CA /* DisplayViewController.m */,
 				1E2DB1B513C6EC6300C3D8CA /* DisplayViewController.h */,
@@ -497,6 +502,7 @@
 				B6CAE01413D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m in Sources */,
 				05C05C6813D0A1F70049D5C0 /* OptionViewController.m in Sources */,
 				1E2DE05113D17C9400C3D8CA /* ListViewController.m in Sources */,
+				05B74F2513D1D617006DEC04 /* IVLEWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
