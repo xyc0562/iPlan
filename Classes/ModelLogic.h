@@ -124,6 +124,7 @@
 - (NSMutableArray*) getExportedEventIds;
 - (NSError*) deleteEvents:(NSMutableArray*)eventIds;
 - (NSError*)resetCalender;
+- (void)removeAllEventsfromCalender;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
 // check exam conflicts
