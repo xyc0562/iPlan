@@ -1014,16 +1014,18 @@ static ModelLogic* modelLogic;
 			[eachResultRow addObject:classTypeIndex];
 			[eachResultRow addObject:classGroupIndex];
 			[newResult addObject:eachResultRow];
+			[eachSelected release];
 		}
 	}
+	if (timeTable!=nil) [timeTable release];
 	[self timeTable].result = newResult;
 }
 
-//- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
-//{
-//	timeTable = storedTimeTable;
-//	
-//}
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable
+{
+	if (timeTable!=nil) [timeTable release];
+	self.timeTable = storedTimeTable;	
+}
 
 
 -(void)encodeWithCoder:(NSCoder *)coder
