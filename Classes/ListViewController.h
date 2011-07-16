@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 
-@interface ListViewController : UIViewController {
 
+@interface ListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
+	IBOutlet UITableView* table;
+	NSMutableArray* newSlotViewControllers;
 }
-
+@property (nonatomic, retain)NSMutableArray* newSlotViewControllers;
 @end
