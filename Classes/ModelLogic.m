@@ -23,7 +23,33 @@ static ModelLogic* modelLogic;
 	}
 	return modelLogic;
 }
+- (BOOL)checkTheSame:(NSMutableArray*)active
+{
+	if([active count]!=[timeTable.modules count])
+		return NO;
+	else 
+	{
+		for(NSString* moduleCode in active)
+		{
+			BOOL inside = NO;
+			for(Module* module in timeTable.modules)
+			{
+				
+				if([module.code isEqualToString:moduleCode]);
+				{
+					inside = YES;
+					break;
+				}
+			}
+			if(!inside)
+				return NO;
+		}
 
+	}
+	return YES;
+}
+
+		
 - (Module*)getOrCreateAndGetModuleInstanceByCode:(NSString*)code
 {
     Module *module = [self.moduleObjectsDict objectForKey:code];
@@ -549,7 +575,7 @@ static ModelLogic* modelLogic;
 
 - (NSMutableArray*)getSelectedGroupsInfo
 {
-	
+	[self generateDefaultTimetable];
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{

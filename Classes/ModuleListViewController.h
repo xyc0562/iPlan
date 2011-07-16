@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSArray *moduleList;
 @property (nonatomic, retain) NSMutableArray *copyModuleList;
 @property (nonatomic, retain) NSIndexPath *pathForAlert;
+@property (nonatomic, assign) BOOL toRequirement;
 
 - (id)initWithTabBar;
 
