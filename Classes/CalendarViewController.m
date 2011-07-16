@@ -53,7 +53,7 @@
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
 
-	
+	printf("default answer count %d\n",[defaultAnswer count]);
 	for (NSDictionary* dict in defaultAnswer) 
 	{
 		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
@@ -144,7 +144,9 @@
 - (void) configureToolBar
 { 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-
+	for(UIView* any in [self.navigationItem.titleView subviews])
+		[any removeFromSuperview];
+	
 	if([theDataObject.slotViewControllers count]!=0)
 	{
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -167,8 +169,10 @@
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
 			[temp addSubview:titleLabel];
+			[titleLabel release];
 		}
 		self.navigationItem.titleView = temp;
+		[temp release];
 	}
 	else 
 	{
@@ -214,13 +218,25 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	for (UIView* any in [self.view subviews]) 
-	{
-		[any removeFromSuperview];
-	}
+	[super viewDidLoad];
+	CGRect frame = self.view.frame;
+	self.view = [[UIView alloc]initWithFrame:frame];
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.tableChoices removeAllObjects];
+	[theDataObject.availableSlots removeAllObjects];
+	for (SlotViewController* any in theDataObject.slotViewControllers ) 
+	{
+		[any.view removeFromSuperview];
+	}
+	[self.imageView removeFromSuperview];
+	[self.scrollView removeFromSuperview];
+	[self.table removeFromSuperview];
+	[theDataObject.slotViewControllers removeAllObjects];
 
-    [super viewDidLoad];
+	
+	
+
+    
 	[self.view addSubview: scrollView];
 	scrollView.multipleTouchEnabled = YES;
 	scrollView.userInteractionEnabled = YES;
@@ -562,24 +578,27 @@
 				[slot.view removeFromSuperview];
 			}
 			int row = indexPath.row-1;
-			SlotViewController* select = [theDataObject.availableSlots objectAtIndex:row];
-			for(SlotViewController* slot in theDataObject.availableSlots)
+			if(row!=-1)
 			{
-				if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
+				SlotViewController* select = [theDataObject.availableSlots objectAtIndex:row];
+				for(SlotViewController* slot in theDataObject.availableSlots)
 				{
-					[imageView addSubview:slot.view];
-					slot.view.frame = [slot calculateDisplayProperty];
-					[slot setBackGroundColorWithCondition:AVAILABLE];
-					[slot setLabelContentWithCondition:NORMAL];
-					[UIView beginAnimations:nil context:nil];
-					[UIView setAnimationDuration:3];
-					[slot.view setAlpha:0.2];
-					[UIView commitAnimations];
-					[UIView beginAnimations:nil context:nil];
-					[UIView setAnimationDuration:3];
-					[slot.view setAlpha:1];
-					[UIView commitAnimations];
-					[slot.view setAlpha:1];
+					if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]&&[slot.classGroupName isEqual:select.classGroupName])
+					{
+						[imageView addSubview:slot.view];
+						slot.view.frame = [slot calculateDisplayProperty];
+						[slot setBackGroundColorWithCondition:AVAILABLE];
+						[slot setLabelContentWithCondition:NORMAL];
+						[UIView beginAnimations:nil context:nil];
+						[UIView setAnimationDuration:3];
+						[slot.view setAlpha:0.2];
+						[UIView commitAnimations];
+						[UIView beginAnimations:nil context:nil];
+						[UIView setAnimationDuration:3];
+						[slot.view setAlpha:1];
+						[UIView commitAnimations];
+						[slot.view setAlpha:1];
+					}
 				}
 			}
 		/*	SharedAppDataObject* theDataObject = [self theAppDataObject];
