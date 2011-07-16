@@ -842,8 +842,13 @@ static ModelLogic* modelLogic;
     if (!self.timeTable)
     {
         return NO;
+		NSLog(@"##no timeTable");
     }
-	if ([self resetCalender]) return NO;
+	if ([self resetCalender]) 
+	{
+		NSLog(@"##reset failed");
+		return NO;
+	}
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
@@ -951,6 +956,7 @@ static ModelLogic* modelLogic;
 
 - (NSError*)resetCalender
 {
+	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
 	return [self deleteEvents:[self getExportedEventIds]];
 }
 
