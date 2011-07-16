@@ -20,7 +20,7 @@
 @synthesize semester;
 @synthesize startTime;
 @synthesize venue;
-@synthesize weekCode;
+@synthesize weekText;
 @synthesize currentProperty;
 
 - (id) delegate
@@ -42,7 +42,7 @@
         {
             [LAPIStudentTimeTableParser release];
         }
-        [[LAPIStudentTimeTableParser alloc] initWithData:data];
+        LAPIStudentTimeTableParser = [[NSXMLParser alloc] initWithData:data];
         [LAPIStudentTimeTableParser setDelegate:self];
         [LAPIStudentTimeTableParser setShouldResolveExternalEntities:YES];
         [LAPIStudentTimeTableParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
@@ -51,6 +51,7 @@
         //NSLog(@"begin parsing");
         [LAPIStudentTimeTableParser parse];
     }
+    return self;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -63,13 +64,14 @@
         {
             string = [string substringToIndex:[string length] - 1];
         }
-        [currentProperty appendString:string];
+        [self.currentProperty appendString:string];
         //NSLog(@"!%@!", currentProperty);
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
+    self.currentProperty = [NSMutableString string];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -115,14 +117,31 @@
     {
         self.venue = self.currentProperty;
     }
-    else if ([elementName isEqualToString:@"WeekCode"])
+    else if ([elementName isEqualToString:@"WeekText"])
     {
-        self.weekCode = self.currentProperty;
+        self.weekText = self.currentProperty;
     }
     // Start exporting
     else if ([elementName isEqualToString:@"Data_Timetable_Student"])
     {
-        
+        NSDate *semesterStart = [IPlanUtility LAPIGetSemesterStartFromAY:self.acadYear Semester:self.semester];
+        EKEventStore *eventDB = [[EKEventStore alloc] init];
+        NSArray *freArr = [IPlanUtility frequencyStringToNSArray:self.weekText];
+
+        for (int i = 1; i < [freArr count]; i ++)
+        {
+            EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+            myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", self.moduleCode, self.classNo, self.lessonType];
+            int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.startTime integerValue]]];
+            int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.endTime integerValue]]];
+            myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
+            myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
+            myEvent.notes = [IPlanUtility decodeFrequency:freArr];
+            myEvent.allDay = NO;
+            // For now we use the default calendar, we may change to other specific calendars later
+            [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+            [eventDB saveEvent:myEvent span:EKSpanThisEvent error:nil];
+        }
     }
 }
 
