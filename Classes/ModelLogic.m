@@ -1021,11 +1021,17 @@ static ModelLogic* modelLogic;
 	[self timeTable].result = newResult;
 }
 
+<<<<<<< HEAD
 - (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable
+=======
+/*
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
+>>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
 {
 	if (timeTable!=nil) [timeTable release];
 	self.timeTable = storedTimeTable;	
 }
+ */
 
 
 -(void)encodeWithCoder:(NSCoder *)coder
