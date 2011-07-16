@@ -17,6 +17,8 @@
 #import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
+#define SURE_TO_CHANGE_TO_CALENDAR @"Do you want to switch to Calendar? Calendar Content will be modified."
+#define NO_SOLUTION @"Sorry there is no possible Timetable based on your selection."
 
 @implementation ModuleListViewController
 
@@ -195,7 +197,9 @@
 		NSLog(@"test 2");
 		
 		self.pathForAlert = indexPath;
-	}else {
+	}
+	else 
+	{
 		//[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
 													   delegate:self
@@ -223,7 +227,8 @@
 
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
-	if ([button isEqual:@"OK"]) {
+	if ([button isEqual:@"OK"]) 
+	{
 		
 		if (alertView.message == SELECT_MODULE)
 		{
@@ -269,7 +274,25 @@
 			UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
 						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
-		}else {
+		}
+		else if(alertView.message = SURE_TO_CHANGE_TO_CALENDAR)
+		{
+			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
+			{
+				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+				self.tabBarController.selectedViewController = 	controller;
+			}
+			else 
+			{
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:NO_SOLUTION
+															   delegate:self
+													  cancelButtonTitle:@"Sure" otherButtonTitles:nil];
+				
+				[alert show];
+				[alert release];
+				
+			}
+			theDataObject.continueToCalendar = NO;
 			
 		}
 	}
@@ -495,22 +518,20 @@
 	[moduleListTableView reloadData];
 	
 	// check whether user clicks cancel or continue in the requirements view
-	if (theDataObject.continueToCalendar == YES){
+	if (theDataObject.continueToCalendar == YES)
+	{
 		// call the model logic and direct to the calendar view
+		
 		ModelLogic* modelLogic = [ModelLogic modelLogic];
 		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
-		NSLog(@"try solve");
-		if ([modelLogic generateDefaultTimetableWithRequirements:[theDataObject requirements]])
-		{
-			UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
-			//[[controller.viewControllers objectAtIndex:0]viewDidLoad];
-			self.tabBarController.selectedViewController = 	controller;
-		}
-		else 
-		{
-			NSLog(@"no solution");	
-		}
-		theDataObject.continueToCalendar = NO;
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SURE_TO_CHANGE_TO_CALENDAR
+													   delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+		
+		[alert show];
+		[alert release];
+		
 	}
 	else 
 	{
