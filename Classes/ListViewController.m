@@ -167,7 +167,10 @@
 
 
 - (void)dealloc {
-    [super dealloc];
+    if(newSlotViewControllers)
+		[newSlotViewControllers release];
+	[super dealloc];
+	
 }
 
 
