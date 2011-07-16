@@ -9,6 +9,8 @@
 #import "SettingsViewController.h"
 #import "HelpViewController.h"
 #import "OptionViewController.h"
+//#import "LoadViewController.h"
+#import "ListViewController.h"
 
 #import "AppDelegateProtocol.h"
 #import "SharedAppDataObject.h"
@@ -138,7 +140,11 @@
 		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
 	}else if (row_number == 2){
 		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
-	}else{
+	}else if(row_number == 3){
+		//viewController = [[LoadViewController alloc] initWithNibName:@"LoadViewController" bundle:nil];
+	}else if(row_number ==4){
+		viewController = [[ListViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
+	}else {
 		printf("Error");
 	}
 	
