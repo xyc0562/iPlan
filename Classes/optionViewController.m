@@ -26,6 +26,7 @@
 @synthesize optionTableView;
 @synthesize optionsList;
 @synthesize ivlePage;
+@synthesize switchEnabled;
 
 #pragma mark -
 #pragma mark instance methods
@@ -46,7 +47,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"export to IVLE", @"export to iCal", @"disable requirement placement", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
 	
 }
 
@@ -89,14 +90,21 @@
 	
 	if(row == 0){
 		[addButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+		cell.accessoryView = addButton;
 	}else if(row == 1){
 		[addButton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+		cell.accessoryView = addButton;
 	}else if (row == 2) {
-		[addButton addTarget:self action:@selector(requirementButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		theDataObject.requirementEnabled = NO;
+		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
+		switchEnabled = [[UISwitch alloc] initWithFrame:frameSwitch];
+		switchEnabled.on = NO;
+		[switchEnabled addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];		
+		cell.accessoryView = switchEnabled;
 	}
-	
-	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-	cell.accessoryView = addButton;
 	
     return cell;
 }
@@ -150,8 +158,10 @@
 	
 }
 
-- (void)tableView:(UITableView *)tableView requirementButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-	NSUInteger row = [indexPath row];
+- (void)switchToggled:(id)sender {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	theDataObject.requirementEnabled = switchEnabled.on;
+	//NSLog(switchEnabled.on?@"s:y":@"s:n");
 }
 
 #pragma mark -
@@ -246,6 +256,7 @@
 	[optionTableView release];
 	[optionsList release];
 	[ivlePage release];
+	[switchEnabled release];
     [super dealloc];
 }
 

@@ -24,6 +24,7 @@
 	NSMutableArray* tableChoices;
 	BOOL needUpdate;
 	BOOL continueToCalendar;
+	BOOL requirementEnabled;
 	UITableView* table;
 	UIImageView* image;
 }
@@ -45,7 +46,7 @@
 @property (nonatomic, retain) NSMutableArray* tableChoices;
 @property (nonatomic, retain) UITableView* table;
 @property (nonatomic, retain) UIImageView* image;
-
+@property (nonatomic, assign) BOOL requirementEnabled;
 
 
 @end
