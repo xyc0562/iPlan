@@ -486,6 +486,19 @@ static ModelLogic* modelLogic;
     }
 }
 
+- (BOOL)checkConflictsBetweenArray:(NSMutableArray*)basket AndModule:(NSString*)code {
+	BOOL conflict = NO;
+	Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
+	for (NSString* codeName in basket){
+		Module *m = [self getOrCreateAndGetModuleInstanceByCode:codeName];
+		if (![module.examDate isEqualToString:MODULE_EXAM_NO_EXAM] && [module.examDate isEqualToString:m.examDate]){
+			conflict = YES;
+			break;
+		}
+	}
+	return conflict;
+}
+
 // Not retained!
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits
 {
@@ -548,14 +561,9 @@ static ModelLogic* modelLogic;
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
-	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
+	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable" WithModules:modules];
 }
 
-//- (void) syncModulesWithBasket:(NSMutableArray*)modules
-//{
-//	[timeTable release];
-//	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
-//}
 
 - (BOOL) generateDefaultTimetable
 {
@@ -847,8 +855,13 @@ static ModelLogic* modelLogic;
     if (!self.timeTable)
     {
         return NO;
+		//NSLog(@"##no timeTable");
     }
-	if ([self resetCalender]) return NO;
+	if ([self resetCalender]) 
+	{
+		//NSLog(@"##reset failed");
+		return NO;
+	}
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
@@ -867,14 +880,15 @@ static ModelLogic* modelLogic;
 		NSString* groupName = [classGroup name];
 		for (Slot *s in [classGroup slots])
 		{
+			NSLog(@"%@",[[s day]stringValue]);
 			for (int i = 1; i < [s.frequency count]; i ++)
 			{
 				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
 				{
 					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
+					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
+					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
 					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
 					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
 					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
@@ -956,8 +970,29 @@ static ModelLogic* modelLogic;
 
 - (NSError*)resetCalender
 {
+//	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
 	return [self deleteEvents:[self getExportedEventIds]];
 }
+
+//- (void)removeAllEventsfromCalender
+//{
+//	EKEventStore *store = [[EKEventStore alloc] init];
+//	
+//	NSUInteger beginYear = 1900;
+//	NSUInteger endYear = 2100;
+//	
+//	while (beginYear < endYear) {
+//		NSPredicate *predicate = [store predicateForEventsWithStartDate:[self createDateWithYear:beginYear month:1 day:1] 
+//																endDate:[self createDateWithYear:beginYear + 5 month:1 day:1] 
+//															  calendars:nil];
+//		NSArray *eventList = [store eventsMatchingPredicate:predicate];
+//		for (EKEvent *event in eventList) {           
+//			[store removeEvent:event span:EKSpanThisEvent error:nil];
+//		}
+//		beginYear += 5;
+//	}
+//	[store release];	
+//}
 
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {

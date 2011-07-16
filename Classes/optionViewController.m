@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	//self.tableView.allowsSelection = NO;
+	self.tableView.allowsSelection = NO;
 	
 	ivlePage.delegate = self;
 	
@@ -132,12 +132,13 @@
 		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url]; 	
 		[ivlePage loadRequest:requestObj];    	
 		[self.view  addSubview:ivlePage];
+		[self.view bringSubviewToFront:ivlePage];
+
 	}else if (row == 1) {
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
 			//success
-		}else 
-		{
+		}else{
 			//fail
 		}
 	}
@@ -205,8 +206,6 @@
 	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
 	[ivlePage loadRequest:requestObj];		
 }
-
-
 
 #pragma mark -
 #pragma mark Memory management

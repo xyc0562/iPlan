@@ -448,25 +448,33 @@
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
 	
 	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
-	for(SlotViewController* slot in theDataObject.availableSlots)
+	for(UIView* any in [imageView subviews])
 	{
-		[slot.view removeFromSuperview];
+		[any removeFromSuperview];
 	}
 	
 	//remove from slotviewcontrollers
 	//remove previous selected
-	
+	NSMutableArray* rest = [[NSMutableArray alloc]init];
+
+	printf("slot count before add in %d\n",[theDataObject.slotViewControllers count]);
+
 	for (int i =0;i<[theDataObject.slotViewControllers count];i++) 
 	{
 		SlotViewController* slot = [theDataObject.slotViewControllers objectAtIndex:i];
-		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName])
+
+		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]);
+		else
 		{
-			[slot.view removeFromSuperview];
-			[theDataObject.slotViewControllers removeObjectAtIndex:i];
+			[rest addObject:slot];
 		}
 	}
-	
-	
+	[theDataObject.slotViewControllers removeAllObjects];
+	printf("slot after remove count %d\n",[theDataObject.slotViewControllers count]);
+	[theDataObject.slotViewControllers addObjectsFromArray:rest];
+	printf("rest count %d\n",[rest count]);
+	printf("slot count after add in %d\n",[theDataObject.slotViewControllers count]);
+		
 	//add in new slots selected
 	for(SlotViewController* slot in theDataObject.availableSlots)
 	{
@@ -537,6 +545,7 @@
 	[theDataObject.tableChoices removeAllObjects];
 	[theDataObject.availableSlots removeAllObjects];
 	[table reloadData];
+ 
 }
 
 - (void) saveButtonTapped:(id)sender event:(id)event
