@@ -17,7 +17,7 @@
 #import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
-#define SURE_TO_CHANGE_TO_CALENDAR @"Do you want to switch to Calendar? Calendar Content will be modified."
+#define SURE_TO_CHANGE_TO_CALENDAR @"Are you sure to change the modules? Calendar Content will be modified accordingly."
 #define NO_SOLUTION @"Sorry there is no possible Timetable based on your selection."
 
 @implementation ModuleListViewController
@@ -180,6 +180,29 @@
 	}
 }
 
+- (void)addModuleToBasketAndCheck:(NSString*)addedModule {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.basket addObject:addedModule];
+	
+	// set the added module as active (defaultly)
+	if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
+		// if the added module has exam conflict with active modules, automatically set it as inactive
+		if ([[ModelLogic modelLogic] checkConflictsBetweenArray:theDataObject.activeModules AndModule:addedModule]){
+			// has conflict
+			// do nothing
+		}else {
+			[theDataObject.activeModules addObject:addedModule];
+		}
+	}
+}
+
+- (void)removeModuleFromBasketAndCheck:(NSString*)addedModule {
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	[theDataObject.basket removeObject:addedModule];
+	if ([theDataObject.activeModules containsObject:addedModule]){
+		[theDataObject.activeModules removeObject:addedModule];
+	}
+}
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 	[moduleListTableView becomeFirstResponder];
@@ -192,22 +215,11 @@
 	BOOL checked = [theDataObject.basket containsObject:addedModule];
 
 	if(!checked){
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SELECT_MODULE
-//											  delegate:self
-//											  cancelButtonTitle:@"Cancel" 
-//											  otherButtonTitles:@"OK",nil];
-//							  
-//		[alert show];
-//		[alert release];
+
 		self.pathForAlert = indexPath;
 		NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
 		
-		[theDataObject.basket addObject:addedModule];
-		
-		// set the added module as active (defaultly)
-		if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
-			[theDataObject.activeModules addObject:addedModule];
-		}
+		[self addModuleToBasketAndCheck:addedModule];
 		
 		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 		[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
@@ -223,20 +235,10 @@
 	}
 	else 
 	{
-		//[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
-//													   delegate:self
-//											  cancelButtonTitle:@"Cancel" 
-//											  otherButtonTitles:@"OK",nil];
-//		
-//		[alert show];
-//		[alert release];
 		self.pathForAlert = indexPath;
 		NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
-		[theDataObject.basket removeObject:addedModule];
-		if ([theDataObject.activeModules containsObject:addedModule]){
-			[theDataObject.activeModules removeObject:addedModule];
-		}
+		
+		[self removeModuleFromBasketAndCheck:addedModule];
 		
 		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 		[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
@@ -253,54 +255,14 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-	NSLog(@"haha");
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
- 	NSLog(@"abc");
-	NSLog(@"test for 1, path for alert: %@",pathForAlert);
-
-	NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
-	NSLog(@"def");
 
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 
 	if ([button isEqual:@"OK"]) 
 	{
 		
-		if (alertView.message == SELECT_MODULE)
-		{
-			[theDataObject.basket addObject:addedModule];
-			
-			// set the added module as active (defaultly)
-			if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
-				[theDataObject.activeModules addObject:addedModule];
-			}
-			
-			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
-			[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
-			
-			UIButton *button = (UIButton *)cell.accessoryView;
-			
-			UIImage *newImage = [UIImage imageNamed:@"checked.png"];
-						
-			[button setBackgroundImage:newImage forState:UIControlStateNormal];
-			
-		}
-		else if (alertView.message == DESELECT_MODULE)
-		{
-			[theDataObject.basket removeObject:addedModule];
-			if ([theDataObject.activeModules containsObject:addedModule]){
-				[theDataObject.activeModules removeObject:addedModule];
-			}
-			
-			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
-			[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
-			UIButton *button = (UIButton *)cell.accessoryView;
-			
-			UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
-						
-			[button setBackgroundImage:newImage forState:UIControlStateNormal];
-		}
-		else if(alertView.message == SURE_TO_CHANGE_TO_CALENDAR)
+		if(alertView.message == SURE_TO_CHANGE_TO_CALENDAR)
 		{
 			ModelLogic* modelLogic = [ModelLogic modelLogic];
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
@@ -452,39 +414,6 @@
 #pragma mark -
 #pragma mark Add modules to the basket
 
-//- (IBAction)AddButtonAction:(id)sender{
-//	SharedAppDataObject* theDataObject = [self theAppDataObject];
-//	UIButton *button = (UIButton*) sender;
-//	[theDataObject.basket addObject:button.titleLabel];
-//	
-//	// set the added module as active (defaultly)
-//	if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
-//		[theDataObject.activeModules addObject:button.titleLabel];
-//	}
-//	
-//	
-//	[moduleListTableView reloadData];
-//}
-
-
-//- (IBAction) Edit:(id)sender{
-//	if(self.editing){
-//		[super setEditing:NO animated:YES]; 
-//		[moduleListTableView setEditing:NO animated:YES];
-//		[moduleListTableView reloadData];
-//		[self.navigationItem.rightBarButtonItem setTitle:@"Add to Basket"];
-//		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-//		[self.navigationItem.leftBarButtonItem setEnabled:YES];
-//	}else{
-//		[super setEditing:YES animated:YES]; 
-//		[moduleListTableView setEditing:YES animated:YES];
-//		[moduleListTableView reloadData];
-//		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-//		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-//		[self.navigationItem.leftBarButtonItem setEnabled:NO];
-//	}
-//}
-
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -496,28 +425,6 @@
 		return UITableViewCellEditingStyleInsert;
 	}
 }
-
-
-//- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-//forRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//	UITableViewCell *cell = (UITableViewCell *)[moduleListTableView cellForRowAtIndexPath:indexPath];
-//
-//	if (editingStyle == UITableViewCellEditingStyleInsert) {
-//		SharedAppDataObject* theDataObject = [self theAppDataObject];
-//		
-//		// only add the same module once
-//		NSString *addedModule = cell.textLabel.text;
-//		if (![theDataObject.basket containsObject:addedModule]){
-//			[theDataObject.basket insertObject:addedModule atIndex:[theDataObject.basket count]];
-//			cell.editing = NO;
-//			[moduleListTableView reloadData];
-//		}
-//		NSLog(@"haha: %i %@", [theDataObject.basket count],cell.textLabel.text); 
-//    }
-//}
-
-
 
 #pragma mark -
 #pragma mark Go To RequirementPlacingViewController

@@ -138,7 +138,6 @@
 	NSLog(@"clicked row %d", row);
 	if(row == 0){
 		//Lapi issue
-		
 	}else if (row == 1) {
 		if ([[ModelLogic modelLogic]exportTimetableToiCalendar]) 
 		{

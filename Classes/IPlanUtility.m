@@ -250,10 +250,10 @@ return [freArray autorelease];
     return [semesterStart autorelease];
 }
 
-+ (int) getTimeIntervalFromWeek:(int)week Time:(NSNumber*)time
++ (int) getTimeIntervalFromWeek:(int)week Day: (int)day Time:(NSNumber*)time
 {
-    int32_t interval = 24*3600*7*(week - 1);
-    int hour = [time integerValue]/100;
+    int32_t interval = 24*3600*7*(week - 1)+24*3600*(day - 1);
+	int hour = [time integerValue]/100;
     int min = [time integerValue]%100;
     return interval + hour*3600 + min*60;
 }
