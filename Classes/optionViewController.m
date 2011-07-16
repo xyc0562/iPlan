@@ -10,6 +10,7 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+#import	"LAPIStudentTimeTableToiCalExporter.h"
 
 
 #define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
@@ -182,11 +183,12 @@
 		[alert release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
 		//do nothing
-	}else{ // not work now
+	}
+	/*else{ 
 		NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.getElementById"];
 		
 		NSLog(@"The xml is %@", xml_file);
-	}
+	}*/
 }
 
 
@@ -207,13 +209,18 @@
 	//[ivlePage loadRequest:requestObj];		
 	
 	NSData *xml_data = [[NSData alloc] initWithContentsOfURL:url];
+	
+	LAPIStudentTimeTableToiCalExporter *exporter = [[LAPIStudentTimeTableToiCalExporter alloc] initWithNSDataParseAndExport:xml_data];
+	
+	[exporter release];
+	/*
 	if ([xml_data writeToFile:@"timetable.xml" atomically:YES]) {
 		NSLog(@"Write timetable data to file successfully!");
 		
 		
 	}else{
 		NSLog(@"Writing timetable to file failed!");
-	}
+	}*/
 }
 
 #pragma mark -
