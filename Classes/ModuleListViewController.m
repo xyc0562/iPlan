@@ -277,6 +277,8 @@
 		}
 		else if(alertView.message = SURE_TO_CHANGE_TO_CALENDAR)
 		{
+			ModelLogic* modelLogic = [ModelLogic modelLogic];
+			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
@@ -498,6 +500,31 @@
     [searchBar resignFirstResponder];
 }
 
+- (void)moveToCalendar
+{
+	// check whether user clicks cancel or continue in the requirements view
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	if (theDataObject.continueToCalendar == YES)
+	{
+		// call the model logic and direct to the calendar view
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SURE_TO_CHANGE_TO_CALENDAR
+													   delegate:self
+											  cancelButtonTitle:@"Cancel" 
+											  otherButtonTitles:@"OK",nil];
+		
+		[alert show];
+		[alert release];
+		
+	}
+	else 
+	{
+		theDataObject.continueToCalendar = NO;
+		//NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");
+		// do nothing
+	}
+	
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
@@ -517,28 +544,6 @@
 	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
 	
-	// check whether user clicks cancel or continue in the requirements view
-	if (theDataObject.continueToCalendar == YES)
-	{
-		// call the model logic and direct to the calendar view
-		
-		ModelLogic* modelLogic = [ModelLogic modelLogic];
-		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SURE_TO_CHANGE_TO_CALENDAR
-													   delegate:self
-											  cancelButtonTitle:@"Cancel" 
-											  otherButtonTitles:@"OK",nil];
-		
-		[alert show];
-		[alert release];
-		
-	}
-	else 
-	{
-		theDataObject.continueToCalendar = NO;
-		//NSLog(theDataObject.continueToCalendar?@"cancel: Y":@"cancel: N");
-		// do nothing
-	}
 }
 
 - (void)dealloc {
