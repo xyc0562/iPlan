@@ -15,6 +15,7 @@
 #define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
 #define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
 #define EXPORT_TO_ICAL_FAIL @"Sorry, can not connect server!"
+#define API_KEY @"K6vDt3tA51QC3gotLvPYf"
 
 @implementation OptionViewController
 
@@ -159,7 +160,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSURL *url = [NSURL URLWithString:SERVER_URL];
 	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	ivlePage.delegate = self;
 	[ivlePage loadRequest:requestObj];		
 	[self.view	addSubview:ivlePage];
 }
@@ -174,15 +174,20 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-	
+	SharedAppDataObject *theAppDataObject = [self theAppDataObject];
     //verify view is on the login page of the site (simplified)
     NSURL *requestURL = [self.ivlePage.request URL];
+	NSLog(@"The url is %@", requestURL);
 	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
 		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
 		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		
+		theAppDataObject.requestedToken = webContent;
 		ivlePage.opaque = YES;
+		ivlePage.backgroundColor = [UIColor	 clearColor];
+		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
+		[self importIVLETimeTableAcadYear:@"2010/2011" Semester:@"2"];
+		
 		
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_SUCCESS
 													   delegate:self
@@ -192,18 +197,30 @@
 		[alert release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
 		//do nothing
-	}else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_FAIL
-													   delegate:self
-											  cancelButtonTitle:@"Ok" 
-											  otherButtonTitles:nil];
+	}else{
+		NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.body"];
 		
-		[alert show];
-		[alert release];
+		NSLog(@"The xml is %@", xml_file);
 	}
-	
 }
 
+
+- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester{
+	SharedAppDataObject *theAppDataObject = [self theAppDataObject];
+	
+
+	
+	NSString *url_address = [[NSString alloc] initWithFormat:@"https://ivle.nus.edu.sg/api/Lapi.svc/Timetable_Student?APIKey=%@&AuthToken=%@&AcadYear=%@&Semester=%@",
+							 API_KEY,
+							 theAppDataObject.requestedToken,
+							 year, semester];
+	
+	NSLog(@"Request url for xml is : %@", url_address);
+	
+	NSURL *url = [NSURL URLWithString:url_address];
+	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+	[ivlePage loadRequest:requestObj];		
+}
 
 #pragma mark -
 #pragma mark Memory management
