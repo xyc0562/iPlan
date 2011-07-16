@@ -129,7 +129,10 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
     NSUInteger row = [indexPath row];
 	NSString *addedModule;
-		
+	
+	//NSLog(@"Module List Table load again! %d", row);
+	
+
 	addedModule = [copyModuleList objectAtIndex:row];
 	
 	cell.textLabel.text = addedModule;
