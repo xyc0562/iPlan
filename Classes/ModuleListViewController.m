@@ -434,14 +434,18 @@
 #pragma mark Go To RequirementPlacingViewController
 
 - (IBAction)forwardToRequirement:(id)sender{
-	//TODO: requirements part (present model view for requirements, after done, dismiss and then call sync and then to cal
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	theDataObject.continueToCalendar = NO;
-	RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
-	[reqController release];
-    [[self navigationController] presentModalViewController:navController animated:YES];
-    [navController release];
+	NSLog(theDataObject.requirementEnabled?@"Y":@"N");
+	if (theDataObject.requirementEnabled == NO){
+		theDataObject.continueToCalendar = NO;
+		RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
+		[reqController release];
+		[[self navigationController] presentModalViewController:navController animated:YES];
+		[navController release];
+	}else {
+		// call ZYB's alert view function
+	}
 }
 
 
