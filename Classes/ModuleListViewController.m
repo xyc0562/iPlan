@@ -294,7 +294,7 @@
 						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		}
-		else if(alertView.message = SURE_TO_CHANGE_TO_CALENDAR)
+		else if(alertView.message == SURE_TO_CHANGE_TO_CALENDAR)
 		{
 			ModelLogic* modelLogic = [ModelLogic modelLogic];
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
@@ -314,9 +314,16 @@
 				
 			}
 			theDataObject.continueToCalendar = NO;
-			
+		}else if (alertView.message == NO_SOLUTION) {
+			theDataObject.continueToCalendar = NO;
+		}else {
+			theDataObject.continueToCalendar = NO;
 		}
+
+	}else{
+		theDataObject.continueToCalendar = NO;
 	}
+
 }
 
 #pragma mark -
@@ -570,7 +577,6 @@
 	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
 	[self moveToCalendar];
-	
 }
 
 - (void)dealloc {
