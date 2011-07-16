@@ -19,6 +19,7 @@
 @property(nonatomic, retain)TimeTable *timeTable;
 @property(nonatomic, retain)NSMutableDictionary *moduleObjectsDict;
 @property(nonatomic, retain)NSNumber* currentColorIndex;
+@property(nonatomic, retain)NSMutableDictionary* indexesDict;
 
 
 - (NSArray*) getAllModuleCodes;
@@ -106,6 +107,15 @@
 
 - (NSArray*)getModuleInfoIntoArray:(NSString*)code;
 //assign a new color for modules added into basket
+
+- (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray;
+//save the modified Timetable result for later restoring
+- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable;
+//
+
+-(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code;
+-(NSNumber*)getOrCreateClassTypeIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName;
+-(NSNumber*)getOrCreateClassGroupIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName WithClassGroupName:(NSString*)classGroupName;
 
 - (UIColor*)getNewColor;
 - (void)resetColorIndex;

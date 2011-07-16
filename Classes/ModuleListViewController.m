@@ -186,32 +186,62 @@
 	BOOL checked = [theDataObject.basket containsObject:addedModule];
 
 	if(!checked){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SELECT_MODULE
-											  delegate:self
-											  cancelButtonTitle:@"Cancel" 
-											  otherButtonTitles:@"OK",nil];
-							  
-		[alert show];
-		[alert release];
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:SELECT_MODULE
+//											  delegate:self
+//											  cancelButtonTitle:@"Cancel" 
+//											  otherButtonTitles:@"OK",nil];
+//							  
+//		[alert show];
+//		[alert release];
+		self.pathForAlert = indexPath;
+		NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
+		
+		[theDataObject.basket addObject:addedModule];
+		
+		// set the added module as active (defaultly)
+		if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
+			[theDataObject.activeModules addObject:addedModule];
+		}
+		
+		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
+		[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
+		
+		UIButton *button = (UIButton *)cell.accessoryView;
+		
+		UIImage *newImage = [UIImage imageNamed:@"checked.png"];
+		
+		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
 		NSLog(@"test 2");
 		
-		self.pathForAlert = indexPath;
 	}
 	else 
 	{
 		//[self tableView:moduleListTableView didSelectRowAtIndexPath:indexPath];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
-													   delegate:self
-											  cancelButtonTitle:@"Cancel" 
-											  otherButtonTitles:@"OK",nil];
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DESELECT_MODULE
+//													   delegate:self
+//											  cancelButtonTitle:@"Cancel" 
+//											  otherButtonTitles:@"OK",nil];
+//		
+//		[alert show];
+//		[alert release];
+		self.pathForAlert = indexPath;
+		NSString *addedModule = [copyModuleList objectAtIndex:pathForAlert.row];
+		[theDataObject.basket removeObject:addedModule];
+		if ([theDataObject.activeModules containsObject:addedModule]){
+			[theDataObject.activeModules removeObject:addedModule];
+		}
 		
-		[alert show];
-		[alert release];
+		UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
+		[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
+		UIButton *button = (UIButton *)cell.accessoryView;
+		
+		UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
+		
+		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
 		NSLog(@"test deselect");
 		
-		self.pathForAlert = indexPath;
 	}
 	
 }
@@ -238,11 +268,6 @@
 			if ([theDataObject.activeModules count] <MODULE_ACTIVE_NUMBER){
 				[theDataObject.activeModules addObject:addedModule];
 			}
-			// testing
-//			for (NSString *var in theDataObject.activeModules)
-//				NSLog(var);
-//			for (NSString *var in theDataObject.basket)
-//				NSLog(var);
 			
 			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 			[theDataObject.moduleCells setObject:pathForAlert forKey:addedModule];
@@ -269,7 +294,7 @@
 						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		}
-		else if(alertView.message = SURE_TO_CHANGE_TO_CALENDAR)
+		else if(alertView.message == SURE_TO_CHANGE_TO_CALENDAR)
 		{
 			ModelLogic* modelLogic = [ModelLogic modelLogic];
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
@@ -289,9 +314,16 @@
 				
 			}
 			theDataObject.continueToCalendar = NO;
-			
+		}else if (alertView.message == NO_SOLUTION) {
+			theDataObject.continueToCalendar = NO;
+		}else {
+			theDataObject.continueToCalendar = NO;
 		}
+
+	}else{
+		theDataObject.continueToCalendar = NO;
 	}
+
 }
 
 #pragma mark -
@@ -545,7 +577,6 @@
 	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
 	[self moveToCalendar];
-	
 }
 
 - (void)dealloc {
