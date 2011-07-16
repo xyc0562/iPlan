@@ -506,7 +506,8 @@
 	[moduleListTableView reloadData];
 	if([theDataObject continueToCalendar])
 		[self moveToCalendar];
-	else {
+	else 
+	{
 		toRequirement = NO;
 	}
 

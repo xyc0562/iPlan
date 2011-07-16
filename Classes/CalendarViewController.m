@@ -12,6 +12,7 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+#import "AlertHelp.h"
 
 // import parser to check
 #import "ModuleXMLParser.h"
@@ -548,9 +549,54 @@
  
 }
 
+- (NSMutableArray*)configureSaveFile
+{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
+	NSMutableArray* result = [[NSMutableArray alloc]init];
+	for (SlotViewController* eachSelected in slotViewControllers) 
+	{
+		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
+		NSString* moduleCode = [eachSelected moduleCode];
+		NSString* classTypeName = [eachSelected classTypeName];
+		NSString* groupName = [eachSelected classGroupName];
+		
+		[resultDict setValue:moduleCode forKey:@"moduleCode"];
+		[resultDict setValue:classTypeName forKey:@"classTypeName"];
+		[resultDict setValue:groupName forKey:@"classGroupName"];
+		/*	
+		 [resultDict setValue:[eachSelected venue] forKey:@"venue"];
+		 [resultDict setValue:[eachSelected dayNumber] forKey:@"day"];
+		 [resultDict setValue:[eachSelected startTime] forKey:@"startTime"];
+		 [resultDict setValue:[eachSelected endTime] forKey:@"endTime"];
+		 [resultDict setValue:[eachSelected frequency] forKey:@"frequency"];
+		 [resultDict setValue:freq forKey:@"frequency"];
+		 [resultInfo addObject:slotDict];
+		 */
+		
+		[result addObject:resultDict];
+		
+	}
+	return result;
+	
+	
+}
+
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [alertView cancelButtonIndex])
+    {
+        NSString *entered = [(AlertHelp *)alertView enteredText];
+        [[ModelLogic modelLogic]save:[self configureSaveFile] WithName:entered];
+    }
+}
+
 - (void) saveButtonTapped:(id)sender event:(id)event
 {
-	[[ModelLogic modelLogic]save:[self configureSaveFile]];
+	AlertHelp *prompt = [AlertHelp alloc];
+    prompt = [prompt initWithTitle:@"Save File Name" message:@"Please enter some text in" delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Okay"];
+    [prompt show];
+    [prompt release];
 }
 
 - (void)getAvailableSlotsWithSlot:(SlotViewController*)slot
@@ -753,38 +799,7 @@
 }
 
 
-- (NSMutableArray*)configureSaveFile
-{
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
-	NSMutableArray* result = [[NSMutableArray alloc]init];
-	for (SlotViewController* eachSelected in slotViewControllers) 
-	{
-		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
-		NSString* moduleCode = [eachSelected moduleCode];
-		NSString* classTypeName = [eachSelected classTypeName];
-		NSString* groupName = [eachSelected classGroupName];
-		
-		[resultDict setValue:moduleCode forKey:@"moduleCode"];
-		[resultDict setValue:classTypeName forKey:@"classTypeName"];
-		[resultDict setValue:groupName forKey:@"classGroupName"];
-	 /*	
-		[resultDict setValue:[eachSelected venue] forKey:@"venue"];
-		[resultDict setValue:[eachSelected dayNumber] forKey:@"day"];
-		[resultDict setValue:[eachSelected startTime] forKey:@"startTime"];
-		[resultDict setValue:[eachSelected endTime] forKey:@"endTime"];
-		[resultDict setValue:[eachSelected frequency] forKey:@"frequency"];
-		[resultDict setValue:freq forKey:@"frequency"];
-		[resultInfo addObject:slotDict];
-	  */
-		
-		[result addObject:resultDict];
 
-	}
-	return result;
-	
-	
-}
 
 #pragma mark -
 #pragma mark memory management
