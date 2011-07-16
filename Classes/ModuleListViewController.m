@@ -503,7 +503,7 @@
 		if ([modelLogic generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 		{
 			UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
-			[[controller.viewControllers objectAtIndex:0]viewDidLoad];
+			//[[controller.viewControllers objectAtIndex:0]viewDidLoad];
 			self.tabBarController.selectedViewController = 	controller;
 		}
 		else 
