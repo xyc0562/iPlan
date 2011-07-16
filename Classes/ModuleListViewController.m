@@ -543,6 +543,7 @@
 	}
 	[theDataObject.removedCells removeAllObjects];
 	[moduleListTableView reloadData];
+	[self moveToCalendar];
 	
 }
 
