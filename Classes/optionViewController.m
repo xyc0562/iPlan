@@ -147,10 +147,10 @@
 	NSLog(@"clicked row %d", row);
 	if(row == 0){
 		//Lapi issue
-		NSURL *url = [NSURL URLWithString:SERVER_URL];
-		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-		[ivlePage loadRequest:requestObj];		
-		[self.view	addSubview:ivlePage];
+		//NSURL *url = [NSURL URLWithString:SERVER_URL];
+		//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+		//[ivlePage loadRequest:requestObj];		
+		//[self.view	addSubview:ivlePage];
 	}else if (row == 1) {
 		if ([[ModelLogic modelLogic]exportTimetableToiCalendar]) 
 		{
