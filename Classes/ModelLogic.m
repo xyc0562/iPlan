@@ -855,11 +855,11 @@ static ModelLogic* modelLogic;
     if (!self.timeTable)
     {
         return NO;
-		NSLog(@"##no timeTable");
+		//NSLog(@"##no timeTable");
     }
 	if ([self resetCalender]) 
 	{
-		NSLog(@"##reset failed");
+		//NSLog(@"##reset failed");
 		return NO;
 	}
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
@@ -880,14 +880,15 @@ static ModelLogic* modelLogic;
 		NSString* groupName = [classGroup name];
 		for (Slot *s in [classGroup slots])
 		{
+			NSLog(@"%@",[[s day]stringValue]);
 			for (int i = 1; i < [s.frequency count]; i ++)
 			{
 				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
 				{
 					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[s.day intValue] Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[s.day intValue] Time:s.endTime];
+					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
+					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
 					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
 					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
 					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
@@ -969,7 +970,7 @@ static ModelLogic* modelLogic;
 
 - (NSError*)resetCalender
 {
-	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
+//	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
 	return [self deleteEvents:[self getExportedEventIds]];
 }
 
