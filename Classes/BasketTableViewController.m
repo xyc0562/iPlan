@@ -9,7 +9,9 @@
 #import "BasketTableViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
+#import "ModelLogic.h"
 
+#define EXAM_CONFLICT @"Sorry. You cannot choose the module due to exam conflicts."
 
 @implementation BasketTableViewController
 
@@ -128,8 +130,18 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		[theDataObject.activeModules removeObject:selected];
 	} else {
-		cell.accessoryType = UITableViewCellAccessoryCheckmark;
-		[theDataObject.activeModules addObject:selected];
+		
+		if ([[ModelLogic modelLogic] checkConflictsBetweenArray:theDataObject.activeModules AndModule:selected]){
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXAM_CONFLICT
+														   delegate:self
+												  cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			
+			[alert show];
+			[alert release];
+		}else {
+			cell.accessoryType = UITableViewCellAccessoryCheckmark;
+			[theDataObject.activeModules addObject:selected];
+		}
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     

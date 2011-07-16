@@ -460,6 +460,19 @@ static ModelLogic* modelLogic;
     }
 }
 
+- (BOOL)checkConflictsBetweenArray:(NSMutableArray*)basket AndModule:(NSString*)code {
+	BOOL conflict = NO;
+	Module *module = [self getOrCreateAndGetModuleInstanceByCode:code];
+	for (NSString* codeName in basket){
+		Module *m = [self getOrCreateAndGetModuleInstanceByCode:codeName];
+		if (![module.examDate isEqualToString:MODULE_EXAM_NO_EXAM] && [module.examDate isEqualToString:m.examDate]){
+			conflict = YES;
+			break;
+		}
+	}
+	return conflict;
+}
+
 // Not retained!
 - (NSMutableArray*) getExamDatesForActiveModulesTogetherWithConflits
 {
