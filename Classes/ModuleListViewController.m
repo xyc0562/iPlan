@@ -17,6 +17,7 @@
 #import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
+#define NO_SOLUTION @"Sorry. Conflicts among modules. Please select another module."
 
 @implementation ModuleListViewController
 
@@ -256,12 +257,6 @@
 				[theDataObject.activeModules removeObject:addedModule];
 			}
 			
-			// testing
-//			for (NSString *var in theDataObject.activeModules)
-//				NSLog(var);
-//			for (NSString *var in theDataObject.basket)
-//				NSLog(var);
-			
 			UITableViewCell *cell = [moduleListTableView cellForRowAtIndexPath:pathForAlert];
 			[theDataObject.removedCells setObject:pathForAlert forKey:addedModule];
 			UIButton *button = (UIButton *)cell.accessoryView;
@@ -269,6 +264,8 @@
 			UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
 						
 			[button setBackgroundImage:newImage forState:UIControlStateNormal];
+		}else if (alertView.message == NO_SOLUTION){
+			
 		}else {
 			
 		}
@@ -505,10 +502,16 @@
 			UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 			[[controller.viewControllers objectAtIndex:0]viewDidLoad];
 			self.tabBarController.selectedViewController = 	controller;
-		}
-		else 
-		{
-			NSLog(@"no solution");	
+		}else {
+			NSLog(@"no solution");
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:NO_SOLUTION
+														   delegate:self
+												  cancelButtonTitle:@"OK" 
+												  otherButtonTitles:nil];
+			
+			[alert show];
+			[alert release];
+			
 		}
 		theDataObject.continueToCalendar = NO;
 	}
