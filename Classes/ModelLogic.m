@@ -134,7 +134,7 @@ static ModelLogic* modelLogic;
 }
 
 -(id)initWithTimeTable:(TimeTable*)table 
- WithModuleObjectsDict:(NSMutableArray*)dict
+ WithModuleObjectsDict:(NSMutableDictionary*)dict
  WithCurrentColorIndex:(NSNumber*)index
 {
 	[super init];
@@ -547,7 +547,7 @@ static ModelLogic* modelLogic;
 	return [timeTable planOneTimetableWithRequirements:requirements WithResult:result];
 }
 
-- (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
+- (NSMutableArray*)getSelectedGroupsInfo
 {
 	
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
@@ -826,48 +826,46 @@ static ModelLogic* modelLogic;
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
-    for (Module *m in self.timeTable.modules)
-    {
-        if ([m.selected isEqualToString:MODULE_ACTIVE])
-        {
-            for (ModuleClassType *MCT in m.moduleClassTypes)
-            {
-                for (ClassGroup *CG in MCT.classGroups)
-                {
-                    if ([CG.selected isEqualToString:MODULE_ACTIVE])
-                    {
-                        for (Slot *s in CG.slots)
-                        {
-                            for (int i = 1; i < [s.frequency count]; i ++)
-                            {
-                                if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
-                                {
-                                    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
-
-                                    myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", m.code, CG.name, MCT.name];
-                                    int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
-                                    int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
-                                    myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
-                                    myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
-                                    myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
-                                    myEvent.allDay = NO;
-									// For now we use the default calendar, we may change to other specific calendars later
-                                    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-                                    NSError *err = nil;
-                                    [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
-                                    if (err == nil)
-                                    {
-                                        NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
-                                        [eventIds addObject:str];
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	NSMutableArray *allSelectedGroupsInfo = [[NSMutableArray alloc]init];
+	allSelectedGroupsInfo = [self getSelectedGroupsInfo];
+	for (NSMutableArray* resultRow in timeTable.result) 
+	{
+		NSNumber* moduleIndex = [resultRow objectAtIndex:0];
+		NSNumber* classTypeIndex = [resultRow	objectAtIndex:1];
+		NSNumber* classGroupIndex = [resultRow objectAtIndex:2];
+		Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
+		NSString* moduleCode = [module code];
+		ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
+		NSString* classTypeName = [classType name];
+		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
+		NSString* groupName = [classGroup name];
+		for (Slot *s in [classGroup slots])
+		{
+			for (int i = 1; i < [s.frequency count]; i ++)
+			{
+				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
+				{
+					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
+					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
+					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
+					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
+					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
+					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
+					myEvent.allDay = NO;
+					// For now we use the default calendar, we may change to other specific calendars later
+					[myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+					NSError *err = nil;
+					[eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+					if (err == nil)
+					{
+						NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
+						[eventIds addObject:str];
+					}
+				}
+			}
+		}
+	}
 
     NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
 
@@ -1024,7 +1022,7 @@ static ModelLogic* modelLogic;
 - (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable
 {
 	if (timeTable!=nil) [timeTable release];
-	self.timeTable = storedTimeTable;	
+	self.timeTable = storedTimeTable;
 }
 
 

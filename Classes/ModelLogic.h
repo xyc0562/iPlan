@@ -21,7 +21,6 @@
 @property(nonatomic, retain)NSNumber* currentColorIndex;
 @property(nonatomic, retain)NSMutableDictionary* indexesDict;
 
-
 - (NSArray*) getAllModuleCodes;
 // effects: return an array of NSString, which is the module code
 
