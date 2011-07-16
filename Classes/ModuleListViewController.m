@@ -95,6 +95,7 @@
 		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
 		self.toRequirement = NO;
+		self.tabBarController.delegate = self;
 	}
 	return self;
 }
@@ -305,6 +306,7 @@
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
+				[[ModelLogic modelLogic]exportTimetableToiCalendar];
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
@@ -604,6 +606,11 @@
 	}
 
 		
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+	printf("pass in");
 }
 
 - (void)dealloc {
