@@ -9,6 +9,7 @@
 #import "OptionViewController.h"
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
+#import "ModelLogic.h"
 
 #define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
 #define EXPORT_TO_IVLE_SUCCESS @"Thanks! Export calendar to IVLE is successful!"
@@ -151,6 +152,14 @@
 		[ivlePage loadRequest:requestObj];		
 		[self.view	addSubview:ivlePage];
 	}else if (row == 1) {
+		if ([[ModelLogic modelLogic]exportTimetableToiCalendar]) 
+		{
+			//success
+		}else 
+		{
+			//fail
+		}
+
 		
 	}
 	

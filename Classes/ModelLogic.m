@@ -848,7 +848,7 @@ static ModelLogic* modelLogic;
     {
         return NO;
     }
-	[self resetCalender];
+	if ([self resetCalender]) return NO;
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
