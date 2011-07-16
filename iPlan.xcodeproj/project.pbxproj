@@ -12,8 +12,12 @@
 		05BE962D13BF4DDC000DCDDB /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BE962C13BF4DDC000DCDDB /* plus.png */; };
 		05BF137313C0164000CDDB6C /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BF137213C0164000CDDB6C /* checked.png */; };
 		05BF137513C0164600CDDB6C /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 05BF137413C0164600CDDB6C /* unchecked.png */; };
+		05C05C6813D0A1F70049D5C0 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C05C6613D0A1F70049D5C0 /* OptionViewController.m */; };
+		05C05C6913D0A1F70049D5C0 /* OptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05C05C6713D0A1F70049D5C0 /* OptionViewController.xib */; };
 		05CC47BA13BA23500075B186 /* AppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47B913BA23500075B186 /* AppDataObject.m */; };
 		05CC47BD13BA24760075B186 /* SharedAppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC47BC13BA24760075B186 /* SharedAppDataObject.m */; };
+		05E9D5FA13CF28E600B75CDF /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */; };
+		05E9D5FF13CF294000B75CDF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E9D5FE13CF294000B75CDF /* Security.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -31,8 +35,6 @@
 		2F18842113B9CA3B006DCC66 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842013B9CA3B006DCC66 /* logo.png */; };
 		2F18843013B9D03F006DCC66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18842E13B9D03F006DCC66 /* SettingsViewController.m */; };
 		2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */; };
-		2F18849813B9D66A006DCC66 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18849613B9D66A006DCC66 /* OptionViewController.m */; };
-		2F18849913B9D66A006DCC66 /* OptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F18849713B9D66A006DCC66 /* OptionViewController.xib */; };
 		2F1884D313B9DA79006DCC66 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1884D113B9DA79006DCC66 /* HelpViewController.m */; };
 		2F1884D413B9DA79006DCC66 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1884D213B9DA79006DCC66 /* HelpViewController.xib */; };
 		2F468A4C13BA03C40087DC3E /* ModuleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F468A4A13BA03C40087DC3E /* ModuleListViewController.m */; };
@@ -74,11 +76,17 @@
 		05BE962C13BF4DDC000DCDDB /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		05BF137213C0164000CDDB6C /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		05BF137413C0164600CDDB6C /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
+		05C05C6513D0A1F70049D5C0 /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
+		05C05C6613D0A1F70049D5C0 /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
+		05C05C6713D0A1F70049D5C0 /* OptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OptionViewController.xib; path = Classes/OptionViewController.xib; sourceTree = "<group>"; };
 		05CC47B713BA231D0075B186 /* AppDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegateProtocol.h; sourceTree = "<group>"; };
 		05CC47B813BA23500075B186 /* AppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDataObject.h; sourceTree = "<group>"; };
 		05CC47B913BA23500075B186 /* AppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataObject.m; sourceTree = "<group>"; };
 		05CC47BB13BA24760075B186 /* SharedAppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedAppDataObject.h; sourceTree = "<group>"; };
 		05CC47BC13BA24760075B186 /* SharedAppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedAppDataObject.m; sourceTree = "<group>"; };
+		05E9D5F813CF28E600B75CDF /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		05E9D5FE13CF294000B75CDF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iPlanAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlanAppDelegate.h; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,9 +113,6 @@
 		2F18842D13B9D03F006DCC66 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2F18842E13B9D03F006DCC66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
-		2F18849513B9D66A006DCC66 /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
-		2F18849613B9D66A006DCC66 /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
-		2F18849713B9D66A006DCC66 /* OptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OptionViewController.xib; path = Classes/OptionViewController.xib; sourceTree = "<group>"; };
 		2F1884D013B9DA79006DCC66 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2F1884D113B9DA79006DCC66 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		2F1884D213B9DA79006DCC66 /* HelpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HelpViewController.xib; path = Classes/HelpViewController.xib; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				B6F6AD3013C9B5C800E13203 /* EventKit.framework in Frameworks */,
+				05E9D5FF13CF294000B75CDF /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,8 +257,8 @@
 				43E627CA13C9FC5D0016A8C2 /* Default.png */,
 				1E2DB4A613C74BBB00C3D8CA /* ModuleListViewController.xib */,
 				2F1884D213B9DA79006DCC66 /* HelpViewController.xib */,
+				05C05C6713D0A1F70049D5C0 /* OptionViewController.xib */,
 				1E2DB48013C749C700C3D8CA /* CalendarViewController.xib */,
-				2F18849713B9D66A006DCC66 /* OptionViewController.xib */,
 				2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */,
 				2FD7C7F113BB11FB00B00C99 /* ModuleInfoViewController.xib */,
 				2FD7C8CD13BB2DB000B00C99 /* ModuleInfoCell.xib */,
@@ -272,6 +278,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				B6F6AD2F13C9B5C800E13203 /* EventKit.framework */,
+				05E9D5FE13CF294000B75CDF /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -279,6 +286,8 @@
 		4308D82C13B5CED700E1AEF2 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				05E9D5F813CF28E600B75CDF /* SFHFKeychainUtils.h */,
+				05E9D5F913CF28E600B75CDF /* SFHFKeychainUtils.m */,
 				4308D82D13B5CEF200E1AEF2 /* UIViewWithLine.h */,
 				4308D82E13B5CEF200E1AEF2 /* UIViewWithLine.m */,
 				05CC47B713BA231D0075B186 /* AppDelegateProtocol.h */,
@@ -300,8 +309,8 @@
 				1E2DB1B513C6EC6300C3D8CA /* DisplayViewController.h */,
 				2F1884D013B9DA79006DCC66 /* HelpViewController.h */,
 				2F1884D113B9DA79006DCC66 /* HelpViewController.m */,
-				2F18849513B9D66A006DCC66 /* OptionViewController.h */,
-				2F18849613B9D66A006DCC66 /* OptionViewController.m */,
+				05C05C6513D0A1F70049D5C0 /* OptionViewController.h */,
+				05C05C6613D0A1F70049D5C0 /* OptionViewController.m */,
 				2F18842D13B9D03F006DCC66 /* SettingsViewController.h */,
 				2F18842E13B9D03F006DCC66 /* SettingsViewController.m */,
 				43D2F44813B0E65F006EAA46 /* CalendarViewController.h */,
@@ -415,7 +424,6 @@
 				4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */,
 				2F18842113B9CA3B006DCC66 /* logo.png in Resources */,
 				2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */,
-				2F18849913B9D66A006DCC66 /* OptionViewController.xib in Resources */,
 				2F1884D413B9DA79006DCC66 /* HelpViewController.xib in Resources */,
 				2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */,
 				2FD7C8CF13BB2DB000B00C99 /* ModuleInfoCell.xib in Resources */,
@@ -429,6 +437,7 @@
 				1E2DB94413C84D9600C3D8CA /* refresh.png in Resources */,
 				43E627CB13C9FC5D0016A8C2 /* Default.png in Resources */,
 				1E2DD11313CC1F4400C3D8CA /* timetable with days.png in Resources */,
+				05C05C6913D0A1F70049D5C0 /* OptionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,7 +463,6 @@
 				43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */,
 				4308D82F13B5CEF200E1AEF2 /* UIViewWithLine.m in Sources */,
 				2F18843013B9D03F006DCC66 /* SettingsViewController.m in Sources */,
-				2F18849813B9D66A006DCC66 /* OptionViewController.m in Sources */,
 				2F1884D313B9DA79006DCC66 /* HelpViewController.m in Sources */,
 				2F468A4C13BA03C40087DC3E /* ModuleListViewController.m in Sources */,
 				05CC47BA13BA23500075B186 /* AppDataObject.m in Sources */,
@@ -467,6 +475,8 @@
 				05BE960E13BF4993000DCDDB /* RequirementPlacingViewController.m in Sources */,
 				1E2DB1B613C6EC6300C3D8CA /* SlotViewController.m in Sources */,
 				1E2DB1B713C6EC6300C3D8CA /* DisplayViewController.m in Sources */,
+				05E9D5FA13CF28E600B75CDF /* SFHFKeychainUtils.m in Sources */,
+				05C05C6813D0A1F70049D5C0 /* OptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

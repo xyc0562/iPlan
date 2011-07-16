@@ -131,18 +131,21 @@
 	return newClassTypeArray;
 }
 
--(void)planOneTimetable
+-(BOOL)planOneTimetable
 {
-	NSMutableArray* ClassTypeArray = [self constructClassTypeArrayWithModules];
+	NSMutableArray* classTypeArray = [self constructClassTypeArrayWithModules];
 	NSMutableArray* timeTable = [self constructInitialTimeTable];
 	if ([self getOneTimeTableWithIndex:(int)0
-					WithClassTypeArray:&ClassTypeArray
+					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
 		printf("success\n");
-	self.result = ClassTypeArray;
+	self.result = classTypeArray;
+	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
+		return NO;
+	else return YES;
 }
 
--(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements
+-(BOOL)planOneTimetableWithRequirements:(NSMutableArray*)requirements
 {
 	NSMutableArray* classTypeArray = [self constructClassTypeArrayWithModules];
 	NSMutableArray* timeTable = [self constructInitialTimeTable];
@@ -152,9 +155,12 @@
 						 WithTimeTable:&timeTable])
 		printf("success\n");
 	self.result = classTypeArray;
+	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
+		return NO;
+	else return YES;
 }
 
--(void)planOneTimetableWithRequirements:(NSMutableArray*)requirements WithResult:(NSMutableArray*)lastResult
+-(BOOL)planOneTimetableWithRequirements:(NSMutableArray*)requirements WithResult:(NSMutableArray*)lastResult
 {
 	int i, groupIndex;
 	NSMutableArray* classTypeArray = [self constructClassTypeArrayWithModules];
@@ -195,17 +201,13 @@
 					timeTable = newTimeTable;
 					//update timeTable
 					self.result = classTypeArray;
-					return;
+					return YES;
 				}
 			}
 			
 		}
 	}
-	if ([self getOneTimeTableWithIndex:(int)0
-					WithClassTypeArray:&classTypeArray
-						 WithTimeTable:&timeTable])
-		printf("success\n");
-	self.result = classTypeArray;
+	return NO;
 }
 							
 -(BOOL)getOneTimeTableWithIndex:(int)index

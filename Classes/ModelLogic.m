@@ -515,20 +515,20 @@ static ModelLogic* modelLogic;
 //	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
 //}
 
-- (void) generateDefaultTimetable
+- (BOOL) generateDefaultTimetable
 {
-	[timeTable planOneTimetable];
+	return [timeTable planOneTimetable];
 }
 
-- (void) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+- (BOOL) generateDefaultTimetableWithRequirements:(NSMutableArray*)requirements
 {
-	[timeTable planOneTimetableWithRequirements:requirements];
+	return [timeTable planOneTimetableWithRequirements:requirements];
 }
 
-- (void) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
+- (BOOL) generateNextDefaultTimetableWithRequirements:(NSMutableArray*)requirements
 {
 	NSMutableArray* result = [timeTable copyClassTypeArray:[timeTable result]];
-	[timeTable planOneTimetableWithRequirements:requirements WithResult:result];
+	return [timeTable planOneTimetableWithRequirements:requirements WithResult:result];
 }
 
 - (NSMutableArray*)getSelectedGroupsInfo//FromModules:(NSMutableArray*)modulesSelected
@@ -787,6 +787,19 @@ static ModelLogic* modelLogic;
 	currentColorIndex = [NSNumber numberWithInt:0];
 }
 
+- (NSString*)getCurrentTimeTableEventIdsPath
+{
+    	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+        
+	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
+
+        return fullPath;
+}
+
+
 - (BOOL)exportTimetableToiCalendar
 {
     if (!self.timeTable)
@@ -796,6 +809,7 @@ static ModelLogic* modelLogic;
 
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
+    NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
     for (Module *m in self.timeTable.modules)
     {
         if ([m.selected isEqualToString:MODULE_ACTIVE])
@@ -823,7 +837,13 @@ static ModelLogic* modelLogic;
                                     myEvent.allDay = NO;
 									// For now we use the default calendar, we may change to other specific calendars later
                                     [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-									[eventDB saveEvent:myEvent span:EKSpanThisEvent error:nil];
+                                    NSError *err = nil;
+                                    [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+                                    if (err == nil)
+                                    {
+                                        NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
+                                        [eventIds addObject:str];
+                                    }
                                 }
                             }
                         }
@@ -832,14 +852,70 @@ static ModelLogic* modelLogic;
             }
         }
     }
-    [eventDB release];
+
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+
+    NSMutableData* data = [[NSMutableData alloc] init];
+    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+    [arc encodeObject:eventIds forKey:@"event"];
+	
+    [arc finishEncoding];
+    BOOL success = [data writeToFile:fullPath atomically:YES];
+    [arc release];
+    [data release];
+    if(!success)
+        [eventDB release];
 
     return YES;
 }
 
+// If not exists, return nil
+- (NSMutableArray*) getExportedEventIds
+{
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSData *data = [NSData dataWithContentsOfFile:fullPath];
+    if (data)
+    {
+        NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        NSMutableArray* eventIds = [unarc decodeObjectForKey:@"event"];
+
+        return [eventIds autorelease];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+// Return NSError* if an error occurs. If everything goes well, return nil
+- (NSError*) deleteEvents:(NSMutableArray*)eventIds
+{
+    EKEventStore* store = [[[EKEventStore alloc] init] autorelease];
+    for (NSString *eventId in eventIds)
+    {
+        EKEvent* event = [store eventWithIdentifier:eventId];
+        if (event != nil)
+        {  
+            NSError* error = nil;
+            [store removeEvent:event span:EKSpanThisEvent error:&error];
+            if (error)
+            {
+                return error;
+            }
+        }
+    }
+
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:fullPath error:NULL];
+
+    return nil;
+}
+
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
-	Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
 	
     if (module)
     {

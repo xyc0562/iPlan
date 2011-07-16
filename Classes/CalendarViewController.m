@@ -16,9 +16,15 @@
 // import parser to check
 #import "ModuleXMLParser.h"
 
+//for lapi issue
+#import <Security/Security.h>
+#import "SFHFKeychainUtils.h"
+
 
 #define TIMER_DURATION 0.0
 #define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
+#define USERNAME @"U0807275"
+#define PASSWORD @"hq.nusinml128"
 
 
 @interface CalendarViewController (UtilityMethods)
@@ -185,6 +191,9 @@
 	ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithURLStringAndParse:@"http://cors.i-cro.net/cors.xml"];	[aParser release];	
 	// TODO: !!!
 	//NSLog(@"spinning load");
+	UITextView* text = (UITextView*)[spinner viewWithTag:150];
+	[text removeFromSuperview];
+	[text release];
 	[spinner stopAnimating];
 	[spinner removeFromSuperview];
 	[spinner release];
@@ -196,6 +205,14 @@
 		//NSLog(@"alert view update called");
 		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		spinner.frame = CGRectMake(140, 130, 50, 50);
+		spinner.backgroundColor = [UIColor lightGrayColor];
+		UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(-15, 45, 150, 60)];
+		text.backgroundColor = [UIColor clearColor];
+		text.tag = 150;
+		text.text = @"Updating...";
+		text.font = [UIFont systemFontOfSize:15];
+		text.textColor = [UIColor darkGrayColor];
+		[spinner addSubview:text];
 		[self.view addSubview:spinner];
 		[spinner startAnimating];
 		[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION
@@ -248,31 +265,15 @@
 	//Lapi issue
 	NSURL *url = [NSURL URLWithString:SERVER_URL];
 	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	[requestObj setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-	[requestObj setTimeoutInterval:20.0];
+	theWeb.delegate = self;
+	[theWeb loadRequest:requestObj];
+	theWeb.opaque = NO;
+	theWeb.backgroundColor = [UIColor clearColor];
+	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 	
-	[requestObj setHTTPMethod:@"POST"];
-	
-	NSString *postString = [NSString stringWithFormat:@"username=%@&password=%@", @"U0807275", @"hq.nusinml128"];
-	[requestObj setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:requestObj delegate:self];
-	NSMutableData *receivedData = [[NSMutableData alloc] initWithLength:1000];
-	if(theConnection){
-		receivedData = [[NSMutableData data] retain];
-	}else {
-		NSLog(@"Connection failed!");
-	}
-	unsigned char *buffer[1000];
-	
-	[receivedData getBytes:buffer];
-	NSLog(@"data is: %s, %s", "strange",(char *)buffer);
-	
-	//[theWeb loadRequest:requestObj];
-	//theWeb.opaque = YES;
-	//theWeb.backgroundColor = [UIColor clearColor];
-	//[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	NSLog(@"compile Lapi connection!");
+	//secure password
+	[[NSUserDefaults standardUserDefaults] setObject:USERNAME forKey:@"username"];
+	[SFHFKeychainUtils storeUsername:USERNAME andPassword:PASSWORD forServiceName:@"MyService" updateExisting:YES error:nil];
 
 	
 	[self.view addSubview:theWeb];
@@ -647,13 +648,62 @@
 		
 	}
  }
-			
-							
-				
-				
-
-
 //end of table view adjustment
+
+
+#pragma mark -
+#pragma mark web view for authentication
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; {
+	
+    //save form data
+	NSURL *url = [self.theWeb.request URL];
+	NSLog(@"Check the host: %@", url.absoluteString);
+    if(navigationType == UIWebViewNavigationTypeFormSubmitted) {
+		NSLog(@"Navigation Confirmed" );
+        //grab the data from the page
+        NSString *username = @"U0807275";
+        NSString *password = @"hq.nusinml128";
+		
+        //store values locally
+        [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"UserID"];
+        [SFHFKeychainUtils storeUsername:username andPassword:password forServiceName:@"MyService" updateExisting:YES error:nil];
+		
+    }    
+	return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+	//can do nothing
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+	
+    //verify view is on the login page of the site (simplified)
+    NSURL *requestURL = [self.theWeb.request URL];
+	NSLog(@"Get returned host: %@", requestURL.absoluteString);
+	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
+		//try to auto fill the form and load
+		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
+		NSString *password = [SFHFKeychainUtils getPasswordForUsername: USERNAME andServiceName:@"MyService" error:nil];
+		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", password];
+		NSLog(@"password");
+		
+		//autofill the form
+		[self.theWeb stringByEvaluatingJavaScriptFromString: loadUsernameJS];
+		[self.theWeb stringByEvaluatingJavaScriptFromString: loadPasswordJS];
+		
+		NSString *clickLogin = [NSString stringWithFormat:@"document.forms['frm'].submit()"];
+		
+		[self.theWeb stringByEvaluatingJavaScriptFromString:clickLogin];
+	}else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
+		NSString *webContent = [self.theWeb stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
+		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
+		
+		SharedAppDataObject* theDataObject = [self theAppDataObject];
+		theDataObject.requestedToken = webContent;
+    }
+}
+
 
 #pragma mark -
 #pragma mark memory management

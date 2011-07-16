@@ -342,7 +342,12 @@
 	
 	for (NSString *sTemp in searchArray){
 		NSRange titleResultsRange = [sTemp rangeOfString:searchText options:NSCaseInsensitiveSearch];
-		if (titleResultsRange.length > 0 && ![copyModuleList containsObject:sTemp])
+		if (titleResultsRange.location==0 && titleResultsRange.length > 0 && ![copyModuleList containsObject:sTemp])
+			[copyModuleList addObject:sTemp];
+	}
+	for (NSString *sTemp in searchArray){
+		NSRange titleResultsRange = [sTemp rangeOfString:searchText options:NSCaseInsensitiveSearch];
+		if (titleResultsRange.location!=0 && titleResultsRange.length > 0 && ![copyModuleList containsObject:sTemp])
 			[copyModuleList addObject:sTemp];
 	}
 	searchArray = nil;
@@ -494,11 +499,18 @@
 		// call the model logic and direct to the calendar view
 		ModelLogic* modelLogic = [ModelLogic modelLogic];
 		[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
-		[modelLogic generateDefaultTimetableWithRequirements:nil];
+		NSLog(@"try solve");
+		if ([modelLogic generateDefaultTimetableWithRequirements:[theDataObject requirements]])
+		{
+			UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+			[[controller.viewControllers objectAtIndex:0]viewDidLoad];
+			self.tabBarController.selectedViewController = 	controller;
+		}
+		else 
+		{
+			NSLog(@"no solution");	
+		}
 		theDataObject.continueToCalendar = NO;
-		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
-		[[controller.viewControllers objectAtIndex:0]viewDidLoad];
-		self.tabBarController.selectedViewController = 	controller;
 	}
 	else 
 	{
