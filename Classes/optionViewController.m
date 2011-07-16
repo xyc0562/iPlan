@@ -30,6 +30,7 @@
 @synthesize optionsList;
 @synthesize switchEnabled;
 @synthesize ivlePage;
+@synthesize requestedToken;
 
 #pragma mark -
 #pragma mark instance methods
@@ -160,19 +161,49 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-	SharedAppDataObject *theAppDataObject = [self theAppDataObject];
     //verify view is on the login page of the site (simplified)
     NSURL *requestURL = [self.ivlePage.request URL];
 	NSLog(@"The url is %@", requestURL);
 	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
 		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
 		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		theAppDataObject.requestedToken = webContent;
+		requestedToken = webContent;
 		ivlePage.opaque = YES;
 		ivlePage.backgroundColor = [UIColor	 clearColor];
 		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
-		[self importIVLETimeTableAcadYear:@"2010/2011" Semester:@"4"];
+		
+		NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+		
+		NSCalendarUnit unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit| NSWeekCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+		
+		NSDate *date = [NSDate date];
+		
+		NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
+		
+		NSInteger year = [dateComponents year];
+		
+		NSInteger month = [dateComponents month];
+		
+		NSInteger day = [dateComponents day];
+		
+		
+		NSString *acadYear;
+		NSString *semester;
+		if (month < 5 || (month == 5 && day <= 10)) {
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
+			semester = [[NSString alloc] initWithString:@"2"];
+		}else if (month > 8 || (month == 8 && day >= 10)) {
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
+			semester = [[NSString alloc] initWithString:@"1"];
+		}else {
+			acadYear = [[NSString alloc] initWithString:@"2010/2011"];
+			semester = [[NSString alloc] initWithString:@"2"];
+		}
+		
+		NSLog(@"current time is %d, %d, %d", year, month, day);
+		
+		[self importIVLETimeTableAcadYear:acadYear Semester:semester];
 		
 		
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_SUCCESS
@@ -181,6 +212,9 @@
 											  otherButtonTitles:nil];
 		[alert show];
 		[alert release];
+		
+		[acadYear release];
+		[semester release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
 		//do nothing
 	}
@@ -192,17 +226,11 @@
 }
 
 
-- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester{
-	SharedAppDataObject *theAppDataObject = [self theAppDataObject];
-	
-	
-	
+- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester{	
 	NSString *url_address = [[NSString alloc] initWithFormat:@"https://ivle.nus.edu.sg/api/Lapi.svc/Timetable_Student?APIKey=%@&AuthToken=%@&AcadYear=%@&Semester=%@",
 							 API_KEY,
-							 theAppDataObject.requestedToken,
+							 requestedToken,
 							 year, semester];
-	
-	NSLog(@"Request url for xml is : %@", url_address);
 	
 	NSURL *url = [NSURL URLWithString:url_address];
 	//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
@@ -212,7 +240,10 @@
 	
 	LAPIStudentTimeTableToiCalExporter *exporter = [[LAPIStudentTimeTableToiCalExporter alloc] initWithNSDataParseAndExport:xml_data];
 	
+	[url_address release];
+	[xml_data release];
 	[exporter release];
+	
 	/*
 	if ([xml_data writeToFile:@"timetable.xml" atomically:YES]) {
 		NSLog(@"Write timetable data to file successfully!");
@@ -248,6 +279,7 @@
 	[optionsList release];
 	[switchEnabled release];
 	[ivlePage release];
+	[requestedToken release];
     [super dealloc];
 }
 
