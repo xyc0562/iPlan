@@ -364,6 +364,7 @@
 	//searching = NO;
     NSUInteger row_number = [indexPath row];
 	
+	toRequirement = YES;
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	theDataObject.moduleCode = [copyModuleList objectAtIndex:row_number];
@@ -373,6 +374,8 @@
 	
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
+	
+	
 }
 
 - (NSIndexPath *)tableView :(UITableView *)theTableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
