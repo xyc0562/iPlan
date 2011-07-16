@@ -58,7 +58,7 @@
 	//ModelLogic *ml = [[ModelLogic alloc] init];
 	
     //NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
-	toRequirement = NO;
+	toRequirement = YES;
 	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getAllModuleCodes];
 	
 	NSArray *array = [[NSArray alloc] initWithArray:arr];
@@ -95,7 +95,6 @@
 		self.tabBarItem.image = [UIImage imageNamed:@"pencil.png"];
 		self.navigationController.title = @"nav title";
 		self.toRequirement = NO;
-		self.tabBarController.delegate = self;
 	}
 	return self;
 }
@@ -130,9 +129,7 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
     NSUInteger row = [indexPath row];
 	NSString *addedModule;
-	
-	NSLog(@"Module List Table load again! %d", row);
-	
+		
 	addedModule = [copyModuleList objectAtIndex:row];
 	
 	cell.textLabel.text = addedModule;
@@ -516,10 +513,6 @@
 		
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-	printf("pass in");
-}
 
 - (void)dealloc {
 	[moduleListTableView release];
