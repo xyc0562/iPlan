@@ -20,6 +20,11 @@
     _delegate = new_delegate;
 }
 
+- (id) initWithNSDataParseAndExport:(NSData*)data
+{
+    
+}
+
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     

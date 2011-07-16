@@ -10,9 +10,10 @@
 #import <Foundation/NSXMLParser.h>
 #import <EventKit/EventKit.h>
 
-@interface LAPIStudentTimeTableToiCalExporter : NSObject
+@interface LAPIStudentTimeTableToiCalExporter : NSObject<NSXMLParserDelegate>
 {
     NSXMLParser *LAPIStudentTimeTableParser;
+    id _delegate;
 }
 
 - (id) initWithNSDataParseAndExport:(NSData*)data;

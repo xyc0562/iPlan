@@ -123,6 +123,21 @@ static ModelLogic* modelLogic;
     }
     return self;
 }
+
+-(id)initWithTimeTable:(TimeTable*)table 
+ WithModuleObjectsDict:(NSMutableArray*)dict
+ WithCurrentColorIndex:(NSNumber*)index
+{
+	[super init];
+    if(super !=nil)
+    {
+		self.moduleObjectsDict = dict;
+		self.timeTable = table;
+		self.currentColorIndex = index;
+    }
+    return self;
+}	
+	
     
 - (NSArray*) getAllModuleCodes
 {
@@ -145,14 +160,6 @@ static ModelLogic* modelLogic;
     return moduleNames;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
-{
-    if([super init]!=nil)
-    {
-        [self initWithTimeTable:[decoder decodeObjectForKey:@"modules"]];
-    }
-    return self;
-}
 
 - (NSString*) getTitleFromModule:(NSString*)code
 {
@@ -926,6 +933,24 @@ static ModelLogic* modelLogic;
         return nil;
     }
 	
+}
+
+
+-(void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:timeTable forKey:@"timeTable"];
+	[coder encodeObject:currentColorIndex forKey:@"currentColorIndex"];
+	[coder encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
+}
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+	if([super init]!=nil){
+		[self initWithTimeTable:[decoder decodeObjectForKey:@"timeTable"] 
+		  WithModuleObjectsDict:[decoder decodeObjectForKey:@"moduleObjectsDict"] 
+		  WithCurrentColorIndex:[decoder decodeObjectForKey:@"currentColorIndex"]];
+	}
+	return self;
 }
 
 -(void)dealloc

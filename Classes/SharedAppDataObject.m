@@ -30,6 +30,8 @@
 @synthesize availableSlots;
 @synthesize table;
 @synthesize image;
+@synthesize requirementEnabled;
+
 #pragma mark -
 #pragma mark -Memory management
 
@@ -47,6 +49,7 @@
 		selectSlot = nil;
 		needUpdate = NO;
 		continueToCalendar = NO;
+		requirementEnabled = NO;
 	}
 	return self;
 }
