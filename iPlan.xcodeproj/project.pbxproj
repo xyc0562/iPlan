@@ -59,6 +59,7 @@
 		7193087213BD1034001D9F8B /* TimeTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 7193087113BD1034001D9F8B /* TimeTable.m */; };
 		7193087413BD1087001D9F8B /* iPlanAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7193087313BD1087001D9F8B /* iPlanAppDelegate.m */; };
 		B6491D6013AF8B7200782587 /* IPlanUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B6491D5F13AF8B7200782587 /* IPlanUtility.m */; };
+		B6CAE01413D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CAE01313D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m */; };
 		B6ED0D7213AC8BFB003C229D /* ModuleXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D7113AC8BFB003C229D /* ModuleXMLParser.m */; };
 		B6ED0D8213AC9F02003C229D /* XMLFaculty.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D8113AC9F02003C229D /* XMLFaculty.m */; };
 		B6ED0D8513AC9F10003C229D /* XMLModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0D8413AC9F10003C229D /* XMLModule.m */; };
@@ -151,6 +152,8 @@
 		8D1107310486CEB800E47090 /* iPlan-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPlan-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B6491D5E13AF8B7200782587 /* IPlanUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPlanUtility.h; sourceTree = "<group>"; };
 		B6491D5F13AF8B7200782587 /* IPlanUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPlanUtility.m; sourceTree = "<group>"; };
+		B6CAE01213D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPIStudentTimeTableToiCalExporter.h; sourceTree = "<group>"; };
+		B6CAE01313D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPIStudentTimeTableToiCalExporter.m; sourceTree = "<group>"; };
 		B6ED0D7013AC8BFB003C229D /* ModuleXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleXMLParser.h; sourceTree = "<group>"; };
 		B6ED0D7113AC8BFB003C229D /* ModuleXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleXMLParser.m; sourceTree = "<group>"; };
 		B6ED0D8013AC9F02003C229D /* XMLFaculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLFaculty.h; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 				B6491D5F13AF8B7200782587 /* IPlanUtility.m */,
 				B6ED0D7013AC8BFB003C229D /* ModuleXMLParser.h */,
 				B6ED0D7113AC8BFB003C229D /* ModuleXMLParser.m */,
+				B6CAE01213D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.h */,
+				B6CAE01313D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				1E2DB1B613C6EC6300C3D8CA /* SlotViewController.m in Sources */,
 				1E2DB1B713C6EC6300C3D8CA /* DisplayViewController.m in Sources */,
 				05E9D5FA13CF28E600B75CDF /* SFHFKeychainUtils.m in Sources */,
+				B6CAE01413D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m in Sources */,
 				05C05C6813D0A1F70049D5C0 /* OptionViewController.m in Sources */,
 				1E2DE05113D17C9400C3D8CA /* ListViewController.m in Sources */,
 			);
