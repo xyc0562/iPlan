@@ -483,7 +483,7 @@
 
 - (IBAction)forwardToRequirement:(id)sender{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSLog(theDataObject.requirementEnabled?@"Y":@"N");
+	//NSLog(theDataObject.requirementEnabled?@"Y":@"N");
 	if (theDataObject.requirementEnabled == NO){
 		theDataObject.continueToCalendar = NO;
 		RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -493,6 +493,7 @@
 		[navController release];
 	}else {
 		// call ZYB's alert view function
+		theDataObject.continueToCalendar = YES;
 		[self moveToCalendar];
 	}
 }

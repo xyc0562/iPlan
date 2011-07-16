@@ -46,7 +46,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"export to IVLE", @"export to iCal", @"disable requirement placement", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
 	
 }
 
