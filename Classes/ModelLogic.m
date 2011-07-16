@@ -973,6 +973,26 @@ static ModelLogic* modelLogic;
 	return [self deleteEvents:[self getExportedEventIds]];
 }
 
+//- (void)removeAllEventsfromCalender
+//{
+//	EKEventStore *store = [[EKEventStore alloc] init];
+//	
+//	NSUInteger beginYear = 1900;
+//	NSUInteger endYear = 2100;
+//	
+//	while (beginYear < endYear) {
+//		NSPredicate *predicate = [store predicateForEventsWithStartDate:[self createDateWithYear:beginYear month:1 day:1] 
+//																endDate:[self createDateWithYear:beginYear + 5 month:1 day:1] 
+//															  calendars:nil];
+//		NSArray *eventList = [store eventsMatchingPredicate:predicate];
+//		for (EKEvent *event in eventList) {           
+//			[store removeEvent:event span:EKSpanThisEvent error:nil];
+//		}
+//		beginYear += 5;
+//	}
+//	[store release];	
+//}
+
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
