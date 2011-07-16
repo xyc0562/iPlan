@@ -1019,11 +1019,13 @@ static ModelLogic* modelLogic;
 	[self timeTable].result = newResult;
 }
 
+/*
 - (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
 {
 	timeTable = storedTimeTable;
 	
 }
+ */
 
 
 -(void)encodeWithCoder:(NSCoder *)coder

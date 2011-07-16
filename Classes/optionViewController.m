@@ -27,6 +27,8 @@
 @synthesize optionsList;
 @synthesize ivlePage;
 @synthesize switchEnabled;
+@synthesize exportIVLEButton;
+@synthesize exportICALBUtton;
 
 #pragma mark -
 #pragma mark instance methods
@@ -44,9 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+	self.tableView.allowsSelection = NO;
 	ivlePage.delegate = self;
-	
 	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
 	
 }
@@ -83,20 +84,23 @@
 	optionName = [optionsList objectAtIndex:row];
 	
 	cell.textLabel.text = optionName;
-	
-	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	CGRect frame = CGRectMake(0.0, 0.0, 50, 50);
-	addButton.frame = frame;
+	CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
 	
 	if(row == 0){
-		[addButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-		cell.accessoryView = addButton;
+		exportIVLEButton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		exportIVLEButton.frame = frame;
+		[exportIVLEButton setTitle:@"Export" forState:UIControlStateNormal];
+		[exportIVLEButton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportIVLEButton addTarget:self action:@selector(ivleButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportIVLEButton;
 	}else if(row == 1){
-		[addButton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-		cell.accessoryView = addButton;
-	}else if (row == 2) {
+		exportICALBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		exportICALBUtton.frame = frame;
+		[exportICALBUtton setTitle:@"Export" forState:UIControlStateNormal];
+		[exportICALBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportICALBUtton addTarget:self action:@selector(iCalButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportICALBUtton;
+	}else if (row == 2) {	
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		theDataObject.requirementEnabled = NO;
 		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
@@ -115,7 +119,7 @@
 	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
 	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
 	if(indexPath != nil){
-		[self tableView:optionTableView didSelectRowAtIndexPath:indexPath];
+		[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
 	}
 }
 
@@ -127,16 +131,6 @@
 	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
 	if(indexPath != nil){
 		[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-	}
-}
-
-- (void)requirementButtonTapped:(id)sender event:(id)event{
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:optionTableView];
-	NSIndexPath *indexPath = [optionTableView indexPathForRowAtPoint:currentTouchPosition];
-	if(indexPath != nil){
-		[self tableView:optionTableView requirementButtonTappedForRowWithIndexPath:indexPath];
 	}
 }
 
@@ -153,9 +147,8 @@
 		[self.view	addSubview:ivlePage];
 	}else if (row == 1) {
 		
+		
 	}
-	
-	
 }
 
 - (void)switchToggled:(id)sender {
@@ -163,18 +156,6 @@
 	theDataObject.requirementEnabled = switchEnabled.on;
 	//NSLog(switchEnabled.on?@"s:y":@"s:n");
 }
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	[ivlePage loadRequest:requestObj];		
-	[self.view	addSubview:ivlePage];
-}
-
-
 
 #pragma mark -
 #pragma mark web view for authentication
@@ -257,6 +238,8 @@
 	[optionsList release];
 	[ivlePage release];
 	[switchEnabled release];
+	[exportIVLEButton release];
+	[exportICALBUtton release];
     [super dealloc];
 }
 
