@@ -126,5 +126,8 @@
 - (NSError*)resetCalender;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
+// check exam conflicts
+- (BOOL)checkConflictsBetweenArray:(NSMutableArray*)basket AndModule:(NSString*)code;
+
 +(id)modelLogic;
 @end
