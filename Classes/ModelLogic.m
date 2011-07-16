@@ -7,7 +7,7 @@
 //
 
 #import "ModelLogic.h"
-
+#define TIMETABLE_DOCUMENT_NAME @"timetable"
 static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
@@ -1083,6 +1083,45 @@ static ModelLogic* modelLogic;
     }
     if (timeTable!=nil) [timeTable release];
     [self timeTable].result = newResult;
+}
+
+- (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name
+{
+	[self saveModifiedTimeTableResultWithResultArray:resultArray];
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	// Tell if plists directory exists, if not, create it
+	NSFileManager * fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:modulesDirectory])
+	{
+		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+	}
+	NSString* filename = [name stringByReplacingOccurrencesOfString:@"/" withString:@"|"];
+	filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
+	filename = [filename stringByAppendingString:@".plist"];
+	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
+	//NSLog(@"doc%@", modulesDirectory);
+	//NSLog(@"%@",fullPath);
+	NSMutableData* data = [[NSMutableData alloc] init];
+	NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+	[arc encodeObject:self forKey:@"ModelLogic"];
+	
+	[arc finishEncoding];
+	BOOL success = [data writeToFile:fullPath atomically:YES];
+	[arc release];
+	[data release];
+	if(!success)
+	{ 
+		//NSLog(@"Unsuccessful!");
+	}
+	else 
+	{
+		//NSLog(@"Success!");
+	}
+	
 }
 
 /*
