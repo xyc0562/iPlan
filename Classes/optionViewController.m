@@ -182,8 +182,8 @@
 		[alert release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
 		//do nothing
-	}else{
-		NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.body"];
+	}else{ // not work now
+		NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.getElementById"];
 		
 		NSLog(@"The xml is %@", xml_file);
 	}
@@ -203,8 +203,17 @@
 	NSLog(@"Request url for xml is : %@", url_address);
 	
 	NSURL *url = [NSURL URLWithString:url_address];
-	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	[ivlePage loadRequest:requestObj];		
+	//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+	//[ivlePage loadRequest:requestObj];		
+	
+	NSData *xml_data = [[NSData alloc] initWithContentsOfURL:url];
+	if ([xml_data writeToFile:@"timetable.xml" atomically:YES]) {
+		NSLog(@"Write timetable data to file successfully!");
+		
+		
+	}else{
+		NSLog(@"Writing timetable to file failed!");
+	}
 }
 
 #pragma mark -
