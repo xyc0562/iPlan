@@ -845,7 +845,6 @@ static ModelLogic* modelLogic;
         
 	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
 	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
-
         return fullPath;
 }
 
@@ -908,7 +907,7 @@ static ModelLogic* modelLogic;
 	}
 
     NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
-
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString* documentDirectory = [paths objectAtIndex:0]; NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME]; NSFileManager * fm = [NSFileManager defaultManager]; if (![fm fileExistsAtPath:eventIdsDirectory]) { [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL]; }
     NSMutableData* data = [[NSMutableData alloc] init];
     NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 	
