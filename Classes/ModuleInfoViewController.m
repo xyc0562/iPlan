@@ -299,6 +299,7 @@
 - (void)viewDidUnload {
 	self.moduleInfoTableView = nil;
 	self.infoList = nil;
+	NSLog(@"Module Info Unload!");
 	[super viewDidUnload];
 }
 
