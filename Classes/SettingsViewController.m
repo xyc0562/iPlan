@@ -21,7 +21,8 @@
 #define OPTION_NAME @"Option"
 #define HELP_NAME @"Help"
 #define ABOUT_NAME @"About"
-
+#define LOAD @"Load Other TimeTables"
+#define UIVIEW_LIST @"List View of Current Calendar"
 @synthesize settingsTableView;
 @synthesize settingsList;
 
@@ -44,7 +45,7 @@
 
 - (void)viewDidLoad {
 	//load info with dummy array: array
-	NSArray *array = [[NSArray alloc] initWithObjects:OPTION_NAME, HELP_NAME, ABOUT_NAME, nil];
+	NSArray *array = [[NSArray alloc] initWithObjects:OPTION_NAME, HELP_NAME, ABOUT_NAME, LOAD,UIVIEW_LIST,nil];
 	self.settingsList = array;
 	[array release];
     [super viewDidLoad];
