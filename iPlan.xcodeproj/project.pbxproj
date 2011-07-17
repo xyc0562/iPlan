@@ -30,7 +30,6 @@
 		1E2DE05213D17C9400C3D8CA /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DE05013D17C9400C3D8CA /* ListViewController.xib */; };
 		1E2DE38313D1CE1B00C3D8CA /* optionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DE38213D1CE1B00C3D8CA /* optionViewController.xib */; };
 		1E2DE3E913D1DD5600C3D8CA /* AlertHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2DE3E813D1DD5600C3D8CA /* AlertHelp.m */; };
-		1E2DE41B13D1E18E00C3D8CA /* LoadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DE41913D1E18E00C3D8CA /* LoadViewController.xib */; };
 		1E2DE41F13D1E1DB00C3D8CA /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E2DE41D13D1E1DB00C3D8CA /* LoadViewController.m */; };
 		1E2DE42013D1E1DB00C3D8CA /* LoadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DE41E13D1E1DB00C3D8CA /* LoadViewController.xib */; };
 		1E2DE42513D1E2EA00C3D8CA /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E2DE42413D1E2EA00C3D8CA /* CalendarViewController.xib */; };
@@ -114,7 +113,6 @@
 		1E2DE38213D1CE1B00C3D8CA /* optionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = optionViewController.xib; sourceTree = "<group>"; };
 		1E2DE3E713D1DD5600C3D8CA /* AlertHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHelp.h; sourceTree = "<group>"; };
 		1E2DE3E813D1DD5600C3D8CA /* AlertHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHelp.m; sourceTree = "<group>"; };
-		1E2DE41913D1E18E00C3D8CA /* LoadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoadViewController.xib; path = Classes/LoadViewController.xib; sourceTree = "<group>"; };
 		1E2DE41C13D1E1DB00C3D8CA /* LoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadViewController.h; sourceTree = "<group>"; };
 		1E2DE41D13D1E1DB00C3D8CA /* LoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadViewController.m; sourceTree = "<group>"; };
 		1E2DE41E13D1E1DB00C3D8CA /* LoadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoadViewController.xib; path = Classes/LoadViewController.xib; sourceTree = "<group>"; };
@@ -469,7 +467,6 @@
 				1E2DE05213D17C9400C3D8CA /* ListViewController.xib in Resources */,
 				71FC06AE13D2201D00DC1F3D /* timetable with days.png in Resources */,
 				1E2DE38313D1CE1B00C3D8CA /* optionViewController.xib in Resources */,
-				1E2DE41B13D1E18E00C3D8CA /* LoadViewController.xib in Resources */,
 				1E2DE42013D1E1DB00C3D8CA /* LoadViewController.xib in Resources */,
 				1E2DE42513D1E2EA00C3D8CA /* CalendarViewController.xib in Resources */,
 				719FC78213D2D37500E25097 /* logo.png in Resources */,
