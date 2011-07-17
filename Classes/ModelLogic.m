@@ -1161,7 +1161,6 @@ static ModelLogic* modelLogic;
 			[eachSelected release];
 		}
 	}
-//	if (timeTable!=nil) [timeTable release];
 	[self timeTable].result = newResult;
 
 }
