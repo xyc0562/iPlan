@@ -77,13 +77,40 @@ WithModuleClassType:(NSArray*)moduleClassType
         {
             NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
             Module* module = [unarc decodeObjectForKey:@"module"];
-
             return [module autorelease];
         }
         else
         {
-            return nil;
+            NSFileManager *fm = [NSFileManager defaultManager];
+            NSArray *fileArr = [fm directoryContentsAtPath:modulesDirectory];
+            for (NSString *file in fileArr)
+            {
+                file = [file substringToIndex:[file length] - 6];
+                NSArray *sep = [file componentsSeparatedByString:@" | "];
+                for (NSString *c in sep)
+                {
+                    if ([c isEqualToString:code])
+                    {
+                        fullPath = [NSString stringWithFormat:@"%@/%@.plist", modulesDirectory, file];
+                        NSLog(fullPath);
+                        data = [NSData dataWithContentsOfFile:fullPath];
+                        if (data)
+                        {
+                            NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+                            Module* module = [unarc decodeObjectForKey:@"module"];
+                            return [module autorelease];
+                        }
+                        else
+                        {
+                            return nil;
+                        }
+                    }
+                }
+            }
         }
+
+        // If not found, return nil
+        return nil;
 }
 
 -(NSString*)stringcolor

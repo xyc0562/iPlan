@@ -179,6 +179,10 @@
 			[alert show];
 			[alert release];
 		}
+	}else if (row == 3) {
+		if([[ModelLogic modelLogic] resetCalender]){
+			
+		}
 	}
 }
 

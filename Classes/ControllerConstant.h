@@ -39,9 +39,9 @@
 #define SCROLL_H 340
 
 #define TABLE_X 2
-#define TABLE_Y 245
+#define TABLE_Y 233
 #define TABLE_W 320
-#define TABLE_H 270
+#define TABLE_H 260
 
 #define CLASH @"Clash"
 #define SLOTS @"Slots"
