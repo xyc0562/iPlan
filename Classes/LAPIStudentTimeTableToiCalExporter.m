@@ -129,12 +129,40 @@
         int weeks = [self.semester integerValue] > 2 ? NUMBER_OF_WEEKS_FOR_SPECIAL_TERM : NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER;
         NSArray *freArr = [IPlanUtility frequencyStringToNSArray:self.weekText Weeks:weeks];
 
+        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentDirectory = [paths objectAtIndex:0];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSString *timeInfoPath = [documentDirectory stringByAppendingFormat:@"/%@.plist", TIME_INFO_NAME];
+        NSData *timeInfoData = [NSData dataWithContentsOfFile:timeInfoPath];
+        NSArray* timeInfoArr;       
+
+        if (timeInfoData)
+        {
+            NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:timeInfoData];
+            timeInfoArr = [unarc decodeObjectForKey:@"timeInfo"];
+        }
+        else
+        {
+            NSLog(@"Fatal error: timeInfo is not initialized.");
+        }
+
         for (int i = 1; i < [freArr count]; i ++)
         {
             EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
             myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", self.moduleCode, self.classNo, self.lessonType];
-            int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.startTime integerValue]]];
-            int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.endTime integerValue]]];
+            int startInterval;
+            int endInterval;
+            if (i > [[timeInfoArr objectAtIndex:2] integerValue])
+            {
+                startInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.startTime integerValue]]];
+                endInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.endTime integerValue]]];
+            }
+            else
+            {
+                startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.startTime integerValue]]];
+                endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[self.dayCode integerValue] Time:[NSNumber numberWithInt:[self.endTime integerValue]]];
+            }
             myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
             myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
             myEvent.notes = [IPlanUtility decodeFrequency:freArr];
