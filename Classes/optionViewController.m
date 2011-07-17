@@ -154,7 +154,7 @@
 			//fail
 		}
 	}else if (row == 3) {
-            if([[ModelLogic modelLogic] resetCalender]);
+            if([[ModelLogic modelLogic] resetCalender])
 	}
 }
 
