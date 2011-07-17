@@ -32,7 +32,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	if(newSlotViewControllers!=nil)
+	if(newSlotViewControllers)
 	{
 		[newSlotViewControllers removeAllObjects];
 		[newSlotViewControllers release];
@@ -45,18 +45,20 @@
 	[newSlotViewControllers addObject:[slotViewControllers objectAtIndex:0]];
 	for(int i=0;i<[slotViewControllers count];i++)
 	{
+		BOOL same = NO;
 		SlotViewController* slot = [slotViewControllers objectAtIndex:i];
 		for(int j=0;j<[newSlotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [newSlotViewControllers objectAtIndex:j];
 			if ([slot.moduleCode isEqualToString:slot2.moduleCode]&&
 				[slot.classTypeName isEqualToString:slot2.classTypeName]&&
-				[slot.classGroupName isEqualToString:slot2.classGroupName]);
-			else 
+				[slot.classGroupName isEqualToString:slot2.classGroupName])
 			{
-				[newSlotViewControllers addObject:slot];
+				same = YES;
 			}
 		}
+		if(!same)
+			[newSlotViewControllers addObject:slot];
 	}
 
 	[table reloadData];
@@ -79,18 +81,20 @@
 		[newSlotViewControllers addObject:[slotViewControllers objectAtIndex:0]];
 	for(int i=0;i<[slotViewControllers count];i++)
 	{
+		BOOL same = NO;
 		SlotViewController* slot = [slotViewControllers objectAtIndex:i];
 		for(int j=0;j<[newSlotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [newSlotViewControllers objectAtIndex:j];
 			if ([slot.moduleCode isEqualToString:slot2.moduleCode]&&
 				[slot.classTypeName isEqualToString:slot2.classTypeName]&&
-				[slot.classGroupName isEqualToString:slot2.classGroupName]);
-			else 
+				[slot.classGroupName isEqualToString:slot2.classGroupName])
 			{
-				[newSlotViewControllers addObject:slot];
+				same = YES;
 			}
 		}
+		if(!same)
+			[newSlotViewControllers addObject:slot];
 	}
 	
 	[table reloadData];
