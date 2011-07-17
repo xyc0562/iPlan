@@ -648,9 +648,12 @@ static ModelLogic* modelLogic;
 
 - (NSMutableArray*)getSelectedGroupsInfo
 {
+	int i=1;
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
+		NSLog(@"count %d",i);
+		i++;
 		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
@@ -662,6 +665,7 @@ static ModelLogic* modelLogic;
 		NSString* classTypeName = [classType name];
 		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
 		NSString* groupName = [classGroup name];
+		NSLog(@"code %@ %@ %@",moduleCode,classTypeName,groupName);
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
 		[resultDict setValue:groupName forKey:@"classGroupName"];
