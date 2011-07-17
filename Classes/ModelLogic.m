@@ -1139,8 +1139,8 @@ static ModelLogic* modelLogic;
 -(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code
 {
     int i = 0;
-    NSNumber* index = [indexesDict valueForKey:code];
-    if (index) return index;
+    //NSNumber* index = [indexesDict valueForKey:code];
+    //if (index) return index;
     for (Module* module in timeTable.modules) 
     {
         if ([code isEqualToString:[module code]]) 
