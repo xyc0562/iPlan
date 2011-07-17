@@ -486,8 +486,8 @@
 }
 
 - (void)viewDidUnload {
-	self.moduleListTableView =  nil;
-	self.moduleList = nil;
+	//self.moduleListTableView =  nil;
+	//self.moduleList = nil;
 	[super viewDidUnload];
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
