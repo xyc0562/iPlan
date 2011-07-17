@@ -269,7 +269,7 @@
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
-				[[ModelLogic modelLogic]exportTimetableToiCalendar];
+				//[[ModelLogic modelLogic]exportTimetableToiCalendar];
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
