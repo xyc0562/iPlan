@@ -20,6 +20,7 @@
 #import "SharedAppDataObject.h"
 
 #import "ConstantFile.h"
+#import "LAPIStudentTimeTableToiCalExporter.h"
 
 @implementation iPlanAppDelegate
 
@@ -44,6 +45,11 @@
     }
     NSLog(@"---end----");
 */
+
+    NSData *da = [NSData dataWithContentsOfFile:@"/Users/xuyecheng/Documents/ios/iPlan/Timetable_Student.xml"];
+    NSLog(@"lapi start!");
+    [[LAPIStudentTimeTableToiCalExporter alloc] initWithNSDataParseAndExport:da];
+    NSLog(@"lapi done!");
 	
 	// check whether we need update or not
 	

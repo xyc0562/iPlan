@@ -12,7 +12,6 @@
 @interface SharedAppDataObject : AppDataObject {
 	NSString *settingsIdentity;
 	NSString *moduleCode;
-	NSString *requestedToken;
 	NSMutableArray *basket;
 	NSMutableArray *activeModules;
 	NSMutableArray *requirements;

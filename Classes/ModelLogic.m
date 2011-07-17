@@ -970,21 +970,21 @@ static ModelLogic* modelLogic;
 		}
 	}
 
-    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString* documentDirectory = [paths objectAtIndex:0]; NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME]; NSFileManager * fm = [NSFileManager defaultManager]; if (![fm fileExistsAtPath:eventIdsDirectory]) { [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL]; }
-    NSMutableData* data = [[NSMutableData alloc] init];
-    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        NSMutableData* data = [[NSMutableData alloc] init];
+        NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 	
-    [arc encodeObject:eventIds forKey:@"event"];
+        [arc encodeObject:eventIds forKey:@"event"];
 	
-    [arc finishEncoding];
-    BOOL success = [data writeToFile:fullPath atomically:YES];
-    [arc release];
-    [data release];
-    if(!success)
-        [eventDB release];
+        [arc finishEncoding];
+        BOOL success = [data writeToFile:fullPath atomically:YES];
+        [arc release];
+        [data release];
+        if(!success)
+            [eventDB release];
 
-    return YES;
+        return YES;
 }
 
 // If not exists, return nil
@@ -1034,7 +1034,7 @@ static ModelLogic* modelLogic;
 - (NSError*)resetCalender
 {
 //	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
-	return [self deleteEvents:[self getExportedEventIds]];
+    return [self deleteEvents:[self getExportedEventIds]];
 }
 
 //- (void)removeAllEventsfromCalender
@@ -1073,58 +1073,59 @@ static ModelLogic* modelLogic;
 }
 -(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code
 {
-	int i = 0;
-	NSNumber* index = [indexesDict valueForKey:code];
-	if (index) return index;
-	for (Module* module in timeTable.modules) 
-	{
-		if ([code isEqualToString:[module code]]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:code];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i = 0;
+    NSNumber* index = [indexesDict valueForKey:code];
+    if (index) return index;
+    for (Module* module in timeTable.modules) 
+    {
+        if ([code isEqualToString:[module code]]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:code];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 -(NSNumber*)getOrCreateClassTypeIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName
 {
-	int i = 0;
-	NSNumber* index = [indexesDict valueForKey:[code stringByAppendingString:classTypeName]];
-	if (index) return index;
-	Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
-	for (ModuleClassType* classType in [module moduleClassTypes]) 
-	{
-		if ([[classType name]isEqualToString:classTypeName]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[code stringByAppendingString:classTypeName]];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i = 0;
+    NSNumber* index = [indexesDict valueForKey:[code stringByAppendingString:classTypeName]];
+    if (index) return index;
+    Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+    for (ModuleClassType* classType in [module moduleClassTypes]) 
+    {
+        if ([[classType name]isEqualToString:classTypeName]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[code stringByAppendingString:classTypeName]];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 			 
 -(NSNumber*)getOrCreateClassGroupIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName WithClassGroupName:(NSString*)classGroupName
 {
-	int i= 0;
-	NSNumber* index = [indexesDict valueForKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
-	if (index) return nil;
-	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
-	for (ClassGroup* classGroup in [classType classGroups]) 
-	{
-		if ([[classGroup name]isEqualToString:classGroupName]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i= 0;
+    NSNumber* index = [indexesDict valueForKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+    if (index) return nil;
+    ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
+    for (ClassGroup* classGroup in [classType classGroups]) 
+    {
+        if ([[classGroup name]isEqualToString:classGroupName]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 			 
 - (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray
 {
+
 	NSMutableArray* newResult = [[NSMutableArray alloc]init];
 	NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
 	for (NSMutableDictionary* eachSelected in resultArray) 
@@ -1147,6 +1148,7 @@ static ModelLogic* modelLogic;
 	}
 //	if (timeTable!=nil) [timeTable release];
 	[self timeTable].result = newResult;
+
 }
 
 - (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name
@@ -1195,19 +1197,19 @@ static ModelLogic* modelLogic;
 }
 
 /*
-- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
->>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
-{
-	if (timeTable!=nil) [timeTable release];
-	self.timeTable = storedTimeTable;
-}
- */
+  - (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
+  >>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
+  {
+  if (timeTable!=nil) [timeTable release];
+  self.timeTable = storedTimeTable;
+  }
+*/
 
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:timeTable forKey:@"timeTable"];
-	[coder encodeObject:currentColorIndex forKey:@"currentColorIndex"];
+    [coder encodeObject:timeTable forKey:@"timeTable"];
+    [coder encodeObject:currentColorIndex forKey:@"currentColorIndex"];
 	[coder encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
 }
 

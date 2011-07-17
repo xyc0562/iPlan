@@ -514,8 +514,6 @@
 	{
 		toRequirement = NO;
 	}
-
-		
 }
 
 
