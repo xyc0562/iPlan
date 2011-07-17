@@ -38,7 +38,6 @@
 		2899E5220DE3E06400AC0155 /* iPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* iPlanViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* iPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */; };
-		2F18842113B9CA3B006DCC66 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842013B9CA3B006DCC66 /* logo.png */; };
 		2F18843013B9D03F006DCC66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18842E13B9D03F006DCC66 /* SettingsViewController.m */; };
 		2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */; };
 		2F1884D313B9DA79006DCC66 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1884D113B9DA79006DCC66 /* HelpViewController.m */; };
@@ -58,9 +57,10 @@
 		438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D513B4B78E003D1B52 /* selected_tab_item.png */; };
 		438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 438BC7D613B4B78E003D1B52 /* tab bar.png */; };
 		43D2F44A13B0E65F006EAA46 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D2F44913B0E65F006EAA46 /* CalendarViewController.m */; };
-		43E627CB13C9FC5D0016A8C2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E627CA13C9FC5D0016A8C2 /* Default.png */; };
 		7193087213BD1034001D9F8B /* TimeTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 7193087113BD1034001D9F8B /* TimeTable.m */; };
 		7193087413BD1087001D9F8B /* iPlanAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7193087313BD1087001D9F8B /* iPlanAppDelegate.m */; };
+		719FC78213D2D37500E25097 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 719FC78113D2D37500E25097 /* logo.png */; };
+		719FC78613D2DE3600E25097 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 719FC78513D2DE3600E25097 /* Default.png */; };
 		71FC06AE13D2201D00DC1F3D /* timetable with days.png in Resources */ = {isa = PBXBuildFile; fileRef = 71FC06AD13D2201D00DC1F3D /* timetable with days.png */; };
 		B6491D6013AF8B7200782587 /* IPlanUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B6491D5F13AF8B7200782587 /* IPlanUtility.m */; };
 		B6CAE01413D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CAE01313D181B700659C06 /* LAPIStudentTimeTableToiCalExporter.m */; };
@@ -126,7 +126,6 @@
 		28D7ACF60DDB3853001CB0EB /* iPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPlanViewController.h; sourceTree = "<group>"; };
 		28D7ACF70DDB3853001CB0EB /* iPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2F18842013B9CA3B006DCC66 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		2F18842D13B9D03F006DCC66 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2F18842E13B9D03F006DCC66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2F18842F13B9D03F006DCC66 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
@@ -155,9 +154,10 @@
 		438BC7D613B4B78E003D1B52 /* tab bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tab bar.png"; path = "images/tab bar.png"; sourceTree = SOURCE_ROOT; };
 		43D2F44813B0E65F006EAA46 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		43D2F44913B0E65F006EAA46 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		43E627CA13C9FC5D0016A8C2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7193087113BD1034001D9F8B /* TimeTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTable.m; sourceTree = "<group>"; };
 		7193087313BD1087001D9F8B /* iPlanAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPlanAppDelegate.m; sourceTree = "<group>"; };
+		719FC78113D2D37500E25097 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		719FC78513D2DE3600E25097 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		71FC06AD13D2201D00DC1F3D /* timetable with days.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timetable with days.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* iPlan-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iPlan-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B6491D5E13AF8B7200782587 /* IPlanUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPlanUtility.h; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 				1E2DE42413D1E2EA00C3D8CA /* CalendarViewController.xib */,
 				1E2DE38213D1CE1B00C3D8CA /* optionViewController.xib */,
 				1E2DE41913D1E18E00C3D8CA /* LoadViewController.xib */,
-				43E627CA13C9FC5D0016A8C2 /* Default.png */,
+				719FC78513D2DE3600E25097 /* Default.png */,
 				1E2DE05013D17C9400C3D8CA /* ListViewController.xib */,
 				1E2DB4A613C74BBB00C3D8CA /* ModuleListViewController.xib */,
 				2F1884D213B9DA79006DCC66 /* HelpViewController.xib */,
@@ -365,13 +365,13 @@
 			children = (
 				71FC06AD13D2201D00DC1F3D /* timetable with days.png */,
 				05BF137413C0164600CDDB6C /* unchecked.png */,
+				719FC78113D2D37500E25097 /* logo.png */,
 				1E2DDF6A13D1607400C3D8CA /* save.png */,
 				05BF137213C0164000CDDB6C /* checked.png */,
 				05BE962C13BF4DDC000DCDDB /* plus.png */,
 				4371926213B8C3E600AAC77C /* shopping_cart.png */,
 				438BC7D113B4B78E003D1B52 /* calendar.png */,
 				438BC7D213B4B78E003D1B52 /* gear.png */,
-				2F18842013B9CA3B006DCC66 /* logo.png */,
 				1E2DB94313C84D9600C3D8CA /* refresh.png */,
 				438BC7D313B4B78E003D1B52 /* pencil.png */,
 				1E2DB94113C84AFC00C3D8CA /* next.png */,
@@ -454,7 +454,6 @@
 				438BC7DC13B4B78E003D1B52 /* selected_tab_item.png in Resources */,
 				438BC7DD13B4B78E003D1B52 /* tab bar.png in Resources */,
 				4371926313B8C3E600AAC77C /* shopping_cart.png in Resources */,
-				2F18842113B9CA3B006DCC66 /* logo.png in Resources */,
 				2F18843113B9D03F006DCC66 /* SettingsViewController.xib in Resources */,
 				2F1884D413B9DA79006DCC66 /* HelpViewController.xib in Resources */,
 				2FD7C7F313BB11FB00B00C99 /* ModuleInfoViewController.xib in Resources */,
@@ -466,7 +465,6 @@
 				1E2DB4A713C74BBB00C3D8CA /* ModuleListViewController.xib in Resources */,
 				1E2DB94213C84AFC00C3D8CA /* next.png in Resources */,
 				1E2DB94413C84D9600C3D8CA /* refresh.png in Resources */,
-				43E627CB13C9FC5D0016A8C2 /* Default.png in Resources */,
 				1E2DDF6B13D1607400C3D8CA /* save.png in Resources */,
 				1E2DE05213D17C9400C3D8CA /* ListViewController.xib in Resources */,
 				71FC06AE13D2201D00DC1F3D /* timetable with days.png in Resources */,
@@ -474,6 +472,8 @@
 				1E2DE41B13D1E18E00C3D8CA /* LoadViewController.xib in Resources */,
 				1E2DE42013D1E1DB00C3D8CA /* LoadViewController.xib in Resources */,
 				1E2DE42513D1E2EA00C3D8CA /* CalendarViewController.xib in Resources */,
+				719FC78213D2D37500E25097 /* logo.png in Resources */,
+				719FC78613D2DE3600E25097 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

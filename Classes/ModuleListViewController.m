@@ -48,6 +48,7 @@
 
 -(void) cartButtonClicked:(id)sender {
 	//searching = NO;
+	toRequirement = YES;
 	BasketTableViewController *basketController = [[BasketTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:basketController];
 	[basketController release];
@@ -240,7 +241,7 @@
 		
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
-		NSLog(@"test 2");
+	//	NSLog(@"test 2");
 		
 	}
 	else 
@@ -258,7 +259,7 @@
 		
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
-		NSLog(@"test deselect");
+		//NSLog(@"test deselect");
 		
 	}
 	
@@ -278,7 +279,7 @@
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
-				[[ModelLogic modelLogic]exportTimetableToiCalendar];
+				//[[ModelLogic modelLogic]exportTimetableToiCalendar];
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
@@ -314,7 +315,7 @@
 	[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 	if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 	{
-		[[ModelLogic modelLogic] exportTimetableToiCalendar];
+//		[[ModelLogic modelLogic] exportTimetableToiCalendar];
 		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 		[controller viewWillAppear:YES];
 		self.tabBarController.selectedViewController = 	controller;
@@ -523,13 +524,13 @@
 	{
 		toRequirement = NO;
 	}
+
 	if (theDataObject.requirementEnabled == YES) {
 		buttonTitle = @"Requirement";
 	}else {
 		buttonTitle = @"Continue";
 	}
-	addButton1.title = buttonTitle;
-		
+	addButton1.title = buttonTitle;		
 }
 
 

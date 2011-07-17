@@ -11,6 +11,7 @@
 #define FREQUENCY_INVALID 0
 #define MODULE_DOCUMENT_NAME @"Modules"
 #define EVENT_DOCUMENT_NAME @"EventIds"
+#define TIME_INFO_NAME @"timeInfo"
 
 // Module Class Types
 #define MODULE_CLASS_TYPE_LECTURE @"LECTURE"
@@ -27,6 +28,20 @@
 #define MODULE_INACTIVE @"NO"
 #define MODULE_ACTIVE_NUMBER 10
 
-#define MODULE_EXAM_NO_EXAM @"No Exam Date."
+#define NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER 14
+#define NUMBER_OF_WEEKS_FOR_SPECIAL_TERM 6
 
-#define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor lightGrayColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]
+#define MODULE_EXAM_NO_EXAM @"No Exam Date."
+#define CLEAR @"clear"
+#define RED @"red"
+#define	YELLOW @"yellow"
+#define PURPLE @"purple"
+#define BLUE @"blue"
+#define LIGHTGRAY @"light"
+#define GREEN @"green"
+#define BROWN @"brown"
+#define MAGENTA @"magenta"
+#define CYAN @"cyan"
+#define ORANGE @"orange"
+
+#define colorList [NSArray arrayWithObjects:[UIColor blueColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],[UIColor lightGrayColor],[UIColor redColor],nil]

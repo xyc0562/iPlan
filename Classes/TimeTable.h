@@ -16,6 +16,7 @@
 @property(nonatomic,retain)NSString* name;
 @property(nonatomic,retain)NSMutableArray* modules;
 @property(nonatomic,retain)NSMutableArray* result;
+
 -(BOOL)planOneTimetable;
 -(BOOL)planOneTimetableWithRequirements:(NSMutableArray *)requirements;
 -(BOOL)planOneTimetableWithRequirements:(NSMutableArray*)requirements WithResult:(NSMutableArray*)lastResult;

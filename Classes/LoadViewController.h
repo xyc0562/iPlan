@@ -11,6 +11,11 @@
 
 @interface LoadViewController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
 	IBOutlet UITableView* table;
+	NSMutableArray* namelist;
 }
+@property (nonatomic,retain)NSMutableArray* namelist;
+@property (nonatomic,retain)UITableView* table;
 
 @end
+
+

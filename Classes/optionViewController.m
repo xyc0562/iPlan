@@ -52,7 +52,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Delete IVLE timetable in iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
 	
 }
 
@@ -89,7 +89,7 @@
 	
 	cell.textLabel.text = optionName;
 	
-	if (row == 2) {	
+	if (row == 4) {	
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		theDataObject.requirementEnabled = NO;
 		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
@@ -97,7 +97,7 @@
 		switchEnabled.on = NO;
 		[switchEnabled addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];		
 		cell.accessoryView = switchEnabled;
-	}else{
+	}else if(row == 0 || row == 2){
 		UIButton *exportBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
 		CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
 		exportBUtton.frame = frame;
@@ -105,8 +105,17 @@
 		[exportBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
 		[exportBUtton addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
 		cell.accessoryView = exportBUtton;
+	}else if (row == 1 || row == 3) {
+		UIButton *exportBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
+		exportBUtton.frame = frame;
+		[exportBUtton setTitle:@"Delete" forState:UIControlStateNormal];
+		[exportBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportBUtton addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportBUtton;
+	}else {
+		//NSLog(@"No implementation yet!");
 	}
-	
     return cell;
 }
 
@@ -127,21 +136,48 @@
 	NSUInteger row = indexPath.row;
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
-	NSLog(@"clicked row %d", row);
+	//NSLog(@"clicked row %d", row);
 	if(row == 0){
 		//Lapi issue
 		NSURL *url = [NSURL URLWithString:SERVER_URL]; 	
-		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url]; 	
-		[ivlePage loadRequest:requestObj];    	
+		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+		[ivlePage loadRequest:requestObj]; 
 		[self.view  addSubview:ivlePage];
 		[self.view bringSubviewToFront:ivlePage];
-
-	}else if (row == 1) {
+	}else if(row == 1){
+		
+	}else if (row == 2) {
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
-			//success
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}else{
-			//fail
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}else if (row == 3) {
+		if([[ModelLogic modelLogic] resetCalender]){
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}else{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}
 	}
 }
@@ -163,12 +199,12 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     //verify view is on the login page of the site (simplified)
     NSURL *requestURL = [self.ivlePage.request URL];
-	NSLog(@"The url is %@", requestURL);
+	//NSLog(@"The url is %@", requestURL);
 	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
 		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
+		//NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
 		requestedToken = webContent;
-		ivlePage.opaque = YES;
+		ivlePage.opaque = NO;
 		ivlePage.backgroundColor = [UIColor	 clearColor];
 		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
@@ -182,9 +218,7 @@
 		NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
 		
 		NSInteger year = [dateComponents year];
-		
 		NSInteger month = [dateComponents month];
-		
 		NSInteger day = [dateComponents day];
 		
 		
@@ -196,12 +230,17 @@
 		}else if (month > 8 || (month == 8 && day >= 10)) {
 			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
 			semester = [[NSString alloc] initWithString:@"1"];
-		}else {
-			acadYear = [[NSString alloc] initWithString:@"2010/2011"];
-			semester = [[NSString alloc] initWithString:@"2"];
+		}else if ((month == 5 && day >10) || (month == 6 && day < 18)) {
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
+			semester = [[NSString alloc] initWithString:@"3"];
+		}else if ((month == 6 && day >20) || (month == 7 && day < 30)) {
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
+			semester = [[NSString alloc] initWithString:@"4"];
+		}else{
+			//NSLog(@"No such such semester yet!");
 		}
 		
-		NSLog(@"current time is %d, %d, %d", year, month, day);
+		//NSLog(@"current time is %d, %d, %d", year, month, day);
 		
 		[self importIVLETimeTableAcadYear:acadYear Semester:semester];
 		
@@ -258,7 +297,7 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning in OptionViewController.m!");
+   // NSLog(@"Memory Warning in OptionViewController.m!");
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc. that aren't in use.
@@ -269,7 +308,7 @@
     // For example: self.myOutlet = nil;
 	self.optionTableView = nil;
 	self.optionsList = nil;
-	NSLog(@"Option ‰View Unload");
+	//NSLog(@"Option ‰View Unload");
 	[super viewDidUnload];
 }
 

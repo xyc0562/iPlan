@@ -15,7 +15,7 @@
 }
 
 + (NSNumber*) weekOfDayStringToNSNumber:(NSString*)day;
-+ (NSArray*) frequencyStringToNSArray:(NSString*)fre;
++ (NSArray*) frequencyStringToNSArray:(NSString*)fre Weeks:(NSInteger)weeks;
 + (NSString*) weekOfDayNSNumberToString:(NSNumber*)day;
 + (NSString*) timeIntervalFromStartTime:(NSNumber*)start EndTime:(NSNumber*)end;
 + (NSString*) decodeFrequency:(NSArray*)freArr;

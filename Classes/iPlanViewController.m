@@ -49,7 +49,7 @@
 	
 	[webView loadRequest:requestObj];
 	
-	NSLog(@"compile iPlanViewController!");
+	//NSLog(@"compile iPlanViewController!");
 }
 
 
@@ -57,16 +57,16 @@
 #pragma mark web view delegate
 
 - (void)webViewDidStartLoad:(UIWebView *)theWebView{
-	NSLog(@"web view started!");
+	//NSLog(@"web view started!");
 }
 
 - (void) webViewDidFinishLoad:(UIWebView *)theWebView{
-	NSLog(@"response received!");
+	//NSLog(@"response received!");
 	
 	
 	NSString *requestTokenUrl = [[NSString alloc] initWithString:theWebView.request.URL.absoluteString];
 	
-	NSLog(@"%@", requestTokenUrl);
+	//NSLog(@"%@", requestTokenUrl);
 	
 	
 	[requestTokenUrl release];

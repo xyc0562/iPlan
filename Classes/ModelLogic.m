@@ -7,6 +7,8 @@
 //
 
 #import "ModelLogic.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 #define TIMETABLE_DOCUMENT_NAME @"timetable"
 static ModelLogic* modelLogic;
 @implementation ModelLogic
@@ -22,6 +24,60 @@ static ModelLogic* modelLogic;
 		modelLogic = [[ModelLogic alloc]init];
 	}
 	return modelLogic;
+}
+
+- (SharedAppDataObject*) theAppDataObject
+{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
+- (void)deleteFile:(NSString*)filename
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSFileManager * fm = [NSFileManager defaultManager];
+	[fm removeItemAtPath:fullPath error:NULL];
+}
+
+- (void)loadFile:(NSString*)filename
+{
+		
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSData *data = [NSData dataWithContentsOfFile:fullPath];
+	if (data)
+	{
+		NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		self.timeTable = [unarc decodeObjectForKey:@"timeTable"];
+		self.currentColorIndex = [unarc decodeObjectForKey:@"currentColorIndex"];
+		self.moduleObjectsDict = [unarc decodeObjectForKey:@"moduleObjectsDict"];
+		self.indexesDict = [unarc decodeObjectForKey:@"indexesDict"];
+		SharedAppDataObject *theNewDataObject = [unarc decodeObjectForKey:@"share"];
+		SharedAppDataObject *theDataObject = [self theAppDataObject];
+
+		theDataObject.needUpdate = NO;
+		theDataObject.continueToCalendar = NO;
+		theDataObject.requirementEnabled = NO;
+		
+		theDataObject.basket = theNewDataObject.basket;
+		theDataObject.activeModules = theNewDataObject.activeModules;
+		theDataObject.requirements = theNewDataObject.requirements;
+		theDataObject.moduleCells = [[NSMutableDictionary alloc]init];
+		theDataObject.removedCells = [[NSMutableDictionary alloc]init];
+		theDataObject.slotViewControllers = [[NSMutableArray alloc]init];
+		theDataObject.tableChoices = [[NSMutableArray alloc]init];
+		theDataObject.availableSlots = [[NSMutableArray alloc]init];
+		theDataObject.selectSlot = nil;
+		
+		
+	}
 }
 - (BOOL)checkTheSame:(NSMutableArray*)active
 {
@@ -195,6 +251,25 @@ static ModelLogic* modelLogic;
     return moduleNames;
 }
 
+- (NSMutableArray*)getAllTimeTables
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *tableDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSMutableArray *tableNames = [fm contentsOfDirectoryAtPath:tableDirectory error:nil];
+    
+    int count = [tableNames count], i;
+    for(i = 0; i < count; i++)
+    {
+        // Trimming ".plist"
+        NSString *name = [tableNames objectAtIndex:i] ;
+		[tableNames replaceObjectAtIndex:i withObject:name];
+    }
+	
+    return tableNames;
+}
 
 - (NSString*) getTitleFromModule:(NSString*)code
 {
@@ -583,10 +658,12 @@ static ModelLogic* modelLogic;
 
 - (NSMutableArray*)getSelectedGroupsInfo
 {
-	[self generateDefaultTimetable];
+	int i=1;
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
+		//NSLog(@"count %d",i);
+		i++;
 		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
@@ -598,6 +675,7 @@ static ModelLogic* modelLogic;
 		NSString* classTypeName = [classType name];
 		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
 		NSString* groupName = [classGroup name];
+		//NSLog(@"code %@ %@ %@",moduleCode,classTypeName,groupName);
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
 		[resultDict setValue:groupName forKey:@"classGroupName"];
@@ -622,6 +700,9 @@ static ModelLogic* modelLogic;
 			{
 				frequency = frequency<<1;
 				if ([eachWeek isEqualToString:@"YES"]) frequency++;
+				//printf("model logic generate freq %d\n",frequency);
+
+			
 			}
 			NSNumber* freq = [NSNumber numberWithInt:frequency];
 //			NSLog(@"freq%@",[freq stringValue]);
@@ -667,6 +748,19 @@ static ModelLogic* modelLogic;
 				NSNumber* endTime = [NSNumber numberWithInt:eTime];
 				[slotDict setValue:startTime forKey:@"startTime"];
 				[slotDict setValue:endTime forKey:@"endTime"];
+				
+				int frequency = 0;
+				for (NSString* eachWeek in [slot frequency]) 
+				{
+					frequency = frequency<<1;
+					if ([eachWeek isEqualToString:@"YES"]) frequency++;
+					//printf("model logic generate freq %d\n",frequency);
+					
+					
+				}
+				NSNumber* freq = [NSNumber numberWithInt:frequency];
+				//			NSLog(@"freq%@",[freq stringValue]);
+				[slotDict setValue:freq forKey:@"frequency"];
 				
 				[slotInfo addObject:slotDict];
 			}
@@ -864,63 +958,96 @@ static ModelLogic* modelLogic;
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
-	NSMutableArray *allSelectedGroupsInfo = [[NSMutableArray alloc]init];
-	allSelectedGroupsInfo = [self getSelectedGroupsInfo];
-	for (NSMutableArray* resultRow in timeTable.result) 
-	{
-		NSNumber* moduleIndex = [resultRow objectAtIndex:0];
-		NSNumber* classTypeIndex = [resultRow	objectAtIndex:1];
-		NSNumber* classGroupIndex = [resultRow objectAtIndex:2];
-		Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
-		NSString* moduleCode = [module code];
-		ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
-		NSString* classTypeName = [classType name];
-		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
-		NSString* groupName = [classGroup name];
-		for (Slot *s in [classGroup slots])
-		{
-			NSLog(@"%@",[[s day]stringValue]);
-			for (int i = 1; i < [s.frequency count]; i ++)
-			{
-				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
-				{
-					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
-					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
-					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
-					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
-					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
-					myEvent.allDay = NO;
-					// For now we use the default calendar, we may change to other specific calendars later
-					[myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-					NSError *err = nil;
-					[eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
-					if (err == nil)
-					{
-						NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
-						[eventIds addObject:str];
-					}
-				}
-			}
-		}
-	}
+    NSMutableArray *allSelectedGroupsInfo = [[NSMutableArray alloc]init];
+    allSelectedGroupsInfo = [self getSelectedGroupsInfo];
 
-        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
-	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString* documentDirectory = [paths objectAtIndex:0]; NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME]; NSFileManager * fm = [NSFileManager defaultManager]; if (![fm fileExistsAtPath:eventIdsDirectory]) { [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL]; }
-        NSMutableData* data = [[NSMutableData alloc] init];
-        NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	
-        [arc encodeObject:eventIds forKey:@"event"];
-	
-        [arc finishEncoding];
-        BOOL success = [data writeToFile:fullPath atomically:YES];
-        [arc release];
-        [data release];
-        if(!success)
-            [eventDB release];
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *timeInfoPath = [documentDirectory stringByAppendingFormat:@"/%@.plist", TIME_INFO_NAME];
+    NSData *timeInfoData = [NSData dataWithContentsOfFile:timeInfoPath];
+    NSArray* timeInfoArr;
+    if (timeInfoData)
+    {
+        NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:timeInfoData];
+        timeInfoArr = [unarc decodeObjectForKey:@"timeInfo"];
+    }
+    else
+    {
+       // NSLog(@"Fatal error: timeInfo is not initialized.");
+    }
 
-        return YES;
+    for (NSMutableArray* resultRow in timeTable.result) 
+    {
+        NSNumber* moduleIndex = [resultRow objectAtIndex:0];
+        NSNumber* classTypeIndex = [resultRow	objectAtIndex:1];
+        NSNumber* classGroupIndex = [resultRow objectAtIndex:2];
+        Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
+        NSString* moduleCode = [module code];
+        ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
+        NSString* classTypeName = [classType name];
+        ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
+        NSString* groupName = [classGroup name];
+                
+        for (Slot *s in [classGroup slots])
+        {
+           // NSLog(@"%@",[[s day]stringValue]);
+            for (int i = 1; i < [s.frequency count]; i ++)
+            {
+                // Adding recess week
+                if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
+                {
+                    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+                    myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
+                    int startInterval;
+                    int endInterval;
+                    if (i > [[timeInfoArr objectAtIndex:2] integerValue])
+                    {
+                        startInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[[s day] intValue] Time:s.startTime];
+                        endInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[[s day] intValue] Time:s.endTime];
+                    }
+                    else
+                    {
+                        startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
+                        endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
+                    }
+                    myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
+                    myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
+                    myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
+                    myEvent.allDay = NO;
+                    // For now we use the default calendar, we may change to other specific calendars later
+                    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+                    NSError *err = nil;
+                    [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+                    if (err == nil)
+                    {
+                        NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
+                        [eventIds addObject:str];
+                    }
+                }
+            }
+        }
+    }
+
+    NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+    if (![fm fileExistsAtPath:eventIdsDirectory])
+    {
+        [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+    }
+    NSMutableData* data = [[NSMutableData alloc] init];
+    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+    [arc encodeObject:eventIds forKey:@"event"];
+	
+    [arc finishEncoding];
+    BOOL success = [data writeToFile:fullPath atomically:YES];
+    [arc release];
+    [data release];
+    if(!success)
+        [eventDB release];
+
+    return YES;
 }
 
 // If not exists, return nil
@@ -996,10 +1123,11 @@ static ModelLogic* modelLogic;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
-	
     if (module)
     {
-        return [module color];
+//		NSLog(@"color%@",test);
+//		NSLog([module stringcolor]);
+        return [module  color];
     }
     else
     {
@@ -1061,28 +1189,29 @@ static ModelLogic* modelLogic;
 			 
 - (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray
 {
-    NSMutableArray* newResult = [[NSMutableArray alloc]init];
-    NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
-    for (NSMutableDictionary* eachSelected in resultArray) 
-    {
-        NSString* code = [eachSelected valueForKey:@"moduleCode"];
-        NSString* classType = [eachSelected valueForKey:@"classTypeName"];
-        NSString* classGroup = [eachSelected valueForKey:@"classGroupName"];
-        classGroupIndex = [self getOrCreateClassGroupIndexByCode:code WithClassTypeName:classType WithClassGroupName:classGroup];
-        if (classGroupIndex)
-        {
-            moduleIndex = [self getOrCreateModuleIndexByCode:code];
-            classTypeIndex = [self getOrCreateClassTypeIndexByCode:code WithClassTypeName:classType];
-            NSMutableArray* eachResultRow = [[NSMutableArray alloc]init];
-            [eachResultRow addObject:moduleIndex];
-            [eachResultRow addObject:classTypeIndex];
-            [eachResultRow addObject:classGroupIndex];
-            [newResult addObject:eachResultRow];
-            [eachSelected release];
-        }
-    }
-    if (timeTable!=nil) [timeTable release];
-    [self timeTable].result = newResult;
+
+	NSMutableArray* newResult = [[NSMutableArray alloc]init];
+	NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
+	for (NSMutableDictionary* eachSelected in resultArray) 
+	{
+		NSString* code = [eachSelected valueForKey:@"moduleCode"];
+		NSString* classType = [eachSelected valueForKey:@"classTypeName"];
+		NSString* classGroup = [eachSelected valueForKey:@"classGroupName"];
+		classGroupIndex = [self getOrCreateClassGroupIndexByCode:code WithClassTypeName:classType WithClassGroupName:classGroup];
+		if (classGroupIndex)
+		{
+			moduleIndex = [self getOrCreateModuleIndexByCode:code];
+			classTypeIndex = [self getOrCreateClassTypeIndexByCode:code WithClassTypeName:classType];
+			NSMutableArray* eachResultRow = [[NSMutableArray alloc]init];
+			[eachResultRow addObject:moduleIndex];
+			[eachResultRow addObject:classTypeIndex];
+			[eachResultRow addObject:classGroupIndex];
+			[newResult addObject:eachResultRow];
+			[eachSelected release];
+		}
+	}
+	[self timeTable].result = newResult;
+
 }
 
 - (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name
@@ -1101,13 +1230,19 @@ static ModelLogic* modelLogic;
 	filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
 	filename = [filename stringByAppendingString:@".plist"];
 	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
-	//NSLog(@"doc%@", modulesDirectory);
-	//NSLog(@"%@",fullPath);
+
 	NSMutableData* data = [[NSMutableData alloc] init];
 	NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+
+	[arc encodeObject:currentColorIndex forKey:@"currentColorIndex"];
+	if(timeTable!=nil)
+		[arc encodeObject:timeTable forKey:@"timeTable"];
+	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
+	[arc encodeObject:indexesDict forKey:@"indexesDict"];
 	
-	[arc encodeObject:self forKey:@"ModelLogic"];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	[arc encodeObject:theDataObject forKey:@"share"];
 	
 	[arc finishEncoding];
 	BOOL success = [data writeToFile:fullPath atomically:YES];

@@ -21,6 +21,10 @@
 @property(nonatomic, retain)NSNumber* currentColorIndex;
 @property(nonatomic, retain)NSMutableDictionary* indexesDict;
 
+- (void)loadFile:(NSString*)filename;
+
+- (NSMutableArray*)getAllTimeTables;
+
 - (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name;
 
 - (BOOL)checkTheSame:(NSMutableArray*)active;
@@ -133,4 +137,5 @@
 - (BOOL)checkConflictsBetweenArray:(NSMutableArray*)basket AndModule:(NSString*)code;
 
 +(id)modelLogic;
+- (void)deleteFile:(NSString*)filename;
 @end

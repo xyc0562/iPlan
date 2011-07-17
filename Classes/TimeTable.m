@@ -58,6 +58,7 @@
 @synthesize modules;
 @synthesize result;
 
+
 -(id)initWithName:(NSString*)naming
 {
 	[super init];
@@ -138,7 +139,8 @@
 	if ([self getOneTimeTableWithIndex:(int)0
 					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
-		printf("success\n");
+	{//printf("success\n");
+	}
 	self.result = classTypeArray;
 	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
 		return NO;
@@ -153,7 +155,8 @@
 	if ([self getOneTimeTableWithIndex:(int)0
 					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
-		printf("success\n");
+	{//	printf("success\n");
+	}
 	self.result = classTypeArray;
 	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
 		return NO;
@@ -517,6 +520,7 @@
 	
 	[coder encodeObject:name forKey:@"name"];
 	[coder encodeObject:modules forKey:@"modules"];
+	[coder encodeObject:result forKey:@"result"];
 
 }
 
@@ -524,6 +528,7 @@
 {
 	if([super init]!=nil){
 		[self initWithName:[decoder decodeObjectForKey:@"name"] WithModules:[decoder decodeObjectForKey:@"modules"]];
+		self.result = [decoder decodeObjectForKey:@"result"];
 	}
 	return self;
 }
