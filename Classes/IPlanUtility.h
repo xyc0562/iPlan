@@ -20,6 +20,7 @@
 + (NSString*) timeIntervalFromStartTime:(NSNumber*)start EndTime:(NSNumber*)end;
 + (NSString*) decodeFrequency:(NSArray*)freArr;
 + (NSDate*) getSemesterStart;
-+ (int) getTimeIntervalFromWeek:(int)week Time:(NSNumber*)time;
++ (int)getTimeIntervalFromWeek:(int)week Day:(int)day Time:(NSNumber*)time;
++ (NSDate*) LAPIGetSemesterStartFromAY:(NSString*)AY Semester:(NSString*)sem;
 
 @end

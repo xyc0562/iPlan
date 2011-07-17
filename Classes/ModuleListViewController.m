@@ -17,7 +17,7 @@
 #import "CalendarViewController.h"
 #define SELECT_MODULE @"Do you want to add the module into basket?"
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
-#define SURE_TO_CHANGE_TO_CALENDAR @"Do you want to switch to Calendar? Calendar Content will be modified."
+#define SURE_TO_CHANGE_TO_CALENDAR @"Are you sure to change the modules? Calendar Content will be modified accordingly."
 #define NO_SOLUTION @"Sorry there is no possible Timetable based on your selection."
 
 @implementation ModuleListViewController
@@ -60,7 +60,7 @@
 	//ModelLogic *ml = [[ModelLogic alloc] init];
 	
     //NSMutableArray *arr = (NSMutableArray*)[ml getAllModuleCodes];
-	toRequirement = NO;
+	toRequirement = YES;
 	NSMutableArray *arr = (NSMutableArray*)[[ModelLogic modelLogic] getAllModuleCodes];
 	
 	NSArray *array = [[NSArray alloc] initWithArray:arr];
@@ -140,8 +140,9 @@
     NSUInteger row = [indexPath row];
 	NSString *addedModule;
 	
-	NSLog(@"Module List Table load again! %d", row);
+	//NSLog(@"Module List Table load again! %d", row);
 	
+
 	addedModule = [copyModuleList objectAtIndex:row];
 	
 	cell.textLabel.text = addedModule;
@@ -277,6 +278,7 @@
 			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 			{
+				[[ModelLogic modelLogic]exportTimetableToiCalendar];
 				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 				[controller viewWillAppear:YES];
 				self.tabBarController.selectedViewController = 	controller;
@@ -312,6 +314,7 @@
 	[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
 	if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
 	{
+		[[ModelLogic modelLogic] exportTimetableToiCalendar];
 		UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
 		[controller viewWillAppear:YES];
 		self.tabBarController.selectedViewController = 	controller;
@@ -516,7 +519,8 @@
 	[moduleListTableView reloadData];
 	if([theDataObject continueToCalendar])
 		[self moveToCalendar];
-	else {
+	else 
+	{
 		toRequirement = NO;
 	}
 	if (theDataObject.requirementEnabled == YES) {
@@ -527,6 +531,7 @@
 	addButton1.title = buttonTitle;
 		
 }
+
 
 - (void)dealloc {
 	[moduleListTableView release];

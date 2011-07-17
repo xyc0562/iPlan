@@ -7,7 +7,7 @@
 //
 
 #import "ModelLogic.h"
-
+#define TIMETABLE_DOCUMENT_NAME @"timetable"
 static ModelLogic* modelLogic;
 @implementation ModelLogic
 @synthesize timeTable;
@@ -561,14 +561,9 @@ static ModelLogic* modelLogic;
 		module.selected = @"YES";
 		[modules addObject:module];
 	}
-	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
+	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable" WithModules:modules];
 }
 
-//- (void) syncModulesWithBasket:(NSMutableArray*)modules
-//{
-//	[timeTable release];
-//	timeTable = [[TimeTable alloc]initWithName:@"MyTimeTable"WithModules:modules];
-//}
 
 - (BOOL) generateDefaultTimetable
 {
@@ -850,7 +845,6 @@ static ModelLogic* modelLogic;
         
 	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
 	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
-
         return fullPath;
 }
 
@@ -860,8 +854,13 @@ static ModelLogic* modelLogic;
     if (!self.timeTable)
     {
         return NO;
+		//NSLog(@"##no timeTable");
     }
-	if ([self resetCalender]) return NO;
+	if ([self resetCalender]) 
+	{
+		//NSLog(@"##reset failed");
+		return NO;
+	}
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
@@ -880,14 +879,15 @@ static ModelLogic* modelLogic;
 		NSString* groupName = [classGroup name];
 		for (Slot *s in [classGroup slots])
 		{
+			NSLog(@"%@",[[s day]stringValue]);
 			for (int i = 1; i < [s.frequency count]; i ++)
 			{
 				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
 				{
 					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
 					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Time:s.endTime];
+					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
+					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
 					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
 					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
 					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
@@ -906,21 +906,21 @@ static ModelLogic* modelLogic;
 		}
 	}
 
-    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
-
-    NSMutableData* data = [[NSMutableData alloc] init];
-    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString* documentDirectory = [paths objectAtIndex:0]; NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME]; NSFileManager * fm = [NSFileManager defaultManager]; if (![fm fileExistsAtPath:eventIdsDirectory]) { [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL]; }
+        NSMutableData* data = [[NSMutableData alloc] init];
+        NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
 	
-    [arc encodeObject:eventIds forKey:@"event"];
+        [arc encodeObject:eventIds forKey:@"event"];
 	
-    [arc finishEncoding];
-    BOOL success = [data writeToFile:fullPath atomically:YES];
-    [arc release];
-    [data release];
-    if(!success)
-        [eventDB release];
+        [arc finishEncoding];
+        BOOL success = [data writeToFile:fullPath atomically:YES];
+        [arc release];
+        [data release];
+        if(!success)
+            [eventDB release];
 
-    return YES;
+        return YES;
 }
 
 // If not exists, return nil
@@ -969,8 +969,29 @@ static ModelLogic* modelLogic;
 
 - (NSError*)resetCalender
 {
-	return [self deleteEvents:[self getExportedEventIds]];
+//	if ([self getExportedEventIds]) NSLog(@"got ExportedEventIds");
+    return [self deleteEvents:[self getExportedEventIds]];
 }
+
+//- (void)removeAllEventsfromCalender
+//{
+//	EKEventStore *store = [[EKEventStore alloc] init];
+//	
+//	NSUInteger beginYear = 1900;
+//	NSUInteger endYear = 2100;
+//	
+//	while (beginYear < endYear) {
+//		NSPredicate *predicate = [store predicateForEventsWithStartDate:[self createDateWithYear:beginYear month:1 day:1] 
+//																endDate:[self createDateWithYear:beginYear + 5 month:1 day:1] 
+//															  calendars:nil];
+//		NSArray *eventList = [store eventsMatchingPredicate:predicate];
+//		for (EKEvent *event in eventList) {           
+//			[store removeEvent:event span:EKSpanThisEvent error:nil];
+//		}
+//		beginYear += 5;
+//	}
+//	[store release];	
+//}
 
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
@@ -988,96 +1009,135 @@ static ModelLogic* modelLogic;
 }
 -(NSNumber*)getOrCreateModuleIndexByCode:(NSString*)code
 {
-	int i = 0;
-	NSNumber* index = [indexesDict valueForKey:code];
-	if (index) return index;
-	for (Module* module in timeTable.modules) 
-	{
-		if ([code isEqualToString:[module code]]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:code];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i = 0;
+    NSNumber* index = [indexesDict valueForKey:code];
+    if (index) return index;
+    for (Module* module in timeTable.modules) 
+    {
+        if ([code isEqualToString:[module code]]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:code];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 -(NSNumber*)getOrCreateClassTypeIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName
 {
-	int i = 0;
-	NSNumber* index = [indexesDict valueForKey:[code stringByAppendingString:classTypeName]];
-	if (index) return index;
-	Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
-	for (ModuleClassType* classType in [module moduleClassTypes]) 
-	{
-		if ([[classType name]isEqualToString:classTypeName]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[code stringByAppendingString:classTypeName]];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i = 0;
+    NSNumber* index = [indexesDict valueForKey:[code stringByAppendingString:classTypeName]];
+    if (index) return index;
+    Module* module = [self getOrCreateAndGetModuleInstanceByCode:code];
+    for (ModuleClassType* classType in [module moduleClassTypes]) 
+    {
+        if ([[classType name]isEqualToString:classTypeName]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[code stringByAppendingString:classTypeName]];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 			 
 -(NSNumber*)getOrCreateClassGroupIndexByCode:(NSString*)code WithClassTypeName:(NSString*)classTypeName WithClassGroupName:(NSString*)classGroupName
 {
-	int i= 0;
-	NSNumber* index = [indexesDict valueForKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
-	if (index) return nil;
-	ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
-	for (ClassGroup* classGroup in [classType classGroups]) 
-	{
-		if ([[classGroup name]isEqualToString:classGroupName]) 
-		{
-			[self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
-			return [NSNumber numberWithInt:i];
-		}
-		i++;
-	}
-	return nil;
+    int i= 0;
+    NSNumber* index = [indexesDict valueForKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+    if (index) return nil;
+    ModuleClassType* classType = [self getOrCreateClassTypeInstanceByCode:code WithClassTypeName:classTypeName];
+    for (ClassGroup* classGroup in [classType classGroups]) 
+    {
+        if ([[classGroup name]isEqualToString:classGroupName]) 
+        {
+            [self.indexesDict setValue:[NSNumber numberWithInt:i]forKey:[[code stringByAppendingString:classTypeName]stringByAppendingString:classGroupName]];
+            return [NSNumber numberWithInt:i];
+        }
+        i++;
+    }
+    return nil;
 }
 			 
 - (void)saveModifiedTimeTableResultWithResultArray:(NSMutableArray*)resultArray
 {
-	NSMutableArray* newResult = [[NSMutableArray alloc]init];
-	NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
-	for (NSMutableDictionary* eachSelected in resultArray) 
+    NSMutableArray* newResult = [[NSMutableArray alloc]init];
+    NSNumber *moduleIndex, *classTypeIndex, *classGroupIndex;
+    for (NSMutableDictionary* eachSelected in resultArray) 
+    {
+        NSString* code = [eachSelected valueForKey:@"moduleCode"];
+        NSString* classType = [eachSelected valueForKey:@"classTypeName"];
+        NSString* classGroup = [eachSelected valueForKey:@"classGroupName"];
+        classGroupIndex = [self getOrCreateClassGroupIndexByCode:code WithClassTypeName:classType WithClassGroupName:classGroup];
+        if (classGroupIndex)
+        {
+            moduleIndex = [self getOrCreateModuleIndexByCode:code];
+            classTypeIndex = [self getOrCreateClassTypeIndexByCode:code WithClassTypeName:classType];
+            NSMutableArray* eachResultRow = [[NSMutableArray alloc]init];
+            [eachResultRow addObject:moduleIndex];
+            [eachResultRow addObject:classTypeIndex];
+            [eachResultRow addObject:classGroupIndex];
+            [newResult addObject:eachResultRow];
+            [eachSelected release];
+        }
+    }
+    if (timeTable!=nil) [timeTable release];
+    [self timeTable].result = newResult;
+}
+
+- (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name
+{
+	[self saveModifiedTimeTableResultWithResultArray:resultArray];
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	// Tell if plists directory exists, if not, create it
+	NSFileManager * fm = [NSFileManager defaultManager];
+	if (![fm fileExistsAtPath:modulesDirectory])
 	{
-		NSString* code = [eachSelected valueForKey:@"moduleCode"];
-		NSString* classType = [eachSelected valueForKey:@"classTypeName"];
-		NSString* classGroup = [eachSelected valueForKey:@"classGroupName"];
-		classGroupIndex = [self getOrCreateClassGroupIndexByCode:code WithClassTypeName:classType WithClassGroupName:classGroup];
-		if (classGroupIndex)
-		{
-			moduleIndex = [self getOrCreateModuleIndexByCode:code];
-			classTypeIndex = [self getOrCreateClassTypeIndexByCode:code WithClassTypeName:classType];
-			NSMutableArray* eachResultRow = [[NSMutableArray alloc]init];
-			[eachResultRow addObject:moduleIndex];
-			[eachResultRow addObject:classTypeIndex];
-			[eachResultRow addObject:classGroupIndex];
-			[newResult addObject:eachResultRow];
-			[eachSelected release];
-		}
+		[fm createDirectoryAtPath:modulesDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
-	if (timeTable!=nil) [timeTable release];
-	[self timeTable].result = newResult;
+	NSString* filename = [name stringByReplacingOccurrencesOfString:@"/" withString:@"|"];
+	filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
+	filename = [filename stringByAppendingString:@".plist"];
+	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	//NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
+	//NSLog(@"doc%@", modulesDirectory);
+	//NSLog(@"%@",fullPath);
+	NSMutableData* data = [[NSMutableData alloc] init];
+	NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+	[arc encodeObject:self forKey:@"ModelLogic"];
+	
+	[arc finishEncoding];
+	BOOL success = [data writeToFile:fullPath atomically:YES];
+	[arc release];
+	[data release];
+	if(!success)
+	{ 
+		//NSLog(@"Unsuccessful!");
+	}
+	else 
+	{
+		//NSLog(@"Success!");
+	}
+	
 }
 
 /*
-- (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
->>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
-{
-	if (timeTable!=nil) [timeTable release];
-	self.timeTable = storedTimeTable;
-}
- */
+  - (void)loadStoredStateWithTimeTable:(TimeTable*)storedTimeTable WithAppDataObject:(AppDataObject*)storedAppDataObject
+  >>>>>>> 6640f24c5be55d77734227bb0d4e7398979f1f79
+  {
+  if (timeTable!=nil) [timeTable release];
+  self.timeTable = storedTimeTable;
+  }
+*/
 
 
 -(void)encodeWithCoder:(NSCoder *)coder
 {
-	[coder encodeObject:timeTable forKey:@"timeTable"];
-	[coder encodeObject:currentColorIndex forKey:@"currentColorIndex"];
+    [coder encodeObject:timeTable forKey:@"timeTable"];
+    [coder encodeObject:currentColorIndex forKey:@"currentColorIndex"];
 	[coder encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
 }
 

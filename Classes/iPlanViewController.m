@@ -63,7 +63,6 @@
 - (void) webViewDidFinishLoad:(UIWebView *)theWebView{
 	NSLog(@"response received!");
 	
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	NSString *requestTokenUrl = [[NSString alloc] initWithString:theWebView.request.URL.absoluteString];
 	

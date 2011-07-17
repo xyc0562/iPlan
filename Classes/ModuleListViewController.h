@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ModuleListViewController : UIViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource, UIAlertViewDelegate> {
+@interface ModuleListViewController : UIViewController<UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource, UIAlertViewDelegate, UITabBarControllerDelegate> {
 	UITableView *moduleListTableView;
 	NSArray *moduleList;
 	

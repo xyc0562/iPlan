@@ -9,19 +9,21 @@
 #import <UIKit/UIKit.h>
 
 
-@interface OptionViewController : UITableViewController{
+@interface OptionViewController : UITableViewController <UIWebViewDelegate, UITableViewDelegate>{
 	IBOutlet UITableView *optionTableView;
+	IBOutlet UIWebView *ivlePage;
 	NSArray *optionsList;
 	UISwitch *switchEnabled;
-	UIButton *exportIVLEButton;
-	UIButton *exportICALBUtton;
+	NSString *requestedToken;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *optionTableView;
+@property (nonatomic, retain) IBOutlet UIWebView *ivlePage;
 @property (nonatomic, retain) NSArray *optionsList;
 @property (nonatomic, retain) UISwitch *switchEnabled;
-@property (nonatomic, retain) UIButton *exportIVLEButton;
-@property (nonatomic, retain) UIButton *exportICALBUtton;
+@property (nonatomic, retain) NSString *requestedToken;
 
+
+- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester;
 
 @end

@@ -9,12 +9,25 @@
 #import <Foundation/Foundation.h>
 #import <Foundation/NSXMLParser.h>
 #import <EventKit/EventKit.h>
+#import "IPlanUtility.h"
 
 @interface LAPIStudentTimeTableToiCalExporter : NSObject<NSXMLParserDelegate>
 {
     NSXMLParser *LAPIStudentTimeTableParser;
     id _delegate;
 }
+
+@property (nonatomic, retain) NSString *acadYear;
+@property (nonatomic, retain) NSString *classNo;
+@property (nonatomic, retain) NSString *dayCode;
+@property (nonatomic, retain) NSString *endTime;
+@property (nonatomic, retain) NSString *lessonType;
+@property (nonatomic, retain) NSString *moduleCode;
+@property (nonatomic, retain) NSString *semester;
+@property (nonatomic, retain) NSString *startTime;
+@property (nonatomic, retain) NSString *venue;
+@property (nonatomic, retain) NSString *weekText;
+@property (nonatomic, retain) NSMutableString *currentProperty;
 
 - (id) initWithNSDataParseAndExport:(NSData*)data;
 

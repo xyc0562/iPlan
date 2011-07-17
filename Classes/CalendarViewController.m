@@ -12,6 +12,7 @@
 #import "SharedAppDataObject.h"
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
+#import "AlertHelp.h"
 
 // import parser to check
 #import "ModuleXMLParser.h"
@@ -448,25 +449,33 @@
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
 	
 	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
-	for(SlotViewController* slot in theDataObject.availableSlots)
+	for(UIView* any in [imageView subviews])
 	{
-		[slot.view removeFromSuperview];
+		[any removeFromSuperview];
 	}
 	
 	//remove from slotviewcontrollers
 	//remove previous selected
-	
+	NSMutableArray* rest = [[NSMutableArray alloc]init];
+
+	printf("slot count before add in %d\n",[theDataObject.slotViewControllers count]);
+
 	for (int i =0;i<[theDataObject.slotViewControllers count];i++) 
 	{
 		SlotViewController* slot = [theDataObject.slotViewControllers objectAtIndex:i];
-		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName])
+
+		if([slot.moduleCode isEqual:select.moduleCode]&&[slot.classTypeName isEqual:select.classTypeName]);
+		else
 		{
-			[slot.view removeFromSuperview];
-			[theDataObject.slotViewControllers removeObjectAtIndex:i];
+			[rest addObject:slot];
 		}
 	}
-	
-	
+	[theDataObject.slotViewControllers removeAllObjects];
+	printf("slot after remove count %d\n",[theDataObject.slotViewControllers count]);
+	[theDataObject.slotViewControllers addObjectsFromArray:rest];
+	printf("rest count %d\n",[rest count]);
+	printf("slot count after add in %d\n",[theDataObject.slotViewControllers count]);
+		
 	//add in new slots selected
 	for(SlotViewController* slot in theDataObject.availableSlots)
 	{
@@ -537,11 +546,57 @@
 	[theDataObject.tableChoices removeAllObjects];
 	[theDataObject.availableSlots removeAllObjects];
 	[table reloadData];
+ 
+}
+
+- (NSMutableArray*)configureSaveFile
+{
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
+	NSMutableArray* result = [[NSMutableArray alloc]init];
+	for (SlotViewController* eachSelected in slotViewControllers) 
+	{
+		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
+		NSString* moduleCode = [eachSelected moduleCode];
+		NSString* classTypeName = [eachSelected classTypeName];
+		NSString* groupName = [eachSelected classGroupName];
+		
+		[resultDict setValue:moduleCode forKey:@"moduleCode"];
+		[resultDict setValue:classTypeName forKey:@"classTypeName"];
+		[resultDict setValue:groupName forKey:@"classGroupName"];
+		/*	
+		 [resultDict setValue:[eachSelected venue] forKey:@"venue"];
+		 [resultDict setValue:[eachSelected dayNumber] forKey:@"day"];
+		 [resultDict setValue:[eachSelected startTime] forKey:@"startTime"];
+		 [resultDict setValue:[eachSelected endTime] forKey:@"endTime"];
+		 [resultDict setValue:[eachSelected frequency] forKey:@"frequency"];
+		 [resultDict setValue:freq forKey:@"frequency"];
+		 [resultInfo addObject:slotDict];
+		 */
+		
+		[result addObject:resultDict];
+		
+	}
+	return result;
+	
+	
+}
+
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [alertView cancelButtonIndex])
+    {
+        NSString *entered = [(AlertHelp *)alertView enteredText];
+        [[ModelLogic modelLogic]save:[self configureSaveFile] WithName:entered];
+    }
 }
 
 - (void) saveButtonTapped:(id)sender event:(id)event
 {
-	[[ModelLogic modelLogic]save:[self configureSaveFile]];
+	AlertHelp *prompt = [AlertHelp alloc];
+    prompt = [prompt initWithTitle:@"Save File Name" message:@"Please enter some text in" delegate:self cancelButtonTitle:@"Cancel" okButtonTitle:@"Okay"];
+    [prompt show];
+    [prompt release];
 }
 
 - (void)getAvailableSlotsWithSlot:(SlotViewController*)slot
@@ -744,38 +799,7 @@
 }
 
 
-- (NSMutableArray*)configureSaveFile
-{
-	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
-	NSMutableArray* result = [[NSMutableArray alloc]init];
-	for (SlotViewController* eachSelected in slotViewControllers) 
-	{
-		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
-		NSString* moduleCode = [eachSelected moduleCode];
-		NSString* classTypeName = [eachSelected classTypeName];
-		NSString* groupName = [eachSelected classGroupName];
-		
-		[resultDict setValue:moduleCode forKey:@"moduleCode"];
-		[resultDict setValue:classTypeName forKey:@"classTypeName"];
-		[resultDict setValue:groupName forKey:@"classGroupName"];
-	 /*	
-		[resultDict setValue:[eachSelected venue] forKey:@"venue"];
-		[resultDict setValue:[eachSelected dayNumber] forKey:@"day"];
-		[resultDict setValue:[eachSelected startTime] forKey:@"startTime"];
-		[resultDict setValue:[eachSelected endTime] forKey:@"endTime"];
-		[resultDict setValue:[eachSelected frequency] forKey:@"frequency"];
-		[resultDict setValue:freq forKey:@"frequency"];
-		[resultInfo addObject:slotDict];
-	  */
-		
-		[result addObject:resultDict];
 
-	}
-	return result;
-	
-	
-}
 
 #pragma mark -
 #pragma mark memory management

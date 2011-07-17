@@ -21,6 +21,8 @@
 @property(nonatomic, retain)NSNumber* currentColorIndex;
 @property(nonatomic, retain)NSMutableDictionary* indexesDict;
 
+- (void)save:(NSMutableArray*)resultArray WithName:(NSString*)name;
+
 - (BOOL)checkTheSame:(NSMutableArray*)active;
 
 - (NSArray*) getAllModuleCodes;
@@ -124,6 +126,7 @@
 - (NSMutableArray*) getExportedEventIds;
 - (NSError*) deleteEvents:(NSMutableArray*)eventIds;
 - (NSError*)resetCalender;
+- (void)removeAllEventsfromCalender;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode;
 
 // check exam conflicts
