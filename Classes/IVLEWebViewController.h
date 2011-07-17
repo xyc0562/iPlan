@@ -18,4 +18,6 @@
 @property (nonatomic, retain) NSString *requestedToken;
 
 
+- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester;
+
 @end

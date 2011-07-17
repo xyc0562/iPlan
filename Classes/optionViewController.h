@@ -19,9 +19,6 @@
 @property (nonatomic, retain) NSArray *optionsList;
 @property (nonatomic, retain) UISwitch *switchEnabled;
 
-
-
-- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester;
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRow:(NSInteger)row;
 
 @end
