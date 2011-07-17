@@ -937,7 +937,7 @@ static ModelLogic* modelLogic;
 	NSString* documentDirectory = [paths objectAtIndex:0];
 	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
         
-	NSString *filename = @"MyTimeTable.plist"];
+	NSString *filename = @"MyTimeTable.plist";
 	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
         return fullPath;
 }
