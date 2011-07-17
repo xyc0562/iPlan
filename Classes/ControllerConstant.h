@@ -34,11 +34,11 @@
 #define CELL_BORDER 2
 
 #define SCROLL_X 2
-#define SCROLL_Y 5
+#define SCROLL_Y 2
 #define SCROLL_W 320
 #define SCROLL_H 340
 
-#define TABLE_X 2
+#define TABLE_X 0
 #define TABLE_Y 233
 #define TABLE_W 320
 #define TABLE_H 260

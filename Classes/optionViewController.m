@@ -124,12 +124,12 @@
 
 
 - (void) exportFromIvle:(id)sender event:(id)event{
-	NSInteger row = 0;
+	NSUInteger* row = 0;
 	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
 }
 
 - (void) exportFromiPlan:(id)sender event:(id)event{
-	NSInteger row = 1;
+	NSUInteger row = 1;
 	NSLog(@"Need to export from iPlan to iCal");
 	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
 }
@@ -140,7 +140,8 @@
 }
  
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSInteger)row{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSUInteger)row
+{
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	NSLog(@"clicked row %d", row);

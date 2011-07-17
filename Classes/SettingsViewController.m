@@ -22,7 +22,7 @@
 #define HELP_NAME @"Help"
 #define ABOUT_NAME @"About"
 #define LOAD @"Load Other TimeTables"
-#define UIVIEW_LIST @"List View of Current Calendar"
+#define UIVIEW_LIST @"List View of Calendar"
 @synthesize settingsTableView;
 @synthesize settingsList;
 
