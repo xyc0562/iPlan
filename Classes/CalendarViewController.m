@@ -13,7 +13,7 @@
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
 #import "AlertHelp.h"
-
+#import <QuartzCore/QuartzCore.h>
 // import parser to check
 #import "ModuleXMLParser.h"
 
@@ -50,11 +50,16 @@
 {
 	//read in data from Model Logic
 	
+
+	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
-	// add in imageview
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
+	if([theDataObject activeModules]&&[[theDataObject activeModules]count]!=0)
+	{
+	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
+	// add in imageview
+	
 	for (NSDictionary* dict in defaultAnswer) 
 	{
 		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
@@ -154,6 +159,7 @@
 	}
 	
 }
+}
 
 - (void) configureToolBar
 { 	
@@ -168,8 +174,9 @@
 		UIView* temp = [[UIView alloc]initWithFrame:frame];
 		float cellWidth = (NAV_FRAME_W-3*NAV_BORDER_X)/(float)(NAV_COL);
 		float cellHight = (NAV_FRAME_H-3*NAV_BORDER_Y)/(float)(NAV_ROW);
+		int i=0;
 		
-		for (int i=0;i<[active count];i++) 
+		for (i=0;i<[active count];i++) 
 		{
 			int col = i%NAV_COL;
 			int row = i/NAV_COL;
@@ -186,6 +193,41 @@
 			[temp addSubview:titleLabel];
 			[titleLabel release];
 		}
+		
+		//darkgray meaning
+		int col = i%NAV_COL;
+		int row = i/NAV_COL;
+		UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
+		[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
+		[titleLabel setBackgroundColor:[UIColor clearColor]];
+		[titleLabel setTextColor:[UIColor darkGrayColor]];
+		[titleLabel setText:@"Overlap"];
+		[titleLabel setTextAlignment:UITextAlignmentCenter];
+		[temp addSubview:titleLabel];
+		[titleLabel release];
+		
+		//clash meaning
+		i = i+1;
+		col = i%NAV_COL;
+		row = i/NAV_COL;
+		titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
+		[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
+		[titleLabel setBackgroundColor:[UIColor clearColor]];
+		UIView* label = (UIView*)titleLabel;
+		label.layer.borderColor = [UIColor redColor].CGColor;
+		label.layer.borderWidth = 3.00f;
+		label.layer.cornerRadius = 7.5;
+
+		[titleLabel setTextColor:[UIColor darkGrayColor]];
+		[titleLabel setText:@"Clash"];
+		[titleLabel setTextAlignment:UITextAlignmentCenter];
+		[temp addSubview:titleLabel];
+		[titleLabel release];
+		
+		
+		  
+		  
+		
 		self.navigationItem.titleView = temp;
 		[temp release];
 	}
