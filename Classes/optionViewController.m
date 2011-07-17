@@ -52,7 +52,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Delete IVLE timetable in iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
 	
 }
 
@@ -89,7 +89,7 @@
 	
 	cell.textLabel.text = optionName;
 	
-	if (row == 2) {	
+	if (row == 4) {	
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		theDataObject.requirementEnabled = NO;
 		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
@@ -97,7 +97,7 @@
 		switchEnabled.on = NO;
 		[switchEnabled addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];		
 		cell.accessoryView = switchEnabled;
-	}else{
+	}else if(row == 0 || row == 2){
 		UIButton *exportBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
 		CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
 		exportBUtton.frame = frame;
@@ -105,8 +105,17 @@
 		[exportBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
 		[exportBUtton addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
 		cell.accessoryView = exportBUtton;
+	}else if (row == 1 || row == 3) {
+		UIButton *exportBUtton = [UIButton buttonWithType:UIButtonTypeRoundedRect]; 
+		CGRect frame = CGRectMake(215.0, 10.0, 94.0, 27.0);
+		exportBUtton.frame = frame;
+		[exportBUtton setTitle:@"Delete" forState:UIControlStateNormal];
+		[exportBUtton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+		[exportBUtton addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+		cell.accessoryView = exportBUtton;
+	}else {
+		NSLog(@"No implementation yet!");
 	}
-	
     return cell;
 }
 
@@ -135,14 +144,17 @@
 		[ivlePage loadRequest:requestObj];    	
 		[self.view  addSubview:ivlePage];
 		[self.view bringSubviewToFront:ivlePage];
-
-	}else if (row == 1) {
+	}else if(row == 1){
+		
+	}else if (row == 2) {
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
 			//success
 		}else{
 			//fail
 		}
+	}else if (row == 3) {
+		if([[ModelLogic modelLogic] resetCalender])
 	}
 }
 
@@ -194,9 +206,14 @@
 		}else if (month > 8 || (month == 8 && day >= 10)) {
 			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
 			semester = [[NSString alloc] initWithString:@"1"];
-		}else {
-			acadYear = [[NSString alloc] initWithString:@"2010/2011"];
-			semester = [[NSString alloc] initWithString:@"2"];
+		}else if ((month == 5 && day >10) || (month == 6 && day < 18)) {
+			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			semester = [[NSString alloc] initWithString:@"3"];
+		}else if ((month == 6 && day >20) || (month == 7 && day < 30)) {
+			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			semester = [[NSString alloc] initWithString:@"4"];
+		}else{
+			NSLog(@"No such such semester yet!");
 		}
 		
 		NSLog(@"current time is %d, %d, %d", year, month, day);
