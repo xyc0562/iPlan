@@ -140,8 +140,8 @@
 	if(row == 0){
 		//Lapi issue
 		NSURL *url = [NSURL URLWithString:SERVER_URL]; 	
-		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url]; 	
-		[ivlePage loadRequest:requestObj];    	
+		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
+		[ivlePage loadRequest:requestObj]; 
 		[self.view  addSubview:ivlePage];
 		[self.view bringSubviewToFront:ivlePage];
 	}else if(row == 1){
@@ -149,12 +149,36 @@
 	}else if (row == 2) {
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
-			//success
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}else{
-			//fail
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}
 	}else if (row == 3) {
-		if([[ModelLogic modelLogic] resetCalender])
+		if([[ModelLogic modelLogic] resetCalender]){
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}else{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+														   delegate:self
+												  cancelButtonTitle:@"Ok" 
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
 	}
 }
 
@@ -207,10 +231,10 @@
 			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
 			semester = [[NSString alloc] initWithString:@"1"];
 		}else if ((month == 5 && day >10) || (month == 6 && day < 18)) {
-			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
 			semester = [[NSString alloc] initWithString:@"3"];
 		}else if ((month == 6 && day >20) || (month == 7 && day < 30)) {
-			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
 			semester = [[NSString alloc] initWithString:@"4"];
 		}else{
 			NSLog(@"No such such semester yet!");
