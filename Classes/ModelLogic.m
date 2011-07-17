@@ -928,63 +928,96 @@ static ModelLogic* modelLogic;
     NSDate *semesterStart = [IPlanUtility getSemesterStart];
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     NSMutableArray *eventIds = [NSMutableArray arrayWithCapacity:20];
-	NSMutableArray *allSelectedGroupsInfo = [[NSMutableArray alloc]init];
-	allSelectedGroupsInfo = [self getSelectedGroupsInfo];
-	for (NSMutableArray* resultRow in timeTable.result) 
-	{
-		NSNumber* moduleIndex = [resultRow objectAtIndex:0];
-		NSNumber* classTypeIndex = [resultRow	objectAtIndex:1];
-		NSNumber* classGroupIndex = [resultRow objectAtIndex:2];
-		Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
-		NSString* moduleCode = [module code];
-		ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
-		NSString* classTypeName = [classType name];
-		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
-		NSString* groupName = [classGroup name];
-		for (Slot *s in [classGroup slots])
-		{
-			NSLog(@"%@",[[s day]stringValue]);
-			for (int i = 1; i < [s.frequency count]; i ++)
-			{
-				if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
-				{
-					EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
-					myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
-					int startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
-					int endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
-					myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
-					myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
-					myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
-					myEvent.allDay = NO;
-					// For now we use the default calendar, we may change to other specific calendars later
-					[myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
-					NSError *err = nil;
-					[eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
-					if (err == nil)
-					{
-						NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
-						[eventIds addObject:str];
-					}
-				}
-			}
-		}
-	}
+    NSMutableArray *allSelectedGroupsInfo = [[NSMutableArray alloc]init];
+    allSelectedGroupsInfo = [self getSelectedGroupsInfo];
 
-        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
-	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString* documentDirectory = [paths objectAtIndex:0]; NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME]; NSFileManager * fm = [NSFileManager defaultManager]; if (![fm fileExistsAtPath:eventIdsDirectory]) { [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL]; }
-        NSMutableData* data = [[NSMutableData alloc] init];
-        NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	
-        [arc encodeObject:eventIds forKey:@"event"];
-	
-        [arc finishEncoding];
-        BOOL success = [data writeToFile:fullPath atomically:YES];
-        [arc release];
-        [data release];
-        if(!success)
-            [eventDB release];
+    NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *timeInfoPath = [documentDirectory stringByAppendingFormat:@"/%@.plist", TIME_INFO_NAME];
+    NSData *timeInfoData = [NSData dataWithContentsOfFile:timeInfoPath];
+    NSArray* timeInfoArr;
+    if (timeInfoData)
+    {
+        NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:timeInfoData];
+        timeInfoArr = [unarc decodeObjectForKey:@"timeInfo"];
+    }
+    else
+    {
+        NSLog(@"Fatal error: timeInfo is not initialized.");
+    }
 
-        return YES;
+    for (NSMutableArray* resultRow in timeTable.result) 
+    {
+        NSNumber* moduleIndex = [resultRow objectAtIndex:0];
+        NSNumber* classTypeIndex = [resultRow	objectAtIndex:1];
+        NSNumber* classGroupIndex = [resultRow objectAtIndex:2];
+        Module* module = [[timeTable modules] objectAtIndex:[moduleIndex intValue]];
+        NSString* moduleCode = [module code];
+        ModuleClassType* classType = [[module moduleClassTypes]objectAtIndex:[classTypeIndex intValue]];
+        NSString* classTypeName = [classType name];
+        ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
+        NSString* groupName = [classGroup name];
+                
+        for (Slot *s in [classGroup slots])
+        {
+            NSLog(@"%@",[[s day]stringValue]);
+            for (int i = 1; i < [s.frequency count]; i ++)
+            {
+                // Adding recess week
+                if ([[s.frequency objectAtIndex:i] isEqualToString:MODULE_ACTIVE])
+                {
+                    EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+                    myEvent.title     = [NSString stringWithFormat:@"%@[%@] %@", moduleCode, groupName, classTypeName];
+                    int startInterval;
+                    int endInterval;
+                    if (i > [[timeInfoArr objectAtIndex:2] integerValue])
+                    {
+                        startInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[[s day] intValue] Time:s.startTime];
+                        endInterval = [IPlanUtility getTimeIntervalFromWeek:i + 1 Day:[[s day] intValue] Time:s.endTime];
+                    }
+                    else
+                    {
+                        startInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.startTime];
+                        endInterval = [IPlanUtility getTimeIntervalFromWeek:i Day:[[s day] intValue] Time:s.endTime];
+                    }
+                    myEvent.startDate = [semesterStart dateByAddingTimeInterval:startInterval];
+                    myEvent.endDate = [semesterStart dateByAddingTimeInterval:endInterval];
+                    myEvent.notes = [IPlanUtility decodeFrequency:s.frequency];
+                    myEvent.allDay = NO;
+                    // For now we use the default calendar, we may change to other specific calendars later
+                    [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+                    NSError *err = nil;
+                    [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+                    if (err == nil)
+                    {
+                        NSString* str = [NSString stringWithFormat:@"%@", myEvent.eventIdentifier];
+                        [eventIds addObject:str];
+                    }
+                }
+            }
+        }
+    }
+
+    NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
+    if (![fm fileExistsAtPath:eventIdsDirectory])
+    {
+        [fm createDirectoryAtPath:eventIdsDirectory withIntermediateDirectories:NO attributes:nil error:NULL];
+    }
+    NSMutableData* data = [[NSMutableData alloc] init];
+    NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+    [arc encodeObject:eventIds forKey:@"event"];
+	
+    [arc finishEncoding];
+    BOOL success = [data writeToFile:fullPath atomically:YES];
+    [arc release];
+    [data release];
+    if(!success)
+        [eventDB release];
+
+    return YES;
 }
 
 // If not exists, return nil
