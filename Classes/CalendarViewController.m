@@ -50,11 +50,17 @@
 {
 	//read in data from Model Logic
 	
+
+	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
-	// add in imageview
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
+	printf("active moudle %d\n",[[theDataObject activeModules]count]);
+	if([theDataObject activeModules]&&[[theDataObject activeModules]count]!=0)
+	{
+	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
+	// add in imageview
+	
 	for (NSDictionary* dict in defaultAnswer) 
 	{
 		NSString* moduleCode = [dict objectForKey:@"moduleCode"];
@@ -153,6 +159,7 @@
 		
 	}
 	
+}
 }
 
 - (void) configureToolBar

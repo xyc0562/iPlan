@@ -277,23 +277,26 @@
 		if(alertView.message == SURE_TO_CHANGE_TO_CALENDAR)
 		{
 			ModelLogic* modelLogic = [ModelLogic modelLogic];
-			[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
-			if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
+			if([[theDataObject activeModules]count]!=0)
 			{
-				//[[ModelLogic modelLogic]exportTimetableToiCalendar];
-				UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
-				[controller viewWillAppear:YES];
-				self.tabBarController.selectedViewController = 	controller;
-			}
-			else 
-			{
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:NO_SOLUTION
-															   delegate:self
-													  cancelButtonTitle:@"Sure" otherButtonTitles:nil];
-				
-				[alert show];
-				[alert release];
-				
+				[modelLogic syncModulesWithBasket:[theDataObject activeModules]];
+				if ([[ModelLogic modelLogic] generateDefaultTimetableWithRequirements:[theDataObject requirements]])
+				{
+					//[[ModelLogic modelLogic]exportTimetableToiCalendar];
+					UINavigationController *controller = [self.tabBarController.viewControllers objectAtIndex:0];
+					[controller viewWillAppear:YES];
+					self.tabBarController.selectedViewController = 	controller;
+				}
+				else 
+				{
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:NO_SOLUTION
+																   delegate:self
+														  cancelButtonTitle:@"Sure" otherButtonTitles:nil];
+					
+					[alert show];
+					[alert release];
+					
+				}
 			}
 			theDataObject.continueToCalendar = NO;
 		}else if (alertView.message == NO_SOLUTION) {
