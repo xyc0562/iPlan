@@ -220,7 +220,11 @@ WithModuleClassType:(NSArray*)moduleClassType
 				   WithLastUpdate:[decoder decodeObjectForKey:@"lastUpdated"] 
 					 WithSelected:[decoder decodeObjectForKey:@"selected"] 
 			  WithModuleClassType:[decoder decodeObjectForKey:@"moduleClassTypes"]];
-		self.color = [self getColorFromString:[decoder decodeObjectForKey:@"stringcolor"]];
+		NSLog(@"module1");
+		NSLog([self stringcolor]);
+		color = [self getColorFromString:[decoder decodeObjectForKey:@"stringcolor"]];
+		NSLog(@"module2");
+		NSLog([self stringcolor]);
 	}
 	return self;
 }

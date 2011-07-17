@@ -115,7 +115,7 @@
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue])
+					if (([[slot1 frequency]intValue]&[[slot2 frequency]intValue])==0)
 					{
 						manyModule = YES;
 					}

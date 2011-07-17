@@ -11,6 +11,7 @@
 
 @implementation LoadViewController
 @synthesize namelist;
+@synthesize table;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 
@@ -30,6 +31,7 @@
 	if(namelist)
 		[namelist release];
 	namelist = [[[ModelLogic modelLogic]getAllTimeTables] retain];
+	self.navigationItem.rightBarButtonItem = self.editButtonItem;	
 }
 
 
@@ -52,10 +54,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
     // Return the number of rows in the section.
-	printf("count");
-	printf("name list count %d\n",[namelist count]);
-	
-	printf("no count");
+
 	return [namelist count];
 }
 
@@ -95,6 +94,35 @@
 	self.tabBarController.selectedViewController = 	controller;
 	
 }
+
+
+- (void) setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing: editing animated: animated];
+    [table setEditing: editing animated:animated];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Determine if it's in editing mode
+    if (table.editing) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		[[ModelLogic modelLogic]deleteFile:[namelist objectAtIndex:indexPath.row]];
+		[namelist release];
+		namelist = [[[ModelLogic modelLogic]getAllTimeTables] retain]; 
+		[tableView reloadData];
+	}    
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];

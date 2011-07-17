@@ -34,6 +34,15 @@ static ModelLogic* modelLogic;
 	return theDataObject;
 }
 
+- (void)deleteFile:(NSString*)filename
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSFileManager * fm = [NSFileManager defaultManager];
+	[fm removeItemAtPath:fullPath error:NULL];
+}
 
 - (void)loadFile:(NSString*)filename
 {
@@ -49,6 +58,7 @@ static ModelLogic* modelLogic;
 		self.timeTable = [unarc decodeObjectForKey:@"timeTable"];
 		self.currentColorIndex = [unarc decodeObjectForKey:@"currentColorIndex"];
 		self.moduleObjectsDict = [unarc decodeObjectForKey:@"moduleObjectsDict"];
+		self.indexesDict = [unarc decodeObjectForKey:@"indexesDict"];
 		SharedAppDataObject *theNewDataObject = [unarc decodeObjectForKey:@"share"];
 		SharedAppDataObject *theDataObject = [self theAppDataObject];
 
@@ -648,9 +658,12 @@ static ModelLogic* modelLogic;
 
 - (NSMutableArray*)getSelectedGroupsInfo
 {
+	int i=1;
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
+		NSLog(@"count %d",i);
+		i++;
 		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
 		NSNumber* classTypeIndex = [eachSelected objectAtIndex:1];
@@ -662,6 +675,7 @@ static ModelLogic* modelLogic;
 		NSString* classTypeName = [classType name];
 		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
 		NSString* groupName = [classGroup name];
+		NSLog(@"code %@ %@ %@",moduleCode,classTypeName,groupName);
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
 		[resultDict setValue:groupName forKey:@"classGroupName"];
@@ -1093,10 +1107,11 @@ static ModelLogic* modelLogic;
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
     Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
-	
     if (module)
     {
-        return [module color];
+//		NSLog(@"color%@",test);
+//		NSLog([module stringcolor]);
+        return [module  color];
     }
     else
     {
@@ -1207,7 +1222,7 @@ static ModelLogic* modelLogic;
 	[arc encodeObject:currentColorIndex forKey:@"currentColorIndex"];
 	if(timeTable!=nil)
 		[arc encodeObject:timeTable forKey:@"timeTable"];
-	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjecsDict"];
+	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
 	[arc encodeObject:indexesDict forKey:@"indexesDict"];
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
