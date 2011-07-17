@@ -469,6 +469,7 @@
 		else 
 		{
 			//theDataObject.continueToCalendar = YES;
+			[self moveToCalendar];
 		}
 	}
 }
