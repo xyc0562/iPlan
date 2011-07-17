@@ -27,6 +27,9 @@
 #define MODULE_INACTIVE @"NO"
 #define MODULE_ACTIVE_NUMBER 10
 
+#define NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER 14
+#define NUMBER_OF_WEEKS_FOR_SPECIAL_TERM 6
+
 #define MODULE_EXAM_NO_EXAM @"No Exam Date."
 
 #define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor lightGrayColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]

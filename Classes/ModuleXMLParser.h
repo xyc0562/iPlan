@@ -33,8 +33,15 @@
 @property (nonatomic, retain) XMLTimeTableSlot *currentTimeTableSlot;
 @property (nonatomic, retain) NSXMLParser *modulesParser;
 // @property (nonatomic, readonly) NSMutableArray *faculties;
+@property (nonatomic, retain) NSString *lastUpdated;
+@property (nonatomic, retain) NSString *semester;
+@property (nonatomic, retain) NSString *weekMidtermBreakAfter;
+@property (nonatomic, retain) NSString *weekOneDay;
+@property (nonatomic, retain) NSString *weekOneMonth;
+@property (nonatomic, retain) NSString *year;
 
 - (id) initWithURLStringAndParse:(NSString *)URLString;
+- (id) initWithDataAndParse:(NSData*)data;
 
 - (id) delegate;
 - (void) setDelegate:(id)new_delegate;

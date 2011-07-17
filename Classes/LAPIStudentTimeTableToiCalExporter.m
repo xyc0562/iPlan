@@ -126,7 +126,8 @@
     {
         NSDate *semesterStart = [IPlanUtility LAPIGetSemesterStartFromAY:self.acadYear Semester:self.semester];
         EKEventStore *eventDB = [[EKEventStore alloc] init];
-        NSArray *freArr = [IPlanUtility frequencyStringToNSArray:self.weekText];
+        int weeks = [self.semester integerValue] > 2 ? NUMBER_OF_WEEKS_FOR_SPECIAL_TERM : NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER;
+        NSArray *freArr = [IPlanUtility frequencyStringToNSArray:self.weekText Weeks:weeks];
 
         for (int i = 1; i < [freArr count]; i ++)
         {
