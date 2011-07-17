@@ -129,10 +129,8 @@
         int weeks = [self.semester integerValue] > 2 ? NUMBER_OF_WEEKS_FOR_SPECIAL_TERM : NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER;
         NSArray *freArr = [IPlanUtility frequencyStringToNSArray:self.weekText Weeks:weeks];
 
-        NSString *fullPath = [self getCurrentTimeTableEventIdsPath];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentDirectory = [paths objectAtIndex:0];
-        NSFileManager *fm = [NSFileManager defaultManager];
         NSString *timeInfoPath = [documentDirectory stringByAppendingFormat:@"/%@.plist", TIME_INFO_NAME];
         NSData *timeInfoData = [NSData dataWithContentsOfFile:timeInfoPath];
         NSArray* timeInfoArr;       
