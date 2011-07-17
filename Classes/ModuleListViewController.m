@@ -46,6 +46,7 @@
 
 -(void) cartButtonClicked:(id)sender {
 	//searching = NO;
+	toRequirement = YES;
 	BasketTableViewController *basketController = [[BasketTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:basketController];
 	[basketController release];
@@ -513,8 +514,6 @@
 	{
 		toRequirement = NO;
 	}
-
-		
 }
 
 

@@ -46,19 +46,20 @@
     return numDay;
 }
 
-+ (NSArray*) frequencyStringToNSArray:(NSString*)fre
++ (NSArray*) frequencyStringToNSArray:(NSString*)fre Weeks:(NSInteger)weeks
 {
+    weeks = weeks + 1;
     NSMutableArray *freArray = [[NSMutableArray alloc] initWithCapacity:15] ;
     if ([fre isEqualToString:@"EVERY WEEK"])
     {
-        for(int i = 0; i < 15; i++)
+        for(int i = 0; i < weeks; i++)
         {
             [freArray addObject:@"YES"];
         }
     }
     else if ([fre isEqualToString:@"ODD WEEK"])
     {
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < weeks/2; i++)
         {
             [freArray addObject:@"NO"];
             [freArray addObject:@"YES"];
@@ -67,7 +68,7 @@
     }
     else if ([fre isEqualToString:@"EVEN WEEK"])
     {
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < weeks/2; i++)
         {
             [freArray addObject:@"YES"];
             [freArray addObject:@"NO"];
@@ -77,7 +78,7 @@
     else
         // Now must be irregular weeks
     {
-        for (int i = 0; i < 15; i ++)
+        for (int i = 0; i < weeks; i ++)
         {
             [freArray addObject:@"NO"];
         }
@@ -277,6 +278,14 @@ return [freArray autorelease];
     else if ([sem isEqualToString:@"2"])
     {
         semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@-01-07", endYear]];
+    }
+    else if ([sem isEqualToString:@"3"])
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@-05-09", endYear]];
+    }
+    else if ([sem isEqualToString:@"4"])
+    {
+        semesterStart = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@-06-20", endYear]];
     }
 
     // TODO, special terms

@@ -58,6 +58,7 @@
 @synthesize modules;
 @synthesize result;
 
+
 -(id)initWithName:(NSString*)naming
 {
 	[super init];
@@ -517,6 +518,7 @@
 	
 	[coder encodeObject:name forKey:@"name"];
 	[coder encodeObject:modules forKey:@"modules"];
+	[coder encodeObject:result forKey:@"result"];
 
 }
 
@@ -524,6 +526,7 @@
 {
 	if([super init]!=nil){
 		[self initWithName:[decoder decodeObjectForKey:@"name"] WithModules:[decoder decodeObjectForKey:@"modules"]];
+		self.result = [decoder decodeObjectForKey:@"result"];
 	}
 	return self;
 }
