@@ -23,9 +23,6 @@
 
 
 #define TIMER_DURATION 0.0
-#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
-#define USERNAME @"U0807275"
-#define PASSWORD @"hq.nusinml128"
 
 
 @interface CalendarViewController (UtilityMethods)
@@ -36,7 +33,6 @@
 @implementation CalendarViewController
 
 @synthesize scrollView;
-@synthesize theWeb;
 @synthesize table;
 @synthesize imageView;
 @synthesize spinner;
@@ -321,24 +317,8 @@
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
-	
-	//Lapi issue
-	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	theWeb.delegate = self;
-	[theWeb loadRequest:requestObj];
-	theWeb.opaque = NO;
-	theWeb.backgroundColor = [UIColor clearColor];
-	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	
-	//secure password
-	[[NSUserDefaults standardUserDefaults] setObject:USERNAME forKey:@"username"];
-	[SFHFKeychainUtils storeUsername:USERNAME andPassword:PASSWORD forServiceName:@"MyService" updateExisting:YES error:nil];
 
-	
-	[self.view addSubview:theWeb];
 	[self.view addSubview:table];
-	[self.view sendSubviewToBack:theWeb];
 	theDataObject.table = self.table;
 	
 	[self configureView];
@@ -771,60 +751,6 @@
 //end of table view adjustment
 
 
-#pragma mark -
-#pragma mark web view for authentication
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; {
-	
-    //save form data
-	NSURL *url = [self.theWeb.request URL];
-	NSLog(@"Check the host: %@", url.absoluteString);
-    if(navigationType == UIWebViewNavigationTypeFormSubmitted) {
-		NSLog(@"Navigation Confirmed" );
-        //grab the data from the page
-        NSString *username = @"U0807275";
-        NSString *password = @"hq.nusinml128";
-		
-        //store values locally
-        [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"UserID"];
-        [SFHFKeychainUtils storeUsername:username andPassword:password forServiceName:@"MyService" updateExisting:YES error:nil];
-		
-    }    
-	return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-	//can do nothing
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-	
-    //verify view is on the login page of the site (simplified)
-    NSURL *requestURL = [self.theWeb.request URL];
-	NSLog(@"Get returned host: %@", requestURL.absoluteString);
-	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		//try to auto fill the form and load
-		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
-		NSString *password = [SFHFKeychainUtils getPasswordForUsername: USERNAME andServiceName:@"MyService" error:nil];
-		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", password];
-		NSLog(@"password");
-		
-		//autofill the form
-		[self.theWeb stringByEvaluatingJavaScriptFromString: loadUsernameJS];
-		[self.theWeb stringByEvaluatingJavaScriptFromString: loadPasswordJS];
-		
-		NSString *clickLogin = [NSString stringWithFormat:@"document.forms['frm'].submit()"];
-		
-		[self.theWeb stringByEvaluatingJavaScriptFromString:clickLogin];
-	}else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
-		NSString *webContent = [self.theWeb stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		
-		SharedAppDataObject* theDataObject = [self theAppDataObject];
-		theDataObject.requestedToken = webContent;
-    }
-}
-
-
 
 
 #pragma mark -
@@ -842,12 +768,10 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-	theWeb.delegate = nil;
 }
 
 - (void)dealloc {
 	[scrollView release];
-	[theWeb release];
     [super dealloc];
 }
 

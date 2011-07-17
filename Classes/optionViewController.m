@@ -168,7 +168,7 @@
 		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
 		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
 		requestedToken = webContent;
-		ivlePage.opaque = YES;
+		ivlePage.opaque = NO;
 		ivlePage.backgroundColor = [UIColor	 clearColor];
 		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
@@ -182,9 +182,7 @@
 		NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
 		
 		NSInteger year = [dateComponents year];
-		
 		NSInteger month = [dateComponents month];
-		
 		NSInteger day = [dateComponents day];
 		
 		
