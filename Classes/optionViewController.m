@@ -154,7 +154,7 @@
 			//fail
 		}
 	}else if (row == 3) {
-		if([[ModelLogic modelLogic] resetCalender])
+            if([[ModelLogic modelLogic] resetCalender]);
 	}
 }
 
@@ -207,10 +207,10 @@
 			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
 			semester = [[NSString alloc] initWithString:@"1"];
 		}else if ((month == 5 && day >10) || (month == 6 && day < 18)) {
-			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
 			semester = [[NSString alloc] initWithString:@"3"];
 		}else if ((month == 6 && day >20) || (month == 7 && day < 30)) {
-			acadYear = [[NSString alloc] initWithString:@"%d/%d", year-1, year];
+			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
 			semester = [[NSString alloc] initWithString:@"4"];
 		}else{
 			NSLog(@"No such such semester yet!");
