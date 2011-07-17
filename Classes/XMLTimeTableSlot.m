@@ -21,6 +21,7 @@
 
 - (void) debugSlot
 {
+	/*
     NSLog(@"------ Start XMLTimeTableSlot ------");
     NSLog(@"type, %@", self.type);
     NSLog(@"slot, %@", self.slot);
@@ -30,5 +31,6 @@
     NSLog(@"venue, %@", self.venue);
     NSLog(@"frequency, %@", self.frequency);
     NSLog(@"------ End XMLTimeTableSlot ------");
+	 */
 }
 @end

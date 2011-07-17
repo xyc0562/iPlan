@@ -75,7 +75,7 @@
 																	   WithClassTypeName:classTypeName
 																		   WithFrequency:[dictInner objectForKey:@"frequency"]];
 			[theDataObject.slotViewControllers addObject:slotView];
-			printf("calendar view %d\n",[slotView.frequency intValue]);
+			//printf("calendar view %d\n",[slotView.frequency intValue]);
 			[slotView release];
 		}
 	}
@@ -371,7 +371,7 @@
 {
     // Return the number of rows in the section.
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
-	printf("count of rows %d\n",[theDataObject.tableChoices count]+1);
+	//printf("count of rows %d\n",[theDataObject.tableChoices count]+1);
 	return [theDataObject.tableChoices count]+1;
 }
 
@@ -414,7 +414,7 @@
 		NSUInteger row = [indexPath row]-1;
 		if(row!=-1&&row!=[theDataObject.tableChoices count]-1)
 		{
-			NSLog([theDataObject.tableChoices objectAtIndex:row]);
+			//NSLog([theDataObject.tableChoices objectAtIndex:row]);
 			NSArray* lines = [[theDataObject.tableChoices objectAtIndex:row]componentsSeparatedByString:@"%%%"];
 		cell.textLabel.text = [lines objectAtIndex:0];
 			cell.detailTextLabel.text = [lines objectAtIndex:1];
@@ -498,7 +498,7 @@
 	//remove previous selected
 	NSMutableArray* rest = [[NSMutableArray alloc]init];
 
-	printf("slot count before add in %d\n",[theDataObject.slotViewControllers count]);
+	//printf("slot count before add in %d\n",[theDataObject.slotViewControllers count]);
 
 	for (int i =0;i<[theDataObject.slotViewControllers count];i++) 
 	{
@@ -511,10 +511,10 @@
 		}
 	}
 	[theDataObject.slotViewControllers removeAllObjects];
-	printf("slot after remove count %d\n",[theDataObject.slotViewControllers count]);
+	//printf("slot after remove count %d\n",[theDataObject.slotViewControllers count]);
 	[theDataObject.slotViewControllers addObjectsFromArray:rest];
-	printf("rest count %d\n",[rest count]);
-	printf("slot count after add in %d\n",[theDataObject.slotViewControllers count]);
+	//printf("rest count %d\n",[rest count]);
+	//printf("slot count after add in %d\n",[theDataObject.slotViewControllers count]);
 		
 	//add in new slots selected
 	for(SlotViewController* slot in theDataObject.availableSlots)

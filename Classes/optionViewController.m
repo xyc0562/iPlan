@@ -114,7 +114,7 @@
 		[exportBUtton addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
 		cell.accessoryView = exportBUtton;
 	}else {
-		NSLog(@"No implementation yet!");
+		//NSLog(@"No implementation yet!");
 	}
     return cell;
 }
@@ -136,7 +136,7 @@
 	NSUInteger row = indexPath.row;
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
-	NSLog(@"clicked row %d", row);
+	//NSLog(@"clicked row %d", row);
 	if(row == 0){
 		//Lapi issue
 		NSURL *url = [NSURL URLWithString:SERVER_URL]; 	
@@ -199,10 +199,10 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     //verify view is on the login page of the site (simplified)
     NSURL *requestURL = [self.ivlePage.request URL];
-	NSLog(@"The url is %@", requestURL);
+	//NSLog(@"The url is %@", requestURL);
 	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
 		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
+		//NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
 		requestedToken = webContent;
 		ivlePage.opaque = NO;
 		ivlePage.backgroundColor = [UIColor	 clearColor];
@@ -237,10 +237,10 @@
 			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
 			semester = [[NSString alloc] initWithString:@"4"];
 		}else{
-			NSLog(@"No such such semester yet!");
+			//NSLog(@"No such such semester yet!");
 		}
 		
-		NSLog(@"current time is %d, %d, %d", year, month, day);
+		//NSLog(@"current time is %d, %d, %d", year, month, day);
 		
 		[self importIVLETimeTableAcadYear:acadYear Semester:semester];
 		
@@ -297,7 +297,7 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning in OptionViewController.m!");
+   // NSLog(@"Memory Warning in OptionViewController.m!");
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc. that aren't in use.
@@ -308,7 +308,7 @@
     // For example: self.myOutlet = nil;
 	self.optionTableView = nil;
 	self.optionsList = nil;
-	NSLog(@"Option ‰View Unload");
+	//NSLog(@"Option ‰View Unload");
 	[super viewDidUnload];
 }
 

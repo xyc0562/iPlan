@@ -85,7 +85,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-	NSLog(@"button %i clicked", buttonIndex);	
+	//NSLog(@"button %i clicked", buttonIndex);	
 	if (buttonIndex == 0){
 		// add to basket
 		SharedAppDataObject* theDataObject = [self theAppDataObject]; 
@@ -292,14 +292,14 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning in ModuleInfoViewController!");
+   // NSLog(@"Memory Warning in ModuleInfoViewController!");
     [super didReceiveMemoryWarning];
 }
 
 - (void)viewDidUnload {
 	self.moduleInfoTableView = nil;
 	self.infoList = nil;
-	NSLog(@"Module Info Unload!");
+	//NSLog(@"Module Info Unload!");
 	[super viewDidUnload];
 }
 

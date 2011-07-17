@@ -231,7 +231,7 @@
 		
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
-		NSLog(@"test 2");
+	//	NSLog(@"test 2");
 		
 	}
 	else 
@@ -249,7 +249,7 @@
 		
 		[button setBackgroundImage:newImage forState:UIControlStateNormal];
 		
-		NSLog(@"test deselect");
+		//NSLog(@"test deselect");
 		
 	}
 	

@@ -662,7 +662,7 @@ static ModelLogic* modelLogic;
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
-		NSLog(@"count %d",i);
+		//NSLog(@"count %d",i);
 		i++;
 		NSMutableDictionary* resultDict = [[NSMutableDictionary alloc]init];
 		NSNumber* moduleIndex = [eachSelected objectAtIndex:0];
@@ -675,7 +675,7 @@ static ModelLogic* modelLogic;
 		NSString* classTypeName = [classType name];
 		ClassGroup* classGroup = [[classType classGroups] objectAtIndex:[classGroupIndex intValue]];
 		NSString* groupName = [classGroup name];
-		NSLog(@"code %@ %@ %@",moduleCode,classTypeName,groupName);
+		//NSLog(@"code %@ %@ %@",moduleCode,classTypeName,groupName);
 		[resultDict setValue:moduleCode forKey:@"moduleCode"];
 		[resultDict setValue:classTypeName forKey:@"classTypeName"];
 		[resultDict setValue:groupName forKey:@"classGroupName"];
@@ -700,7 +700,7 @@ static ModelLogic* modelLogic;
 			{
 				frequency = frequency<<1;
 				if ([eachWeek isEqualToString:@"YES"]) frequency++;
-				printf("model logic generate freq %d\n",frequency);
+				//printf("model logic generate freq %d\n",frequency);
 
 			
 			}
@@ -754,7 +754,7 @@ static ModelLogic* modelLogic;
 				{
 					frequency = frequency<<1;
 					if ([eachWeek isEqualToString:@"YES"]) frequency++;
-					printf("model logic generate freq %d\n",frequency);
+					//printf("model logic generate freq %d\n",frequency);
 					
 					
 				}
@@ -975,7 +975,7 @@ static ModelLogic* modelLogic;
     }
     else
     {
-        NSLog(@"Fatal error: timeInfo is not initialized.");
+       // NSLog(@"Fatal error: timeInfo is not initialized.");
     }
 
     for (NSMutableArray* resultRow in timeTable.result) 
@@ -992,7 +992,7 @@ static ModelLogic* modelLogic;
                 
         for (Slot *s in [classGroup slots])
         {
-            NSLog(@"%@",[[s day]stringValue]);
+           // NSLog(@"%@",[[s day]stringValue]);
             for (int i = 1; i < [s.frequency count]; i ++)
             {
                 // Adding recess week

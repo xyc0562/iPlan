@@ -61,7 +61,7 @@
 
 - (void) showContents
 {
-    NSLog(@"++++++ Start of Slot ++++++");
+  /*  NSLog(@"++++++ Start of Slot ++++++");
     NSLog(@"venue: %@", self.venue);
     NSLog(@"day: %d", [self.day integerValue]);
     NSLog(@"startTime: %d", [self.startTime integerValue]);
@@ -74,6 +74,7 @@
     }
     NSLog(@"---- End Frequency ----");
     NSLog(@"++++++ End of Slot ++++++");
+   */
 }
 
 -(void)dealloc{

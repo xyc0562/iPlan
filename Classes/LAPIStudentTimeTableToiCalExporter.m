@@ -144,7 +144,7 @@
         }
         else
         {
-            NSLog(@"Fatal error: timeInfo is not initialized.");
+            //NSLog(@"Fatal error: timeInfo is not initialized.");
         }
 
         for (int i = 1; i < [freArr count]; i ++)
