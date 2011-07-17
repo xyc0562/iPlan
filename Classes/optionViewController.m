@@ -52,7 +52,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export to IVLE", @"Export to iCal", @"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Disable requirements", nil];
 	
 }
 

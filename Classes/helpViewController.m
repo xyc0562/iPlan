@@ -14,6 +14,7 @@
 #define HELP1 @"1. Please note that if you want to select one module, swipe the module code to right.\n"
 #define HELP2 @"2. Select modules first, after you are done, then click the Continue button.\n"
 #define HELP3 @"3. You can update your requirement any time in the editing mode by clicking the basket button on the top left side.\n"
+#define HELP4 @"4. If you want to export your IVLE timetable, you can go to Options->Export IVLE to iCal."
 #define HELP_MESSAGE @"If you have any questions, please contact\n Bo Bo(Brother Zhan) @ 82869942~~~"
 #define ABOUT_MESSAGE @"Thanks!\n We are expecting your support!"
 
