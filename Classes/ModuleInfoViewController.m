@@ -149,7 +149,6 @@
 	}else {
 		[self configureSelectBar];
 	}
-
 }
 
 - (void)viewDidLoad {

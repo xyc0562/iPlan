@@ -11,6 +11,7 @@
 #import "AppDelegateProtocol.h"
 #import "ModelLogic.h"
 #import	"LAPIStudentTimeTableToiCalExporter.h"
+#import "IVLEWebViewController.h"
 
 
 #define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
@@ -29,8 +30,6 @@
 @synthesize optionTableView;
 @synthesize optionsList;
 @synthesize switchEnabled;
-@synthesize ivlePage;
-@synthesize requestedToken;
 
 #pragma mark -
 #pragma mark instance methods
@@ -49,8 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.tableView.allowsSelection = NO;
-	
-	ivlePage.delegate = self;
 	
 	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
 	
@@ -92,7 +89,7 @@
 	if (row == 3) {	
 		SharedAppDataObject* theDataObject = [self theAppDataObject];
 		theDataObject.requirementEnabled = NO;
-		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 27.0);
+		CGRect frameSwitch = CGRectMake(215.0, 10.0, 94.0, 35.0);
 		switchEnabled = [[UISwitch alloc] initWithFrame:frameSwitch];
 		switchEnabled.on = NO;
 		[switchEnabled addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];		
@@ -125,32 +122,29 @@
 
 - (void) exportFromIvle:(id)sender event:(id)event{
 	NSInteger row = 0;
-	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
+	[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
 
 - (void) exportFromiPlan:(id)sender event:(id)event{
 	NSInteger row = 1;
 	NSLog(@"Need to export from iPlan to iCal");
-	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
+	[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
 
 - (void) deleteFromiPlan:(id)sender event:(id)event{
 	NSInteger row = 2;
-	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
+	[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
  
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSInteger)row{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRow:(NSInteger)row{
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	NSLog(@"clicked row %d", row);
 	if(row == 0){
-		//Lapi issue
-		NSURL *url = [NSURL URLWithString:SERVER_URL]; 	
-		NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-		[ivlePage loadRequest:requestObj]; 
-		[self.view  addSubview:ivlePage];
-		[self.view bringSubviewToFront:ivlePage];
+		IVLEWebViewController *ivlewebController = [[IVLEWebViewController alloc] init];
+		[[self navigationController] pushViewController:ivlewebController animated:YES];
+		[ivlewebController release];
 	}if(row == 1) {
 		NSLog(@"THE API is then called!");
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
@@ -186,7 +180,9 @@
 			[alert release];
 		}
 	}else if (row == 3) {
-            if([[ModelLogic modelLogic] resetCalender])
+		if([[ModelLogic modelLogic] resetCalender]){
+			
+		}
 	}
 }
 
@@ -197,109 +193,7 @@
 }
 
 
-#pragma mark -
-#pragma mark web view for authentication
 
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-	//can do nothing
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    //verify view is on the login page of the site (simplified)
-    NSURL *requestURL = [self.ivlePage.request URL];
-	//NSLog(@"The url is %@", requestURL);
-	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
-		NSString *webContent = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		//NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		requestedToken = webContent;
-		ivlePage.opaque = NO;
-		ivlePage.backgroundColor = [UIColor clearColor];
-		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-		[self.view sendSubviewToBack:ivlePage];
-		
-		NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-		
-		NSCalendarUnit unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit| NSWeekCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-		
-		NSDate *date = [NSDate date];
-		
-		NSDateComponents *dateComponents = [calendar components:unitFlags fromDate:date];
-		
-		NSInteger year = [dateComponents year];
-		NSInteger month = [dateComponents month];
-		NSInteger day = [dateComponents day];
-		
-		
-		NSString *acadYear;
-		NSString *semester;
-		if (month < 5 || (month == 5 && day <= 10)) {
-			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
-			semester = [[NSString alloc] initWithString:@"2"];
-		}else if (month > 8 || (month == 8 && day >= 10)) {
-			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year, year+1];
-			semester = [[NSString alloc] initWithString:@"1"];
-		}else if ((month == 5 && day >10) || (month == 6 && day < 18)) {
-			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
-			semester = [[NSString alloc] initWithString:@"3"];
-		}else if ((month == 6 && day >20) || (month == 7 && day < 30)) {
-			acadYear = [[NSString alloc] initWithFormat:@"%d/%d", year-1, year];
-			semester = [[NSString alloc] initWithString:@"4"];
-		}else{
-			//NSLog(@"No such such semester yet!");
-		}
-		
-		//NSLog(@"current time is %d, %d, %d", year, month, day);
-		
-		[self importIVLETimeTableAcadYear:acadYear Semester:semester];
-		
-		
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_IVLE_SUCCESS
-													   delegate:self
-											  cancelButtonTitle:@"Ok" 
-											  otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		
-		[acadYear release];
-		[semester release];
-    }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		//do nothing
-	}
-	/*else{ 
-		NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.getElementById"];
-		
-		NSLog(@"The xml is %@", xml_file);
-	}*/
-}
-
-
-- (void)importIVLETimeTableAcadYear:(NSString *)year Semester:(NSString *)semester{	
-	NSString *url_address = [[NSString alloc] initWithFormat:@"https://ivle.nus.edu.sg/api/Lapi.svc/Timetable_Student?APIKey=%@&AuthToken=%@&AcadYear=%@&Semester=%@",
-							 API_KEY,
-							 requestedToken,
-							 year, semester];
-	
-	NSURL *url = [NSURL URLWithString:url_address];
-	//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	//[ivlePage loadRequest:requestObj];		
-	
-	NSData *xml_data = [[NSData alloc] initWithContentsOfURL:url];
-	
-	LAPIStudentTimeTableToiCalExporter *exporter = [[LAPIStudentTimeTableToiCalExporter alloc] initWithNSDataParseAndExport:xml_data];
-	
-	[url_address release];
-	[xml_data release];
-	[exporter release];
-	
-	/*
-	if ([xml_data writeToFile:@"timetable.xml" atomically:YES]) {
-		NSLog(@"Write timetable data to file successfully!");
-		
-		
-	}else{
-		NSLog(@"Writing timetable to file failed!");
-	}*/
-}
 
 #pragma mark -
 #pragma mark Memory management
@@ -314,7 +208,6 @@
 - (void)viewDidUnload {
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
-
 	//NSLog(@"Option ‰View Unload");
 	[super viewDidUnload];
 }
@@ -324,8 +217,7 @@
 	[optionTableView release];
 	[optionsList release];
 	[switchEnabled release];
-	[ivlePage release];
-	[requestedToken release];
+
     [super dealloc];
 }
 
