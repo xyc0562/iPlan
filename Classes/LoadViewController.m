@@ -43,6 +43,13 @@
 }
 */
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	if(namelist) [namelist release];
+	namelist = [[[ModelLogic modelLogic]getAllTimeTables] retain];
+	[table reloadData];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

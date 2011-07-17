@@ -139,7 +139,8 @@
 	if ([self getOneTimeTableWithIndex:(int)0
 					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
-		printf("success\n");
+	{//printf("success\n");
+	}
 	self.result = classTypeArray;
 	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
 		return NO;
@@ -154,7 +155,8 @@
 	if ([self getOneTimeTableWithIndex:(int)0
 					WithClassTypeArray:&classTypeArray
 						 WithTimeTable:&timeTable])
-		printf("success\n");
+	{//	printf("success\n");
+	}
 	self.result = classTypeArray;
 	if ([[[classTypeArray objectAtIndex:0]objectAtIndex:2]isEqualToNumber:[NSNumber numberWithInt:-1]])
 		return NO;

@@ -16,7 +16,8 @@
 	NSMutableArray *copyModuleList;
 	IBOutlet UISearchBar *searchBar;
 	NSIndexPath *pathForAlert;
-	
+	NSString *buttonTitle;
+	UIBarButtonItem *addButton1;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *moduleListTableView;
@@ -24,6 +25,8 @@
 @property (nonatomic, retain) NSMutableArray *copyModuleList;
 @property (nonatomic, retain) NSIndexPath *pathForAlert;
 @property (nonatomic, assign) BOOL toRequirement;
+@property (nonatomic, retain) NSString *buttonTitle;
+@property (nonatomic, retain) UIBarButtonItem *addButton1;
 
 - (id)initWithTabBar;
 
