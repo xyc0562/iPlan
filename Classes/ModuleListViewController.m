@@ -19,6 +19,7 @@
 #define DESELECT_MODULE @"Do you want to remove the module from basket?"
 #define SURE_TO_CHANGE_TO_CALENDAR @"Are you sure to change the modules? Calendar Content will be modified accordingly."
 #define NO_SOLUTION @"Sorry there is no possible Timetable based on your selection."
+#define ZERO_MODULE @"Sorry. The number of active modules is zero. Please activate some modules in the basket."
 
 @implementation ModuleListViewController
 
@@ -287,6 +288,8 @@
 			theDataObject.continueToCalendar = NO;
 		}else if (alertView.message == NO_SOLUTION) {
 			theDataObject.continueToCalendar = NO;
+		}else if (alertView.message == ZERO_MODULE) {
+			theDataObject.continueToCalendar = NO;
 		}else {
 			theDataObject.continueToCalendar = NO;
 		}
@@ -434,18 +437,29 @@
 - (IBAction)forwardToRequirement:(id)sender{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	//NSLog(theDataObject.requirementEnabled?@"Y":@"N");
-	if (theDataObject.requirementEnabled == NO){
-		theDataObject.continueToCalendar = NO;
-		self.toRequirement = YES;
-		RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
-		[reqController release];
-		[[self navigationController] presentModalViewController:navController animated:YES];
-		[navController release];
-	}
-	else 
-	{
-		theDataObject.continueToCalendar = YES;
+	
+	if (theDataObject.activeModules == nil || [theDataObject.activeModules count] == 0){
+		// alert the user
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:ZERO_MODULE
+													   delegate:self
+											  cancelButtonTitle:@"OK" 
+											  otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}else {
+		if (theDataObject.requirementEnabled == NO){
+			theDataObject.continueToCalendar = NO;
+			self.toRequirement = YES;
+			RequirementPlacingViewController *reqController = [[RequirementPlacingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+			UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:reqController];
+			[reqController release];
+			[[self navigationController] presentModalViewController:navController animated:YES];
+			[navController release];
+		}
+		else 
+		{
+			//theDataObject.continueToCalendar = YES;
+		}
 	}
 }
 
