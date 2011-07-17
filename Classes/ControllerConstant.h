@@ -36,12 +36,12 @@
 #define SCROLL_X 2
 #define SCROLL_Y 5
 #define SCROLL_W 320
-#define SCROLL_H 356
+#define SCROLL_H 340
 
 #define TABLE_X 2
-#define TABLE_Y 275
+#define TABLE_Y 245
 #define TABLE_W 320
-#define TABLE_H 220
+#define TABLE_H 270
 
 #define CLASH @"Clash"
 #define SLOTS @"Slots"

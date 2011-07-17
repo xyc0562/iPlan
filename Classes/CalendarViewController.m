@@ -94,8 +94,7 @@
 		[imageView addSubview:slot.view];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
-		[slot setBackGroundColorWithCondition:NORMAL];
-		[slot setLabelContentWithCondition:NORMAL];
+
 		slot.view.userInteractionEnabled = YES;
 		slot.view.multipleTouchEnabled = YES;
 	}
@@ -107,11 +106,16 @@
 		BOOL clash = NO;
 		BOOL manyModule = NO;
 
-		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
-			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
+				printf("slot1 start %d\n",[slot1.startTime intValue]);
+				printf("slot1 end %d\n",[slot1.endTime intValue]);
+				printf("slot2 start %d\n",[slot2.startTime intValue]);
+				printf("slot2 end %d\n",[slot2.endTime intValue]);
+
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
@@ -130,15 +134,23 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-			[slot1 setLabelContentWithCondition:CLASH];
+		//	[slot1 setLabelContentWithCondition:CLASH];
 			[imageView bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-			[slot1 setLabelContentWithCondition:AVAILABLE];
+		//	[slot1 setLabelContentWithCondition:AVAILABLE];
 			[imageView bringSubviewToFront:slot1.view];
 		}
+		else 
+		{
+			[slot1 setBackGroundColorWithCondition:NORMAL];
+			[slot1 setLabelContentWithCondition:NORMAL];
+			[imageView bringSubviewToFront:slot1.view];
+			
+		}
+
 	}
 	
 }
@@ -151,7 +163,7 @@
 	
 	if([theDataObject.slotViewControllers count]!=0)
 	{
-		NSMutableArray* active = [theDataObject activeModules];
+		NSArray* active = [[ModelLogic modelLogic]getActiveModules];
 		CGRect frame = CGRectMake(NAV_FRAME_X,NAV_FRAME_Y,NAV_FRAME_W,NAV_FRAME_H);
 		UIView* temp = [[UIView alloc]initWithFrame:frame];
 		float cellWidth = (NAV_FRAME_W-3*NAV_BORDER_X)/(float)(NAV_COL);
@@ -165,8 +177,10 @@
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
-			[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
-			[titleLabel setTextColor:[UIColor whiteColor]];
+		//	[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
+		//	[titleLabel setTextColor:[UIColor whiteColor]];
+			[titleLabel setBackgroundColor:[UIColor clearColor]];
+			[titleLabel setTextColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
 			[temp addSubview:titleLabel];
@@ -267,6 +281,8 @@
 	[super viewWillAppear:animated];
 	for (UIView* any in [imageView subviews]) 
 	{
+		for(UIView* any2 in [any subviews])
+			[any2 removeFromSuperview];
 		[any removeFromSuperview];
 	}
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -371,6 +387,7 @@
 {
     // Return the number of rows in the section.
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	printf("count of rows %d\n",[theDataObject.tableChoices count]+1);
 	return [theDataObject.tableChoices count]+1;
 }
 
@@ -412,7 +429,12 @@
 		
 		NSUInteger row = [indexPath row]-1;
 		if(row!=-1&&row!=[theDataObject.tableChoices count]-1)
-		cell.textLabel.text = [theDataObject.tableChoices objectAtIndex:row];
+		{
+			NSLog([theDataObject.tableChoices objectAtIndex:row]);
+			NSArray* lines = [[theDataObject.tableChoices objectAtIndex:row]componentsSeparatedByString:@"%%%"];
+		cell.textLabel.text = [lines objectAtIndex:0];
+			cell.detailTextLabel.text = [lines objectAtIndex:1];
+		}
 		
 		
 		
@@ -481,8 +503,10 @@
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
 	
 	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
-	for(UIView* any in [imageView subviews])
+	for (UIView* any in [imageView subviews]) 
 	{
+		for(UIView* any2 in [any subviews])
+			[any2 removeFromSuperview];
 		[any removeFromSuperview];
 	}
 	
@@ -525,8 +549,6 @@
 		[slot.view removeFromSuperview];
 		[imageView addSubview:slot.view];
 		slot.moduleColor = [[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
-		[slot setBackGroundColorWithCondition:NORMAL];
-		[slot setLabelContentWithCondition:NORMAL];
 		slot.view.multipleTouchEnabled = YES;
 		slot.view.userInteractionEnabled = YES;
 		[slot.view setFrame:[slot calculateDisplayProperty]];
@@ -539,15 +561,15 @@
 		BOOL clash = NO;
 		BOOL manyModule = NO;
 		
-		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
-			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue])
+					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue]==0)
 					{
 						manyModule = YES;
 					}
@@ -562,15 +584,22 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-			[slot1 setLabelContentWithCondition:CLASH];
+		//	[slot1 setLabelContentWithCondition:CLASH];
 			[theDataObject.image bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-			[slot1 setLabelContentWithCondition:AVAILABLE];
+		//	[slot1 setLabelContentWithCondition:AVAILABLE];
 			[theDataObject.image bringSubviewToFront:slot1.view];
 		}
+		else 
+		{
+			[slot1 setBackGroundColorWithCondition:NORMAL];
+			[slot1 setLabelContentWithCondition:NORMAL];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+
 	}
 	
 	
@@ -646,6 +675,10 @@
 		displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@"-"];
 		displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
+		displayInfo = [displayInfo stringByAppendingString:@"%%%"];
+		displayInfo = [displayInfo stringByAppendingString:[slot classTypeName]];
+		displayInfo = [displayInfo stringByAppendingString:@" "];
+		displayInfo = [displayInfo stringByAppendingString:[slot venue]];
 		[theDataObject.tableChoices addObject:displayInfo];
 	}
 	
