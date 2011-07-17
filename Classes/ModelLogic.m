@@ -700,6 +700,9 @@ static ModelLogic* modelLogic;
 			{
 				frequency = frequency<<1;
 				if ([eachWeek isEqualToString:@"YES"]) frequency++;
+				printf("model logic generate freq %d\n",frequency);
+
+			
 			}
 			NSNumber* freq = [NSNumber numberWithInt:frequency];
 //			NSLog(@"freq%@",[freq stringValue]);
@@ -745,6 +748,19 @@ static ModelLogic* modelLogic;
 				NSNumber* endTime = [NSNumber numberWithInt:eTime];
 				[slotDict setValue:startTime forKey:@"startTime"];
 				[slotDict setValue:endTime forKey:@"endTime"];
+				
+				int frequency = 0;
+				for (NSString* eachWeek in [slot frequency]) 
+				{
+					frequency = frequency<<1;
+					if ([eachWeek isEqualToString:@"YES"]) frequency++;
+					printf("model logic generate freq %d\n",frequency);
+					
+					
+				}
+				NSNumber* freq = [NSNumber numberWithInt:frequency];
+				//			NSLog(@"freq%@",[freq stringValue]);
+				[slotDict setValue:freq forKey:@"frequency"];
 				
 				[slotInfo addObject:slotDict];
 			}

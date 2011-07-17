@@ -119,6 +119,16 @@
 	// Add the tab bar controller's current view as a subview of the window
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
+	
+	NSNumber *a = [NSNumber numberWithInt:32767];
+	NSNumber *b = [NSNumber numberWithInt:1];
+	NSNumber *c = [NSNumber numberWithInt:3];
+	
+	printf("a&b %d\n",[a intValue]&[a intValue]);
+	printf("b&c %d\n",[c intValue]&[b intValue]);
+	printf("a&c %d\n",[a intValue]&[c intValue]);
+	a = a;
+	
 /*
 	printf("test algo\n");
 	

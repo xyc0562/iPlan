@@ -79,6 +79,7 @@
 																	   WithClassTypeName:classTypeName
 																		   WithFrequency:[dictInner objectForKey:@"frequency"]];
 			[theDataObject.slotViewControllers addObject:slotView];
+			printf("calendar view %d\n",[slotView.frequency intValue]);
 			[slotView release];
 		}
 	}
@@ -100,25 +101,28 @@
 	}
 	
 	//set UI display for clash modules
+	
 	for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
 	{
 		SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
 		BOOL clash = NO;
 		BOOL manyModule = NO;
-
+		[slot1.view removeFromSuperview];
+		[imageView addSubview:slot1.view];
+		slot1.view.multipleTouchEnabled = YES;
+		slot1.view.userInteractionEnabled = YES;
+		[slot1.view setFrame:[slot1 calculateDisplayProperty]];
+		
 		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
 			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
-				printf("slot1 start %d\n",[slot1.startTime intValue]);
-				printf("slot1 end %d\n",[slot1.endTime intValue]);
-				printf("slot2 start %d\n",[slot2.startTime intValue]);
-				printf("slot2 end %d\n",[slot2.endTime intValue]);
-
+				
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
+					
 					if (([[slot1 frequency]intValue]&[[slot2 frequency]intValue])==0)
 					{
 						manyModule = YES;
@@ -134,13 +138,13 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-		//	[slot1 setLabelContentWithCondition:CLASH];
+			//	[slot1 setLabelContentWithCondition:CLASH];
 			[imageView bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-		//	[slot1 setLabelContentWithCondition:AVAILABLE];
+			//	[slot1 setLabelContentWithCondition:AVAILABLE];
 			[imageView bringSubviewToFront:slot1.view];
 		}
 		else 
@@ -150,7 +154,7 @@
 			[imageView bringSubviewToFront:slot1.view];
 			
 		}
-
+		
 	}
 	
 }
@@ -543,33 +547,30 @@
 	
 	
 
-	//refresh whole table to set to original color
-	for(SlotViewController* slot in theDataObject.slotViewControllers)
-	{
-		[slot.view removeFromSuperview];
-		[imageView addSubview:slot.view];
-		slot.moduleColor = [[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
-		slot.view.multipleTouchEnabled = YES;
-		slot.view.userInteractionEnabled = YES;
-		[slot.view setFrame:[slot calculateDisplayProperty]];
-	}
-	
+
 	//display clash
 	for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
 	{
 		SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
 		BOOL clash = NO;
 		BOOL manyModule = NO;
+		[slot1.view removeFromSuperview];
+		[imageView addSubview:slot1.view];
+		slot1.view.multipleTouchEnabled = YES;
+		slot1.view.userInteractionEnabled = YES;
+		[slot1.view setFrame:[slot1 calculateDisplayProperty]];
 		
 		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
 			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
+				
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue]==0)
+
+					if (([[slot1 frequency]intValue]&[[slot2 frequency]intValue])==0)
 					{
 						manyModule = YES;
 					}
@@ -584,22 +585,23 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-		//	[slot1 setLabelContentWithCondition:CLASH];
-			[theDataObject.image bringSubviewToFront:slot1.view];
+			//	[slot1 setLabelContentWithCondition:CLASH];
+			[imageView bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-		//	[slot1 setLabelContentWithCondition:AVAILABLE];
-			[theDataObject.image bringSubviewToFront:slot1.view];
+			//	[slot1 setLabelContentWithCondition:AVAILABLE];
+			[imageView bringSubviewToFront:slot1.view];
 		}
 		else 
 		{
 			[slot1 setBackGroundColorWithCondition:NORMAL];
 			[slot1 setLabelContentWithCondition:NORMAL];
-			[theDataObject.image bringSubviewToFront:slot1.view];
+			[imageView bringSubviewToFront:slot1.view];
+			
 		}
-
+		
 	}
 	
 	
