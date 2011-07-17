@@ -52,7 +52,7 @@
 	
 	ivlePage.delegate = self;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Delete IVLE timetable in iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
 	
 }
 
@@ -130,6 +130,7 @@
 
 - (void) exportFromiPlan:(id)sender event:(id)event{
 	NSInteger row = 1;
+	NSLog(@"Need to export from iPlan to iCal");
 	[self tableView:optionTableView accessoryButtonTappedForRowWithIndexPath:row];
 }
 
@@ -139,8 +140,7 @@
 }
  
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-	NSUInteger row = indexPath.row;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSInteger)row{
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
 	NSLog(@"clicked row %d", row);
@@ -152,6 +152,7 @@
 		[self.view  addSubview:ivlePage];
 		[self.view bringSubviewToFront:ivlePage];
 	}if(row == 1) {
+		NSLog(@"THE API is then called!");
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
