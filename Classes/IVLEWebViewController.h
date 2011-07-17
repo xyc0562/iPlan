@@ -11,10 +11,12 @@
 
 @interface IVLEWebViewController : UIViewController <UIWebViewDelegate>{
 	IBOutlet UIWebView *ivlePage;
+	IBOutlet UITextView *displayText;
 	NSString *requestedToken;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView *ivlePage;
+@property (nonatomic, retain) IBOutlet UITextView *displayText;
 @property (nonatomic, retain) NSString *requestedToken;
 
 
