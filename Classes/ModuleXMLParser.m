@@ -16,8 +16,35 @@
 @synthesize currentModule;
 @synthesize currentTimeTableSlot;
 @synthesize modulesParser;
+@synthesize lastUpdated;
+@synthesize semester;
+@synthesize weekMidtermBreakAfter;
+@synthesize weekOneDay;
+@synthesize weekOneMonth;
+@synthesize year;
 // @synthesize faculties;
-
+- (id) initWithDataAndParse:(NSData*)data
+{
+    [super init];
+    if(super !=nil)
+    {
+        if (modulesParser)
+        {
+            [modulesParser release];
+        }
+        modulesParser = [[NSXMLParser alloc] initWithData:data];
+        [modulesParser setDelegate:self];
+        [modulesParser setShouldResolveExternalEntities:YES];
+        [modulesParser setShouldProcessNamespaces:NO]; // We don't care about namespaces
+        [modulesParser setShouldReportNamespacePrefixes:NO]; //
+        [modulesParser setShouldResolveExternalEntities:NO]; // We just want data, no other stuff
+        //NSLog(@"begin parsing");
+        self.currentModule = [[XMLModule alloc] init];
+        [modulesParser parse];
+        //NSLog(@"end parsing");
+    }
+    return self;
+}
 - (id) initWithURLStringAndParse:(NSString *)URLString
 {
     [super init];
@@ -73,8 +100,17 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-	//NSLog(@"Did start element");
-    if (qName)
+    //NSLog(@"didstartelement");
+    if ([elementName isEqualToString:@"modulesinfo"])
+    {
+        self.lastUpdated = [attributeDict objectForKey:@"lastUpdated"];
+        self.semester = [attributeDict objectForKey:@"semester"];
+        self.weekMidtermBreakAfter = [attributeDict objectForKey:@"weekMidtermBreakAfter"];
+        self.weekOneDay = [attributeDict objectForKey:@"weekOneDay"];
+        self.weekOneMonth = [attributeDict objectForKey:@"weekOneMonth"];
+        self.year = [attributeDict objectForKey:@"year"];
+    }
+    else if (qName)
     {
         elementName = qName;
     }
@@ -102,6 +138,8 @@
             self.currentTimeTableSlot = [[XMLTimeTableSlot alloc] init]; // Create the element
         }
     }
+
+
     // else if (self.currentFaculty)
     // {
     //     if ([elementName isEqualToString:@"module"])
@@ -120,7 +158,6 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	//NSLog(@"did end element");
     if (qName)
     {
         elementName = qName;
@@ -239,7 +276,8 @@
                 NSNumber *timeEnd = [[f numberFromString:TTSlot.time_end] retain];
                 [f release];
                 
-                NSArray *frequency = [[IPlanUtility frequencyStringToNSArray:TTSlot.frequency] retain];
+                int weeks = [self.semester integerValue] > 2 ? NUMBER_OF_WEEKS_FOR_SPECIAL_TERM : NUMBER_OF_WEEKS_FOR_NORMAL_SEMESTER;
+                NSArray *frequency = [[IPlanUtility frequencyStringToNSArray:TTSlot.frequency Weeks:weeks] retain];
                 slotUnderConstruction = [[Slot alloc] initWithVenue:TTSlot.venue
                                                             WithDay:dayNum
                                                       WithStartTime:timeStart
