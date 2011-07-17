@@ -15,9 +15,9 @@
 
 
 #define EXPORT_TO_ICAL_SUCCESS @"Export iPlan calendar to iCal is successful!"
-#define EXPORT_TO_ICAL_FAIL @"Sorry, can not export calendar!"
+#define EXPORT_TO_ICAL_FAIL @"Sorry, no calendar to export!"
 #define DELETE_FROM_ICAL_SUCCESS @"Delete iPLan calendar from iCal successfully"
-#define DELETE_FROM_ICAL_FAIL @"Sorry, can not delete calendar"
+#define DELETE_FROM_ICAL_FAIL @"error when deleting calendar"
 
 
 @implementation OptionViewController
@@ -47,7 +47,7 @@
     [super viewDidLoad];
 	self.tableView.allowsSelection = NO;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete exported events",@"Disable requirements", nil];
 	
 }
 

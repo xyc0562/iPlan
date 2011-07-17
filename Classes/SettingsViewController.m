@@ -21,8 +21,8 @@
 #define OPTION_NAME @"Option"
 #define HELP_NAME @"Help"
 #define ABOUT_NAME @"About"
-#define LOAD @"Load Other TimeTables"
-#define UIVIEW_LIST @"List View of Calendar"
+#define LOAD @"Load Time-table"
+#define UIVIEW_LIST @"Bidding Helper"
 @synthesize settingsTableView;
 @synthesize settingsList;
 
