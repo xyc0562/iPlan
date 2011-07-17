@@ -22,7 +22,7 @@
 #import "SFHFKeychainUtils.h"
 
 
-#define TIMER_DURATION 0.0
+#define TIMER_DURATION 1.0
 
 
 @interface CalendarViewController (UtilityMethods)
@@ -55,6 +55,7 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
+	printf("active moudle %d\n",[[theDataObject activeModules]count]);
 	if([theDataObject activeModules]&&[[theDataObject activeModules]count]!=0)
 	{
 	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
