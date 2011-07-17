@@ -35,7 +35,6 @@
 @property (nonatomic, retain) NSMutableArray *requirements;
 @property (nonatomic, retain) NSMutableDictionary *moduleCells;
 @property (nonatomic, retain) NSMutableDictionary *removedCells;
-@property (nonatomic, assign) BOOL zoomed;
 @property (nonatomic, assign) SlotViewController* selectSlot;
 @property (nonatomic, retain) NSMutableArray* slotViewControllers;
 @property (nonatomic, assign) BOOL needUpdate;

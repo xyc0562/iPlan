@@ -1122,11 +1122,12 @@ static ModelLogic* modelLogic;
 
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
-    Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
-    if (module)
+    NSNumber *index = [self getOrCreateModuleIndexByCode:moduleCode];
+    if (index)
     {
 //		NSLog(@"color%@",test);
 //		NSLog([module stringcolor]);
+		Module* module = [timeTable.modules objectAtIndex:[index intValue]];
         return [module  color];
     }
     else

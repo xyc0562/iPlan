@@ -136,6 +136,7 @@
 	NSURL *url = [NSURL URLWithString:url_address];
 	//NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
 	//[ivlePage loadRequest:requestObj];		
+	NSLog(@"Trying to caccess api");
 	
 	NSData *xml_data = [[NSData alloc] initWithContentsOfURL:url];
 	
