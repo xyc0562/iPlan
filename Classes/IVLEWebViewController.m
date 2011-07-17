@@ -16,6 +16,9 @@
 #define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
 #define API_KEY @"K6vDt3tA51QC3gotLvPYf"
 
+#define USERNAME @"u0602684"
+#define PASSWORD @"tomrlq#04"
+
 
 @implementation IVLEWebViewController
 
@@ -108,7 +111,13 @@
 		[acadYear release];
 		[semester release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		//do nothing
+		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
+		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", PASSWORD];
+
+		
+		//autofill the form
+		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadUsernameJS];
+		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadPasswordJS];
 	}
 	/*else{ 
 	 NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.getElementById"];
