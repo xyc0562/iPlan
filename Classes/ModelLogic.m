@@ -7,6 +7,8 @@
 //
 
 #import "ModelLogic.h"
+#import "SharedAppDataObject.h"
+#import "AppDelegateProtocol.h"
 #define TIMETABLE_DOCUMENT_NAME @"timetable"
 static ModelLogic* modelLogic;
 @implementation ModelLogic
@@ -22,6 +24,50 @@ static ModelLogic* modelLogic;
 		modelLogic = [[ModelLogic alloc]init];
 	}
 	return modelLogic;
+}
+
+- (SharedAppDataObject*) theAppDataObject
+{
+	id<AppDelegateProtocol> theDelegate = (id<AppDelegateProtocol>) [UIApplication sharedApplication].delegate;
+	SharedAppDataObject* theDataObject;
+	theDataObject = (SharedAppDataObject*) theDelegate.theAppDataObject;
+	return theDataObject;
+}
+
+
+- (void)loadFile:(NSString*)filename
+{
+		
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSData *data = [NSData dataWithContentsOfFile:fullPath];
+	if (data)
+	{
+		NSKeyedUnarchiver *unarc = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		self.timeTable = [unarc decodeObjectForKey:@"timeTable"];
+		self.currentColorIndex = [unarc decodeObjectForKey:@"currentColorIndex"];
+		self.moduleObjectsDict = [unarc decodeObjectForKey:@"moduleObjectsDict"];
+		SharedAppDataObject *theNewDataObject = [unarc decodeObjectForKey:@"share"];
+		SharedAppDataObject *theDataObject = [self theAppDataObject];
+
+		theDataObject.needUpdate = NO;
+		theDataObject.continueToCalendar = NO;
+		theDataObject.requirementEnabled = NO;
+		
+		theDataObject.basket = theNewDataObject.basket;
+		theDataObject.activeModules = theNewDataObject.activeModules;
+		theDataObject.requirements = theNewDataObject.requirements;
+		theDataObject.moduleCells = [[NSMutableArray alloc]init];
+		theDataObject.removedCells = [[NSMutableArray alloc]init];
+		theDataObject.slotViewControllers = [[NSMutableArray alloc]init];
+		theDataObject.tableChoices = [[NSMutableArray alloc]init];
+		theDataObject.availableSlots = [[NSMutableArray alloc]init];
+		theDataObject.selectSlot = nil;
+		
+		
+	}
 }
 - (BOOL)checkTheSame:(NSMutableArray*)active
 {
@@ -195,6 +241,25 @@ static ModelLogic* modelLogic;
     return moduleNames;
 }
 
+- (NSMutableArray*)getAllTimeTables
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *tableDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSMutableArray *tableNames = [fm contentsOfDirectoryAtPath:tableDirectory error:nil];
+    
+    int count = [tableNames count], i;
+    for(i = 0; i < count; i++)
+    {
+        // Trimming ".plist"
+        NSString *name = [tableNames objectAtIndex:i] ;
+		[tableNames replaceObjectAtIndex:i withObject:name];
+    }
+	
+    return tableNames;
+}
 
 - (NSString*) getTitleFromModule:(NSString*)code
 {
@@ -583,7 +648,6 @@ static ModelLogic* modelLogic;
 
 - (NSMutableArray*)getSelectedGroupsInfo
 {
-	[self generateDefaultTimetable];
 	NSMutableArray* selectedGroupsInfo = [[NSMutableArray alloc]init];
 	for (NSMutableArray* eachSelected in timeTable.result) 
 	{
@@ -1081,7 +1145,7 @@ static ModelLogic* modelLogic;
 			[eachSelected release];
 		}
 	}
-	if (timeTable!=nil) [timeTable release];
+//	if (timeTable!=nil) [timeTable release];
 	[self timeTable].result = newResult;
 }
 
@@ -1101,13 +1165,19 @@ static ModelLogic* modelLogic;
 	filename = [filename stringByReplacingOccurrencesOfString:@" " withString:@" "];
 	filename = [filename stringByAppendingString:@".plist"];
 	NSString* fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
-	//NSLog(@"code%@",[moduleUnderConstruction.code stringByAppendingString:@".plist"]);
-	//NSLog(@"doc%@", modulesDirectory);
-	//NSLog(@"%@",fullPath);
+
 	NSMutableData* data = [[NSMutableData alloc] init];
 	NSKeyedArchiver* arc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+
+	[arc encodeObject:currentColorIndex forKey:@"currentColorIndex"];
+	if(timeTable!=nil)
+		[arc encodeObject:timeTable forKey:@"timeTable"];
+	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjecsDict"];
+	[arc encodeObject:indexesDict forKey:@"indexesDict"];
 	
-	[arc encodeObject:self forKey:@"ModelLogic"];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	
+	[arc encodeObject:theDataObject forKey:@"share"];
 	
 	[arc finishEncoding];
 	BOOL success = [data writeToFile:fullPath atomically:YES];

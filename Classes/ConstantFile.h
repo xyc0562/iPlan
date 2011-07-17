@@ -28,5 +28,16 @@
 #define MODULE_ACTIVE_NUMBER 10
 
 #define MODULE_EXAM_NO_EXAM @"No Exam Date."
+#define CLEAR @"clear"
+#define RED @"red"
+#define	YELLOW @"yellow"
+#define PURPLE @"purple"
+#define BLUE @"blue"
+#define LIGHTGRAY @"light"
+#define GREEN @"green"
+#define BROWN @"brown"
+#define MAGENTA @"magenta"
+#define CYAN @"cyan"
+#define ORANGE @"orange"
 
 #define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor lightGrayColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]

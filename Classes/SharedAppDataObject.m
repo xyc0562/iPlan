@@ -19,7 +19,6 @@
 @synthesize basket;
 @synthesize activeModules;
 @synthesize requirements;
-@synthesize zoomed;
 @synthesize moduleCells;
 @synthesize removedCells;
 @synthesize selectSlot;
@@ -45,7 +44,6 @@
 		slotViewControllers =[[NSMutableArray alloc]init];
 		tableChoices = [[NSMutableArray alloc]init];
 		availableSlots = [[NSMutableArray alloc]init];
-		zoomed = NO;
 		selectSlot = nil;
 		needUpdate = NO;
 		continueToCalendar = NO;
@@ -53,6 +51,37 @@
 	}
 	return self;
 }
+
+-(void)encodeWithCoder:(NSCoder *)coder{
+
+	[coder encodeObject:settingsIdentity forKey:@"settingsIdentity"];
+	[coder encodeObject:moduleCode forKey:@"moduleCode"];
+	[coder encodeObject:basket forKey:@"basket"];
+	[coder encodeObject:activeModules forKey:@"activeModules"];
+	[coder encodeObject:requirements forKey:@"requirements"];
+//	[coder encodeObject:removedCells forKey:@"removedCells"];
+//	[coder encodeObject:moduleCells forKey:@"moduleCells"];
+
+}
+
+-(id)initWithCoder:(NSCoder *)decoder{
+	if([super init]!=nil)
+	{
+		basket = [decoder decodeObjectForKey:@"basket"];
+		activeModules = [decoder decodeObjectForKey:@"activeModules"];
+		requirements = [decoder decodeObjectForKey:@"requirements"];
+		selectSlot = nil;
+		needUpdate = NO;
+		continueToCalendar = NO;
+		requirementEnabled = NO;
+		moduleCode = [decoder decodeObjectForKey:@"moduleCode"];
+		settingsIdentity = [decoder decodeObjectForKey:@"settingIdentity"];
+		//moduleCells = [decoder decodeObjectForKey:@
+	}
+	return self;
+}
+
+
 
 - (void)dealloc
 {
