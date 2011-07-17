@@ -137,8 +137,7 @@
 }
 
 - (void)viewDidUnload {
-	//self.settingsTableView = nil;
-	//self.settingsList = nil;
+
 	[super viewDidLoad];
 }
 
