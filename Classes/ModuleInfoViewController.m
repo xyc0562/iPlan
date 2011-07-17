@@ -244,7 +244,6 @@
 	}else {
 		return COMMENT_LABEL_MIN_HEIGHT + COMMENT_LABEL_PADDING * 2;
 	}
-
 }
 
 
