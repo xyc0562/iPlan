@@ -394,6 +394,19 @@
 				//NSLog(@"Success!");
 			}
             // End of encoding
+            NSString *timeInfoPath = [documentDirectory stringByAppendingFormat:@"/%@.plist", TIME_INFO_NAME];
+            NSMutableData* timeInfoData = [[NSMutableData alloc] init];
+            NSKeyedArchiver* timeInfoArc = [[NSKeyedArchiver alloc] initForWritingWithMutableData:timeInfoData];
+            NSArray *timeInfo = [NSArray arrayWithObjects:self.lastUpdated, self.semester, self.weekMidtermBreakAfter, self.weekOneDay, self.weekOneMonth, year, nil];
+
+            [timeInfoArc encodeObject:timeInfo forKey:@"timeInfo"];
+            [timeInfoArc finishEncoding];
+            [timeInfoData writeToFile:timeInfoPath atomically:YES];
+            [timeInfoArc release];
+            [timeInfoData release];
+
+            // Encode information used for iCal export
+            
 			
             [moduleUnderConstruction release];
             [self.currentModule release];

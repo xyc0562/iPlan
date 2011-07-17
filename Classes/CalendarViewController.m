@@ -23,9 +23,6 @@
 
 
 #define TIMER_DURATION 0.0
-#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
-#define USERNAME @"U0807275"
-#define PASSWORD @"hq.nusinml128"
 
 
 @interface CalendarViewController (UtilityMethods)
@@ -36,7 +33,6 @@
 @implementation CalendarViewController
 
 @synthesize scrollView;
-@synthesize theWeb;
 @synthesize table;
 @synthesize imageView;
 @synthesize spinner;
@@ -94,8 +90,7 @@
 		[imageView addSubview:slot.view];
 		[imageView	bringSubviewToFront:slot.view];
 		[[slot view]setFrame:[slot calculateDisplayProperty]];
-		[slot setBackGroundColorWithCondition:NORMAL];
-		[slot setLabelContentWithCondition:NORMAL];
+
 		slot.view.userInteractionEnabled = YES;
 		slot.view.multipleTouchEnabled = YES;
 	}
@@ -107,11 +102,16 @@
 		BOOL clash = NO;
 		BOOL manyModule = NO;
 
-		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
-			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
+				printf("slot1 start %d\n",[slot1.startTime intValue]);
+				printf("slot1 end %d\n",[slot1.endTime intValue]);
+				printf("slot2 start %d\n",[slot2.startTime intValue]);
+				printf("slot2 end %d\n",[slot2.endTime intValue]);
+
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
@@ -130,15 +130,23 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-			[slot1 setLabelContentWithCondition:CLASH];
+		//	[slot1 setLabelContentWithCondition:CLASH];
 			[imageView bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-			[slot1 setLabelContentWithCondition:AVAILABLE];
+		//	[slot1 setLabelContentWithCondition:AVAILABLE];
 			[imageView bringSubviewToFront:slot1.view];
 		}
+		else 
+		{
+			[slot1 setBackGroundColorWithCondition:NORMAL];
+			[slot1 setLabelContentWithCondition:NORMAL];
+			[imageView bringSubviewToFront:slot1.view];
+			
+		}
+
 	}
 	
 }
@@ -151,7 +159,7 @@
 	
 	if([theDataObject.slotViewControllers count]!=0)
 	{
-		NSMutableArray* active = [theDataObject activeModules];
+		NSArray* active = [[ModelLogic modelLogic]getActiveModules];
 		CGRect frame = CGRectMake(NAV_FRAME_X,NAV_FRAME_Y,NAV_FRAME_W,NAV_FRAME_H);
 		UIView* temp = [[UIView alloc]initWithFrame:frame];
 		float cellWidth = (NAV_FRAME_W-3*NAV_BORDER_X)/(float)(NAV_COL);
@@ -165,8 +173,10 @@
 			UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(col*cellWidth,NAV_BORDER_Y*(row+1)+cellHight*row,cellWidth-CELL_BORDER,cellHight)];
 			[titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:NAV_FONT_SIZE]];
 			
-			[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
-			[titleLabel setTextColor:[UIColor whiteColor]];
+		//	[titleLabel setBackgroundColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
+		//	[titleLabel setTextColor:[UIColor whiteColor]];
+			[titleLabel setBackgroundColor:[UIColor clearColor]];
+			[titleLabel setTextColor:[[ModelLogic modelLogic]getModuleColorWithModuleCode:selectedModule]];
 			[titleLabel setText:selectedModule];
 			[titleLabel setTextAlignment:UITextAlignmentCenter];
 			[temp addSubview:titleLabel];
@@ -267,6 +277,8 @@
 	[super viewWillAppear:animated];
 	for (UIView* any in [imageView subviews]) 
 	{
+		for(UIView* any2 in [any subviews])
+			[any2 removeFromSuperview];
 		[any removeFromSuperview];
 	}
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
@@ -305,24 +317,8 @@
 	scrollView.bounces = NO;
 	scrollView.showsVerticalScrollIndicator = YES;
 	scrollView.showsHorizontalScrollIndicator = YES;
-	
-	//Lapi issue
-	NSURL *url = [NSURL URLWithString:SERVER_URL];
-	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
-	theWeb.delegate = self;
-	[theWeb loadRequest:requestObj];
-	theWeb.opaque = NO;
-	theWeb.backgroundColor = [UIColor clearColor];
-	[theWeb loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
-	
-	//secure password
-	[[NSUserDefaults standardUserDefaults] setObject:USERNAME forKey:@"username"];
-	[SFHFKeychainUtils storeUsername:USERNAME andPassword:PASSWORD forServiceName:@"MyService" updateExisting:YES error:nil];
 
-	
-	[self.view addSubview:theWeb];
 	[self.view addSubview:table];
-	[self.view sendSubviewToBack:theWeb];
 	theDataObject.table = self.table;
 	
 	[self configureView];
@@ -371,6 +367,7 @@
 {
     // Return the number of rows in the section.
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	printf("count of rows %d\n",[theDataObject.tableChoices count]+1);
 	return [theDataObject.tableChoices count]+1;
 }
 
@@ -412,7 +409,12 @@
 		
 		NSUInteger row = [indexPath row]-1;
 		if(row!=-1&&row!=[theDataObject.tableChoices count]-1)
-		cell.textLabel.text = [theDataObject.tableChoices objectAtIndex:row];
+		{
+			NSLog([theDataObject.tableChoices objectAtIndex:row]);
+			NSArray* lines = [[theDataObject.tableChoices objectAtIndex:row]componentsSeparatedByString:@"%%%"];
+		cell.textLabel.text = [lines objectAtIndex:0];
+			cell.detailTextLabel.text = [lines objectAtIndex:1];
+		}
 		
 		
 		
@@ -481,8 +483,10 @@
 	NSIndexPath *indexPath = [table indexPathForRowAtPoint:currentTouchPosition];
 	
 	SlotViewController* select = [theDataObject.availableSlots objectAtIndex:indexPath.row-1];
-	for(UIView* any in [imageView subviews])
+	for (UIView* any in [imageView subviews]) 
 	{
+		for(UIView* any2 in [any subviews])
+			[any2 removeFromSuperview];
 		[any removeFromSuperview];
 	}
 	
@@ -525,8 +529,6 @@
 		[slot.view removeFromSuperview];
 		[imageView addSubview:slot.view];
 		slot.moduleColor = [[ModelLogic modelLogic]getModuleColorWithModuleCode:[slot moduleCode]];
-		[slot setBackGroundColorWithCondition:NORMAL];
-		[slot setLabelContentWithCondition:NORMAL];
 		slot.view.multipleTouchEnabled = YES;
 		slot.view.userInteractionEnabled = YES;
 		[slot.view setFrame:[slot calculateDisplayProperty]];
@@ -539,15 +541,15 @@
 		BOOL clash = NO;
 		BOOL manyModule = NO;
 		
-		for(int j=i+1;j<[theDataObject.slotViewControllers count];j++)
+		for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 		{
 			SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
-			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 			{
 				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 				else 
 				{
-					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue])
+					if ([[slot1 frequency]intValue]&[[slot2 frequency]intValue]==0)
 					{
 						manyModule = YES;
 					}
@@ -562,15 +564,22 @@
 		if(clash)
 		{
 			[slot1 setBackGroundColorWithCondition:CLASH];
-			[slot1 setLabelContentWithCondition:CLASH];
+		//	[slot1 setLabelContentWithCondition:CLASH];
 			[theDataObject.image bringSubviewToFront:slot1.view];
 		}
 		else if(manyModule)
 		{
 			[slot1 setBackGroundColorWithCondition:AVAILABLE];
-			[slot1 setLabelContentWithCondition:AVAILABLE];
+		//	[slot1 setLabelContentWithCondition:AVAILABLE];
 			[theDataObject.image bringSubviewToFront:slot1.view];
 		}
+		else 
+		{
+			[slot1 setBackGroundColorWithCondition:NORMAL];
+			[slot1 setLabelContentWithCondition:NORMAL];
+			[theDataObject.image bringSubviewToFront:slot1.view];
+		}
+
 	}
 	
 	
@@ -646,6 +655,10 @@
 		displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 		displayInfo = [displayInfo stringByAppendingString:@"-"];
 		displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
+		displayInfo = [displayInfo stringByAppendingString:@"%%%"];
+		displayInfo = [displayInfo stringByAppendingString:[slot classTypeName]];
+		displayInfo = [displayInfo stringByAppendingString:@" "];
+		displayInfo = [displayInfo stringByAppendingString:[slot venue]];
 		[theDataObject.tableChoices addObject:displayInfo];
 	}
 	
@@ -738,60 +751,6 @@
 //end of table view adjustment
 
 
-#pragma mark -
-#pragma mark web view for authentication
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; {
-	
-    //save form data
-	NSURL *url = [self.theWeb.request URL];
-	NSLog(@"Check the host: %@", url.absoluteString);
-    if(navigationType == UIWebViewNavigationTypeFormSubmitted) {
-		NSLog(@"Navigation Confirmed" );
-        //grab the data from the page
-        NSString *username = @"U0807275";
-        NSString *password = @"hq.nusinml128";
-		
-        //store values locally
-        [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"UserID"];
-        [SFHFKeychainUtils storeUsername:username andPassword:password forServiceName:@"MyService" updateExisting:YES error:nil];
-		
-    }    
-	return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-	//can do nothing
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-	
-    //verify view is on the login page of the site (simplified)
-    NSURL *requestURL = [self.theWeb.request URL];
-	NSLog(@"Get returned host: %@", requestURL.absoluteString);
-	if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		//try to auto fill the form and load
-		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
-		NSString *password = [SFHFKeychainUtils getPasswordForUsername: USERNAME andServiceName:@"MyService" error:nil];
-		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", password];
-		NSLog(@"password");
-		
-		//autofill the form
-		[self.theWeb stringByEvaluatingJavaScriptFromString: loadUsernameJS];
-		[self.theWeb stringByEvaluatingJavaScriptFromString: loadPasswordJS];
-		
-		NSString *clickLogin = [NSString stringWithFormat:@"document.forms['frm'].submit()"];
-		
-		[self.theWeb stringByEvaluatingJavaScriptFromString:clickLogin];
-	}else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/login_result.ashx?apikey=K6vDt3tA51QC3gotLvPYf&r=0"]) {
-		NSString *webContent = [self.theWeb stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
-		NSLog(@"Great!!!!!!!!!!!!! Token is %@", webContent);
-		
-		SharedAppDataObject* theDataObject = [self theAppDataObject];
-		theDataObject.requestedToken = webContent;
-    }
-}
-
-
 
 
 #pragma mark -
@@ -809,12 +768,10 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-	theWeb.delegate = nil;
 }
 
 - (void)dealloc {
 	[scrollView release];
-	[theWeb release];
     [super dealloc];
 }
 

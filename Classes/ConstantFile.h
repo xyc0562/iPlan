@@ -11,6 +11,7 @@
 #define FREQUENCY_INVALID 0
 #define MODULE_DOCUMENT_NAME @"Modules"
 #define EVENT_DOCUMENT_NAME @"EventIds"
+#define TIME_INFO_NAME @"timeInfo"
 
 // Module Class Types
 #define MODULE_CLASS_TYPE_LECTURE @"LECTURE"
@@ -43,4 +44,4 @@
 #define CYAN @"cyan"
 #define ORANGE @"orange"
 
-#define colorList [NSArray arrayWithObjects:[UIColor redColor],[UIColor blueColor],[UIColor lightGrayColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],nil]
+#define colorList [NSArray arrayWithObjects:[UIColor blueColor],[UIColor yellowColor],[UIColor greenColor],[UIColor orangeColor],[UIColor brownColor],[UIColor magentaColor],[UIColor cyanColor],[UIColor purpleColor],[UIColor lightGrayColor],[UIColor redColor],nil]
