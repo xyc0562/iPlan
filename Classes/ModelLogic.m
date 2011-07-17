@@ -69,8 +69,8 @@ static ModelLogic* modelLogic;
 		theDataObject.basket = theNewDataObject.basket;
 		theDataObject.activeModules = theNewDataObject.activeModules;
 		theDataObject.requirements = theNewDataObject.requirements;
-		theDataObject.moduleCells = [[NSMutableArray alloc]init];
-		theDataObject.removedCells = [[NSMutableArray alloc]init];
+		theDataObject.moduleCells = [[NSMutableDictionary alloc]init];
+		theDataObject.removedCells = [[NSMutableDictionary alloc]init];
 		theDataObject.slotViewControllers = [[NSMutableArray alloc]init];
 		theDataObject.tableChoices = [[NSMutableArray alloc]init];
 		theDataObject.availableSlots = [[NSMutableArray alloc]init];
@@ -1194,7 +1194,6 @@ static ModelLogic* modelLogic;
 			[eachSelected release];
 		}
 	}
-//	if (timeTable!=nil) [timeTable release];
 	[self timeTable].result = newResult;
 
 }

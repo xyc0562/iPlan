@@ -133,10 +133,14 @@
 	else if([condition isEqualToString:NORMAL])
 	{
 		self.view.backgroundColor = [self moduleColor];
+		self.view.layer.borderColor = [UIColor clearColor].CGColor;
+		self.view.layer.borderWidth = 0.0f;
 	}
 	else if([condition isEqualToString:AVAILABLE])
 	{
 		self.view.backgroundColor = [UIColor darkGrayColor];
+		self.view.layer.borderColor = [UIColor clearColor].CGColor;
+		self.view.layer.borderWidth = 0.0f;
 	}
 }
 
@@ -209,22 +213,7 @@
 	//selection start
 	else
 	{
-		for(SlotViewController* slot in slotViewControllers)
-		{
-			if([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName])
-			{
-				slot.view.layer.borderColor = [UIColor blackColor].CGColor;
-				slot.view.layer.borderWidth = 3.0f;
 		
-			}
-			//part of recover selection
-			else 
-			{
-				slot.view.layer.borderColor = [UIColor clearColor].CGColor;
-				slot.view.layer.borderWidth = 0.0f;
-			}
-
-		}
 		
 		[theDataObject.tableChoices removeAllObjects];
 		
@@ -237,9 +226,32 @@
 				if([slot.startTime intValue]>=[self.endTime intValue]||[slot.endTime intValue]<=[self.startTime intValue]);
 				else 
 				{
-					NSString* displayInfo = [NSString stringWithString:slot.moduleCode];
+					NSString* displayInfo = [NSString stringWithString:[slot moduleCode]];
 					displayInfo = [displayInfo stringByAppendingString:@" "];
-					displayInfo = [displayInfo stringByAppendingString:slot.classGroupName];
+					
+					if([[slot dayNumber]intValue]==1)
+						displayInfo = [displayInfo stringByAppendingString:@"MON"];
+					else if([[slot dayNumber]intValue]==2)
+						displayInfo = [displayInfo stringByAppendingString:@"TUE"];
+					else if([[slot dayNumber]intValue]==3)
+						displayInfo = [displayInfo stringByAppendingString:@"WED"];
+					else if([[slot dayNumber]intValue]==4)
+						displayInfo = [displayInfo stringByAppendingString:@"THU"];
+					else if([[slot dayNumber]intValue]==5)
+						displayInfo = [displayInfo stringByAppendingString:@"FRI"];
+					
+					displayInfo = [displayInfo stringByAppendingString:@" "];
+					displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
+					displayInfo = [displayInfo stringByAppendingString:@"-"];
+					displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
+					
+					displayInfo = [displayInfo stringByAppendingString:@"%%%"];
+					printf("after aaa");
+					NSLog(@"%@",displayInfo);
+					displayInfo = [displayInfo stringByAppendingString:slot.classTypeName];
+					displayInfo = [displayInfo stringByAppendingString:@" "];
+					displayInfo = [displayInfo stringByAppendingString:slot.venue];
+					NSLog(@"%@",displayInfo);
 					[theDataObject.tableChoices addObject:displayInfo];
 				}
 
@@ -251,9 +263,32 @@
 		//if there is clash
 		if([theDataObject.tableChoices count]>0)
 		{
-			NSString* displayInfo = [NSString stringWithString:self.moduleCode];
+			NSString* displayInfo = [NSString stringWithString:[self moduleCode]];
 			displayInfo = [displayInfo stringByAppendingString:@" "];
-			displayInfo = [displayInfo stringByAppendingString:self.classGroupName];
+			
+			if([[self dayNumber]intValue]==1)
+				displayInfo = [displayInfo stringByAppendingString:@"MON"];
+			else if([[self dayNumber]intValue]==2)
+				displayInfo = [displayInfo stringByAppendingString:@"TUE"];
+			else if([[self dayNumber]intValue]==3)
+				displayInfo = [displayInfo stringByAppendingString:@"WED"];
+			else if([[self dayNumber]intValue]==4)
+				displayInfo = [displayInfo stringByAppendingString:@"THU"];
+			else if([[self dayNumber]intValue]==5)
+				displayInfo = [displayInfo stringByAppendingString:@"FRI"];
+			
+			displayInfo = [displayInfo stringByAppendingString:@" "];
+			displayInfo = [displayInfo stringByAppendingString:[[self startTime]stringValue]];
+			displayInfo = [displayInfo stringByAppendingString:@"-"];
+			displayInfo = [displayInfo stringByAppendingString:[[self endTime]stringValue]];
+			
+			displayInfo = [displayInfo stringByAppendingString:@"%%%"];
+			printf("after aaa");
+			NSLog(@"%@",displayInfo);
+			displayInfo = [displayInfo stringByAppendingString:self.classTypeName];
+			displayInfo = [displayInfo stringByAppendingString:@" "];
+			displayInfo = [displayInfo stringByAppendingString:self.venue];
+			NSLog(@"%@",displayInfo);
 			[theDataObject.tableChoices addObject:displayInfo];
 			[theDataObject.tableChoices addObject:CLASH];
 		}
@@ -321,6 +356,14 @@
 				displayInfo = [displayInfo stringByAppendingString:[[slot startTime]stringValue]];
 				displayInfo = [displayInfo stringByAppendingString:@"-"];
 				displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
+				
+				displayInfo = [displayInfo stringByAppendingString:@"%%%"];
+				printf("after aaa");
+				NSLog(@"%@",displayInfo);
+				displayInfo = [displayInfo stringByAppendingString:slot.classTypeName];
+				displayInfo = [displayInfo stringByAppendingString:@" "];
+				displayInfo = [displayInfo stringByAppendingString:slot.venue];
+				NSLog(@"%@",displayInfo);
 				[theDataObject.tableChoices addObject:displayInfo];
 			}
 			
@@ -331,29 +374,80 @@
 
 		theDataObject.selectSlot = self;
 		
-	}
-	
-	/*
-	for (int i=0;i<[slotViewControllers count];i++ ) 
-	{
-		SlotViewController* slot1 = [slotViewControllers objectAtIndex:i];
-		for(int j=i+1;j<[slotViewControllers count];j++)
+		//handle display
+		for (int i=0;i<[theDataObject.slotViewControllers count];i++ ) 
 		{
-			SlotViewController* slot2 = [slotViewControllers objectAtIndex:j];
-			if(slot1!=slot2&&[slot1.dayNumber intValue]==[slot2.dayNumber intValue])
+			SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
+			BOOL clash = NO;
+			BOOL manyModule = NO;
+			
+			for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 			{
-				if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
-				else 
+				SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
+				if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 				{
-					for(UIView*any in [slot1.view subviews])
-						[any removeFromSuperview];
-					for (UIView*any in [slot2.view subviews])
-						[any removeFromSuperview];
+					printf("slot1 start %d\n",[slot1.startTime intValue]);
+					printf("slot1 end %d\n",[slot1.endTime intValue]);
+					printf("slot2 start %d\n",[slot2.startTime intValue]);
+					printf("slot2 end %d\n",[slot2.endTime intValue]);
+					
+					if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
+					else 
+					{
+						if (([[slot1 frequency]intValue]&[[slot2 frequency]intValue])==0)
+						{
+							manyModule = YES;
+						}
+						else
+						{
+							clash = YES;
+						}
+					}
 				}
 			}
+			
+			if(clash)
+			{
+				[slot1 setBackGroundColorWithCondition:CLASH];
+				//	[slot1 setLabelContentWithCondition:CLASH];
+				[theDataObject.image bringSubviewToFront:slot1.view];
+			}
+			else if(manyModule)
+			{
+				[slot1 setBackGroundColorWithCondition:AVAILABLE];
+				//	[slot1 setLabelContentWithCondition:AVAILABLE];
+				[theDataObject.image bringSubviewToFront:slot1.view];
+			}
+			else 
+			{
+				[slot1 setBackGroundColorWithCondition:NORMAL];
+				[slot1 setLabelContentWithCondition:NORMAL];
+				[theDataObject.image bringSubviewToFront:slot1.view];
+				
+			}
+			
 		}
+		for(SlotViewController* slot in slotViewControllers)
+		{
+			if([slot.moduleCode isEqual:moduleCode]&&[slot.classTypeName isEqual:classTypeName]&&[slot.classGroupName isEqual:classGroupName])
+			{
+				slot.view.layer.borderColor = [UIColor blackColor].CGColor;
+				slot.view.layer.borderWidth = 3.0f;
+				
+			}
+			//part of recover selection
+			/*
+			else 
+			{
+				slot.view.layer.borderColor = [UIColor clearColor].CGColor;
+				slot.view.layer.borderWidth = 0.0f;
+			}
+			*/
+		}
+		
+		
 	}
-	*/
+	
 	[theDataObject.table reloadData];
 }
  
