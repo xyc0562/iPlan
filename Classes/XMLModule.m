@@ -36,7 +36,7 @@
 
 - (void) debugCurrentModule
 {
-    NSLog(@"------Start Module------");
+ /*   NSLog(@"------Start Module------");
     NSLog(@"code: %@", self.code);
     NSLog(@"title: %@", self.title);
     NSLog(@"description: %@", self.description);
@@ -53,7 +53,7 @@
     {
         [slot debugSlot];
     }
-    NSLog(@"------End Module------");
+    NSLog(@"------End Module------");*/
 }
 
 - (void) dealloc

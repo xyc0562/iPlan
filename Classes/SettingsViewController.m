@@ -115,14 +115,14 @@
 	}else if(row_number ==4){
 		viewController = [[ListViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
 	}else {
-		printf("Error");
+		//printf("Error");
 	}
 	
 	//set shared object
-	NSLog(@"Hello World! %d", row_number);
+	//NSLog(@"Hello World! %d", row_number);
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	theDataObject.settingsIdentity = [[[NSString alloc] initWithFormat:@"%d", row_number] autorelease];
-	NSLog(@"Hello World! %d", row_number);
+	//NSLog(@"Hello World! %d", row_number);
 	[[self navigationController] pushViewController:viewController animated:YES];
 	[viewController release];
 }
@@ -132,7 +132,7 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    NSLog(@"Memory Warning!");
+   // NSLog(@"Memory Warning!");
     [super didReceiveMemoryWarning];
 }
 

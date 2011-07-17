@@ -220,11 +220,9 @@ WithModuleClassType:(NSArray*)moduleClassType
 				   WithLastUpdate:[decoder decodeObjectForKey:@"lastUpdated"] 
 					 WithSelected:[decoder decodeObjectForKey:@"selected"] 
 			  WithModuleClassType:[decoder decodeObjectForKey:@"moduleClassTypes"]];
-		NSLog(@"module1");
-		NSLog([self stringcolor]);
+	
 		color = [self getColorFromString:[decoder decodeObjectForKey:@"stringcolor"]];
-		NSLog(@"module2");
-		NSLog([self stringcolor]);
+		
 	}
 	return self;
 }
@@ -258,6 +256,7 @@ WithModuleClassType:(NSArray*)moduleClassType
 
 - (void) showContents
 {
+	/*
     NSLog(@"++++++ Start of Module ++++++");
     NSLog(@"code: %@", self.code);
     NSLog(@"description: %@", self.description);
@@ -277,6 +276,7 @@ WithModuleClassType:(NSArray*)moduleClassType
         [MCT showContents];
     }
     NSLog(@"++++++ End of Module ++++++");
+	 */
 }
 
 @end

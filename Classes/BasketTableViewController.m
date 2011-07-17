@@ -150,12 +150,6 @@
 #pragma mark -
 #pragma mark Delete modules from the basket
 
-//- (IBAction)DeleteButtonAction:(id)sender{
-//	SharedAppDataObject* theDataObject = [self theAppDataObject];
-//	[theDataObject.basket removeLastObject];
-//	[moduleListTableView reloadData];
-//}
-
 - (IBAction) Edit:(id)sender{
 	if(self.editing){
 		[super setEditing:NO animated:NO]; 

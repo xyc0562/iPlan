@@ -22,6 +22,7 @@
         [theTextField setBackgroundColor:[UIColor whiteColor]]; 
         [self addSubview:theTextField];
         self.textField = theTextField;
+		self.textField.text = @"iPlan";
         [theTextField release];
         CGAffineTransform translate = CGAffineTransformMakeTranslation(0.0, 130.0); 
         [self setTransform:translate];

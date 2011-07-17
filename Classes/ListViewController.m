@@ -62,14 +62,43 @@
 	[table reloadData];
 	
 }
-/*
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	if(newSlotViewControllers!=nil)
+	{
+		[newSlotViewControllers removeAllObjects];
+		[newSlotViewControllers release];
+	}
+	
+	newSlotViewControllers = [[NSMutableArray alloc]init];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	NSMutableArray* slotViewControllers = theDataObject.slotViewControllers;
+	if([slotViewControllers count]>0)
+		[newSlotViewControllers addObject:[slotViewControllers objectAtIndex:0]];
+	for(int i=0;i<[slotViewControllers count];i++)
+	{
+		SlotViewController* slot = [slotViewControllers objectAtIndex:i];
+		for(int j=0;j<[newSlotViewControllers count];j++)
+		{
+			SlotViewController* slot2 = [newSlotViewControllers objectAtIndex:j];
+			if ([slot.moduleCode isEqualToString:slot2.moduleCode]&&
+				[slot.classTypeName isEqualToString:slot2.classTypeName]&&
+				[slot.classGroupName isEqualToString:slot2.classGroupName]);
+			else 
+			{
+				[newSlotViewControllers addObject:slot];
+			}
+		}
+	}
+	
+	[table reloadData];
+	
 	
 
 }
-*/
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

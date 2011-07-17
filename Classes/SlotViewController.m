@@ -105,6 +105,7 @@
 		self.view.userInteractionEnabled = YES;
 		self.available = NO;
 		self.frequency = freq;
+		//printf("slot view controller %d\n",[frequency intValue]);
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 		[self.view addGestureRecognizer:tap];
 		[tap release];
@@ -126,7 +127,7 @@
 {
 	if([condition isEqualToString:CLASH])
 	{
-		self.view.backgroundColor = [UIColor clearColor];
+		self.view.backgroundColor = [UIColor darkGrayColor];
 		self.view.layer.borderColor = [UIColor redColor].CGColor;
 		self.view.layer.borderWidth = 3.0f;
 	}
@@ -246,12 +247,10 @@
 					displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
 					
 					displayInfo = [displayInfo stringByAppendingString:@"%%%"];
-					printf("after aaa");
-					NSLog(@"%@",displayInfo);
+			
 					displayInfo = [displayInfo stringByAppendingString:slot.classTypeName];
 					displayInfo = [displayInfo stringByAppendingString:@" "];
 					displayInfo = [displayInfo stringByAppendingString:slot.venue];
-					NSLog(@"%@",displayInfo);
 					[theDataObject.tableChoices addObject:displayInfo];
 				}
 
@@ -283,12 +282,10 @@
 			displayInfo = [displayInfo stringByAppendingString:[[self endTime]stringValue]];
 			
 			displayInfo = [displayInfo stringByAppendingString:@"%%%"];
-			printf("after aaa");
-			NSLog(@"%@",displayInfo);
+		
 			displayInfo = [displayInfo stringByAppendingString:self.classTypeName];
 			displayInfo = [displayInfo stringByAppendingString:@" "];
 			displayInfo = [displayInfo stringByAppendingString:self.venue];
-			NSLog(@"%@",displayInfo);
 			[theDataObject.tableChoices addObject:displayInfo];
 			[theDataObject.tableChoices addObject:CLASH];
 		}
@@ -310,7 +307,7 @@
 				NSString* typeName = [dict objectForKey:@"classTypeName"];
 				NSString* groupName = [dict objectForKey:@"classGroupName"];
 				NSMutableArray* slots = [dict objectForKey:@"slots"];
-				printf("available slots %d\n",[slots count]);
+				//printf("available slots %d\n",[slots count]);
 				
 				for(NSDictionary* dictInner in slots)
 				{
@@ -325,7 +322,7 @@
 																		   WithClassTypeName:typeName
 																			   WithFrequency:[dictInner objectForKey:@"frequency"]];
 					slot.available = YES;
-			
+					//printf("slot view get other available slot %d\n",[[slot frequency]intValue]);
 
 					[theDataObject.availableSlots addObject:slot ];
 				}
@@ -358,12 +355,10 @@
 				displayInfo = [displayInfo stringByAppendingString:[[slot endTime]stringValue]];
 				
 				displayInfo = [displayInfo stringByAppendingString:@"%%%"];
-				printf("after aaa");
-				NSLog(@"%@",displayInfo);
+		
 				displayInfo = [displayInfo stringByAppendingString:slot.classTypeName];
 				displayInfo = [displayInfo stringByAppendingString:@" "];
 				displayInfo = [displayInfo stringByAppendingString:slot.venue];
-				NSLog(@"%@",displayInfo);
 				[theDataObject.tableChoices addObject:displayInfo];
 			}
 			
@@ -380,20 +375,22 @@
 			SlotViewController* slot1 = [theDataObject.slotViewControllers objectAtIndex:i];
 			BOOL clash = NO;
 			BOOL manyModule = NO;
+			[slot1.view removeFromSuperview];
+			[theDataObject.image addSubview:slot1.view];
+			slot1.view.multipleTouchEnabled = YES;
+			slot1.view.userInteractionEnabled = YES;
+			[slot1.view setFrame:[slot1 calculateDisplayProperty]];
 			
 			for(int j=0;j<[theDataObject.slotViewControllers count];j++)
 			{
 				SlotViewController* slot2 = [theDataObject.slotViewControllers objectAtIndex:j];
 				if([slot1.dayNumber intValue]==[slot2.dayNumber intValue]&&slot1!=slot2)
 				{
-					printf("slot1 start %d\n",[slot1.startTime intValue]);
-					printf("slot1 end %d\n",[slot1.endTime intValue]);
-					printf("slot2 start %d\n",[slot2.startTime intValue]);
-					printf("slot2 end %d\n",[slot2.endTime intValue]);
 					
 					if([slot1.startTime intValue]>=[slot2.endTime intValue]||[slot1.endTime intValue]<=[slot2.startTime intValue]);
 					else 
 					{
+						
 						if (([[slot1 frequency]intValue]&[[slot2 frequency]intValue])==0)
 						{
 							manyModule = YES;

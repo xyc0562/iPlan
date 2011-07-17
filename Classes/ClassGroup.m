@@ -55,6 +55,7 @@
 
 - (void) showContents
 {
+	/*
     NSLog(@"++++++ Start of ClassGroup ++++++");
     NSLog(@"name: %@", self.name);
     NSLog(@"---- Start Frequency ----");
@@ -69,6 +70,7 @@
         [s showContents];
     }
     NSLog(@"++++++ End of ClassGroup ++++++");
+	 */
 }
 
 -(void)dealloc{
