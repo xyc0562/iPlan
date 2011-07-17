@@ -47,6 +47,6 @@
 
 +(id)ModuleWithModuleCode:(NSString*)code;
 -(UIColor*)getColorFromString:(NSString*)string;
-
+-(NSString*)stringcolor;
 - (void) showContents;
 @end
