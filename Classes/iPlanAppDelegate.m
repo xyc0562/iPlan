@@ -46,9 +46,6 @@
     NSLog(@"---end----");
 */
 
-    NSData *dataFromPath = [NSData dataWithContentsOfFile:@"/Users/xuyecheng/Documents/ios/iPlan/cors.xml"];
-    ModuleXMLParser *aParser = [[ModuleXMLParser alloc] initWithDataAndParse:dataFromPath];	[aParser release];
-
     NSData *da = [NSData dataWithContentsOfFile:@"/Users/xuyecheng/Documents/ios/iPlan/Timetable_Student.xml"];
     NSLog(@"lapi start!");
     [[LAPIStudentTimeTableToiCalExporter alloc] initWithNSDataParseAndExport:da];
