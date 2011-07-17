@@ -233,6 +233,8 @@
 	
 	
 }
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
 	if ([button isEqual:@"Update"]){
@@ -260,7 +262,11 @@
 	else if ([button isEqualToString:@"Okay"])
 		{
 			NSString *entered = [(AlertHelp *)alertView enteredText];
-			[[ModelLogic modelLogic]save:[self configureSaveFile] WithName:entered];
+			printf("length %d\n",[entered length]);
+			if([entered length]!=0)
+			{
+				[[ModelLogic modelLogic]save:[self configureSaveFile] WithName:entered];
+			}
 		}
 	
 	
