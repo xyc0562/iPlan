@@ -133,7 +133,8 @@
 	static NSString *moduleListCellIdentifier = @"moduleListCellIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:moduleListCellIdentifier];
-    if (cell == nil) {
+    if (cell == nil) 
+	{
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moduleListCellIdentifier] autorelease];
     }
 	
