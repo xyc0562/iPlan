@@ -16,10 +16,6 @@
 #define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
 #define API_KEY @"K6vDt3tA51QC3gotLvPYf"
 
-#define USERNAME @"u0602684"
-#define PASSWORD @"tomrlq#04"
-
-
 @implementation IVLEWebViewController
 
 
@@ -69,11 +65,7 @@
 		ivlePage.backgroundColor = [UIColor clearColor];
 		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
-		
-		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
-		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", PASSWORD];
-		
-		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadPasswordJS];
+
 		
 		NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		
@@ -121,13 +113,7 @@
 		[acadYear release];
 		[semester release];
     }else if ([requestURL.absoluteString isEqualToString:@"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"]) {
-		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
-		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", PASSWORD];
-
-		
-		//autofill the form
-		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadUsernameJS];
-		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadPasswordJS];
+		//do nothing
 	}
 	/*else{ 
 	 NSString *xml_file = [self.ivlePage stringByEvaluatingJavaScriptFromString:@"document.getElementById"];
