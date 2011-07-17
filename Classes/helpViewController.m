@@ -15,7 +15,7 @@
 #define HELP2 @"2. Select modules first, after you are done, then click the Continue button.\n"
 #define HELP3 @"3. You can update your requirement any time in the editing mode by clicking the basket button on the top left side.\n"
 #define HELP4 @"4. If you want to export your IVLE timetable, you may go to Options."
-#define ABOUT_MESSAGE @"Thanks!\n We are expecting your support! \n iPlan Team Member:\n Zhan Yingbo \n Zhang Ying \n Yu Zezhou \n Xu Yecheng \n Huang Qi"
+#define ABOUT_MESSAGE @"We are expecting your support! \n iPlan Team Member:\n Zhan Yingbo \n Zhang Ying \n Yu Zezhou \n Xu Yecheng \n Huang Qi"
 
 @implementation HelpViewController
 
@@ -60,10 +60,12 @@
 	SharedAppDataObject *theAppData = [self theAppDataObject];
 	
 	if([theAppData.settingsIdentity isEqual:@"3"]){
+		self.title = @"Help";
 		NSString *message = [[NSString alloc] initWithFormat:@"%@%@%@%@", HELP1, HELP2, HELP3, HELP4];
 		helpTextView.text = message;
 		[message release];
 	}else if ([theAppData.settingsIdentity isEqual:@"4"]) {
+		self.title = @"About";
 		helpTextView.text = ABOUT_MESSAGE;
 	}else {
 		//printf("Error");
