@@ -137,4 +137,5 @@
 - (BOOL)checkConflictsBetweenArray:(NSMutableArray*)basket AndModule:(NSString*)code;
 
 +(id)modelLogic;
+- (void)deleteFile:(NSString*)filename;
 @end

@@ -58,9 +58,7 @@
 			}
 		}
 	}
-	printf("new count %d\n",[newSlotViewControllers count]);
-	printf("count %d\n",[theDataObject.slotViewControllers count]);
-	printf("count2 %d\n",[slotViewControllers count]);
+
 	[table reloadData];
 	
 }

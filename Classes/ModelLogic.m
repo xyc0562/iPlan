@@ -34,6 +34,15 @@ static ModelLogic* modelLogic;
 	return theDataObject;
 }
 
+- (void)deleteFile:(NSString*)filename
+{
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString* documentDirectory = [paths objectAtIndex:0];
+	NSString *modulesDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:TIMETABLE_DOCUMENT_NAME];
+	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", modulesDirectory, filename];
+	NSFileManager * fm = [NSFileManager defaultManager];
+	[fm removeItemAtPath:fullPath error:NULL];
+}
 
 - (void)loadFile:(NSString*)filename
 {
@@ -1063,7 +1072,7 @@ static ModelLogic* modelLogic;
 	
     if (module)
     {
-        return [module color];
+        return [module getColorFromString:[module color]];
     }
     else
     {
