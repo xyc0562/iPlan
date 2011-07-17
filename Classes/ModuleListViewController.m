@@ -450,7 +450,6 @@
 - (IBAction)forwardToRequirement:(id)sender{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	//NSLog(theDataObject.requirementEnabled?@"Y":@"N");
-	NSLog(@"requirement ");
 	if (theDataObject.activeModules == nil || [theDataObject.activeModules count] == 0){
 		// alert the user
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:ZERO_MODULE

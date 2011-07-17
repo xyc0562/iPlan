@@ -55,7 +55,6 @@
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	[scrollView addSubview:imageView];
 	theDataObject.image = self.imageView;
-	printf("active moudle %d\n",[[theDataObject activeModules]count]);
 	if([theDataObject activeModules]&&[[theDataObject activeModules]count]!=0)
 	{
 	NSMutableArray* defaultAnswer = [[ModelLogic modelLogic] getSelectedGroupsInfo];
