@@ -126,7 +126,7 @@
 }
 
 - (void) exportFromiPlan:(id)sender event:(id)event{
-	NSInteger row = 1;
+	NSUInteger row = 1;
 	NSLog(@"Need to export from iPlan to iCal");
 	[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
@@ -136,7 +136,6 @@
 	[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
  
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRow:(NSInteger)row{
 	//SharedAppDataObject* theDataObject = [self theAppDataObject];
 	
