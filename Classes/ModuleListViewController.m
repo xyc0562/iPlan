@@ -88,9 +88,9 @@
 	// insert buttons
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	if (theDataObject.requirementEnabled == NO) {
-		buttonTitle = @"Requirement";
-	}else {
 		buttonTitle = @"Continue";
+	}else {
+		buttonTitle = @"Requirement";
 	}
 
 	
@@ -526,9 +526,9 @@
 	}
 
 	if (theDataObject.requirementEnabled == YES) {
-		buttonTitle = @"Requirement";
-	}else {
 		buttonTitle = @"Continue";
+	}else {
+		buttonTitle = @"Requirement";
 	}
 	addButton1.title = buttonTitle;		
 }
