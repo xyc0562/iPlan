@@ -13,11 +13,16 @@
 	IBOutlet UITableView *optionTableView;
 	NSArray *optionsList;
 	UISwitch *switchEnabled;
+	UIActivityIndicatorView *spinner;
+	NSInteger rowG;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *optionTableView;
 @property (nonatomic, retain) NSArray *optionsList;
 @property (nonatomic, retain) UISwitch *switchEnabled;
+@property (nonatomic, retain) UIActivityIndicatorView *spinner;
+@property (nonatomic, assign) NSInteger rowG;
+
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRow:(NSInteger)row;
 

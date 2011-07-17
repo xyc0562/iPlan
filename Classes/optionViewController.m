@@ -19,6 +19,9 @@
 #define DELETE_FROM_ICAL_SUCCESS @"Delete iPLan calendar from iCal successfully"
 #define DELETE_FROM_ICAL_FAIL @"error when deleting calendar"
 
+#define TIMER_DURATION2 1.0
+
+
 
 @implementation OptionViewController
 
@@ -28,6 +31,8 @@
 @synthesize optionTableView;
 @synthesize optionsList;
 @synthesize switchEnabled;
+@synthesize spinner;
+@synthesize rowG;
 
 #pragma mark -
 #pragma mark instance methods
@@ -42,6 +47,27 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+- (void)spinningViewLoad
+{
+	[self tableView:optionTableView accessoryButtonTappedForRow:rowG];
+	// TODO: !!!
+	//NSLog(@"spinning load");
+	UITextView* text = (UITextView*)[spinner viewWithTag:150];
+	[text removeFromSuperview];
+	[text release];
+	[spinner stopAnimating];
+	[spinner removeFromSuperview];
+	[spinner release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+	NSString *button = [alertView buttonTitleAtIndex:buttonIndex];
+	if ([button isEqual:@"Update"]){
+		//NSLog(@"alert view update called");
+		
+		//NSLog(@"alert view ended");
+	}
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -119,19 +145,71 @@
 
 
 - (void) exportFromIvle:(id)sender event:(id)event{
-	NSInteger row = 0;
-	[self tableView:optionTableView accessoryButtonTappedForRow:row];
+	rowG = 0;
+	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	spinner.frame = CGRectMake(140, 130, 50, 50);
+	spinner.backgroundColor = [UIColor lightGrayColor];
+	UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(-15, 45, 150, 60)];
+	text.backgroundColor = [UIColor clearColor];
+	text.tag = 150;
+	text.text = @"Exporting...";
+	text.font = [UIFont systemFontOfSize:15];
+	text.textColor = [UIColor darkGrayColor];
+	[spinner addSubview:text];
+	[self.view addSubview:spinner];
+	[spinner startAnimating];
+	[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION2
+									 target:self
+								   selector:@selector(spinningViewLoad)
+								   userInfo:nil
+									repeats:NO];
+	//[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
 
 - (void) exportFromiPlan:(id)sender event:(id)event{
-	NSUInteger row = 1;
+	rowG = 1;
+	
 	NSLog(@"Need to export from iPlan to iCal");
-	[self tableView:optionTableView accessoryButtonTappedForRow:row];
+	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	spinner.frame = CGRectMake(140, 130, 50, 50);
+	spinner.backgroundColor = [UIColor lightGrayColor];
+	UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(-15, 45, 150, 60)];
+	text.backgroundColor = [UIColor clearColor];
+	text.tag = 150;
+	text.text = @"Exporting...";
+	text.font = [UIFont systemFontOfSize:15];
+	text.textColor = [UIColor darkGrayColor];
+	[spinner addSubview:text];
+	[self.view addSubview:spinner];
+	[spinner startAnimating];
+	[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION2
+									 target:self
+								   selector:@selector(spinningViewLoad)
+								   userInfo:nil
+									repeats:NO];
+	//[self tableView:optionTableView accessoryButtonTappedForRow:row];
 }
 
 - (void) deleteFromiPlan:(id)sender event:(id)event{
-	NSInteger row = 2;
-	[self tableView:optionTableView accessoryButtonTappedForRow:row];
+	rowG = 2;
+	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	spinner.frame = CGRectMake(140, 130, 50, 50);
+	spinner.backgroundColor = [UIColor lightGrayColor];
+	UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(-15, 45, 150, 60)];
+	text.backgroundColor = [UIColor clearColor];
+	text.tag = 150;
+	text.text = @"Deleting...";
+	text.font = [UIFont systemFontOfSize:15];
+	text.textColor = [UIColor darkGrayColor];
+	[spinner addSubview:text];
+	[self.view addSubview:spinner];
+	[spinner startAnimating];
+	[NSTimer scheduledTimerWithTimeInterval:TIMER_DURATION2
+									 target:self
+								   selector:@selector(spinningViewLoad)
+								   userInfo:nil
+									repeats:NO];
+	
 }
  
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRow:(NSInteger)row{
@@ -144,6 +222,7 @@
 		[ivlewebController release];
 	}if(row == 1) {
 		NSLog(@"THE API is then called!");
+		
 		if ([[ModelLogic modelLogic] exportTimetableToiCalendar]) 
 		{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
