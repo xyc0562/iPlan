@@ -14,4 +14,8 @@
 	NSMutableArray* namelist;
 }
 @property (nonatomic,retain)NSMutableArray* namelist;
+@property (nonatomic,retain)UITableView* table;
+
 @end
+
+
