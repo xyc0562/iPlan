@@ -933,11 +933,11 @@ static ModelLogic* modelLogic;
 
 - (NSString*)getCurrentTimeTableEventIdsPath
 {
-    	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString* documentDirectory = [paths objectAtIndex:0];
 	NSString *eventIdsDirectory= [[documentDirectory stringByAppendingString:@"/"] stringByAppendingString:EVENT_DOCUMENT_NAME];
         
-	NSString *filename = [self.timeTable.name stringByAppendingString:@".plist"];
+	NSString *filename = @"MyTimeTable.plist"];
 	NSString *fullPath = [NSString stringWithFormat:@"%@/%@", eventIdsDirectory, filename];
         return fullPath;
 }
