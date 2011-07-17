@@ -30,7 +30,6 @@
 
 @property (nonatomic, copy) NSString *settingsIdentity;
 @property (nonatomic, copy) NSString *moduleCode;
-@property (nonatomic, copy) NSString *requestedToken;
 @property (nonatomic, retain) NSMutableArray *basket;
 @property (nonatomic, retain) NSMutableArray *activeModules;
 @property (nonatomic, retain) NSMutableArray *requirements;
