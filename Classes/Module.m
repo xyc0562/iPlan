@@ -86,6 +86,55 @@ WithModuleClassType:(NSArray*)moduleClassType
         }
 }
 
+-(NSString*)stringcolor
+{
+	if ([color isEqual:[UIColor clearColor]]) 
+	{
+		return CLEAR;
+	}
+	else if([color isEqual:[UIColor redColor]])
+	{
+		return RED;
+	}
+	else if([color isEqual:[UIColor blueColor]])
+	{
+		return BLUE;
+	}
+	else if([color isEqual:[UIColor greenColor]])
+	{
+		return GREEN;
+	}
+	else if([color isEqual:[UIColor yellowColor]])
+	{
+		return YELLOW;
+	}
+	else if([color isEqual:[UIColor lightGrayColor]])
+	{
+		return LIGHTGRAY;
+	}
+	else if([color isEqual:[UIColor orangeColor]])
+	{
+		return ORANGE;
+	}
+	else if([color isEqual:[UIColor purpleColor]])
+	{
+		return PURPLE;
+	}
+	else if([color isEqual:[UIColor brownColor]])
+	{
+		return BROWN;
+	}
+	else if([color isEqual:[UIColor cyanColor]])
+	{
+		return CYAN;
+	}
+	else if([color isEqual:[UIColor magentaColor]])
+	{
+		return MAGENTA;
+	}
+	return CLEAR;
+}
+
 -(void)encodeWithCoder:(NSCoder *)coder{
 	[coder encodeObject:code forKey:@"code"];
 	[coder encodeObject:description forKey:@"description"];
@@ -101,7 +150,59 @@ WithModuleClassType:(NSArray*)moduleClassType
 	[coder encodeObject:lastUpdated forKey:@"lastUpdated"];
 	[coder encodeObject:selected forKey:@"selected"];
 	[coder encodeObject:moduleClassTypes forKey:@"moduleClassTypes"];
+	[coder encodeObject:[self stringcolor] forKey:@"stringcolor"];
 }
+
+-(UIColor*)getColorFromString:(NSString*)string
+{
+	if([string isEqualToString:CLEAR])
+	{
+		return [UIColor clearColor];
+	}
+	else if([string isEqualToString:RED])
+	{
+		return [UIColor redColor];
+	}
+	else if([string isEqualToString:BLUE])
+	{
+		return [UIColor blueColor];
+	}
+	else if([string isEqualToString:GREEN])
+	{
+		return [UIColor greenColor];
+	}
+	else if([string isEqualToString:YELLOW])
+	{
+		return [UIColor yellowColor];
+	}
+	else if([string isEqualToString:BROWN])
+	{
+		return [UIColor brownColor];
+	}
+	else if([string isEqualToString:ORANGE])
+	{
+		return [UIColor orangeColor];
+	}
+	else if([string isEqualToString:MAGENTA])
+	{
+		return [UIColor magentaColor];
+	}
+	else if([string isEqualToString:PURPLE])
+	{
+		return [UIColor purpleColor];
+	}
+	else if([string isEqualToString:LIGHTGRAY])
+	{
+		return [UIColor lightGrayColor];
+	}
+	else if([string isEqualToString:CYAN])
+	{
+		return [UIColor cyanColor];
+	}
+	return [UIColor clearColor];
+}
+	
+	
 
 -(id)initWithCoder:(NSCoder *)decoder{
 	if([super init]!=nil){
@@ -119,13 +220,15 @@ WithModuleClassType:(NSArray*)moduleClassType
 				   WithLastUpdate:[decoder decodeObjectForKey:@"lastUpdated"] 
 					 WithSelected:[decoder decodeObjectForKey:@"selected"] 
 			  WithModuleClassType:[decoder decodeObjectForKey:@"moduleClassTypes"]];
+		self.color = [self getColorFromString:[decoder decodeObjectForKey:@"stringcolor"]];
 	}
 	return self;
 }
 
+
 -(BOOL)checkSelected
 {
-	if([selected isEqual:@"YES"])
+	if([selected isEqualToString:@"YES"])
 		return YES;
 	else {
 		return NO;
