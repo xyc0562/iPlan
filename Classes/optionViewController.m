@@ -14,12 +14,10 @@
 #import "IVLEWebViewController.h"
 
 
-#define EXPORT_TO_ICAL_SUCCESS @"Thanks! Export calendar to iCal is successful!"
-#define EXPORT_TO_ICAL_FAIL @"Sorry, can not connect server!"
-#define SERVER_URL @"https://ivle.nus.edu.sg/api/login/?apikey=K6vDt3tA51QC3gotLvPYf"
-#define EXPORT_TO_IVLE_SUCCESS @"Thanks! Export calendar to IVLE is successful!"
-#define EXPORT_TO_IVLE_FAIL @"Sorry, can not connect server!"
-#define API_KEY @"K6vDt3tA51QC3gotLvPYf"
+#define EXPORT_TO_ICAL_SUCCESS @"Export iPlan calendar to iCal is successful!"
+#define EXPORT_TO_ICAL_FAIL @"Sorry, no calendar to export!"
+#define DELETE_FROM_ICAL_SUCCESS @"Delete iPLan calendar from iCal successfully"
+#define DELETE_FROM_ICAL_FAIL @"error when deleting calendar"
 
 
 @implementation OptionViewController
@@ -49,7 +47,7 @@
     [super viewDidLoad];
 	self.tableView.allowsSelection = NO;
 	
-	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete timetable in iCal",@"Disable requirements", nil];
+	optionsList = [[NSArray alloc] initWithObjects:@"Export IVLE to iCal", @"Export to iCal", @"Delete exported events",@"Disable requirements", nil];
 	
 }
 
@@ -164,23 +162,19 @@
 		}
 	}else if (row == 2) {
 		if([[ModelLogic modelLogic] resetCalender]){
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_SUCCESS
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DELETE_FROM_ICAL_SUCCESS
 														   delegate:self
 												  cancelButtonTitle:@"Ok" 
 												  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}else{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:EXPORT_TO_ICAL_FAIL
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:DELETE_FROM_ICAL_FAIL
 														   delegate:self
 												  cancelButtonTitle:@"Ok" 
 												  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
-		}
-	}else if (row == 3) {
-		if([[ModelLogic modelLogic] resetCalender]){
-			
 		}
 	}
 }

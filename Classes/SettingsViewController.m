@@ -21,8 +21,8 @@
 #define OPTION_NAME @"Option"
 #define HELP_NAME @"Help"
 #define ABOUT_NAME @"About"
-#define LOAD @"Load Other TimeTables"
-#define UIVIEW_LIST @"List View of Calendar"
+#define LOAD @"Load Time-table"
+#define UIVIEW_LIST @"Bidding Helper"
 @synthesize settingsTableView;
 @synthesize settingsList;
 
@@ -45,7 +45,7 @@
 
 - (void)viewDidLoad {
 	//load info with dummy array: array
-	NSArray *array = [[NSArray alloc] initWithObjects:OPTION_NAME, HELP_NAME, ABOUT_NAME, LOAD,UIVIEW_LIST,nil];
+	NSArray *array = [[NSArray alloc] initWithObjects:OPTION_NAME, LOAD,UIVIEW_LIST,HELP_NAME, ABOUT_NAME,nil];
 	self.settingsList = array;
 	[array release];
     [super viewDidLoad];
@@ -107,13 +107,13 @@
 	if(row_number == 0){
 		viewController = [[OptionViewController alloc] initWithNibName:@"OptionViewController" bundle:nil];
 	}else if (row_number == 1) {
-		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
-	}else if (row_number == 2){
-		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
-	}else if(row_number == 3){
 		viewController = [[LoadViewController alloc] initWithNibName:@"LoadViewController" bundle:nil];
-	}else if(row_number ==4){
+	}else if (row_number == 2){
 		viewController = [[ListViewController alloc] initWithNibName:@"ListViewController" bundle:nil];
+	}else if(row_number == 3){
+		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+	}else if(row_number ==4){
+		viewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
 	}else {
 		//printf("Error");
 	}
