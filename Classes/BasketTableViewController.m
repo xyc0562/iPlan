@@ -186,7 +186,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 		if ([theDataObject.basket containsObject:deletedModule]){
 			//SharedData manipulation
 			[theDataObject.basket removeObject:deletedModule];
-			
+			if ([theDataObject.activeModules containsObject:deletedModule]){
+				[theDataObject.activeModules removeObject:deletedModule];
+			}
 			[theDataObject.removedCells setObject:[theDataObject.moduleCells objectForKey:deletedModule]  forKey:deletedModule];
 			[theDataObject.moduleCells removeObjectForKey:deletedModule];
 			

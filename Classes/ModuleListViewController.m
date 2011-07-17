@@ -451,7 +451,6 @@
 - (IBAction)forwardToRequirement:(id)sender{
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
 	//NSLog(theDataObject.requirementEnabled?@"Y":@"N");
-	
 	if (theDataObject.activeModules == nil || [theDataObject.activeModules count] == 0){
 		// alert the user
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:ZERO_MODULE
@@ -490,8 +489,8 @@
 }
 
 - (void)viewDidUnload {
-	self.moduleListTableView =  nil;
-	self.moduleList = nil;
+	//self.moduleListTableView =  nil;
+	//self.moduleList = nil;
 	[super viewDidUnload];
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
