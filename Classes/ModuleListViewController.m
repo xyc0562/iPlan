@@ -29,6 +29,8 @@
 @synthesize copyModuleList;
 @synthesize pathForAlert;
 @synthesize toRequirement;
+@synthesize buttonTitle;
+@synthesize addButton1;
 
 #pragma mark -
 #pragma mark instance method
@@ -83,9 +85,17 @@
 	[item release];
 	
 	// insert buttons
-	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Requirement" style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
-	[self.navigationItem setRightBarButtonItem:addButton];
-	[addButton release];
+	SharedAppDataObject* theDataObject = [self theAppDataObject];
+	if (theDataObject.requirementEnabled == NO) {
+		buttonTitle = @"Requirement";
+	}else {
+		buttonTitle = @"Continue";
+	}
+
+	
+	addButton1 = [[UIBarButtonItem alloc] initWithTitle:buttonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(forwardToRequirement:)];
+	[self.navigationItem setRightBarButtonItem:addButton1];
+	[addButton1 release];
 }
 
 
@@ -509,7 +519,12 @@
 	else {
 		toRequirement = NO;
 	}
-
+	if (theDataObject.requirementEnabled == YES) {
+		buttonTitle = @"Requirement";
+	}else {
+		buttonTitle = @"Continue";
+	}
+	addButton1.title = buttonTitle;
 		
 }
 
