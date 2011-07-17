@@ -1073,12 +1073,11 @@ static ModelLogic* modelLogic;
 
 - (UIColor*)getModuleColorWithModuleCode:(NSString*)moduleCode
 {
-    Module *module = [timeTable.modules objectAtIndex:[[self getOrCreateModuleIndexByCode:moduleCode]intValue]];
-	
+    Module *module = [self getOrCreateAndGetModuleInstanceByCode:moduleCode];
     if (module)
     {
-		NSLog(@"color");
-		NSLog([module stringcolor]);
+//		NSLog(@"color%@",test);
+//		NSLog([module stringcolor]);
         return [module  color];
     }
     else
@@ -1190,7 +1189,7 @@ static ModelLogic* modelLogic;
 	[arc encodeObject:currentColorIndex forKey:@"currentColorIndex"];
 	if(timeTable!=nil)
 		[arc encodeObject:timeTable forKey:@"timeTable"];
-	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjecsDict"];
+	[arc encodeObject:moduleObjectsDict forKey:@"moduleObjectsDict"];
 	[arc encodeObject:indexesDict forKey:@"indexesDict"];
 	
 	SharedAppDataObject* theDataObject = [self theAppDataObject];
