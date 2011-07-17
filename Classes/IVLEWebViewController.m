@@ -24,6 +24,7 @@
 
 
 @synthesize ivlePage;
+@synthesize displayText;
 @synthesize requestedToken;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -37,8 +38,12 @@
 	NSURL *url = [NSURL URLWithString:SERVER_URL]; 	
 	NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:url];
 	[ivlePage loadRequest:requestObj]; 
+	
+	displayText.text = @"You may now go back!";
+	
+	[self.view addSubview:displayText];
 	[self.view  addSubview:ivlePage];
-	[self.view bringSubviewToFront:ivlePage];
+	[self.view sendSubviewToBack:displayText];
 }
 
 
@@ -64,6 +69,11 @@
 		ivlePage.backgroundColor = [UIColor clearColor];
 		[ivlePage loadHTMLString:@"<html><body style='background-color: transparent'></body></html>" baseURL:nil];
 		[self.view sendSubviewToBack:ivlePage];
+		
+		NSString *loadUsernameJS = [NSString stringWithFormat:@"document.forms['frm'].userid.value ='%@'", USERNAME];
+		NSString *loadPasswordJS = [NSString stringWithFormat:@"document.forms['frm'].password.value ='%@'", PASSWORD];
+		
+		[self.ivlePage stringByEvaluatingJavaScriptFromString: loadPasswordJS];
 		
 		NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		
@@ -176,6 +186,7 @@
 
 - (void)dealloc {
 	[ivlePage release];
+	[displayText release];
 	[requestedToken release];
     [super dealloc];
 }
